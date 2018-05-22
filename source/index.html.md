@@ -9,10 +9,12 @@ toc_footers:
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
 
 includes:
-  - api/ticker
   - api/trades
   - api/offers
   - api/orders
+  - api/balances
+  - api/withdrawals
+  - api/deposits
   - errors
 
 search: true

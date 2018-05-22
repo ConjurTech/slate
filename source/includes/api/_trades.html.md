@@ -3,7 +3,7 @@
 ## Get trades
 
 ```shell
-curl "https://api.switcheo.network/v1/trades"
+curl "https://api.switcheo.network/v2/trades"
 ```
 
 > The above command returns JSON structured like this:
@@ -51,17 +51,15 @@ This endpoint retrieves trades from the Switcheo Exchange filtered by the params
 
 ### HTTP Request
 
-`https://api.switcheo.network/v1/trades/tickers`
+`https://api.switcheo.network/v1/trades`
                      
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-  limit | Limit number of trades returned
-  contract_hash | Only return trades for this contract hash
-  transaction_hash | Only return trades with this transaction hash
-  block_number | Only return trades after this block number
-  from | Only return trades after this time
-  to | Only return trades before this time
-  last_before | Only return one trade before this time
-  blockchain | Only return trades from this blockchain
+  contract_hash | only return trades for this contract hash
+  transaction_hash | only return trades with this transaction hash
+  pair | only return trades from this pair
+  from | only return trades after this time
+  to | only return trades before this time
+  last_before | only return one trade before this time; overrides `from` and `to`
