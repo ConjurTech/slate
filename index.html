@@ -279,11 +279,13 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to ze Switcheo Exchange API.</p>
+<p>Welcome to the Switcheo Exchange API.</p>
 
-<p>The Switcheo Exchange API grants access to real-time or historical trade information and also allows execution of orders on the Switcheo Exchange. </p>
-
-<p>You can visit the Switcheo Exchange <a href="https://switcheo.exchange">here</a></p>
+<p>Switcheo uses a <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">rest</a> API.
+The Switcheo Exchange API has endpoints that grant access to real-time or historical trade information
+and also allows management of orders on the Switcheo Exchange.
+API responses will be in the form of <a href="https://www.json.org/">json</a>.
+You can visit the Switcheo Exchange at <a href="https://switcheo.exchange">https://switcheo.exchange</a>.</p>
 <h1 id='trades'>Trades</h1><h2 id='get-trades'>Get trades</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/trades"</span>
 </code></pre>
 <blockquote>
@@ -326,9 +328,11 @@
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves trades from the Switcheo Exchange filtered by the params provided.</p>
+<p>This endpoint retrieves trades from the Switcheo Exchange filtered by the params provided.
+Trades are successful (full or partial) fills of orders 
+and can be seen on the trade history column of the Switcheo Exchange.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>https://api.switcheo.network/v1/trades</code></p>
+<p><code>https://api.switcheo.network/v2/trades</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -338,27 +342,27 @@
 </thead><tbody>
 <tr>
 <td>contract_hash</td>
-<td>only return trades for this contract hash</td>
+<td>Only return trades for a contract hash (Switcheo)</td>
 </tr>
 <tr>
 <td>transaction_hash</td>
-<td>only return trades with this transaction hash</td>
+<td>Only return trades with this transaction hash</td>
 </tr>
 <tr>
 <td>pair</td>
-<td>only return trades from this pair</td>
+<td>Only return trades from this pair</td>
 </tr>
 <tr>
 <td>from</td>
-<td>only return trades after this time</td>
+<td>Only return trades after this time (unix)</td>
 </tr>
 <tr>
 <td>to</td>
-<td>only return trades before this time</td>
+<td>Only return trades before this time (unix)</td>
 </tr>
 <tr>
 <td>last_before</td>
-<td>only return one trade before this time; overrides <code>from</code> and <code>to</code></td>
+<td>Only return one trade before this time (unix); overrides <code>from</code> and <code>to</code></td>
 </tr>
 </tbody></table>
 <h1 id='offers'>Offers</h1><h2 id='get-offers'>Get Offers</h2><pre class="highlight shell tab-shell"><code> curl <span class="s2">"https://api.switcheo.network/v2/offers?contract_hash=SWITCHEO_CONTRACT_HASH&amp;pair=SWTH_NEO"</span>
