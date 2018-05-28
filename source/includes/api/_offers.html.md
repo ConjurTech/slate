@@ -31,6 +31,8 @@
  ```
  
  This endpoint gets the offer book (limited to 30 offers per side)
+ Offers are buys or sells that users have made on the [Switcheo Exchange](https://switcheo.exchange).
+ They can be seen in the ORDER BOOK column.
  
  
  ### HTTP Request
@@ -41,6 +43,6 @@
  
 Parameter | Description
 --------- | -----------
-  blockchain | only returns offers from this blockchain
-  contract_hash | only return offers for this contract hash
-  pair | only returns offers from this pair
+  blockchain | only returns offers from this blockchain `(eg. neo)`
+  contract_hash | only return offers for this contract hash `(Switcheo)`
+  pair | only returns offers from this pair `(eg. SWTH_NEO)`
