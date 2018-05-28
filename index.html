@@ -328,9 +328,9 @@ You can visit the Switcheo Exchange at <a href="https://switcheo.exchange">https
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves trades from the Switcheo Exchange filtered by the params provided.
+<p>This endpoint retrieves trades from the <a href="https://switcheo.exchange">Switcheo Exchange</a> filtered by the params provided.
 Trades are successful (full or partial) fills of orders 
-and can be seen on the trade history column of the Switcheo Exchange.</p>
+and can be seen on the trade history column of the <a href="https://switcheo.exchange">Switcheo Exchange</a>.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>https://api.switcheo.network/v2/trades</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
@@ -342,7 +342,7 @@ and can be seen on the trade history column of the Switcheo Exchange.</p>
 </thead><tbody>
 <tr>
 <td>contract_hash</td>
-<td>Only return trades for a contract hash (Switcheo)</td>
+<td>Only return trades for a contract hash <code>(Switcheo)</code></td>
 </tr>
 <tr>
 <td>transaction_hash</td>
@@ -350,15 +350,15 @@ and can be seen on the trade history column of the Switcheo Exchange.</p>
 </tr>
 <tr>
 <td>pair</td>
-<td>Only return trades from this pair</td>
+<td>Only return trades from this pair <code>(eg. SWTH_NEO)</code></td>
 </tr>
 <tr>
 <td>from</td>
-<td>Only return trades after this time (unix)</td>
+<td>Only return trades after this time <code>(unix)</code></td>
 </tr>
 <tr>
 <td>to</td>
-<td>Only return trades before this time (unix)</td>
+<td>Only return trades before this time <code>(unix)</code></td>
 </tr>
 <tr>
 <td>last_before</td>
@@ -390,7 +390,9 @@ and can be seen on the trade history column of the Switcheo Exchange.</p>
      </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">966</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint gets the offer book (limited to 30 offers per side)</p>
+<p>This endpoint gets the offer book (limited to 30 offers per side)
+ Offers are buys or sells that users have made on the <a href="https://switcheo.exchange">Switcheo Exchange</a>.
+ They can be seen in the ORDER BOOK column.</p>
 
 <p>### HTTP Request</p>
 
@@ -406,15 +408,15 @@ and can be seen on the trade history column of the Switcheo Exchange.</p>
 </thead><tbody>
 <tr>
 <td>blockchain</td>
-<td>only returns offers from this blockchain</td>
+<td>only returns offers from this blockchain <code>(eg. neo)</code></td>
 </tr>
 <tr>
 <td>contract_hash</td>
-<td>only return offers for this contract hash</td>
+<td>only return offers for this contract hash <code>(Switcheo)</code></td>
 </tr>
 <tr>
 <td>pair</td>
-<td>only returns offers from this pair</td>
+<td>only returns offers from this pair <code>(eg. SWTH_NEO)</code></td>
 </tr>
 </tbody></table>
 <h1 id='orders'>Orders</h1><h2 id='get-orders'>Get orders</h2>
