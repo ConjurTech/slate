@@ -1,5 +1,8 @@
 # Trades
 
+A trade is created upon a successful `(full or partial)` fill of an [offer](#offers).
+Trades can be seen on the **TRADE HISTORY** column of [Switcheo Exchange](https://switcheo.exchange).
+
 ## Get trades
 
 ```shell
@@ -47,9 +50,7 @@ curl "https://api.switcheo.network/v2/trades"
 ]
 ```
 
-This endpoint retrieves trades from the [Switcheo Exchange](https://switcheo.exchange) filtered by the params provided.
-Trades are successful (full or partial) fills of orders 
-and can be seen on the trade history column of the [Switcheo Exchange](https://switcheo.exchange).
+This endpoint retrieves trades filtered by the params provided.
 
 ### HTTP Request
 

@@ -1,5 +1,24 @@
 # Orders
 
+An order is an instruction to buy or sell on a [currency pair](#currency_pairs). <br/>
+Orders can comprise of **one** [make](#makes) and/or **multiple** [fill](#fills) transactions on [Switcheo Exchange](https://switcheo.exchange). </br>
+They can only be created if the order maker's wallet balance and/or contract balance has sufficient funds.
+Orders are only persisted on the Blockchain after they are broadcasted. 
+
+## Statuses
+
+Represents the state of orders on the [Switcheo Exchange](https://switcheo.exchange).
+
+Parameter | Description
+--------- | -----------
+pending | Order has been prepared and is awaiting the user's confirmation.
+confirming | User has confirmed and the order is being persisted on the blockchain.
+confirmed | Order is persisted on the blockchain.
+failed | Order has failed to confirm and is not persisted on the blockchain. 
+completed | Order has successfully completed.
+processed | Order has completed but some part(s) may have been cancelled or failed.
+cancelled | [Make](#makes) (only) of the order has been cancelled.
+
 ## Get orders
 
 <aside class="notice">
@@ -74,10 +93,10 @@ This endpoint retrieves orders from a specific address filtered by the params pr
 
 Parameter | Description
 --------- | -----------
-address | only return orders from this address
-contract_hash | only return orders with this contract hash
-trade_asset_id | only returns orders with this asset_id
-base_asset_id | only returns orders with this asset_id
+address | Only return orders from this address `(wallet address of user)`.
+contract_hash | Only return orders with this contract hash `(Switcheo)`.
+trade_asset_id | Only returns orders with this asset_id.
+base_asset_id | Only returns orders with this asset_id.
 
 ## Create orders
 
