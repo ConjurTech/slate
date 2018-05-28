@@ -48,18 +48,20 @@ curl "https://api.switcheo.network/v2/trades"
 ```
 
 This endpoint retrieves trades from the Switcheo Exchange filtered by the params provided.
+Trades are successful (full or partial) fills of orders 
+and can be seen on the trade history column of the Switcheo Exchange.
 
 ### HTTP Request
 
-`https://api.switcheo.network/v1/trades`
+`https://api.switcheo.network/v2/trades`
                      
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-  contract_hash | only return trades for this contract hash
-  transaction_hash | only return trades with this transaction hash
-  pair | only return trades from this pair
-  from | only return trades after this time
-  to | only return trades before this time
-  last_before | only return one trade before this time; overrides `from` and `to`
+  contract_hash | Only return trades for a contract hash (Switcheo)
+  transaction_hash | Only return trades with this transaction hash
+  pair | Only return trades from this pair 
+  from | Only return trades after this time (unix)
+  to | Only return trades before this time (unix)
+  last_before | Only return one trade before this time (unix); overrides `from` and `to`

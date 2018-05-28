@@ -22,10 +22,13 @@ search: true
 
 # Introduction
 
-Welcome to ze Switcheo Exchange API.
+Welcome to the Switcheo Exchange API.
 
-The Switcheo Exchange API grants access to real-time or historical trade information and also allows execution of orders on the Switcheo Exchange. 
- 
+Switcheo uses a [rest](https://en.wikipedia.org/wiki/Representational_state_transfer) API.
+The Switcheo Exchange API has endpoints that grant access to real-time or historical trade information
+and also allows management of orders on the Switcheo Exchange.
+API responses will be in the form of [json](https://www.json.org/).
+You can visit the Switcheo Exchange at [https://switcheo.exchange](https://switcheo.exchange).
 
-You can visit the Switcheo Exchange [here](https://switcheo.exchange)
+
 
