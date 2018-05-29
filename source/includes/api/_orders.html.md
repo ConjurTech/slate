@@ -1,9 +1,10 @@
 # Orders
 
-An order is an instruction to buy or sell on a [currency pair](#currency_pairs). <br/>
-Orders can comprise of **one** [make](#makes) and/or **multiple** [fill](#fills) transactions on [Switcheo Exchange](https://switcheo.exchange). </br>
-They can only be created if the order maker's wallet balance and/or contract balance has sufficient funds.
-Orders are only persisted on the Blockchain after they are broadcasted. 
+* An order is an instruction to buy or sell on a [currency pair](#currency_pairs).
+* Orders can comprise of **one** [make](#makes) and/or **multiple** [fill](#fills) transactions on [Switcheo Exchange](https://switcheo.exchange).
+* They can only be created if the order maker's wallet balance and/or contract balance has sufficient funds.
+* Orders are only persisted on the Blockchain after they are [broadcast](#broadcast-orders). 
+* Orders that are not [broadcast](#broadcast-orders) will **expire** after **30 minutes**. 
 
 ## Statuses
 
@@ -12,7 +13,7 @@ Represents the state of orders on the [Switcheo Exchange](https://switcheo.excha
 Parameter | Description
 --------- | -----------
 pending | Order has been prepared and is awaiting the user's confirmation.
-confirming | User has confirmed and the order is being persisted on the blockchain.
+confirming | Order has been broadcast is being persisted on the blockchain.
 confirmed | Order is persisted on the blockchain.
 failed | Order has failed to confirm and is not persisted on the blockchain. 
 completed | Order has successfully completed.
@@ -215,6 +216,49 @@ Parameter | Description
  public_key | the public key of the user in hex format
  signature | the params signed with the address' private key
  
+## Cancel create
+
+```shell
+curl "https://api.switcheo.network/v2/orders/ORDER_ID/create_cancel"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "symbol": "SWTH_NEO",
+    "price_change": "0.00006001",
+    "percentage_price_change": "6.384",
+    "last_price": "0.00100000",
+    "last_quantity": "1.77051096",
+    "bid_price": "0.00100000",
+    "bid_quantity": "3098.92243065",
+    "ask_price": "0.00102099",
+    "ask_quantity": "26012.13923092",
+    "high_price": "0.00103344",
+    "low_price": "0.00088115",
+    "open_price": "0.00095300",
+    "volume": "6141.83147280",
+    "quote_volume": "6615989.55286128",
+    "open_time": 1526531482,
+    "close_time": 1526617882,
+    "count": 966
+   }
+```
+
+This endpoint retrieves a specific ticker from the Switcheo Exchange.
+
+
+### HTTP Request
+
+`https://api.switcheo.network/v1/trades/tickers?pair=SWTH_NEO`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+  signature | the order id signed with the address' private key 
+ 
 ## Broadcast orders
  
  ```shell
@@ -257,51 +301,8 @@ Parameter | Description
  Parameter | Description
  --------- | -----------
    pair | The market pair to retrieve
-
-## Create order cancellation
-
-```shell
-curl "https://api.switcheo.network/v2/orders/ORDER_ID/create_cancel"
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-    "symbol": "SWTH_NEO",
-    "price_change": "0.00006001",
-    "percentage_price_change": "6.384",
-    "last_price": "0.00100000",
-    "last_quantity": "1.77051096",
-    "bid_price": "0.00100000",
-    "bid_quantity": "3098.92243065",
-    "ask_price": "0.00102099",
-    "ask_quantity": "26012.13923092",
-    "high_price": "0.00103344",
-    "low_price": "0.00088115",
-    "open_price": "0.00095300",
-    "volume": "6141.83147280",
-    "quote_volume": "6615989.55286128",
-    "open_time": 1526531482,
-    "close_time": 1526617882,
-    "count": 966
-   }
-```
-
-This endpoint retrieves a specific ticker from the Switcheo Exchange.
-
-
-### HTTP Request
-
-`https://api.switcheo.network/v1/trades/tickers?pair=SWTH_NEO`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-  signature | the order id signed with the address' private key
   
-## Broadcast order cancellation
+## Cancel broadcast
 
 ```shell
 curl "https://api.switcheo.network/v1/trades/tickers/SWTH_NEO"

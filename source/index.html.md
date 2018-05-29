@@ -10,11 +10,11 @@ toc_footers:
 
 includes:
   - api/currency_pairs
-  - api/intents
-  - api/settlements
-  - api/orders
+  - api/fills
+  - api/makes
   - api/offers
   - api/trades
+  - api/orders
   - api/balances
   - api/withdrawals
   - api/deposits

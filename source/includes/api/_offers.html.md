@@ -1,7 +1,10 @@
 # Offers
 
-There are two sides in offers: **buys** and **sells**. </br>
-They can be seen in the **ORDER BOOK** column on [Switcheo Exchange](https://switcheo.exchange).
+* An offer is created on a successful [make](#makes).
+* This happens when the [order](#orders) that contains the [make](#makes) 
+is [broadcast](#broadcast-orders).
+* Offers can be seen in the **ORDER BOOK** column on [Switcheo Exchange](https://switcheo.exchange).
+* There are two sides in offers: [buys](#currency-pairs) and [sells](#currency-pairs). </br>
 
 
 ## Get Offers
@@ -33,13 +36,13 @@ They can be seen in the **ORDER BOOK** column on [Switcheo Exchange](https://swi
  ]
  ```
  
- This endpoint gets the offer book (limited to 30 offers per side).
+This endpoint gets the offer book (limited to 30 offers per side).
  
- ### HTTP Request
+### HTTP Request
  
- `https://api.switcheo.network/v2/offers`
+`https://api.switcheo.network/v2/offers`
  
- ### URL Parameters
+### URL Parameters
  
 Parameter | Description
 --------- | -----------
