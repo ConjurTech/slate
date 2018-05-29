@@ -225,24 +225,24 @@
             <a href="#currency-pairs" class="toc-h1 toc-link" data-title="currency-pairs">Currency pairs</a>
           </li>
           <li>
-            <a href="#intents" class="toc-h1 toc-link" data-title="intents">Intents</a>
+            <a href="#fills" class="toc-h1 toc-link" data-title="fills">Fills</a>
+          </li>
+          <li>
+            <a href="#makes" class="toc-h1 toc-link" data-title="makes">Makes</a>
+          </li>
+          <li>
+            <a href="#offers" class="toc-h1 toc-link" data-title="offers">Offers</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#makes" class="toc-h2 toc-link" data-title="makes">Makes</a>
-                  </li>
-                  <li>
-                    <a href="#fills" class="toc-h2 toc-link" data-title="fills">Fills</a>
+                    <a href="#get-offers" class="toc-h2 toc-link" data-title="get-offers">Get Offers</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#settlement" class="toc-h1 toc-link" data-title="settlement">Settlement</a>
+            <a href="#trades" class="toc-h1 toc-link" data-title="trades">Trades</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#offers" class="toc-h2 toc-link" data-title="offers">Offers</a>
-                  </li>
-                  <li>
-                    <a href="#trades" class="toc-h2 toc-link" data-title="trades">Trades</a>
+                    <a href="#get-trades" class="toc-h2 toc-link" data-title="get-trades">Get trades</a>
                   </li>
               </ul>
           </li>
@@ -259,29 +259,13 @@
                     <a href="#create-orders" class="toc-h2 toc-link" data-title="create-orders">Create orders</a>
                   </li>
                   <li>
+                    <a href="#cancel-create" class="toc-h2 toc-link" data-title="cancel-create">Cancel create</a>
+                  </li>
+                  <li>
                     <a href="#broadcast-orders" class="toc-h2 toc-link" data-title="broadcast-orders">Broadcast orders</a>
                   </li>
                   <li>
-                    <a href="#create-order-cancellation" class="toc-h2 toc-link" data-title="create-order-cancellation">Create order cancellation</a>
-                  </li>
-                  <li>
-                    <a href="#broadcast-order-cancellation" class="toc-h2 toc-link" data-title="broadcast-order-cancellation">Broadcast order cancellation</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#offers" class="toc-h1 toc-link" data-title="offers">Offers</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#get-offers" class="toc-h2 toc-link" data-title="get-offers">Get Offers</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#trades" class="toc-h1 toc-link" data-title="trades">Trades</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#get-trades" class="toc-h2 toc-link" data-title="get-trades">Get trades</a>
+                    <a href="#cancel-broadcast" class="toc-h2 toc-link" data-title="cancel-broadcast">Cancel broadcast</a>
                   </li>
               </ul>
           </li>
@@ -315,50 +299,181 @@ and also allows management of <a href="#orders">orders</a> on Switcheo Exchange.
 API responses will be in the form of <a href="https://www.json.org/">JSON</a> and <a href="#errors">errors</a> are standard http errors.
 You can visit Switcheo Exchange at <a href="https://switcheo.exchange">https://switcheo.exchange</a>.</p>
 <h1 id='currency-pairs'>Currency pairs</h1>
-<p>*Currency pairs in the Switcheo API are written in the format <code>TRADE_BASE</code>.
-<code>(Eg. SWTH_NEO)</code></p>
+<p>Currency pairs in the Switcheo API are written in the format: </br> 
+<code>TRADE_BASE</code> </br>
+Eg: <code>SWTH_NEO</code></p>
 
 <ul>
 <li>When you trade on Switcheo Exchange, you buy and sell in currency pairs.</li>
 <li>Sell on <code>SWTH_NEO</code> means you are selling <code>SWTH</code> for <code>NEO</code>.</li>
-<li>Buy on <code>SWTH_NEO</code> means you are selling <code>NEO</code> for <code>SWTH</code></li>
+<li>Buy on <code>SWTH_NEO</code> means you are buying <code>SWTH</code> for <code>NEO</code>. </li>
 </ul>
-<h1 id='intents'>Intents</h1>
-<p>This layer represents intentions that are created but not confirmed by the user nor persisted on the Blockchain.</p>
-<h2 id='makes'>Makes</h2>
+<h1 id='fills'>Fills</h1>
 <ul>
-<li>This represent the user&#39;s desire to create an <a href="#offers">offer</a>.</li>
-<li>Makes are generated when <a href="#orders">orders</a> are created.</li>
-<li>They can be seen in the confirmation modal which shows up when the user 
-attempts to buy or sell trading pairs in <a href="#https://switcheo.exchange">Switcheo Exchange</a>. </li>
-</ul>
-<h2 id='fills'>Fills</h2>
-<ul>
-<li>This represent the user&#39;s desire to fill a buy or sell <a href="#offers">offer</a> that another user has created, in agreement
+<li>Fills represent the user&#39;s intention to fill a buy or sell <a href="#offers">offer</a> that another user has created, in agreement
 to the stated price.</li>
-<li>Fills are generated when <a href="#orders">orders</a> are created.</li>
-<li>They can be seen in the confirmation modal which shows up when the user 
-attempts to buy or sell trading pairs on <a href="#https://switcheo.exchange">Switcheo Exchange</a>. </li>
+<li>Fill(s) with <code>&quot;pending&quot;</code> statuses are generated when <a href="#orders">orders</a> are created.</li>
+<li>When the <a href="#orders">order</a> containing the fill is <a href="#broadcast-orders">broadcast</a>, a <a href="#trades">trade</a> is created.</li>
+<li>Fills with <code>&quot;pending&quot;</code> statuses are <strong>expired</strong> after <strong>3 minutes</strong>.</li>
+<li>Fills can be seen in the confirmation modal which shows up when the user 
+attempts to buy or sell trading pairs on <a href="#https://switcheo.exchange">Switcheo Exchange</a>.</li>
 </ul>
-<h1 id='settlement'>Settlement</h1>
-<p>This layer represents instructions that have already been confirmed by the user and persisted on the Blockchain.</p>
-<h2 id='offers'>Offers</h2>
+<h1 id='makes'>Makes</h1>
 <ul>
-<li>Offers are created on successful <a href="#makes">makes</a>.</li>
+<li>Makes represents the user&#39;s intention to create a buy or sell <a href="#offers">offer</a>.</li>
+<li>Makes with the <code>&quot;pending&quot;</code> status are generated when <a href="#orders">orders</a> are <a href="#create-orders">created</a>.</li>
+<li>When the <a href="#orders">order</a> containing the make is <a href="#broadcast-orders">broadcast</a>, a <a href="#offers">offer</a> is created.</li>
+<li>Makes with <code>&quot;pending&quot;</code> statuses are <strong>expired</strong> after <strong>3 minutes</strong>.</li>
+<li>Makes can be seen in the confirmation modal which shows up when the user 
+attempts to buy or sell trading pairs in <a href="#https://switcheo.exchange">Switcheo Exchange</a>.</li>
+</ul>
+<h1 id='offers'>Offers</h1>
+<ul>
+<li>An offer is created on a successful <a href="#makes">make</a>.</li>
 <li>This happens when the <a href="#orders">order</a> that contains the <a href="#makes">make</a> 
-is <a href="#broadcast-orders">broadcasted</a>.</li>
+is <a href="#broadcast-orders">broadcast</a>.</li>
+<li>Offers can be seen in the <strong>ORDER BOOK</strong> column on <a href="https://switcheo.exchange">Switcheo Exchange</a>.</li>
+<li>There are two sides in offers: <a href="#currency-pairs">buys</a> and <a href="#currency-pairs">sells</a>. </br></li>
 </ul>
-<h2 id='trades'>Trades</h2>
+<h2 id='get-offers'>Get Offers</h2><pre class="highlight shell tab-shell"><code> curl <span class="s2">"https://api.switcheo.network/v2/offers?contract_hash=SWITCHEO_CONTRACT_HASH&amp;pair=SWTH_NEO"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"blockchain"</span><span class="p">:</span><span class="s2">"neo"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"block_number"</span><span class="p">:</span><span class="mi">2321609</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="s2">"e645d9e031f336cbc1655c12da7b0396a5a205e3942053192744258f60a9dcba"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"contract_hash"</span><span class="p">:</span><span class="s2">"01bafeeafe62e651efc3a530fde170cf2f7b09bd"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"event_time"</span><span class="p">:</span><span class="s2">"2018-05-28T05:49:25.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address"</span><span class="p">:</span><span class="s2">"ac20179d08326a736c08fa40242dd4e70999f492"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"offer_hash"</span><span class="p">:</span><span class="s2">"e9dc69e0ce63491c36e804eb3cd8ccf2a550415b6e3fabd6881322cd7cb118a7"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"available_amount"</span><span class="p">:</span><span class="mi">1561904761905</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="mi">1561904761905</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="mi">984000000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2018-05-28T05:50:09.039Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2018-05-28T05:50:09.426Z"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+ </span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>This endpoint gets the offer book (limited to 30 offers per side).</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>https://api.switcheo.network/v2/offers</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>blockchain</td>
+<td>Only returns offers from this blockchain <code>(eg. neo)</code></td>
+</tr>
+<tr>
+<td>contract_hash</td>
+<td>Only return offers for this contract hash <code>(Switcheo)</code></td>
+</tr>
+<tr>
+<td>pair</td>
+<td>Only returns offers from this pair <code>(eg. SWTH_NEO)</code></td>
+</tr>
+</tbody></table>
+<h1 id='trades'>Trades</h1>
 <ul>
-<li>Trades are created on successful <a href="#fills">fills</a>.</li>
+<li>A trade is created upon a successful <code>(full or partial)</code> <a href="#fills">fill</a> of an <a href="#offers">offer</a>.</li>
 <li>This happens when the <a href="#orders">order</a> that contains the <a href="#fills">fill</a> 
-is <a href="#broadcast-orders">broadcasted</a>.</li>
+is <a href="#broadcast-orders">broadcast</a>.</li>
+<li>Trades can be seen on the <strong>TRADE HISTORY</strong> column of <a href="https://switcheo.exchange">Switcheo Exchange</a>.</li>
 </ul>
+<h2 id='get-trades'>Get trades</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/trades"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2afddfc8-d49b-49be-8079-4aeea693940c"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"blockchain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"neo"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"block_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">2283025</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a1716c2906bdd70612159c36f4315544e427738aaae581bc23df0cdeaf907353"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"contract_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01bafeeafe62e651efc3a530fde170cf2f7b09bd"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"event_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-18T09:37:18.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"58ea964070e60c4c055d549b155b77e56d8db40d"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"offer_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ed03574d60014e66c881fb459b480aad60c866ad31f42cd30d12c0454cc54b43"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45d493a6f73fa5f404244a5fb8472fc014ca5885"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"filled_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1883290</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">640575043</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1883290</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-18T09:37:45.876Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-18T09:37:45.876Z"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"81a6bbaf-d33e-4845-a2f1-50c65e5b0f91"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"blockchain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"neo"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"block_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">2283021</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e8f74d7e7c6d24a47aa7b4f3f8567e3b1b0c49b9142cfedf02263fb9fcca2095"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"contract_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01bafeeafe62e651efc3a530fde170cf2f7b09bd"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"event_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-18T09:35:57.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"58ea964070e60c4c055d549b155b77e56d8db40d"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"offer_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"43dd97fd90634236f64da66695350bac3d8ea43ef062c3b64a33698e7a0f5266"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"filled_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">540131095</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">500000000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1315789369</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-18T09:36:27.618Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-18T09:36:27.618Z"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves trades filtered by the params provided.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>https://api.switcheo.network/v2/trades</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>contract_hash</td>
+<td>Only return trades for a contract hash <code>(Switcheo)</code></td>
+</tr>
+<tr>
+<td>transaction_hash</td>
+<td>Only return trades with this transaction hash</td>
+</tr>
+<tr>
+<td>pair</td>
+<td>Only return trades from this pair <code>(eg. SWTH_NEO)</code></td>
+</tr>
+<tr>
+<td>from</td>
+<td>Only return trades after this time <code>(unix)</code></td>
+</tr>
+<tr>
+<td>to</td>
+<td>Only return trades before this time <code>(unix)</code></td>
+</tr>
+<tr>
+<td>last_before</td>
+<td>Only return one trade before this time (unix); overrides <code>from</code> and <code>to</code></td>
+</tr>
+</tbody></table>
 <h1 id='orders'>Orders</h1>
-<p>An order is an instruction to buy or sell on a <a href="#currency_pairs">currency pair</a>. <br/>
-Orders can comprise of <strong>one</strong> <a href="#makes">make</a> and/or <strong>multiple</strong> <a href="#fills">fill</a> transactions on <a href="https://switcheo.exchange">Switcheo Exchange</a>. </br>
-They can only be created if the order maker&#39;s wallet balance and/or contract balance has sufficient funds.
-Orders are only persisted on the Blockchain after they are broadcasted. </p>
+<ul>
+<li>An order is an instruction to buy or sell on a <a href="#currency_pairs">currency pair</a>.</li>
+<li>Orders can comprise of <strong>one</strong> <a href="#makes">make</a> and/or <strong>multiple</strong> <a href="#fills">fill</a> transactions on <a href="https://switcheo.exchange">Switcheo Exchange</a>.</li>
+<li>They can only be created if the order maker&#39;s wallet balance and/or contract balance has sufficient funds.</li>
+<li>Orders are only persisted on the Blockchain after they are <a href="#broadcast-orders">broadcast</a>. </li>
+<li>Orders that are not <a href="#broadcast-orders">broadcast</a> will <strong>expire</strong> after <strong>30 minutes</strong>. </li>
+</ul>
 <h2 id='statuses'>Statuses</h2>
 <p>Represents the state of orders on the <a href="https://switcheo.exchange">Switcheo Exchange</a>.</p>
 
@@ -374,7 +489,7 @@ Orders are only persisted on the Blockchain after they are broadcasted. </p>
 </tr>
 <tr>
 <td>confirming</td>
-<td>User has confirmed and the order is being persisted on the blockchain.</td>
+<td>Order has been broadcast is being persisted on the blockchain.</td>
 </tr>
 <tr>
 <td>confirmed</td>
@@ -625,6 +740,46 @@ want_decimals
 <td>the params signed with the address&#39; private key</td>
 </tr>
 </tbody></table>
+<h2 id='cancel-create'>Cancel create</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/orders/ORDER_ID/create_cancel"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SWTH_NEO"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"price_change"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00006001"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"percentage_price_change"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.384"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00100000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.77051096"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"bid_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00100000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"bid_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3098.92243065"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ask_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00102099"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ask_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"26012.13923092"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"high_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00103344"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"low_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00088115"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00095300"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6141.83147280"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"quote_volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6615989.55286128"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526531482</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"close_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526617882</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">966</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves a specific ticker from the Switcheo Exchange.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>https://api.switcheo.network/v1/trades/tickers?pair=SWTH_NEO</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>signature</td>
+<td>the order id signed with the address&#39; private key</td>
+</tr>
+</tbody></table>
 <h2 id='broadcast-orders'>Broadcast orders</h2><pre class="highlight shell tab-shell"><code> curl <span class="s2">"https://api.switcheo.network/v2/orders/id/create_cancel"</span>
 </code></pre>
 <blockquote>
@@ -669,47 +824,7 @@ want_decimals
 <td>The market pair to retrieve</td>
 </tr>
 </tbody></table>
-<h2 id='create-order-cancellation'>Create order cancellation</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/orders/ORDER_ID/create_cancel"</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SWTH_NEO"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"price_change"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00006001"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"percentage_price_change"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.384"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"last_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00100000"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"last_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.77051096"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"bid_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00100000"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"bid_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3098.92243065"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"ask_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00102099"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"ask_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"26012.13923092"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"high_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00103344"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"low_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00088115"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"open_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00095300"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6141.83147280"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"quote_volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6615989.55286128"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"open_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526531482</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"close_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526617882</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">966</span><span class="w">
-   </span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves a specific ticker from the Switcheo Exchange.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>https://api.switcheo.network/v1/trades/tickers?pair=SWTH_NEO</code></p>
-<h3 id='url-parameters-3'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>signature</td>
-<td>the order id signed with the address&#39; private key</td>
-</tr>
-</tbody></table>
-<h2 id='broadcast-order-cancellation'>Broadcast order cancellation</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v1/trades/tickers/SWTH_NEO"</span>
+<h2 id='cancel-broadcast'>Cancel broadcast</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v1/trades/tickers/SWTH_NEO"</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -747,140 +862,6 @@ want_decimals
 <tr>
 <td>signature</td>
 <td>the additional signature to attach</td>
-</tr>
-</tbody></table>
-<h1 id='offers'>Offers</h1>
-<p>There are two sides in offers: <strong>buys</strong> and <strong>sells</strong>. </br>
-They can be seen in the <strong>ORDER BOOK</strong> column on <a href="https://switcheo.exchange">Switcheo Exchange</a>.</p>
-<h2 id='get-offers'>Get Offers</h2><pre class="highlight shell tab-shell"><code> curl <span class="s2">"https://api.switcheo.network/v2/offers?contract_hash=SWITCHEO_CONTRACT_HASH&amp;pair=SWTH_NEO"</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"blockchain"</span><span class="p">:</span><span class="s2">"neo"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"block_number"</span><span class="p">:</span><span class="mi">2321609</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="s2">"e645d9e031f336cbc1655c12da7b0396a5a205e3942053192744258f60a9dcba"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"contract_hash"</span><span class="p">:</span><span class="s2">"01bafeeafe62e651efc3a530fde170cf2f7b09bd"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"event_time"</span><span class="p">:</span><span class="s2">"2018-05-28T05:49:25.000Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"address"</span><span class="p">:</span><span class="s2">"ac20179d08326a736c08fa40242dd4e70999f492"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"offer_hash"</span><span class="p">:</span><span class="s2">"e9dc69e0ce63491c36e804eb3cd8ccf2a550415b6e3fabd6881322cd7cb118a7"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"available_amount"</span><span class="p">:</span><span class="mi">1561904761905</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="mi">1561904761905</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="mi">984000000</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2018-05-28T05:50:09.039Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2018-05-28T05:50:09.426Z"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
- </span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>This endpoint gets the offer book (limited to 30 offers per side).</p>
-
-<p>### HTTP Request</p>
-
-<p><code>https://api.switcheo.network/v2/offers</code></p>
-
-<p>### URL Parameters</p>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>blockchain</td>
-<td>Only returns offers from this blockchain <code>(eg. neo)</code></td>
-</tr>
-<tr>
-<td>contract_hash</td>
-<td>Only return offers for this contract hash <code>(Switcheo)</code></td>
-</tr>
-<tr>
-<td>pair</td>
-<td>Only returns offers from this pair <code>(eg. SWTH_NEO)</code></td>
-</tr>
-</tbody></table>
-<h1 id='trades'>Trades</h1>
-<p>A trade is created upon a successful <code>(full or partial)</code> fill of an <a href="#offers">offer</a>.
-Trades can be seen on the <strong>TRADE HISTORY</strong> column of <a href="https://switcheo.exchange">Switcheo Exchange</a>.</p>
-<h2 id='get-trades'>Get trades</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/trades"</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2afddfc8-d49b-49be-8079-4aeea693940c"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"blockchain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"neo"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"block_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">2283025</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a1716c2906bdd70612159c36f4315544e427738aaae581bc23df0cdeaf907353"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"contract_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01bafeeafe62e651efc3a530fde170cf2f7b09bd"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"event_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-18T09:37:18.000Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"58ea964070e60c4c055d549b155b77e56d8db40d"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"offer_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ed03574d60014e66c881fb459b480aad60c866ad31f42cd30d12c0454cc54b43"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45d493a6f73fa5f404244a5fb8472fc014ca5885"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"filled_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1883290</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">640575043</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1883290</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-18T09:37:45.876Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-18T09:37:45.876Z"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"81a6bbaf-d33e-4845-a2f1-50c65e5b0f91"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"blockchain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"neo"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"block_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">2283021</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e8f74d7e7c6d24a47aa7b4f3f8567e3b1b0c49b9142cfedf02263fb9fcca2095"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"contract_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01bafeeafe62e651efc3a530fde170cf2f7b09bd"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"event_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-18T09:35:57.000Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"58ea964070e60c4c055d549b155b77e56d8db40d"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"offer_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"43dd97fd90634236f64da66695350bac3d8ea43ef062c3b64a33698e7a0f5266"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"filled_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">540131095</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">500000000</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1315789369</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-18T09:36:27.618Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-18T09:36:27.618Z"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves trades filtered by the params provided.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>https://api.switcheo.network/v2/trades</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>contract_hash</td>
-<td>Only return trades for a contract hash <code>(Switcheo)</code></td>
-</tr>
-<tr>
-<td>transaction_hash</td>
-<td>Only return trades with this transaction hash</td>
-</tr>
-<tr>
-<td>pair</td>
-<td>Only return trades from this pair <code>(eg. SWTH_NEO)</code></td>
-</tr>
-<tr>
-<td>from</td>
-<td>Only return trades after this time <code>(unix)</code></td>
-</tr>
-<tr>
-<td>to</td>
-<td>Only return trades before this time <code>(unix)</code></td>
-</tr>
-<tr>
-<td>last_before</td>
-<td>Only return one trade before this time (unix); overrides <code>from</code> and <code>to</code></td>
 </tr>
 </tbody></table>
 <h1 id='balances'>Balances</h1><h1 id='withdrawals'>Withdrawals</h1><h1 id='deposits'>Deposits</h1><h1 id='errors'>Errors</h1>
