@@ -220,9 +220,54 @@
       <div id="toc" class="toc-list-h1">
           <li>
             <a href="#introduction" class="toc-h1 toc-link" data-title="introduction">Introduction</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#trade-information" class="toc-h2 toc-link" data-title="trade-information">Trade information</a>
+                  </li>
+                  <li>
+                    <a href="#order-management" class="toc-h2 toc-link" data-title="order-management">Order management</a>
+                  </li>
+                  <li>
+                    <a href="#order-matching" class="toc-h2 toc-link" data-title="order-matching">Order matching</a>
+                  </li>
+              </ul>
           </li>
           <li>
-            <a href="#currency-pairs" class="toc-h1 toc-link" data-title="currency-pairs">Currency pairs</a>
+            <a href="#tutorials" class="toc-h1 toc-link" data-title="tutorials">Tutorials</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-trade-history" class="toc-h2 toc-link" data-title="get-trade-history">Get trade history</a>
+                  </li>
+                  <li>
+                    <a href="#make-an-order" class="toc-h2 toc-link" data-title="make-an-order">Make an order</a>
+                  </li>
+                  <li>
+                    <a href="#fill-an-offer" class="toc-h2 toc-link" data-title="fill-an-offer">Fill an offer</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#orders" class="toc-h1 toc-link" data-title="orders">Orders</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#statuses" class="toc-h2 toc-link" data-title="statuses">Statuses</a>
+                  </li>
+                  <li>
+                    <a href="#get-orders" class="toc-h2 toc-link" data-title="get-orders">Get orders</a>
+                  </li>
+                  <li>
+                    <a href="#create-an-order" class="toc-h2 toc-link" data-title="create-an-order">Create an order</a>
+                  </li>
+                  <li>
+                    <a href="#cancel-create" class="toc-h2 toc-link" data-title="cancel-create">Cancel create</a>
+                  </li>
+                  <li>
+                    <a href="#broadcast-orders" class="toc-h2 toc-link" data-title="broadcast-orders">Broadcast orders</a>
+                  </li>
+                  <li>
+                    <a href="#cancel-broadcast" class="toc-h2 toc-link" data-title="cancel-broadcast">Cancel broadcast</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#fills" class="toc-h1 toc-link" data-title="fills">Fills</a>
@@ -247,29 +292,6 @@
               </ul>
           </li>
           <li>
-            <a href="#orders" class="toc-h1 toc-link" data-title="orders">Orders</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#statuses" class="toc-h2 toc-link" data-title="statuses">Statuses</a>
-                  </li>
-                  <li>
-                    <a href="#get-orders" class="toc-h2 toc-link" data-title="get-orders">Get orders</a>
-                  </li>
-                  <li>
-                    <a href="#create-orders" class="toc-h2 toc-link" data-title="create-orders">Create orders</a>
-                  </li>
-                  <li>
-                    <a href="#cancel-create" class="toc-h2 toc-link" data-title="cancel-create">Cancel create</a>
-                  </li>
-                  <li>
-                    <a href="#broadcast-orders" class="toc-h2 toc-link" data-title="broadcast-orders">Broadcast orders</a>
-                  </li>
-                  <li>
-                    <a href="#cancel-broadcast" class="toc-h2 toc-link" data-title="cancel-broadcast">Cancel broadcast</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
             <a href="#balances" class="toc-h1 toc-link" data-title="balances">Balances</a>
           </li>
           <li>
@@ -279,13 +301,12 @@
             <a href="#deposits" class="toc-h1 toc-link" data-title="deposits">Deposits</a>
           </li>
           <li>
+            <a href="#currency-pairs" class="toc-h1 toc-link" data-title="currency-pairs">Currency pairs</a>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
           </li>
       </div>
-        <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
-        </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
@@ -294,20 +315,409 @@
 <p>Welcome to the Switcheo Exchange API.</p>
 
 <p>The Switcheo API follows the <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> architecture.
-It has endpoints that grant access to real-time or historical trade information
-and also allows management of <a href="#orders">orders</a> on Switcheo Exchange.
-API responses will be in the form of <a href="https://www.json.org/">JSON</a> and <a href="#errors">errors</a> are standard http errors.
+API responses will be in the form of <a href="https://www.json.org/">JSON</a> or arrays.
+<a href="#errors">Errors</a> are standard HTTP errors.
 You can visit Switcheo Exchange at <a href="https://switcheo.exchange">https://switcheo.exchange</a>.</p>
-<h1 id='currency-pairs'>Currency pairs</h1>
-<p>Currency pairs in the Switcheo API are written in the format: </br> 
-<code>TRADE_BASE</code> </br>
-Eg: <code>SWTH_NEO</code></p>
-
+<h2 id='trade-information'>Trade information</h2>
+<p>The Switcheo API has endpoints that grant access to real-time or historical trade information</p>
+<h2 id='order-management'>Order management</h2>
+<p>The Switcheo API allows management of <a href="#orders">orders</a> on Switcheo Exchange.</p>
+<h2 id='order-matching'>Order matching</h2>
+<p>Switcheo Exchange uses a first come first served order matching engine process orders.</p>
+<h1 id='tutorials'>Tutorials</h1>
+<p><a href="#get-trade-history">how to get trade history?</a><br/>
+<a href="#make-an-order">how to make an order?</a><br/>
+<a href="#fill-an-offer">how to fill an order?</a><br/>
+<a href="#sign%20your%20transactions">how sign your transaction?</a></p>
+<h2 id='get-trade-history'>Get trade history</h2><h2 id='make-an-order'>Make an order</h2><h2 id='fill-an-offer'>Fill an offer</h2><h1 id='orders'>Orders</h1>
 <ul>
-<li>When you trade on Switcheo Exchange, you buy and sell in currency pairs.</li>
-<li>Sell on <code>SWTH_NEO</code> means you are selling <code>SWTH</code> for <code>NEO</code>.</li>
-<li>Buy on <code>SWTH_NEO</code> means you are buying <code>SWTH</code> for <code>NEO</code>. </li>
+<li>An order is an instruction to buy or sell on a <a href="#currency_pairs">currency pair</a>.</li>
+<li>Orders can comprise of <strong>one</strong> <a href="#makes">make</a> and/or <strong>multiple</strong> <a href="#fills">fill</a> transactions on <a href="https://switcheo.exchange">Switcheo Exchange</a>.</li>
+<li>They can only be created if the order maker&#39;s wallet balance and/or contract balance has sufficient funds.</li>
+<li>Orders are only persisted on the Blockchain after they are <a href="#broadcast-orders">broadcast</a>. </li>
+<li>Orders that are not <a href="#broadcast-orders">broadcast</a> will <strong>expire</strong> after <strong>30 minutes</strong>. </li>
 </ul>
+<h2 id='statuses'>Statuses</h2>
+<p>Represents the state of orders on the <a href="https://switcheo.exchange">Switcheo Exchange</a>.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pending</td>
+<td>Order has been prepared and is awaiting the user&#39;s confirmation.</td>
+</tr>
+<tr>
+<td>confirming</td>
+<td>Order has been broadcast is being persisted on the blockchain.</td>
+</tr>
+<tr>
+<td>confirmed</td>
+<td>Order is persisted on the blockchain.</td>
+</tr>
+<tr>
+<td>failed</td>
+<td>Order has failed to confirm and is not persisted on the blockchain.</td>
+</tr>
+<tr>
+<td>completed</td>
+<td>Order has successfully completed.</td>
+</tr>
+<tr>
+<td>processed</td>
+<td>Order has completed but some part(s) may have been cancelled or failed.</td>
+</tr>
+<tr>
+<td>cancelled</td>
+<td><a href="#makes">Make</a> (only) of the order has been cancelled.</td>
+</tr>
+</tbody></table>
+<h2 id='get-orders'>Get orders</h2>
+<aside class="notice">
+address and contract_hash parameters are required for this API call!
+</aside>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/orders?address=PUBLIC_ADDRESS"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c415f943-bea8-4dbf-82e3-8460c559d8b7"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"blockchain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"neo"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"contract_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c41d8b0c30252ce7e8b6d95e9ce13fdd68d2a5a8"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20abeefe84e4059f6681bf96d5dcb5ddeffcc377"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100000000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20000000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"transfer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"priority_gas_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"use_native_token"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"native_fee_transfer_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"deposit_txn"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-15T10:54:20.054Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processed"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fills"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"makes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c498527c-07c1-4c4c-b58f-a45fc2836d84"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"offer_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9b4ed49835383dd6e5e47305579b6d6c4f36c88ca9edfe92ebe55b93f684e35d"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"available_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100000000"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20000000"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"filled_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100000000"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"txn"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"cancel_txn"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-15T10:54:20.059Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bed7147ce3027c2b70251ef365d2d524f480be3284dc0239e4ddc248cbbf68b5"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"trades"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"47ea819e-db34-4dad-8dde-45f776867ec7"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15970480"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"filled_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3194096"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.0"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-17T05:14:55.828Z"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves orders from a specific address filtered by the params provided.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>https://api.switcheo.network/v2/orders</code></p>
+<h3 id='url-parameters'>Url parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>address</td>
+<td>yes</td>
+<td>Only return orders from this address <code>(wallet address of user)</code>.</td>
+</tr>
+<tr>
+<td>contract_hash</td>
+<td>no</td>
+<td>Only return orders with this contract hash <code>(Switcheo)</code>.</td>
+</tr>
+<tr>
+<td>trade_asset_id</td>
+<td>no</td>
+<td>Only returns orders with this asset_id.</td>
+</tr>
+<tr>
+<td>base_asset_id</td>
+<td>no</td>
+<td>Only returns orders with this asset_id.</td>
+</tr>
+</tbody></table>
+<h2 id='create-an-order'>Create an order</h2><pre class="highlight shell tab-shell"><code>curl -d 
+<span class="o">{</span>
+  blockchain: <span class="s2">"neo"</span>, 
+  contract_hash: <span class="s2">"c11c3fa32f9def4159cfdb0b2bb657406b7579b4"</span>,
+  offer_amount: <span class="s2">"100000000"</span>,
+  offer_asset: <span class="s2">"NEO"</span>,
+  price: <span class="s2">"1"</span>
+  public_key: <span class="s2">"023100f3245da41ee962c560aeaedf2cc1eddbaca45d3a066992487a7bf8c0822f"</span>
+  side: <span class="s2">"buy"</span>
+  signature: <span class="s2">"7fde6119bee2a3dd96f0c997127601851856b107c3524db278ea7126f086eeed1649e83b6d61bb82111f675af5bf61409ca65050359916a2d3f5a81e7dc8377d"</span>
+  use_native_tokens: <span class="nb">false
+  </span>want_asset: <span class="s2">"GAS"</span>
+  want_decimals: 8
+ <span class="o">}</span> -X POST <span class="s2">"https://api.switcheo.network/v2/
+</span></code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w"> 
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"474940c6-2be4-43a8-aa71-0f9b2bc8908c"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"blockchain"</span><span class="p">:</span><span class="s2">"neo"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"contract_hash"</span><span class="p">:</span><span class="s2">"06118464b88a1049f38abac013347ca9039fb8b0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"address"</span><span class="p">:</span><span class="s2">"20abeefe84e4059f6681bf96d5dcb5ddeffcc377"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"side"</span><span class="p">:</span><span class="s2">"sell"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="s2">"100000"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="s2">"143253"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transfer_amount"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"priority_gas_amount"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"use_native_token"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"native_fee_transfer_amount"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"deposit_txn"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2018-05-23T03:20:19.481Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"fills"</span><span class="p">:[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"fe9f8d09-aeb6-43cd-9028-5a22ba1f8015"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"offer_hash"</span><span class="p">:</span><span class="s2">"2b440b036fb5538d617d7a98ecba3b44480e1e7c60ea19a67eb60d67e38c75ff"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fill_amount"</span><span class="p">:</span><span class="s2">"100000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="s2">"143253"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"filled_amount"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fee_asset_id"</span><span class="p">:</span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fee_amount"</span><span class="p">:</span><span class="s2">"214"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="s2">"1.4325345067412557"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"txn"</span><span class="p">:</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"hash"</span><span class="p">:</span><span class="s2">"fadf3daf53ab829e0b87223cb04c3e569e5dbffe438aa117ab90b9d1570d31ce"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sha256"</span><span class="p">:</span><span class="s2">"0f981d64b406ac0b62c27fce121abf4175aa52d923a6ddef9994a18e9e4efafb"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"invoke"</span><span class="p">:</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="s2">"06118464b88a1049f38abac013347ca9039fb8b0"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"operation"</span><span class="p">:</span><span class="s2">"fillOffer"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"args"</span><span class="p">:</span><span class="w">
+            </span><span class="p">[</span><span class="w">
+              </span><span class="s2">"77c3fcefddb5dcd596bf81669f05e484feeeab20"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5e72d286979ee6cb1b7e65dfddfb2e384100b8d148e7758de42e4168b71792c60"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"ff758ce3670db67ea619ea607c1e0e48443bbaec987a7d618d53b56f030b442b"</span><span class="p">,</span><span class="w">
+              </span><span class="mi">143253</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5"</span><span class="p">,</span><span class="w">
+              </span><span class="mi">214</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="mi">209</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"version"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"attributes"</span><span class="p">:[{</span><span class="s2">"usage"</span><span class="p">:</span><span class="mi">32</span><span class="p">,</span><span class="s2">"data"</span><span class="p">:</span><span class="s2">"77c3fcefddb5dcd596bf81669f05e484feeeab20"</span><span class="p">}],</span><span class="s2">"inputs"</span><span class="p">:[{</span><span class="s2">"prevHash"</span><span class="p">:</span><span class="s2">"44f184aab330393908c15349a7be3af38c9e3b0280248e34b875715ba656cdf9"</span><span class="p">,</span><span class="s2">"prevIndex"</span><span class="p">:</span><span class="mi">16</span><span class="p">}],</span><span class="s2">"outputs"</span><span class="p">:[{</span><span class="s2">"assetId"</span><span class="p">:</span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="s2">"e707714512577b42f9a011f8b870625429f93573"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="mi">1e-08</span><span class="p">}],</span><span class="s2">"scripts"</span><span class="p">:[],</span><span class="s2">"script"</span><span class="p">:</span><span class="s2">"08d600000000000000209b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc508952f02000000000020ff758ce3670db67ea619ea607c1e0e48443bbaec987a7d618d53b56f030b442b409b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5e72d286979ee6cb1b7e65dfddfb2e384100b8d148e7758de42e4168b71792c601477c3fcefddb5dcd596bf81669f05e484feeeab2056c10966696c6c4f6666657267b0b89f03a97c3413c0ba8af349108ab864841106"</span><span class="p">,</span><span class="s2">"gas"</span><span class="p">:</span><span class="mi">0</span><span class="p">},</span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"pending"</span><span class="p">,</span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2018-05-23T03:20:19.493Z"</span><span class="p">,</span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="s2">"fadf3daf53ab829e0b87223cb04c3e569e5dbffe438aa117ab90b9d1570d31ce"</span><span class="p">}],</span><span class="s2">"makes"</span><span class="p">:[]}</span><span class="w">
+</span></code></pre>
+<p>This endpoint prepares an order, reserving required offers</p>
+<h3 id='http-request-post'>HTTP Request (POST)</h3>
+<p><code>https://api.switcheo.network/v2/orders</code></p>
+<h3 id='url-parameters-2'>Url parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>blockchain</td>
+<td>The blockchain to execute the order on</td>
+</tr>
+<tr>
+<td>contract_hash</td>
+<td>The hash of the smart contract to execute order on</td>
+</tr>
+<tr>
+<td>address</td>
+<td>The order maker&#39;s address # TODO: derive this?</td>
+</tr>
+<tr>
+<td>side</td>
+<td>The side of this trade TODO: derive this?</td>
+</tr>
+<tr>
+<td>price</td>
+<td>The order price to 8 decimal places</td>
+</tr>
+<tr>
+<td>offer_asset</td>
+<td>The offered asset symbol</td>
+</tr>
+<tr>
+<td>offer_amount</td>
+<td>The offered amount of assets</td>
+</tr>
+<tr>
+<td>want_asset</td>
+<td>The wanted asset symbol</td>
+</tr>
+<tr>
+<td>want_decimals</td>
+<td>The number of decimals for the wanted asset</td>
+</tr>
+<tr>
+<td>use_native_tokens</td>
+<td>Whether to use SWTH as fees or not</td>
+</tr>
+<tr>
+<td>public_key</td>
+<td>The public key of the user in hex format</td>
+</tr>
+<tr>
+<td>signature</td>
+<td>The params signed with the address&#39; private key</td>
+</tr>
+</tbody></table>
+<h2 id='cancel-create'>Cancel create</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/orders/ORDER_ID/create_cancel"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SWTH_NEO"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"price_change"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00006001"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"percentage_price_change"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.384"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00100000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.77051096"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"bid_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00100000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"bid_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3098.92243065"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ask_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00102099"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ask_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"26012.13923092"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"high_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00103344"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"low_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00088115"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00095300"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6141.83147280"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"quote_volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6615989.55286128"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526531482</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"close_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526617882</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">966</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves a specific ticker from the Switcheo Exchange.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>https://api.switcheo.network/v1/trades/tickers?pair=SWTH_NEO</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>signature</td>
+<td>the order id signed with the address&#39; private key</td>
+</tr>
+</tbody></table>
+<h2 id='broadcast-orders'>Broadcast orders</h2><pre class="highlight shell tab-shell"><code> curl <span class="s2">"https://api.switcheo.network/v2/orders/id/create_cancel"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SWTH_NEO"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"price_change"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00006001"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"percentage_price_change"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.384"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"last_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00100000"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"last_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.77051096"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"bid_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00100000"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"bid_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3098.92243065"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"ask_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00102099"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"ask_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"26012.13923092"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"high_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00103344"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"low_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00088115"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"open_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00095300"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6141.83147280"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"quote_volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6615989.55286128"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"open_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526531482</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"close_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526617882</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">966</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint broadcasts a created order.</p>
+
+<p>### HTTP Request</p>
+
+<p><code>https://api.switcheo.network/v1/trades/tickers?pair=SWTH_NEO</code></p>
+
+<p>### URL Parameters</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pair</td>
+<td>The market pair to retrieve</td>
+</tr>
+</tbody></table>
+<h2 id='cancel-broadcast'>Cancel broadcast</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v1/trades/tickers/SWTH_NEO"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SWTH_NEO"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"price_change"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00006001"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"percentage_price_change"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.384"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00100000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.77051096"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"bid_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00100000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"bid_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3098.92243065"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ask_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00102099"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ask_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"26012.13923092"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"high_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00103344"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"low_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00088115"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00095300"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6141.83147280"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"quote_volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6615989.55286128"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526531482</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"close_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526617882</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">966</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves a specific ticker from the Switcheo Exchange.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>https://api.switcheo.network/v1/trades/tickers?pair=SWTH_NEO</code></p>
+<h3 id='url-parameters-4'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>signature</td>
+<td>the additional signature to attach</td>
+</tr>
+</tbody></table>
 <h1 id='fills'>Fills</h1>
 <ul>
 <li>Fills represent the user&#39;s intention to fill a buy or sell <a href="#offers">offer</a> that another user has created, in agreement
@@ -466,410 +876,18 @@ is <a href="#broadcast-orders">broadcast</a>.</li>
 <td>Only return one trade before this time (unix); overrides <code>from</code> and <code>to</code></td>
 </tr>
 </tbody></table>
-<h1 id='orders'>Orders</h1>
+<h1 id='balances'>Balances</h1><h1 id='withdrawals'>Withdrawals</h1><h1 id='deposits'>Deposits</h1><h1 id='currency-pairs'>Currency pairs</h1>
+<p>Currency pairs in the Switcheo API are written in the format: </br> 
+<code>TRADE_BASE</code> </br>
+Eg: <code>SWTH_NEO</code></p>
+
 <ul>
-<li>An order is an instruction to buy or sell on a <a href="#currency_pairs">currency pair</a>.</li>
-<li>Orders can comprise of <strong>one</strong> <a href="#makes">make</a> and/or <strong>multiple</strong> <a href="#fills">fill</a> transactions on <a href="https://switcheo.exchange">Switcheo Exchange</a>.</li>
-<li>They can only be created if the order maker&#39;s wallet balance and/or contract balance has sufficient funds.</li>
-<li>Orders are only persisted on the Blockchain after they are <a href="#broadcast-orders">broadcast</a>. </li>
-<li>Orders that are not <a href="#broadcast-orders">broadcast</a> will <strong>expire</strong> after <strong>30 minutes</strong>. </li>
+<li>When you trade on Switcheo Exchange, you buy and sell in currency pairs.</li>
+<li>Sell on <code>SWTH_NEO</code> means you are selling <code>SWTH</code> for <code>NEO</code>.</li>
+<li>Buy on <code>SWTH_NEO</code> means you are buying <code>SWTH</code> for <code>NEO</code>. </li>
 </ul>
-<h2 id='statuses'>Statuses</h2>
-<p>Represents the state of orders on the <a href="https://switcheo.exchange">Switcheo Exchange</a>.</p>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>pending</td>
-<td>Order has been prepared and is awaiting the user&#39;s confirmation.</td>
-</tr>
-<tr>
-<td>confirming</td>
-<td>Order has been broadcast is being persisted on the blockchain.</td>
-</tr>
-<tr>
-<td>confirmed</td>
-<td>Order is persisted on the blockchain.</td>
-</tr>
-<tr>
-<td>failed</td>
-<td>Order has failed to confirm and is not persisted on the blockchain.</td>
-</tr>
-<tr>
-<td>completed</td>
-<td>Order has successfully completed.</td>
-</tr>
-<tr>
-<td>processed</td>
-<td>Order has completed but some part(s) may have been cancelled or failed.</td>
-</tr>
-<tr>
-<td>cancelled</td>
-<td><a href="#makes">Make</a> (only) of the order has been cancelled.</td>
-</tr>
-</tbody></table>
-<h2 id='get-orders'>Get orders</h2>
-<aside class="notice">
-address and contract_hash parameters are required for this API call!
-</aside>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/orders?address=PUBLIC_ADDRESS"</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c415f943-bea8-4dbf-82e3-8460c559d8b7"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"blockchain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"neo"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"contract_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c41d8b0c30252ce7e8b6d95e9ce13fdd68d2a5a8"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20abeefe84e4059f6681bf96d5dcb5ddeffcc377"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100000000"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20000000"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"transfer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"priority_gas_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"use_native_token"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"native_fee_transfer_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"deposit_txn"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-15T10:54:20.054Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processed"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fills"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
-    </span><span class="s2">"makes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c498527c-07c1-4c4c-b58f-a45fc2836d84"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"offer_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9b4ed49835383dd6e5e47305579b6d6c4f36c88ca9edfe92ebe55b93f684e35d"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"available_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100000000"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20000000"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"filled_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100000000"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"txn"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"cancel_txn"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.0"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-15T10:54:20.059Z"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bed7147ce3027c2b70251ef365d2d524f480be3284dc0239e4ddc248cbbf68b5"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"trades"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-          </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"47ea819e-db34-4dad-8dde-45f776867ec7"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15970480"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"filled_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3194096"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5.0"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-17T05:14:55.828Z"</span><span class="w">
-          </span><span class="p">}</span><span class="w">
-        </span><span class="p">]</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves orders from a specific address filtered by the params provided.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>https://api.switcheo.network/v2/orders</code></p>
-<h3 id='url-parameters'>Url parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>address</td>
-<td>Only return orders from this address <code>(wallet address of user)</code>.</td>
-</tr>
-<tr>
-<td>contract_hash</td>
-<td>Only return orders with this contract hash <code>(Switcheo)</code>.</td>
-</tr>
-<tr>
-<td>trade_asset_id</td>
-<td>Only returns orders with this asset_id.</td>
-</tr>
-<tr>
-<td>base_asset_id</td>
-<td>Only returns orders with this asset_id.</td>
-</tr>
-</tbody></table>
-<h2 id='create-orders'>Create orders</h2>
-<p>{blockchain: &quot;neo&quot;, contract_hash: &quot;06118464b88a1049f38abac013347ca9039fb8b0&quot;,…}
-address
-:
-&quot;20abeefe84e4059f6681bf96d5dcb5ddeffcc377&quot;
-blockchain
-:
-&quot;neo&quot;
-contract_hash
-:
-&quot;06118464b88a1049f38abac013347ca9039fb8b0&quot;
-offer_amount
-:
-&quot;100000&quot;
-offer_asset
-:
-&quot;GAS&quot;
-price
-:
-&quot;1.43253451&quot;
-public_key
-:
-&quot;02567958ee3e4ee6b103448e0afe1fdf8b57966e1e879c783b116537ecbf5af971&quot;
-side
-:
-&quot;sell&quot;
-signature
-:
-&quot;bdd1559d626b6bb0dec7a87030088f279265115fad2ac395f6e620eca714b69bed399ad1ec3b1d2573000e4010363c4a2b91ceaa9c46104816dece9ab6707493&quot;
-want_asset
-:
-&quot;NEO&quot;
-want_decimals
-:
-8</p>
-<pre class="highlight shell tab-shell"><code>curl -d <span class="s2">"https://api.switcheo.network/v2/
-</span></code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w"> 
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"474940c6-2be4-43a8-aa71-0f9b2bc8908c"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"blockchain"</span><span class="p">:</span><span class="s2">"neo"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"contract_hash"</span><span class="p">:</span><span class="s2">"06118464b88a1049f38abac013347ca9039fb8b0"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"address"</span><span class="p">:</span><span class="s2">"20abeefe84e4059f6681bf96d5dcb5ddeffcc377"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"side"</span><span class="p">:</span><span class="s2">"sell"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="s2">"100000"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="s2">"143253"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"transfer_amount"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"priority_gas_amount"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"use_native_token"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"native_fee_transfer_amount"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deposit_txn"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2018-05-23T03:20:19.481Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fills"</span><span class="p">:[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"fe9f8d09-aeb6-43cd-9028-5a22ba1f8015"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"offer_hash"</span><span class="p">:</span><span class="s2">"2b440b036fb5538d617d7a98ecba3b44480e1e7c60ea19a67eb60d67e38c75ff"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fill_amount"</span><span class="p">:</span><span class="s2">"100000"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="s2">"143253"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"filled_amount"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fee_asset_id"</span><span class="p">:</span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fee_amount"</span><span class="p">:</span><span class="s2">"214"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"price"</span><span class="p">:</span><span class="s2">"1.4325345067412557"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"txn"</span><span class="p">:</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"hash"</span><span class="p">:</span><span class="s2">"fadf3daf53ab829e0b87223cb04c3e569e5dbffe438aa117ab90b9d1570d31ce"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"sha256"</span><span class="p">:</span><span class="s2">"0f981d64b406ac0b62c27fce121abf4175aa52d923a6ddef9994a18e9e4efafb"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"invoke"</span><span class="p">:</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="s2">"06118464b88a1049f38abac013347ca9039fb8b0"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"operation"</span><span class="p">:</span><span class="s2">"fillOffer"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"args"</span><span class="p">:</span><span class="w">
-            </span><span class="p">[</span><span class="w">
-              </span><span class="s2">"77c3fcefddb5dcd596bf81669f05e484feeeab20"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5e72d286979ee6cb1b7e65dfddfb2e384100b8d148e7758de42e4168b71792c60"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"ff758ce3670db67ea619ea607c1e0e48443bbaec987a7d618d53b56f030b442b"</span><span class="p">,</span><span class="w">
-              </span><span class="mi">143253</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5"</span><span class="p">,</span><span class="w">
-              </span><span class="mi">214</span><span class="w">
-            </span><span class="p">]</span><span class="w">
-         </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"type"</span><span class="p">:</span><span class="mi">209</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"version"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"attributes"</span><span class="p">:[{</span><span class="s2">"usage"</span><span class="p">:</span><span class="mi">32</span><span class="p">,</span><span class="s2">"data"</span><span class="p">:</span><span class="s2">"77c3fcefddb5dcd596bf81669f05e484feeeab20"</span><span class="p">}],</span><span class="s2">"inputs"</span><span class="p">:[{</span><span class="s2">"prevHash"</span><span class="p">:</span><span class="s2">"44f184aab330393908c15349a7be3af38c9e3b0280248e34b875715ba656cdf9"</span><span class="p">,</span><span class="s2">"prevIndex"</span><span class="p">:</span><span class="mi">16</span><span class="p">}],</span><span class="s2">"outputs"</span><span class="p">:[{</span><span class="s2">"assetId"</span><span class="p">:</span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="s2">"e707714512577b42f9a011f8b870625429f93573"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="mi">1e-08</span><span class="p">}],</span><span class="s2">"scripts"</span><span class="p">:[],</span><span class="s2">"script"</span><span class="p">:</span><span class="s2">"08d600000000000000209b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc508952f02000000000020ff758ce3670db67ea619ea607c1e0e48443bbaec987a7d618d53b56f030b442b409b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5e72d286979ee6cb1b7e65dfddfb2e384100b8d148e7758de42e4168b71792c601477c3fcefddb5dcd596bf81669f05e484feeeab2056c10966696c6c4f6666657267b0b89f03a97c3413c0ba8af349108ab864841106"</span><span class="p">,</span><span class="s2">"gas"</span><span class="p">:</span><span class="mi">0</span><span class="p">},</span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"pending"</span><span class="p">,</span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2018-05-23T03:20:19.493Z"</span><span class="p">,</span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="s2">"fadf3daf53ab829e0b87223cb04c3e569e5dbffe438aa117ab90b9d1570d31ce"</span><span class="p">}],</span><span class="s2">"makes"</span><span class="p">:[]}</span><span class="w">
-</span></code></pre>
-<p>This endpoint prepares an order, reserving required offers</p>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>https://api.switcheo.network/v1/orders</code></p>
-<h3 id='url-parameters-2'>Url parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>blockchain</td>
-<td>the blockchain to execute the order on</td>
-</tr>
-<tr>
-<td>contract_hash</td>
-<td>the hash of the smart contract to execute order on</td>
-</tr>
-<tr>
-<td>address</td>
-<td>the order maker&#39;s address</td>
-</tr>
-<tr>
-<td>price</td>
-<td>the order price to 8 decimal places</td>
-</tr>
-<tr>
-<td>side</td>
-<td>the side of this trade</td>
-</tr>
-<tr>
-<td>offer_asset</td>
-<td>the offered asset symbol</td>
-</tr>
-<tr>
-<td>offer_amount</td>
-<td>the offered amount of assets</td>
-</tr>
-<tr>
-<td>want_asset</td>
-<td>the wanted asset symbol</td>
-</tr>
-<tr>
-<td>public_key</td>
-<td>the public key of the user in hex format</td>
-</tr>
-<tr>
-<td>signature</td>
-<td>the params signed with the address&#39; private key</td>
-</tr>
-</tbody></table>
-<h2 id='cancel-create'>Cancel create</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/orders/ORDER_ID/create_cancel"</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SWTH_NEO"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"price_change"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00006001"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"percentage_price_change"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.384"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"last_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00100000"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"last_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.77051096"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"bid_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00100000"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"bid_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3098.92243065"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"ask_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00102099"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"ask_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"26012.13923092"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"high_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00103344"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"low_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00088115"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"open_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00095300"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6141.83147280"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"quote_volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6615989.55286128"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"open_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526531482</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"close_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526617882</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">966</span><span class="w">
-   </span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves a specific ticker from the Switcheo Exchange.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>https://api.switcheo.network/v1/trades/tickers?pair=SWTH_NEO</code></p>
-<h3 id='url-parameters-3'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>signature</td>
-<td>the order id signed with the address&#39; private key</td>
-</tr>
-</tbody></table>
-<h2 id='broadcast-orders'>Broadcast orders</h2><pre class="highlight shell tab-shell"><code> curl <span class="s2">"https://api.switcheo.network/v2/orders/id/create_cancel"</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
-     </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SWTH_NEO"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"price_change"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00006001"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"percentage_price_change"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.384"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"last_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00100000"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"last_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.77051096"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"bid_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00100000"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"bid_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3098.92243065"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"ask_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00102099"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"ask_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"26012.13923092"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"high_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00103344"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"low_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00088115"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"open_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00095300"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6141.83147280"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"quote_volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6615989.55286128"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"open_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526531482</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"close_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526617882</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">966</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint broadcasts a created order.</p>
-
-<p>### HTTP Request</p>
-
-<p><code>https://api.switcheo.network/v1/trades/tickers?pair=SWTH_NEO</code></p>
-
-<p>### URL Parameters</p>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>pair</td>
-<td>The market pair to retrieve</td>
-</tr>
-</tbody></table>
-<h2 id='cancel-broadcast'>Cancel broadcast</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v1/trades/tickers/SWTH_NEO"</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SWTH_NEO"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"price_change"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00006001"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"percentage_price_change"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.384"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"last_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00100000"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"last_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.77051096"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"bid_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00100000"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"bid_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3098.92243065"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"ask_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00102099"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"ask_quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"26012.13923092"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"high_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00103344"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"low_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00088115"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"open_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00095300"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6141.83147280"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"quote_volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6615989.55286128"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"open_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526531482</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"close_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526617882</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">966</span><span class="w">
-   </span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves a specific ticker from the Switcheo Exchange.</p>
-<h3 id='http-request-4'>HTTP Request</h3>
-<p><code>https://api.switcheo.network/v1/trades/tickers?pair=SWTH_NEO</code></p>
-<h3 id='url-parameters-4'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>signature</td>
-<td>the additional signature to attach</td>
-</tr>
-</tbody></table>
-<h1 id='balances'>Balances</h1><h1 id='withdrawals'>Withdrawals</h1><h1 id='deposits'>Deposits</h1><h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
-
-<p>The Kittn API uses the following error codes:</p>
+<h1 id='errors'>Errors</h1>
+<p>The Switcheo API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -882,36 +900,16 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 <td>Bad Request -- Your request is invalid.</td>
 </tr>
 <tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-<tr>
 <td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>Forbidden -- The specified endpoint is for administrators only.</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
+<td>Not Found -- The specified endpoint could not be found.</td>
 </tr>
 <tr>
 <td>406</td>
 <td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
 </tr>
 <tr>
 <td>500</td>
