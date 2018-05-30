@@ -92,52 +92,30 @@ This endpoint retrieves orders from a specific address filtered by the params pr
 
 ### Url parameters
 
-Parameter | Description
---------- | -----------
-address | Only return orders from this address `(wallet address of user)`.
-contract_hash | Only return orders with this contract hash `(Switcheo)`.
-trade_asset_id | Only returns orders with this asset_id.
-base_asset_id | Only returns orders with this asset_id.
+Parameter | Mandatory | Description
+--------- | ----------- | -----------
+address | yes | Only return orders from this address `(wallet address of user)`.
+contract_hash | no | Only return orders with this contract hash `(Switcheo)`.
+trade_asset_id| no  | Only returns orders with this asset_id.
+base_asset_id| no  | Only returns orders with this asset_id.
 
-## Create orders
-
-{blockchain: "neo", contract_hash: "06118464b88a1049f38abac013347ca9039fb8b0",…}
-address
-:
-"20abeefe84e4059f6681bf96d5dcb5ddeffcc377"
-blockchain
-:
-"neo"
-contract_hash
-:
-"06118464b88a1049f38abac013347ca9039fb8b0"
-offer_amount
-:
-"100000"
-offer_asset
-:
-"GAS"
-price
-:
-"1.43253451"
-public_key
-:
-"02567958ee3e4ee6b103448e0afe1fdf8b57966e1e879c783b116537ecbf5af971"
-side
-:
-"sell"
-signature
-:
-"bdd1559d626b6bb0dec7a87030088f279265115fad2ac395f6e620eca714b69bed399ad1ec3b1d2573000e4010363c4a2b91ceaa9c46104816dece9ab6707493"
-want_asset
-:
-"NEO"
-want_decimals
-:
-8
+## Create an order
 
 ```shell
-curl -d "https://api.switcheo.network/v2/
+curl -d 
+{
+  blockchain: "neo", 
+  contract_hash: "c11c3fa32f9def4159cfdb0b2bb657406b7579b4",
+  offer_amount: "100000000",
+  offer_asset: "NEO",
+  price: "1"
+  public_key: "023100f3245da41ee962c560aeaedf2cc1eddbaca45d3a066992487a7bf8c0822f"
+  side: "buy"
+  signature: "7fde6119bee2a3dd96f0c997127601851856b107c3524db278ea7126f086eeed1649e83b6d61bb82111f675af5bf61409ca65050359916a2d3f5a81e7dc8377d"
+  use_native_tokens: false
+  want_asset: "GAS"
+  want_decimals: 8
+ } -X POST "https://api.switcheo.network/v2/
 ```
 
 > The above command returns JSON structured like this:
@@ -197,24 +175,26 @@ curl -d "https://api.switcheo.network/v2/
     
 This endpoint prepares an order, reserving required offers
     
-### HTTP Request
-    
-`https://api.switcheo.network/v1/orders`
+### HTTP Request (POST)
+
+`https://api.switcheo.network/v2/orders`
     
 ### Url parameters
 
 Parameter | Description
 --------- | -----------
- blockchain | the blockchain to execute the order on
- contract_hash | the hash of the smart contract to execute order on
- address | the order maker's address
- price | the order price to 8 decimal places
- side | the side of this trade
- offer_asset | the offered asset symbol
- offer_amount | the offered amount of assets
- want_asset | the wanted asset symbol
- public_key | the public key of the user in hex format
- signature | the params signed with the address' private key
+  blockchain | The blockchain to execute the order on
+  contract_hash | The hash of the smart contract to execute order on
+  address | The order maker's address # TODO: derive this?
+  side | The side of this trade TODO: derive this?
+  price | The order price to 8 decimal places
+  offer_asset | The offered asset symbol
+  offer_amount | The offered amount of assets
+  want_asset | The wanted asset symbol
+  want_decimals | The number of decimals for the wanted asset
+  use_native_tokens | Whether to use SWTH as fees or not
+  public_key | The public key of the user in hex format
+  signature | The params signed with the address' private key
  
 ## Cancel create
 
