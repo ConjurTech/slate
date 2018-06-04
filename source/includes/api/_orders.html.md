@@ -10,7 +10,7 @@
 
 Represents the state of orders on the [Switcheo Exchange](https://switcheo.exchange).
 
-Parameter | Description
+Status | Description
 --------- | -----------
 pending | Order has been prepared and is awaiting the user's confirmation.
 confirming | Order has been broadcast is being persisted on the blockchain.
@@ -21,10 +21,6 @@ processed | Order has completed but some part(s) may have been cancelled or fail
 cancelled | [Make](#makes) (only) of the order has been cancelled.
 
 ## Get orders
-
-<aside class="notice">
-address and contract_hash parameters are required for this API call!
-</aside>
 
 ```shell
 curl "https://api.switcheo.network/v2/orders?address=PUBLIC_ADDRESS"
@@ -96,8 +92,8 @@ Parameter | Mandatory | Description
 --------- | ----------- | -----------
 address | yes | Only return orders from this address `(wallet address of user)`.
 contract_hash | no | Only return orders with this contract hash `(Switcheo)`.
-trade_asset_id| no  | Only returns orders with this asset_id.
-base_asset_id| no  | Only returns orders with this asset_id.
+trade_asset_id | no  | Only returns orders with this asset_id.
+base_asset_id | no  | Only returns orders with this asset_id.
 
 ## Create an order
 
@@ -181,20 +177,20 @@ This endpoint prepares an order, reserving required offers
     
 ### Url parameters
 
-Parameter | Description
---------- | -----------
-  blockchain | The blockchain to execute the order on
-  contract_hash | The hash of the smart contract to execute order on
-  address | The order maker's address # TODO: derive this?
-  side | The side of this trade TODO: derive this?
-  price | The order price to 8 decimal places
-  offer_asset | The offered asset symbol
-  offer_amount | The offered amount of assets
-  want_asset | The wanted asset symbol
-  want_decimals | The number of decimals for the wanted asset
-  use_native_tokens | Whether to use SWTH as fees or not
-  public_key | The public key of the user in hex format
-  signature | The params signed with the address' private key
+Parameter | Mandatory | Description
+--------- | ----------- | -----------
+  blockchain | yes | The blockchain to execute the order on
+  contract_hash | yes | The hash of the smart contract to execute order on
+  address | yes | The order maker's address # TODO: derive this?
+  side | yes | The side of this trade TODO: derive this?
+  price | yes | The order price to 8 decimal places
+  offer_asset | yes | The offered asset symbol
+  offer_amount | yes | The offered amount of assets
+  want_asset | yes | The wanted asset symbol
+  want_decimals | yes | The number of decimals for the wanted asset
+  use_native_tokens | yes | Whether to use SWTH as fees or not
+  public_key | yes | The public key of the user in hex format
+  signature | yes | The params signed with the address' private key
  
 ## Cancel create
 
@@ -235,9 +231,9 @@ This endpoint retrieves a specific ticker from the Switcheo Exchange.
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-  signature | the order id signed with the address' private key 
+Parameter | Mandatory | Description
+--------- | ----------- | -----------
+  signature | yes | the order id signed with the address' private key 
  
 ## Broadcast orders
  
@@ -272,15 +268,15 @@ Parameter | Description
  This endpoint broadcasts a created order.
  
  
- ### HTTP Request
+### HTTP Request
  
  `https://api.switcheo.network/v1/trades/tickers?pair=SWTH_NEO`
  
- ### URL Parameters
+### URL Parameters
  
- Parameter | Description
- --------- | -----------
-   pair | The market pair to retrieve
+Parameter | Mandatory | Description
+--------- | ----------- | -----------
+pair | yes | The market pair to retrieve
   
 ## Cancel broadcast
 
@@ -321,6 +317,6 @@ This endpoint retrieves a specific ticker from the Switcheo Exchange.
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-  signature | the additional signature to attach
+Parameter | Mandatory | Description
+--------- | ----------- | -----------
+  signature | yes | the additional signature to attach

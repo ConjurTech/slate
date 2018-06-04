@@ -44,8 +44,8 @@ This endpoint gets the offer book (limited to 30 offers per side).
  
 ### URL Parameters
  
-Parameter | Description
---------- | -----------
-  blockchain | Only returns offers from this blockchain `(eg. neo)`
-  contract_hash | Only return offers for this contract hash `(Switcheo)`
-  pair | Only returns offers from this pair `(eg. SWTH_NEO)`
+Parameter| Mandatory | Description
+--------- | ----------- | -----------
+  blockchain | no | Only returns offers from this blockchain `(eg. neo)`
+  contract_hash | no | Only return offers for this contract hash `(Switcheo)`
+  pair | no | Only returns offers from this pair `(eg. SWTH_NEO)`

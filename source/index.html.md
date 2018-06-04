@@ -3,6 +3,8 @@ title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
+  - ruby
+  - ReactJS
 
 toc_footers:
 
@@ -17,6 +19,7 @@ includes:
   - api/balances
   - api/withdrawals
   - api/deposits
+  - api/signatures
   - api/currency_pairs
   - errors
 

@@ -1,11 +1,14 @@
 # Signatures
 
-Since Switcheo Exchange is a decentralised exchange, to perform certain instructions ie. [create order](#create-orders), digital signatures are required as a form of verification.
-Switcheo Exchange uses [ECDSA](#https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm) for signatures.
+Ad a decentralised exchange, Switcheo does not use any sort of password or api key.
+For every transactions, digital signatures are required as a form of authentication.
 
-## Sign your transactions
-export const sign = (msgHash, privateKey) => {
-  const msgBuffer = Buffer.from(msgHash, 'hex')
+## Creating a signature
+Switcheo uses [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm) for signatures.
+
+```ReactJS
+export const sign = (hashedMsg, privateKey) => {
+  const msgBuffer = Buffer.from(hashedMsg, 'hex')
 
   const elliptic = new EC('p256')
   const sig = elliptic.sign(msgBuffer, privateKey, null)
@@ -16,3 +19,8 @@ export const sign = (msgHash, privateKey) => {
 
   return signature.toString('hex')
 }
+```
+
+### Hashing a message
+
+Before signing, messages are required to be hashed using [SHA-256](https://en.wikipedia.org/wiki/SHA-2
