@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;ReactJS&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -212,6 +212,8 @@
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
+              <a href="#" data-language-name="ruby">ruby</a>
+              <a href="#" data-language-name="ReactJS">ReactJS</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -301,6 +303,14 @@
             <a href="#deposits" class="toc-h1 toc-link" data-title="deposits">Deposits</a>
           </li>
           <li>
+            <a href="#signatures" class="toc-h1 toc-link" data-title="signatures">Signatures</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#creating-a-signature" class="toc-h2 toc-link" data-title="creating-a-signature">Creating a signature</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#currency-pairs" class="toc-h1 toc-link" data-title="currency-pairs">Currency pairs</a>
           </li>
           <li>
@@ -342,7 +352,7 @@ You can visit Switcheo Exchange at <a href="https://switcheo.exchange">https://s
 
 <table><thead>
 <tr>
-<th>Parameter</th>
+<th>Status</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -375,11 +385,7 @@ You can visit Switcheo Exchange at <a href="https://switcheo.exchange">https://s
 <td><a href="#makes">Make</a> (only) of the order has been cancelled.</td>
 </tr>
 </tbody></table>
-<h2 id='get-orders'>Get orders</h2>
-<aside class="notice">
-address and contract_hash parameters are required for this API call!
-</aside>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/orders?address=PUBLIC_ADDRESS"</span>
+<h2 id='get-orders'>Get orders</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/orders?address=PUBLIC_ADDRESS"</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -542,55 +548,68 @@ address and contract_hash parameters are required for this API call!
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Mandatory</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>blockchain</td>
+<td>yes</td>
 <td>The blockchain to execute the order on</td>
 </tr>
 <tr>
 <td>contract_hash</td>
+<td>yes</td>
 <td>The hash of the smart contract to execute order on</td>
 </tr>
 <tr>
 <td>address</td>
+<td>yes</td>
 <td>The order maker&#39;s address # TODO: derive this?</td>
 </tr>
 <tr>
 <td>side</td>
+<td>yes</td>
 <td>The side of this trade TODO: derive this?</td>
 </tr>
 <tr>
 <td>price</td>
+<td>yes</td>
 <td>The order price to 8 decimal places</td>
 </tr>
 <tr>
 <td>offer_asset</td>
+<td>yes</td>
 <td>The offered asset symbol</td>
 </tr>
 <tr>
 <td>offer_amount</td>
+<td>yes</td>
 <td>The offered amount of assets</td>
 </tr>
 <tr>
 <td>want_asset</td>
+<td>yes</td>
 <td>The wanted asset symbol</td>
 </tr>
 <tr>
 <td>want_decimals</td>
+<td>yes</td>
 <td>The number of decimals for the wanted asset</td>
 </tr>
 <tr>
 <td>use_native_tokens</td>
+<td>yes</td>
 <td>Whether to use SWTH as fees or not</td>
 </tr>
 <tr>
 <td>public_key</td>
+<td>yes</td>
 <td>The public key of the user in hex format</td>
 </tr>
 <tr>
 <td>signature</td>
+<td>yes</td>
 <td>The params signed with the address&#39; private key</td>
 </tr>
 </tbody></table>
@@ -626,11 +645,13 @@ address and contract_hash parameters are required for this API call!
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Mandatory</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>signature</td>
+<td>yes</td>
 <td>the order id signed with the address&#39; private key</td>
 </tr>
 </tbody></table>
@@ -660,21 +681,19 @@ address and contract_hash parameters are required for this API call!
     </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint broadcasts a created order.</p>
-
-<p>### HTTP Request</p>
-
+<h3 id='http-request-3'>HTTP Request</h3>
 <p><code>https://api.switcheo.network/v1/trades/tickers?pair=SWTH_NEO</code></p>
-
-<p>### URL Parameters</p>
-
+<h3 id='url-parameters-4'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Mandatory</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>pair</td>
+<td>yes</td>
 <td>The market pair to retrieve</td>
 </tr>
 </tbody></table>
@@ -704,17 +723,19 @@ address and contract_hash parameters are required for this API call!
    </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint retrieves a specific ticker from the Switcheo Exchange.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
+<h3 id='http-request-4'>HTTP Request</h3>
 <p><code>https://api.switcheo.network/v1/trades/tickers?pair=SWTH_NEO</code></p>
-<h3 id='url-parameters-4'>URL Parameters</h3>
+<h3 id='url-parameters-5'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Mandatory</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>signature</td>
+<td>yes</td>
 <td>the additional signature to attach</td>
 </tr>
 </tbody></table>
@@ -776,19 +797,23 @@ is <a href="#broadcast-orders">broadcast</a>.</li>
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Mandatory</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>blockchain</td>
+<td>no</td>
 <td>Only returns offers from this blockchain <code>(eg. neo)</code></td>
 </tr>
 <tr>
 <td>contract_hash</td>
+<td>no</td>
 <td>Only return offers for this contract hash <code>(Switcheo)</code></td>
 </tr>
 <tr>
 <td>pair</td>
+<td>no</td>
 <td>Only returns offers from this pair <code>(eg. SWTH_NEO)</code></td>
 </tr>
 </tbody></table>
@@ -876,7 +901,26 @@ is <a href="#broadcast-orders">broadcast</a>.</li>
 <td>Only return one trade before this time (unix); overrides <code>from</code> and <code>to</code></td>
 </tr>
 </tbody></table>
-<h1 id='balances'>Balances</h1><h1 id='withdrawals'>Withdrawals</h1><h1 id='deposits'>Deposits</h1><h1 id='currency-pairs'>Currency pairs</h1>
+<h1 id='balances'>Balances</h1><h1 id='withdrawals'>Withdrawals</h1><h1 id='deposits'>Deposits</h1><h1 id='signatures'>Signatures</h1>
+<p>Ad a decentralised exchange, Switcheo does not use any sort of password or api key.
+For every transactions, digital signatures are required as a form of authentication.</p>
+<h2 id='creating-a-signature'>Creating a signature</h2>
+<p>Switcheo uses <a href="https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm">ECDSA</a> for signatures.</p>
+<pre class="highlight plaintext"><code>export const sign = (hashedMsg, privateKey) =&gt; {
+  const msgBuffer = Buffer.from(hashedMsg, 'hex')
+
+  const elliptic = new EC('p256')
+  const sig = elliptic.sign(msgBuffer, privateKey, null)
+  const signature = Buffer.concat([
+    sig.r.toArrayLike(Buffer, 'be', 32),
+    sig.s.toArrayLike(Buffer, 'be', 32),
+  ])
+
+  return signature.toString('hex')
+}
+</code></pre><h3 id='hashing-a-message'>Hashing a message</h3>
+<p>Before signing, messages are required to be hashed using [SHA-256](https://en.wikipedia.org/wiki/SHA-2</p>
+<h1 id='currency-pairs'>Currency pairs</h1>
 <p>Currency pairs in the Switcheo API are written in the format: </br> 
 <code>TRADE_BASE</code> </br>
 Eg: <code>SWTH_NEO</code></p>
@@ -925,6 +969,8 @@ Eg: <code>SWTH_NEO</code></p>
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
+                <a href="#" data-language-name="ruby">ruby</a>
+                <a href="#" data-language-name="ReactJS">ReactJS</a>
           </div>
       </div>
     </div>
