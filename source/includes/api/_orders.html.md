@@ -1,12 +1,65 @@
 # Orders
 
-* An order is an instruction to buy or sell on a [currency pair](#currency_pairs).
-* Orders may comprise of **one** [make](#makes) and/or **multiple** [fill](#fills) transactions on [Switcheo Exchange](https://switcheo.exchange).
-* Orders can only be created if the order maker's wallet balance and/or contract balance has sufficient funds.
-* Orders are only persisted on the Blockchain after they are [broadcast](#broadcast-orders). 
-* Orders that are not [broadcast](#broadcast-orders) will **expire** after **30 minutes**. 
+An order is an instruction to buy or sell on a [currency pair](#currency_pairs). <br/>
+Orders can only be created if the order maker's contract balance has sufficient funds.
 
-## Order Statuses
+Order instructions consist of two steps:
+
+1. Create instruction
+2. Broadcast instruction
+
+### The order object
+
+> Order example:
+
+```json
+{
+  "id": "be62c616-9185-4523-a630-caf71e91cd90",
+  "blockchain": "neo",
+  "contract_hash": "dec966baae02856d4ea183969f80eba7e7199b6d",
+  "address": "f990c80f9b29de244f61a79b428977fee8d63b12",
+  "side": "sell",
+  "offer_asset_id": "ab38352559b8b203bde5fddfa0b07d8b2525e132",
+  "want_asset_id": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
+  "offer_amount": "45773785950",
+  "want_amount": "1941723",
+  "transfer_amount": "0",
+  "priority_gas_amount": "0",
+  "use_native_token": false,
+  "native_fee_transfer_amount": 0,
+  "deposit_txn": null,
+  "created_at": "2018-06-05T10:07:35.051Z",
+  "status": "processed",
+  "fills": [],
+  "makes": []
+},
+```
+
+Look to the right for an example of an order
+
+Params | Description
+--------- | -----------
+id | Order id
+blockchain | Name of blockchain eg. "neo"
+contract_hash | Switcheo Contract Hash
+address | Order maker's public address
+side | "buy" or "sell"
+offer_asset_id | Hash ID of offer asset TODO: endian
+want_asset_id | Hash ID of want asset TODO: endian
+offer_amount | Amount offered
+want_amount | Amount wanted
+transfer_amount | Amount of offered assets that needs to be transferred to contract
+priority_gas_amount | Amount of gas to pay for priority
+use_native_token | Use Switcheo tokens for paying fees
+native_fee_transfer_amount | Amount of Switcheo tokens transferred to contract for fees
+deposit_txn | TODO: Find out what is this
+created_at | Order created time
+status | [Status](#Order Statuses) of order
+fills | [Fills](#fills) of order
+makes | [Makes](#makes) of order
+
+
+### Order Statuses
 
 Represents the state of orders on the [Switcheo Exchange](https://switcheo.exchange).
 
@@ -20,38 +73,13 @@ completed | Order has successfully completed.
 processed | Order has completed but some part(s) may have been cancelled or failed.
 cancelled | [Make](#makes) (only) of the order has been cancelled.
 
-## Structure of an order
-
-TODO: describe the structure esp make and fills
-
-{
-    "id": "c415f943-bea8-4dbf-82e3-8460c559d8b7",
-    "blockchain": "neo",
-    "contract_hash": "c41d8b0c30252ce7e8b6d95e9ce13fdd68d2a5a8",
-    "address": "20abeefe84e4059f6681bf96d5dcb5ddeffcc377",
-    "side": "buy",
-    "offer_asset_id": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
-    "want_asset_id": "602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
-    "offer_amount": "100000000",
-    "want_amount": "20000000",
-    "transfer_amount": "0",
-    "priority_gas_amount": "0",
-    "use_native_token": false,
-    "native_fee_transfer_amount": 0,
-    "deposit_txn": null,
-    "created_at": "2018-05-15T10:54:20.054Z",
-    "status": "processed",
-    "fills": [],
-    "makes": []
-}
-
 ## Get orders
 
 ```shell
 curl "https://api.switcheo.network/v2/orders?address=PUBLIC_ADDRESS"
 ```
 
-> The above command returns JSON structured like this:
+> Example response:
 
 ```json
 [
@@ -151,14 +179,11 @@ This endpoint prepares an order.
 }
 ```
 
-### After receiving the response:
+###After receiving the response:
 
 * Creating an order is a two step process.
-
 * First, you will have to create the order.
-
 * After creating the order, you will receive a transaction as the response.
-
 * This transaction needs to be signed and broadcast for it to persist in the blockchain.
 
 ([Click here for next step](#broadcast-an-order))
@@ -222,7 +247,7 @@ After using the create order endpoint, you will receive a transaction as the res
  curl "https://api.switcheo.network/v2/orders/id/broadcast"
  ```
  
- > The above command returns JSON structured like this:
+ > Example response:
  
  ```json
 { 
@@ -272,7 +297,7 @@ This endpoint prepares the cancellation of an order that has been [broadcast](#b
 
 ###Generating a signature:
 
-* As Switcheo is a dex, we need to sign as a form of authentication ([Click here for more information](#signatures))
+* As Switcheo is a DEX, we need to sign as a form of authentication ([Click here for more information](#signatures))
 * The signature(s) must be provided in the url parameters.
 * Please look to the right for an example of the message hash\
 
@@ -284,7 +309,7 @@ This endpoint prepares the cancellation of an order that has been [broadcast](#b
 curl "https://api.switcheo.network/v2/orders/ORDER_ID/create_cancel"
 ```
 
-> The above command returns JSON structured like this:
+> Example response:
 
 ```json
 { "id": "cancel-id",
@@ -324,7 +349,7 @@ Parameter | Mandatory | Description
 curl "https://api.switcheo.network/v2/cancellations/:id/broadcast"
 ```
 
-> The above command returns JSON structured like this:
+> Example response:
 
 ```json
 {
