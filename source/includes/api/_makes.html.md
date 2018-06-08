@@ -1,12 +1,13 @@
 # Makes
 
-* Makes represents the user's intention to create a buy or sell [offer](#offers).
-* Makes with the `"pending"` status are generated when [orders](#orders) are [created](#create-orders).
-* When the [order](#orders) containing the make is [broadcast](#broadcast-orders), an [offer](#offers)
-with the same offer hash as the make will be created.
+* A make represents the preparation of an [offer](#offers).
+* Makes are generated when [orders](#orders) that do not fill any offer are [created](#create-orders).
+* When an order containing a make is [broadcast](#broadcast-orders), an offer will be created.
 
 
 ## The make object
+
+TODO: Describe
 
 > Example of a make
 

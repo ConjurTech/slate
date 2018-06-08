@@ -26,7 +26,7 @@ under the License.
 $nav-bg: #32374b !default;
 $examples-bg: #2E3336 !default;
 $code-bg: #1E2224 !default;
-$code-annotation-bg: #191D1F !default;
+$code-annotation-bg: #2E3336 !default;
 $nav-subitem-bg: #32374b !default;
 $nav-active-bg: #484b5c !default;
 $nav-active-parent-bg: #32374b !default; // parent links of the current section
@@ -57,7 +57,7 @@ $lang-select-pressed-text: #fff !default; // color of language tab text when mou
 $nav-width: 230px !default; // width of the navbar
 $examples-width: 60% !default; // portion of the screen taken up by code examples
 $logo-margin: 0px !default; // margin below logo
-$main-padding: 28px !default; // padding to left and right of content & examples
+$main-padding: 50px !default; // padding to left and right of content & examples
 $nav-padding: 15px !default; // padding to left and right of navbar
 $nav-v-padding: 10px !default; // padding used vertically around search boxes and results
 $nav-indent: 10px !default; // extra padding for ToC subitems

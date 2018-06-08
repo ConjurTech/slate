@@ -1,11 +1,12 @@
 # Fills
 
-* Fills represent the user's intention to fill a buy or sell [offer](#offers) that another user has created, in agreement
-to the stated price.
-* Fill(s) with `"pending"` statuses are generated when [orders](#orders) are created.
-* When the [order](#orders) containing the fill is [broadcast](#broadcast-orders), a [trade](#trades) is created.
+* A fill represents the preparation of a [trade](#trades), in agreement to the stated price of an [offer](#offer)
+* Fills are generated when [orders](#orders) that fill offers are [created](#create-orders).
+* When an order containing a fill is [broadcast](#broadcast-orders), a trade is created.
 
 ## Fill object
+
+TODO: Describe
 
 > Example of a fill
 

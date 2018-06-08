@@ -4,14 +4,11 @@ As a decentralised exchange, Switcheo does not use any sort of password or api k
 For every transactions, digital signatures are required as a form of authentication.
 
 ## Creating a signature
-Switcheo uses [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm) for signatures.
 
-To create a signature, these two parameters are required:
-
-* A message that is hashed using [SHA-256](https://en.wikipedia.org/wiki/SHA-2).
-* The signer's private key.
+> Code example
 
 ```ReactJS
+var EC = require('elliptic').ec;
 export const sign = (hashedMsg, privateKey) => {
   const msgBuffer = Buffer.from(hashedMsg, 'hex')
 
@@ -25,3 +22,15 @@ export const sign = (hashedMsg, privateKey) => {
   return signature.toString('hex')
 }
 ```
+
+Switcheo uses [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm)
+with [NIST P-256](http://safecurves.cr.yp.to/) as the curve parameter for signatures.
+
+### Steps to create a signature:
+
+1. Hash the message using [SHA-256](https://en.wikipedia.org/wiki/SHA-2).
+2. Sign the message's hash with the signer's private key using ECDSA
+
+Look to the right for an example of how to create a signature.
+
+TODO: should we support der encoding?

@@ -1,8 +1,9 @@
 # Trades
 
-* A trade is created upon a successful `(full or partial)` [fill](#fills) of an [offer](#offers).
-* This happens when the [order](#orders) that contains the [fill](#fills) 
+* A trade represents the settlement of a [fill](#fills).
+* This happens when an [order](#orders) that contains a fill 
 is [broadcast](#broadcast-orders).
+* Trades cannot be cancelled.
 * Trades can be seen on the **TRADE HISTORY** column of [Switcheo Exchange](https://switcheo.exchange).
 
 ## Get trades
