@@ -2,7 +2,7 @@
 
 ## Description
 
-An **order** is an instruction to buy or sell on a [currency pair](#currency_pairs).
+Orders are instructions to buy or sell assets on Switcheo Exchange.
 
 At the moment, only Limit orders are available. Market, Fill-Or-Cancel, Make-Or-Cancel, etc. strategies are not available yet.
 
@@ -16,31 +16,28 @@ Once an order is placed, the funds required for the order is removed from the us
 To perform any action, **two** API calls are required. This defers from a traditional exchange API,
  as the order must be co-signed by our off-chain service, and then broadcasted to the appropriate blockchain.
  
-The __first__ API call creates an appropriate blockchain transaction (e.g. [create order](#create-an-order)), which will 
+The **first** API call creates an appropriate blockchain transaction (e.g. [create order](#create-an-order)), which will 
   be returned in the response.
 
 This transaction must then be signed in the specific way as required as by the blockchain; The signature should then
-  be returned as the payload in the __second__ API call (e.g. [broadcast order](#broadcast-an-order)).
+  be returned as the payload in the **second** API call (e.g. [broadcast order](#broadcast-an-order)).
+  
+As mentioned above, the message to be signed in the second step of an action is simply the serialized 
+  blockchain transaction itself. 
+  
+As there is no transaction to be signed in the first step of an action, in general, the message 
+  to be signed in the first step of an action is the request parameters as an ordered JSON **string**.  
 
 For additional security, care should be taken to verify that the transaction returned from the API matches that of the
  requested order. An example of validating an order transaction can be found here:
-
-  TODO
-
-### Authentication
-
-Authentication is done in the form of signing the appropriate request or transaction using the blockchain 
-  specific digital [signature](#signatures) with the user's private key.
-
-As mentioned above, the message to be signed in the second step of an action is simply the serialized 
-  blockchain transaction itself. As there is no transaction to be signed in the first step of an action, in general the message 
-  to be signed in the first step of an action is the request parameters as an ordered JSON string.
-  
-NEO example:
-  first step (message prefix, sign)
  
-NEO example:
-  second step (serialize txn, sign)
+ TODO: finish this.
+ 
+ NEO example:
+   first step (message prefix, sign)
+  
+ NEO example:
+   second step (serialize txn, sign)
 
 ## Structure
 
@@ -71,41 +68,26 @@ NEO example:
 
 Look to the right for an example of an order
 
-Params | Description
---------- | -----------
-id | Order id
-blockchain | Name of blockchain eg. "neo"
-contract_hash | Switcheo Contract Hash
-address | Order maker's public address
-side | "buy" or "sell"
-offer_asset_id | Hash of offer asset
-want_asset_id | Hash of want asset
-offer_amount | Amount offered
-want_amount | Amount wanted
-transfer_amount | Amount of offered assets that needs to be transferred to contract
-priority_gas_amount | Amount of gas to pay for priority
-use_native_token | Use Switcheo tokens for paying fees
-native_fee_transfer_amount | Amount of Switcheo tokens transferred to contract for fees
-deposit_txn | TODO: Find out what is this
-created_at | Order created time
-status | Status of order
-fills | [Fills](#fills) of order
-makes | [Makes](#makes) of order
-
-
-## Order Statuses
-
-(TODO: confirm properly)
-
-Represents the state of orders on Switcheo.
-
-Status | Description
---------- | ----------
-open | Order is waiting to be filled
-failed | Order has failed to confirm and is not persisted on the blockchain.
-cancelled | [Make](#makes) (only) of the order has been cancelled.
-processed | Order has completed but some part(s) may have been cancelled or failed.
-complete | Order has successfully completed.
+ Params                     | Description
+--------------------------- | -----------
+ id                         | **string** containing the order id.
+ blockchain                 | **string** containing the name of a blockchain in lowercase. eg. "neo".
+ contract_hash              | **string** containing a Switcheo [contract hash](#contract_hash).
+ address                    | **string** containing a hash of the order maker's wallet public address.
+ side                       | "buy" or "sell" **string**.
+ offer_asset_id             | **string** containing the hash of the asset offered in the order.
+ want_asset_id              | **string** containing the hash of the asset wanted in the order.
+ offer_amount               | **string** containing the number of assets offered in the order.
+ want_amount                | **string** containing the number of assets wanted in the order.
+ transfer_amount            | **string** containing the number of offered assets that needs to be transferred to contract
+ priority_gas_amount        | **string** containing the number of amount of gas to pay for priority
+ use_native_token           | **boolean** `true` if you are using Switcheo tokens to pay fees
+ native_fee_transfer_amount | **string** containing amount of Switcheo tokens transferred to contract for fees TODO: why do i see a number
+ deposit_txn                | TODO: This is V1? Remove if it is.
+ created_at                 | **string** containing the time when order is created.
+ status                     | **string** containing the [status](#orderstatuses) of order
+ fills                      | [Fills](#fills) of order
+ makes                      | [Makes](#makes) of order
 
 ## List orders
 
@@ -148,20 +130,16 @@ This endpoint retrieves orders from a specific address filtered by the params pr
 
 ### Url parameters
 
-Parameter | Mandatory | Description
---------- | ----------- | -----------
-address | yes | Only return orders from this `user` address.
-contract_hash | no | Only return orders with this `Switcheo` contract hash.
-trade_asset_id | no  | Only returns orders with this asset_id.
-base_asset_id | no  | Only returns orders with this asset_id.
+ Parameter      | Mandatory | Description
+--------------- | --------- | -----------
+ address        | yes       | A **string** containing a wallet address. Only returns orders from this address.
+ contract_hash  | no        | A **string** containing a Switcheo [contract hash](#contract-hash). Only returns orders from this contract hash.
+ trade_asset_id | no        | A **string** containing the hash of a particular trade asset.
+ base_asset_id  | no        | Only returns orders with this asset_id.
 
 ## Create an order
 
-This endpoint prepares an order.<br/>
-Orders can only be created after sufficient funds have been [deposited](#deposits) into the order maker's contract balance.<br/>
-A [signature](#signatures) must be included in the url parameters to create an order<br/> 
-
-> Message hash example (For signature):
+> Message to sign:
 
 ```
 {
@@ -178,13 +156,9 @@ A [signature](#signatures) must be included in the url parameters to create an o
 }
 ```
 
-###Signature
-Parameters:
-
-* message hash (example on the right) 
-* private key of the order maker
-
-While signing, make sure that the keys of your message hash are in the same order as our example.
+This is the first api call required to create an order.
+Orders can only be created after sufficient funds have been [deposited](#deposits) into the order maker's contract balance.
+A (signature)(#authentication) has to be provided for this api call. An example of the message required to be signed
 
 > Example Request:
 
@@ -235,28 +209,23 @@ curl https://test-api.switcheo.network/v2/orders \
     
 ### Url parameters
 
-Parameter | Mandatory | Description
---------- | ----------- | -----------
-  blockchain | yes | The blockchain to execute the order on
-  contract_hash | yes | The hash of the smart contract to execute order on
-  address | yes | The order maker's address
-  side | yes | The side of this trade
-  price | yes | The order price to 8 decimal places
-  offer_asset | yes | The offered asset symbol
-  offer_amount | yes | The offered amount of assets
-  want_asset | yes | The wanted asset symbol
-  want_decimals | yes | The number of decimals for the wanted asset
-  use_native_tokens | yes | Whether to use SWTH as fees or not
-  public_key | yes | The public key of the user in hex format
-  signature | yes | Signed with the address's private key
-
-###Next step:
-
-* Do take note that this endpoint only prepares an order.
-* For the order to be successfully created, call the [broadcast](#broadcast-an-order) order endpoint
+ Parameter         | Mandatory | Description
+------------------ | --------- | -----------
+ blockchain        | yes       | The blockchain to execute the order on
+ contract_hash     | yes       | A **string** containing a `Switcheo` [contract hash](#contract-hash) to execute the order on.
+ address           | yes       | The order maker's address
+ side              | yes       | The side of this trade
+ price             | yes       | The order price to 8 decimal places
+ offer_asset       | yes       | The offered asset symbol
+ offer_amount      | yes       | The offered amount of assets
+ want_asset        | yes       | The wanted asset symbol
+ want_decimals     | yes       | The number of decimals for the wanted asset
+ use_native_tokens | yes       | Whether to use SWTH as fees or not
+ public_key        | yes       | The public key of the user in hex format
+ signature         | yes       | Signed with the address's private key
 
 <aside class="notice">
-  Remember to broadcast your created order!
+  Note: For the order to be successfully created, call the broadcast order endpoint
 </aside>
  
 ## Broadcast an order
@@ -283,9 +252,7 @@ After using the create order endpoint, you will receive a transaction as the res
   Every make and fill contained in the transaction needs to be signed.
 </aside>
 
-###Generating a signature:
-
-* As Switcheo is a dex, we need to sign as a form of authentication ([Click here for more information](#signatures))
+###Message to sign
 * The signature(s) must be provided in the url parameters.
 * Please look to the right for an example of the message hash
 
@@ -427,19 +394,6 @@ curl "https://api.switcheo.network/v2/cancellations/:id/broadcast"
 
 This endpoint broadcasts a cancellation.
 
-###Generating a signature:
-
-* As Switcheo is a dex, we need to sign as a form of authentication ([Click here for more information](#signatures))
-* The signature(s) must be provided in the url parameters.
-* Please look to the right for an example of the message hash\
-
-TODO: Find out message hash format
-"hash_to_sign":"c9684604e5b6963499ae8a4abfe6c8e7657648f8a1ed8e7528d4ba9d64e41638"
-
-<aside class="notice">
- While signing, make sure that the keys of the message hash are in the same order as our example. 
-</aside>
-
 ### HTTP Request
 
 `https://api.switcheo.network/v2/cancellations/:id/broadcast`
@@ -449,3 +403,18 @@ TODO: Find out message hash format
 Parameter | Mandatory | Description
 --------- | ----------- | -----------
   signature | yes | the additional signature to attach
+
+
+## Order Statuses
+
+(TODO: confirm properly)
+
+Represents the state of orders on Switcheo.
+
+Status | Description
+--------- | ----------
+open | Order is waiting to be filled
+failed | Order has failed to confirm and is not persisted on the blockchain.
+cancelled | [Make](#makes) (only) of the order has been cancelled.
+processed | Order has completed but some part(s) may have been cancelled or failed.
+complete | Order has successfully completed.

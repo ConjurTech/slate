@@ -11,6 +11,7 @@ toc_footers:
 includes:
   - api/introduction
   - api/tutorials
+  - api/authentication
   - api/orders
   - api/fills
   - api/makes
@@ -19,7 +20,6 @@ includes:
   - api/balances
   - api/withdrawals
   - api/deposits
-  - api/signatures
   - api/currency_pairs
   - errors
 

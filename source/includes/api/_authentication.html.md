@@ -1,9 +1,10 @@
-# Signatures
+# Authentication
 
 As a decentralised exchange, Switcheo does not use any sort of password or api key.
-For every transactions, digital signatures are required as a form of authentication.
+  Authentication is done in the form of signing the appropriate request or transaction using the blockchain 
+  specific digital signature with the user's private key.
 
-## Creating a signature
+## Signatures
 
 > Code example
 
@@ -26,7 +27,7 @@ export const sign = (hashedMsg, privateKey) => {
 Switcheo uses [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm)
 with [NIST P-256](http://safecurves.cr.yp.to/) as the curve parameter for signatures.
 
-### Steps to create a signature:
+### Creating a signature
 
 1. Hash the message using [SHA-256](https://en.wikipedia.org/wiki/SHA-2).
 2. Sign the message's hash with the signer's private key using ECDSA
