@@ -39,56 +39,6 @@ For additional security, care should be taken to verify that the transaction ret
  NEO example:
    second step (serialize txn, sign)
 
-## Structure
-
-> Order example:
-
-```json
-{
-  "id": "be62c616-9185-4523-a630-caf71e91cd90",
-  "blockchain": "neo",
-  "contract_hash": "dec966baae02856d4ea183969f80eba7e7199b6d",
-  "address": "f990c80f9b29de244f61a79b428977fee8d63b12",
-  "side": "sell",
-  "offer_asset_id": "ab38352559b8b203bde5fddfa0b07d8b2525e132",
-  "want_asset_id": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
-  "offer_amount": "45773785950",
-  "want_amount": "1941723",
-  "transfer_amount": "0",
-  "priority_gas_amount": "0",
-  "use_native_token": false,
-  "native_fee_transfer_amount": 0,
-  "deposit_txn": null,
-  "created_at": "2018-06-05T10:07:35.051Z",
-  "status": "processed",
-  "fills": [],
-  "makes": []
-},
-```
-
-Look to the right for an example of an order
-
- Params                     | Description
---------------------------- | -----------
- id                         | **string** containing the order id.
- blockchain                 | **string** containing the name of a blockchain in lowercase. eg. "neo".
- contract_hash              | **string** containing a Switcheo [contract hash](#contract_hash).
- address                    | **string** containing a hash of the order maker's wallet public address.
- side                       | "buy" or "sell" **string**.
- offer_asset_id             | **string** containing the hash of the asset offered in the order.
- want_asset_id              | **string** containing the hash of the asset wanted in the order.
- offer_amount               | **string** containing the number of assets offered in the order.
- want_amount                | **string** containing the number of assets wanted in the order.
- transfer_amount            | **string** containing the number of offered assets that needs to be transferred to contract
- priority_gas_amount        | **string** containing the number of amount of gas to pay for priority
- use_native_token           | **boolean** `true` if you are using Switcheo tokens to pay fees
- native_fee_transfer_amount | **string** containing amount of Switcheo tokens transferred to contract for fees TODO: why do i see a number
- deposit_txn                | TODO: This is V1? Remove if it is.
- created_at                 | **string** containing the time when order is created.
- status                     | **string** containing the [status](#orderstatuses) of order
- fills                      | **array** containing the [Fills](#fills) of order
- makes                      | **array** containing the [Makes](#makes) of order
-
 ## List orders
 
 ```shell
@@ -130,12 +80,12 @@ This endpoint retrieves orders from a specific address filtered by the params pr
 
 ### Url parameters
 
- Parameter      | Mandatory | Description
---------------- | --------- | -----------
- address        | yes       | A **string** containing a wallet address. Only returns orders from this address.
- contract_hash  | no        | A **string** containing a Switcheo [contract hash](#contract-hash). Only returns orders from this contract hash.
- trade_asset_id | no        | A **string** containing the hash of a trade asset. Only returns orders with this trade_asset_id.
- base_asset_id  | no        | A **string** containing the hash of a base asset. Only returns orders with this base_asset_id.
+ Parameter      | Type                  | Description
+--------------- | --------------------- | -----------
+ address        | **string**            | Order maker's wallet address. Only returns orders from this address.
+ contract_hash  | **string** (optional) | Switcheo [contract hash](#contract-hash). Only returns orders from this contract hash.
+ trade_asset_id | **string** (optional) | Hash of an asset. Only returns orders with this trade asset.
+ base_asset_id  | **string** (optional) | Hash of an asset. Only returns orders with this base asset.
 
 ## Create an order
 
@@ -144,13 +94,13 @@ This endpoint retrieves orders from a specific address filtered by the params pr
 ```
 {
   "blockchain": "neo",
-  "contractHash": "SwitcheoContractHash",
+  "contractHash": "add0fccaaa65a5d2835012a96e73a443bc8343ef",
   "address": "OrderMakerPublicAddress",
   "side": "buy",
   "price": """,
-  "offer_asset_id": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
-  "offer_amount": "100000000",
-  "want_asset_id": "602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
+  "offerAsset": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
+  "offerAmount": "100000000",
+  "wantAsset": "602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
   "wantDecimals": 8,
   "useNativeTokens": false,
 }
@@ -163,7 +113,7 @@ A [signature](#authentication) has to be provided for this api call. An example 
   can be seen on the right.
   
 <aside class="notice">
-  Note: After calling this endpoint, remember to do the second api call (broadcast order) for the order to be created. 
+  Note: After calling this endpoint, do remember to call the second api (broadcast order) for the order to be created. 
 </aside>
 
 > Example Request:
@@ -215,20 +165,20 @@ curl https://test-api.switcheo.network/v2/orders \
     
 ### Url parameters
 
- Parameter         | Mandatory | Description
------------------- | --------- | -----------
- blockchain        | yes       | **string** containing the name of a blockchain in lowercase. eg. "neo".
- contract_hash     | yes       | **string** containing a Switcheo [contract hash](#contract-hash) to execute the order on.
- address           | yes       | **string** containing a hash of the order maker's wallet public address.
- side              | yes       | "buy" or "sell" **string**.
- price             | yes       | **string** containing the order price to 8 decimal places
- offer_asset       | yes       | **string** containing the hash of the asset offered in the order.
- offer_amount      | yes       | **string** containing the number of assets offered in the order.
- want_asset        | yes       | **string** containing the hash of the asset wanted in the order.
- want_decimals     | yes       | **string** containing the number of decimals for the wanted asset.
- use_native_tokens | yes       | **boolean** `true` if using SWTH as fees.
- public_key        | yes       | **string** containing the public key of the order maker in hex format
- signature         | yes       | **string** containing the message hash signed with order maker's private key
+ Parameter         | Type             | Description
+------------------ | ---------------- | -----------
+ blockchain        | **string**       | Blockchain (in lowercase) that the offer is on. Possible values are: `neo`
+ contract_hash     | **string**       | Switcheo [contract hash](#contract-hash) to execute the order on.
+ address           | **string**       | Hash of the order maker's wallet public address.
+ side              | **string**       | Possible values are: `buy`, `sell`
+ price             | **string**       | Order price to 8 decimal places
+ offer_asset       | **string**       | Hash of the asset offered in the order.
+ offer_amount      | **string**       | Number of assets offered in the order.
+ want_asset        | **string**       | Hash of the asset wanted in the order.
+ want_decimals     | **string**       | Number of decimals for the wanted asset.
+ use_native_tokens | **string**       | `true` if SWTH is used as fees. `false` if SWTH is not used for fees.
+ public_key        | **string**       | Public key of the order maker in hex format
+ signature         | **string**       | Message hash signed with order maker's private key.
  
 ## Broadcast an order
 
@@ -297,10 +247,10 @@ After using the create order endpoint, you will receive a transaction as the res
  
 ### URL Parameters
  
-Parameter | Mandatory | Description
+Parameter | Type | Description
 --------- | ----------- | -----------
-  signature | yes | Signed with the address's private key
-  public_key | yes | The public key of the user in hex format
+  signature | **string** | Message hash signed with the address's private key
+  public_key | **string** | The public key of the user in hex format
 
 ## Cancel an order
 
@@ -358,7 +308,7 @@ curl "https://api.switcheo.network/v2/orders/ORDER_ID/create_cancel"
 
 ### URL Parameters
 
-Parameter | Mandatory | Description
+Parameter | Type | Description
 --------- | ----------- | -----------
   order_id | yes |  the order id
   signature | yes | Signed with the order maker's private key 
@@ -402,7 +352,7 @@ This endpoint broadcasts a cancellation.
 
 ### URL Parameters
 
-Parameter | Mandatory | Description
+Parameter | Type | Description
 --------- | ----------- | -----------
   signature | yes | the additional signature to attach
 
