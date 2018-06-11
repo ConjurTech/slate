@@ -86,8 +86,8 @@ Look to the right for an example of an order
  deposit_txn                | TODO: This is V1? Remove if it is.
  created_at                 | **string** containing the time when order is created.
  status                     | **string** containing the [status](#orderstatuses) of order
- fills                      | [Fills](#fills) of order
- makes                      | [Makes](#makes) of order
+ fills                      | **array** containing the [Fills](#fills) of order
+ makes                      | **array** containing the [Makes](#makes) of order
 
 ## List orders
 
@@ -134,12 +134,12 @@ This endpoint retrieves orders from a specific address filtered by the params pr
 --------------- | --------- | -----------
  address        | yes       | A **string** containing a wallet address. Only returns orders from this address.
  contract_hash  | no        | A **string** containing a Switcheo [contract hash](#contract-hash). Only returns orders from this contract hash.
- trade_asset_id | no        | A **string** containing the hash of a particular trade asset.
- base_asset_id  | no        | Only returns orders with this asset_id.
+ trade_asset_id | no        | A **string** containing the hash of a trade asset. Only returns orders with this trade_asset_id.
+ base_asset_id  | no        | A **string** containing the hash of a base asset. Only returns orders with this base_asset_id.
 
 ## Create an order
 
-> Message to sign:
+> Example of message to sign:
 
 ```
 {
@@ -157,8 +157,14 @@ This endpoint retrieves orders from a specific address filtered by the params pr
 ```
 
 This is the first api call required to create an order.
-Orders can only be created after sufficient funds have been [deposited](#deposits) into the order maker's contract balance.
-A (signature)(#authentication) has to be provided for this api call. An example of the message required to be signed
+  Orders can only be created after sufficient funds have been [deposited](#deposits) into the order maker's contract balance.
+
+A [signature](#authentication) has to be provided for this api call. An example of the message required to be signed 
+  can be seen on the right.
+  
+<aside class="notice">
+  Note: After calling this endpoint, remember to do the second api call (broadcast order) for the order to be created. 
+</aside>
 
 > Example Request:
 
@@ -211,22 +217,18 @@ curl https://test-api.switcheo.network/v2/orders \
 
  Parameter         | Mandatory | Description
 ------------------ | --------- | -----------
- blockchain        | yes       | The blockchain to execute the order on
- contract_hash     | yes       | A **string** containing a `Switcheo` [contract hash](#contract-hash) to execute the order on.
- address           | yes       | The order maker's address
- side              | yes       | The side of this trade
- price             | yes       | The order price to 8 decimal places
- offer_asset       | yes       | The offered asset symbol
- offer_amount      | yes       | The offered amount of assets
- want_asset        | yes       | The wanted asset symbol
- want_decimals     | yes       | The number of decimals for the wanted asset
- use_native_tokens | yes       | Whether to use SWTH as fees or not
- public_key        | yes       | The public key of the user in hex format
- signature         | yes       | Signed with the address's private key
-
-<aside class="notice">
-  Note: For the order to be successfully created, call the broadcast order endpoint
-</aside>
+ blockchain        | yes       | **string** containing the name of a blockchain in lowercase. eg. "neo".
+ contract_hash     | yes       | **string** containing a Switcheo [contract hash](#contract-hash) to execute the order on.
+ address           | yes       | **string** containing a hash of the order maker's wallet public address.
+ side              | yes       | "buy" or "sell" **string**.
+ price             | yes       | **string** containing the order price to 8 decimal places
+ offer_asset       | yes       | **string** containing the hash of the asset offered in the order.
+ offer_amount      | yes       | **string** containing the number of assets offered in the order.
+ want_asset        | yes       | **string** containing the hash of the asset wanted in the order.
+ want_decimals     | yes       | **string** containing the number of decimals for the wanted asset.
+ use_native_tokens | yes       | **boolean** `true` if using SWTH as fees.
+ public_key        | yes       | **string** containing the public key of the order maker in hex format
+ signature         | yes       | **string** containing the message hash signed with order maker's private key
  
 ## Broadcast an order
 
