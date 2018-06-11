@@ -255,16 +255,24 @@
               </ul>
           </li>
           <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#signatures" class="toc-h2 toc-link" data-title="signatures">Signatures</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#orders" class="toc-h1 toc-link" data-title="orders">Orders</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#the-order-object" class="toc-h2 toc-link" data-title="the-order-object">The order object</a>
+                    <a href="#description" class="toc-h2 toc-link" data-title="description">Description</a>
                   </li>
                   <li>
-                    <a href="#order-statuses" class="toc-h2 toc-link" data-title="order-statuses">Order Statuses</a>
+                    <a href="#structure" class="toc-h2 toc-link" data-title="structure">Structure</a>
                   </li>
                   <li>
-                    <a href="#get-orders" class="toc-h2 toc-link" data-title="get-orders">Get orders</a>
+                    <a href="#list-orders" class="toc-h2 toc-link" data-title="list-orders">List orders</a>
                   </li>
                   <li>
                     <a href="#create-an-order" class="toc-h2 toc-link" data-title="create-an-order">Create an order</a>
@@ -277,6 +285,9 @@
                   </li>
                   <li>
                     <a href="#broadcast-a-cancellation" class="toc-h2 toc-link" data-title="broadcast-a-cancellation">Broadcast a cancellation</a>
+                  </li>
+                  <li>
+                    <a href="#order-statuses" class="toc-h2 toc-link" data-title="order-statuses">Order Statuses</a>
                   </li>
               </ul>
           </li>
@@ -320,14 +331,6 @@
           </li>
           <li>
             <a href="#deposits" class="toc-h1 toc-link" data-title="deposits">Deposits</a>
-          </li>
-          <li>
-            <a href="#signatures" class="toc-h1 toc-link" data-title="signatures">Signatures</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#creating-a-signature" class="toc-h2 toc-link" data-title="creating-a-signature">Creating a signature</a>
-                  </li>
-              </ul>
           </li>
           <li>
             <a href="#currency-pairs" class="toc-h1 toc-link" data-title="currency-pairs">Currency pairs</a>
@@ -393,17 +396,75 @@ API responses will be in the form of <a href="https://www.json.org/">JSON</a> or
 <a href="#how-to-get-trade-history">How to get trade history?</a><br/>
 <a href="#how-to-get-offer-book">How to get offer book?</a><br/>
 <a href="#how-to-create-an-order">How to create an order?</a><br/></p>
-<h2 id='how-to-deposit-funds'>How to deposit funds</h2><h2 id='how-to-withdraw-funds'>How to withdraw funds</h2><h2 id='how-to-get-trade-history'>How to get trade history</h2><h2 id='how-to-get-offer-book'>How to get offer book</h2><h2 id='how-to-create-an-order'>How to create an order</h2><h1 id='orders'>Orders</h1>
-<p>An order is an instruction to buy or sell on a <a href="#currency_pairs">currency pair</a>. <br/>
-Orders can only be created if the order maker&#39;s contract balance has sufficient funds.</p>
+<h2 id='how-to-deposit-funds'>How to deposit funds</h2><h2 id='how-to-withdraw-funds'>How to withdraw funds</h2><h2 id='how-to-get-trade-history'>How to get trade history</h2><h2 id='how-to-get-offer-book'>How to get offer book</h2><h2 id='how-to-create-an-order'>How to create an order</h2><h1 id='authentication'>Authentication</h1>
+<p>As a decentralised exchange, Switcheo does not use any sort of password or api key.
+  Authentication is done in the form of signing the appropriate request or transaction using the blockchain 
+  specific digital signature with the user&#39;s private key.</p>
+<h2 id='signatures'>Signatures</h2>
+<blockquote>
+<p>Code example</p>
+</blockquote>
+<pre class="highlight plaintext"><code>var EC = require('elliptic').ec;
+export const sign = (hashedMsg, privateKey) =&gt; {
+  const msgBuffer = Buffer.from(hashedMsg, 'hex')
 
-<p>Order instructions consist of two steps:</p>
+  const elliptic = new EC('p256')
+  const sig = elliptic.sign(msgBuffer, privateKey, null)
+  const signature = Buffer.concat([
+    sig.r.toArrayLike(Buffer, 'be', 32),
+    sig.s.toArrayLike(Buffer, 'be', 32),
+  ])
 
+  return signature.toString('hex')
+}
+</code></pre>
+<p>Switcheo uses <a href="https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm">ECDSA</a>
+with <a href="http://safecurves.cr.yp.to/">NIST P-256</a> as the curve parameter for signatures.</p>
+<h3 id='creating-a-signature'>Creating a signature</h3>
 <ol>
-<li>Create instruction</li>
-<li>Broadcast instruction</li>
+<li>Hash the message using <a href="https://en.wikipedia.org/wiki/SHA-2">SHA-256</a>.</li>
+<li>Sign the message&#39;s hash with the signer&#39;s private key using ECDSA</li>
 </ol>
-<h3 id='the-order-object'>The order object</h3>
+
+<p>Look to the right for an example of how to create a signature.</p>
+
+<p>TODO: should we support der encoding?</p>
+<h1 id='orders'>Orders</h1><h2 id='description'>Description</h2>
+<p>Orders are instructions to buy or sell assets on Switcheo Exchange.</p>
+
+<p>At the moment, only Limit orders are available. Market, Fill-Or-Cancel, Make-Or-Cancel, etc. strategies are not available yet.</p>
+
+<p>Orders will therefore contain a combination of zero or one <a href="#makes">make</a> and/or zero or more <a href="#fills">fills</a>.</p>
+
+<p>Once an order is placed, the funds required for the order is removed from the user&#39;s balance
+ and placed on hold until the order is filled or the order is cancelled.</p>
+<h3 id='overview'>Overview</h3>
+<p>To perform any action, <strong>two</strong> API calls are required. This defers from a traditional exchange API,
+ as the order must be co-signed by our off-chain service, and then broadcasted to the appropriate blockchain.</p>
+
+<p>The <strong>first</strong> API call creates an appropriate blockchain transaction (e.g. <a href="#create-an-order">create order</a>), which will 
+  be returned in the response.</p>
+
+<p>This transaction must then be signed in the specific way as required as by the blockchain; The signature should then
+  be returned as the payload in the <strong>second</strong> API call (e.g. <a href="#broadcast-an-order">broadcast order</a>).</p>
+
+<p>As mentioned above, the message to be signed in the second step of an action is simply the serialized 
+  blockchain transaction itself. </p>
+
+<p>As there is no transaction to be signed in the first step of an action, in general, the message 
+  to be signed in the first step of an action is the request parameters as an ordered JSON <strong>string</strong>.  </p>
+
+<p>For additional security, care should be taken to verify that the transaction returned from the API matches that of the
+ requested order. An example of validating an order transaction can be found here:</p>
+
+<p>TODO: finish this.</p>
+
+<p>NEO example:
+   first step (message prefix, sign)</p>
+
+<p>NEO example:
+   second step (serialize txn, sign)</p>
+<h2 id='structure'>Structure</h2>
 <blockquote>
 <p>Order example:</p>
 </blockquote>
@@ -438,116 +499,78 @@ Orders can only be created if the order maker&#39;s contract balance has suffici
 </thead><tbody>
 <tr>
 <td>id</td>
-<td>Order id</td>
+<td><strong>string</strong> containing the order id.</td>
 </tr>
 <tr>
 <td>blockchain</td>
-<td>Name of blockchain eg. &quot;neo&quot;</td>
+<td><strong>string</strong> containing the name of a blockchain in lowercase. eg. &quot;neo&quot;.</td>
 </tr>
 <tr>
 <td>contract_hash</td>
-<td>Switcheo Contract Hash</td>
+<td><strong>string</strong> containing a Switcheo <a href="#contract_hash">contract hash</a>.</td>
 </tr>
 <tr>
 <td>address</td>
-<td>Order maker&#39;s public address</td>
+<td><strong>string</strong> containing a hash of the order maker&#39;s wallet public address.</td>
 </tr>
 <tr>
 <td>side</td>
-<td>&quot;buy&quot; or &quot;sell&quot;</td>
+<td>&quot;buy&quot; or &quot;sell&quot; <strong>string</strong>.</td>
 </tr>
 <tr>
 <td>offer_asset_id</td>
-<td>Hash ID of offer asset TODO: endian</td>
+<td><strong>string</strong> containing the hash of the asset offered in the order.</td>
 </tr>
 <tr>
 <td>want_asset_id</td>
-<td>Hash ID of want asset TODO: endian</td>
+<td><strong>string</strong> containing the hash of the asset wanted in the order.</td>
 </tr>
 <tr>
 <td>offer_amount</td>
-<td>Amount offered</td>
+<td><strong>string</strong> containing the number of assets offered in the order.</td>
 </tr>
 <tr>
 <td>want_amount</td>
-<td>Amount wanted</td>
+<td><strong>string</strong> containing the number of assets wanted in the order.</td>
 </tr>
 <tr>
 <td>transfer_amount</td>
-<td>Amount of offered assets that needs to be transferred to contract</td>
+<td><strong>string</strong> containing the number of offered assets that needs to be transferred to contract</td>
 </tr>
 <tr>
 <td>priority_gas_amount</td>
-<td>Amount of gas to pay for priority</td>
+<td><strong>string</strong> containing the number of amount of gas to pay for priority</td>
 </tr>
 <tr>
 <td>use_native_token</td>
-<td>Use Switcheo tokens for paying fees</td>
+<td><strong>boolean</strong> <code>true</code> if you are using Switcheo tokens to pay fees</td>
 </tr>
 <tr>
 <td>native_fee_transfer_amount</td>
-<td>Amount of Switcheo tokens transferred to contract for fees</td>
+<td><strong>string</strong> containing amount of Switcheo tokens transferred to contract for fees TODO: why do i see a number</td>
 </tr>
 <tr>
 <td>deposit_txn</td>
-<td>TODO: Find out what is this</td>
+<td>TODO: This is V1? Remove if it is.</td>
 </tr>
 <tr>
 <td>created_at</td>
-<td>Order created time</td>
+<td><strong>string</strong> containing the time when order is created.</td>
 </tr>
 <tr>
 <td>status</td>
-<td><a href="#Order%20Statuses">Status</a> of order</td>
+<td><strong>string</strong> containing the <a href="#orderstatuses">status</a> of order</td>
 </tr>
 <tr>
 <td>fills</td>
-<td><a href="#fills">Fills</a> of order</td>
+<td><strong>array</strong> containing the <a href="#fills">Fills</a> of order</td>
 </tr>
 <tr>
 <td>makes</td>
-<td><a href="#makes">Makes</a> of order</td>
+<td><strong>array</strong> containing the <a href="#makes">Makes</a> of order</td>
 </tr>
 </tbody></table>
-<h3 id='order-statuses'>Order Statuses</h3>
-<p>Represents the state of orders on the <a href="https://switcheo.exchange">Switcheo Exchange</a>.</p>
-
-<table><thead>
-<tr>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>pending</td>
-<td>Order has been prepared and is awaiting the user&#39;s confirmation.</td>
-</tr>
-<tr>
-<td>confirming</td>
-<td>Order has been broadcast is being persisted on the blockchain.</td>
-</tr>
-<tr>
-<td>confirmed</td>
-<td>Order is persisted on the blockchain.</td>
-</tr>
-<tr>
-<td>failed</td>
-<td>Order has failed to confirm and is not persisted on the blockchain.</td>
-</tr>
-<tr>
-<td>completed</td>
-<td>Order has successfully completed.</td>
-</tr>
-<tr>
-<td>processed</td>
-<td>Order has completed but some part(s) may have been cancelled or failed.</td>
-</tr>
-<tr>
-<td>cancelled</td>
-<td><a href="#makes">Make</a> (only) of the order has been cancelled.</td>
-</tr>
-</tbody></table>
-<h2 id='get-orders'>Get orders</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/orders?address=PUBLIC_ADDRESS"</span>
+<h2 id='list-orders'>List orders</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/orders?address=PUBLIC_ADDRESS"</span>
 </code></pre>
 <blockquote>
 <p>Example response:</p>
@@ -589,27 +612,27 @@ Orders can only be created if the order maker&#39;s contract balance has suffici
 <tr>
 <td>address</td>
 <td>yes</td>
-<td>Only return orders from this <code>user</code> address.</td>
+<td>A <strong>string</strong> containing a wallet address. Only returns orders from this address.</td>
 </tr>
 <tr>
 <td>contract_hash</td>
 <td>no</td>
-<td>Only return orders with this <code>Switcheo</code> contract hash.</td>
+<td>A <strong>string</strong> containing a Switcheo <a href="#contract-hash">contract hash</a>. Only returns orders from this contract hash.</td>
 </tr>
 <tr>
 <td>trade_asset_id</td>
 <td>no</td>
-<td>Only returns orders with this asset_id.</td>
+<td>A <strong>string</strong> containing the hash of a trade asset. Only returns orders with this trade_asset_id.</td>
 </tr>
 <tr>
 <td>base_asset_id</td>
 <td>no</td>
-<td>Only returns orders with this asset_id.</td>
+<td>A <strong>string</strong> containing the hash of a base asset. Only returns orders with this base_asset_id.</td>
 </tr>
 </tbody></table>
 <h2 id='create-an-order'>Create an order</h2>
 <blockquote>
-<p>Message hash example (For signature):</p>
+<p>Example of message to sign:</p>
 </blockquote>
 <pre class="highlight plaintext"><code>{
   "blockchain": "neo",
@@ -624,21 +647,35 @@ Orders can only be created if the order maker&#39;s contract balance has suffici
   "useNativeTokens": false,
 }
 </code></pre>
-<p>This endpoint prepares an order.</p>
-<h3 id='generating-a-signature'>Generating a signature:</h3>
-<ul>
-<li>As Switcheo is a dex, we need to sign as a form of authentication (<a href="#signatures">Click here for more information</a>)</li>
-<li>The signature(s) must be provided in the url parameters.</li>
-<li>Please look to the right for an example of the message hash</li>
-</ul>
+<p>This is the first api call required to create an order.
+  Orders can only be created after sufficient funds have been <a href="#deposits">deposited</a> into the order maker&#39;s contract balance.</p>
+
+<p>A <a href="#authentication">signature</a> has to be provided for this api call. An example of the message required to be signed 
+  can be seen on the right.</p>
 
 <aside class="notice">
- While signing, make sure that the keys of the message hash are in the same order as our example. 
+  Note: After calling this endpoint, remember to do the second api call (broadcast order) for the order to be created. 
 </aside>
 
 <blockquote>
-<p>TODO: example request
-Example Response:</p>
+<p>Example Request:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl https://test-api.switcheo.network/v2/orders <span class="se">\ </span>
+  -d <span class="nv">blockchain</span><span class="o">=</span>neo <span class="se">\</span>
+  -d <span class="nv">contract_hash</span><span class="o">=</span>9c9d2fac35987621e252981e06762895b09eb035 <span class="se">\</span>
+  -d <span class="nv">address</span><span class="o">=</span>1b7bc3c02fd9503d4896b24729513430162799d4 <span class="se">\</span>
+  -d <span class="nv">side</span><span class="o">=</span>buy <span class="se">\</span>
+  -d <span class="nv">price</span><span class="o">=</span>0.44999997 <span class="se">\</span>
+  -d <span class="nv">offer_asset</span><span class="o">=</span>NEO <span class="se">\</span>
+  -d <span class="nv">offer_amount</span><span class="o">=</span>44999997 <span class="se">\</span>
+  -d <span class="nv">want_asset</span><span class="o">=</span>SWTH <span class="se">\</span>
+  -d <span class="nv">want_decimals</span><span class="o">=</span>8 <span class="se">\</span>
+  -d <span class="nv">use_native_tokens</span><span class="o">=</span><span class="nb">false</span> <span class="se">\</span>
+  -d <span class="nv">public_key</span><span class="o">=</span>03dba309c4493d6fd2215b94f2abd1f8b5758361bf9eb0332ec8c0193884953955 <span class="se">\</span>
+  -d <span class="nv">signature</span><span class="o">=</span>986961707a860eec03fecdba596fb171d64fe8d0c66277d19a32965c51d88abfc1b55c67f7bff0c95df20aa82b849b5e1c60a6d645a55ee466d594ee8da0b902
+</code></pre>
+<blockquote>
+<p>Example Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w"> 
   </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"474940c6-2be4-43a8-aa71-0f9b2bc8908c"</span><span class="p">,</span><span class="w">
@@ -660,16 +697,7 @@ Example Response:</p>
   </span><span class="s2">"fills"</span><span class="p">:[],</span><span class="w">
   </span><span class="s2">"makes"</span><span class="p">:[]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='after-receiving-the-response'>After receiving the response:</h3>
-<ul>
-<li>Creating an order is a two step process.</li>
-<li>First, you will have to create the order.</li>
-<li>After creating the order, you will receive a transaction as the response.</li>
-<li>This transaction needs to be signed and broadcast for it to persist in the blockchain.</li>
-</ul>
-
-<p>(<a href="#broadcast-an-order">Click here for next step</a>)</p>
-<h3 id='http-request-post'>HTTP Request (POST)</h3>
+</span></code></pre><h3 id='http-request-post'>HTTP Request (POST)</h3>
 <p><code>https://api.switcheo.network/v2/orders</code></p>
 <h3 id='url-parameters-2'>Url parameters</h3>
 <table><thead>
@@ -682,62 +710,62 @@ Example Response:</p>
 <tr>
 <td>blockchain</td>
 <td>yes</td>
-<td>The blockchain to execute the order on</td>
+<td><strong>string</strong> containing the name of a blockchain in lowercase. eg. &quot;neo&quot;.</td>
 </tr>
 <tr>
 <td>contract_hash</td>
 <td>yes</td>
-<td>The hash of the smart contract to execute order on</td>
+<td><strong>string</strong> containing a Switcheo <a href="#contract-hash">contract hash</a> to execute the order on.</td>
 </tr>
 <tr>
 <td>address</td>
 <td>yes</td>
-<td>The order maker&#39;s address</td>
+<td><strong>string</strong> containing a hash of the order maker&#39;s wallet public address.</td>
 </tr>
 <tr>
 <td>side</td>
 <td>yes</td>
-<td>The side of this trade</td>
+<td>&quot;buy&quot; or &quot;sell&quot; <strong>string</strong>.</td>
 </tr>
 <tr>
 <td>price</td>
 <td>yes</td>
-<td>The order price to 8 decimal places</td>
+<td><strong>string</strong> containing the order price to 8 decimal places</td>
 </tr>
 <tr>
 <td>offer_asset</td>
 <td>yes</td>
-<td>The offered asset symbol</td>
+<td><strong>string</strong> containing the hash of the asset offered in the order.</td>
 </tr>
 <tr>
 <td>offer_amount</td>
 <td>yes</td>
-<td>The offered amount of assets</td>
+<td><strong>string</strong> containing the number of assets offered in the order.</td>
 </tr>
 <tr>
 <td>want_asset</td>
 <td>yes</td>
-<td>The wanted asset symbol</td>
+<td><strong>string</strong> containing the hash of the asset wanted in the order.</td>
 </tr>
 <tr>
 <td>want_decimals</td>
 <td>yes</td>
-<td>The number of decimals for the wanted asset</td>
+<td><strong>string</strong> containing the number of decimals for the wanted asset.</td>
 </tr>
 <tr>
 <td>use_native_tokens</td>
 <td>yes</td>
-<td>Whether to use SWTH as fees or not</td>
+<td><strong>boolean</strong> <code>true</code> if using SWTH as fees.</td>
 </tr>
 <tr>
 <td>public_key</td>
 <td>yes</td>
-<td>The public key of the user in hex format</td>
+<td><strong>string</strong> containing the public key of the order maker in hex format</td>
 </tr>
 <tr>
 <td>signature</td>
 <td>yes</td>
-<td>Signed with the address&#39;s private key</td>
+<td><strong>string</strong> containing the message hash signed with order maker&#39;s private key</td>
 </tr>
 </tbody></table>
 <h2 id='broadcast-an-order'>Broadcast an order</h2>
@@ -760,9 +788,8 @@ After using the create order endpoint, you will receive a transaction as the res
 <aside class="notice">
   Every make and fill contained in the transaction needs to be signed.
 </aside></p>
-<h3 id='generating-a-signature-2'>Generating a signature:</h3>
+<h3 id='message-to-sign'>Message to sign</h3>
 <ul>
-<li>As Switcheo is a dex, we need to sign as a form of authentication (<a href="#signatures">Click here for more information</a>)</li>
 <li>The signature(s) must be provided in the url parameters.</li>
 <li>Please look to the right for an example of the message hash</li>
 </ul>
@@ -824,8 +851,9 @@ After using the create order endpoint, you will receive a transaction as the res
 <pre class="highlight plaintext"><code>TODO: Find out message hash format
 "hash_to_sign":"c9684604e5b6963499ae8a4abfe6c8e7657648f8a1ed8e7528d4ba9d64e41638"
 </code></pre>
-<p>This endpoint prepares the cancellation of an order that has been <a href="#broadcast-an-order">broadcast</a>.</p>
-<h3 id='generating-a-signature-3'>Generating a signature:</h3>
+<p>This endpoint prepares the cancellation of an order that has been <a href="#broadcast-an-order">broadcast</a>. <br/>
+Only orders that have </p>
+<h3 id='generating-a-signature'>Generating a signature:</h3>
 <ul>
 <li>As Switcheo is a DEX, we need to sign as a form of authentication (<a href="#signatures">Click here for more information</a>)</li>
 <li>The signature(s) must be provided in the url parameters.</li>
@@ -845,7 +873,7 @@ After using the create order endpoint, you will receive a transaction as the res
   </span><span class="s2">"hash_to_sign"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hash_to_sign"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"script_params"</span><span class="p">:</span><span class="w"> </span><span class="s2">"script_params"</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='after-receiving-the-response-2'>After receiving the response:</h3>
+</span></code></pre><h3 id='after-receiving-the-response'>After receiving the response:</h3>
 <ul>
 <li><p>Cancelling an order is a two step process.</p></li>
 <li><p>First, you will have to create the cancellation.</p></li>
@@ -902,19 +930,6 @@ After using the create order endpoint, you will receive a transaction as the res
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint broadcasts a cancellation.</p>
-<h3 id='generating-a-signature-4'>Generating a signature:</h3>
-<ul>
-<li>As Switcheo is a dex, we need to sign as a form of authentication (<a href="#signatures">Click here for more information</a>)</li>
-<li>The signature(s) must be provided in the url parameters.</li>
-<li>Please look to the right for an example of the message hash\</li>
-</ul>
-
-<p>TODO: Find out message hash format
-&quot;hash_to_sign&quot;:&quot;c9684604e5b6963499ae8a4abfe6c8e7657648f8a1ed8e7528d4ba9d64e41638&quot;</p>
-
-<aside class="notice">
- While signing, make sure that the keys of the message hash are in the same order as our example. 
-</aside>
 <h3 id='http-request-4'>HTTP Request</h3>
 <p><code>https://api.switcheo.network/v2/cancellations/:id/broadcast</code></p>
 <h3 id='url-parameters-5'>URL Parameters</h3>
@@ -931,14 +946,47 @@ After using the create order endpoint, you will receive a transaction as the res
 <td>the additional signature to attach</td>
 </tr>
 </tbody></table>
+<h2 id='order-statuses'>Order Statuses</h2>
+<p>(TODO: confirm properly)</p>
+
+<p>Represents the state of orders on Switcheo.</p>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>open</td>
+<td>Order is waiting to be filled</td>
+</tr>
+<tr>
+<td>failed</td>
+<td>Order has failed to confirm and is not persisted on the blockchain.</td>
+</tr>
+<tr>
+<td>cancelled</td>
+<td><a href="#makes">Make</a> (only) of the order has been cancelled.</td>
+</tr>
+<tr>
+<td>processed</td>
+<td>Order has completed but some part(s) may have been cancelled or failed.</td>
+</tr>
+<tr>
+<td>complete</td>
+<td>Order has successfully completed.</td>
+</tr>
+</tbody></table>
 <h1 id='fills'>Fills</h1>
 <ul>
-<li>Fills represent the user&#39;s intention to fill a buy or sell <a href="#offers">offer</a> that another user has created, in agreement
-to the stated price.</li>
-<li>Fill(s) with <code>&quot;pending&quot;</code> statuses are generated when <a href="#orders">orders</a> are created.</li>
-<li>When the <a href="#orders">order</a> containing the fill is <a href="#broadcast-orders">broadcast</a>, a <a href="#trades">trade</a> is created.</li>
+<li>A fill represents the preparation of a <a href="#trades">trade</a>, in agreement to the stated price of an <a href="#offer">offer</a></li>
+<li>Fills are generated when <a href="#orders">orders</a> that fill offers are <a href="#create-orders">created</a>.</li>
+<li>When an order containing a fill is <a href="#broadcast-orders">broadcast</a>, a trade is created.</li>
 </ul>
 <h2 id='fill-object'>Fill object</h2>
+<p>TODO: Describe</p>
+
 <blockquote>
 <p>Example of a fill</p>
 </blockquote>
@@ -1003,12 +1051,13 @@ to the stated price.</li>
 <p>Look to the right for an example of a fill</p>
 <h1 id='makes'>Makes</h1>
 <ul>
-<li>Makes represents the user&#39;s intention to create a buy or sell <a href="#offers">offer</a>.</li>
-<li>Makes with the <code>&quot;pending&quot;</code> status are generated when <a href="#orders">orders</a> are <a href="#create-orders">created</a>.</li>
-<li>When the <a href="#orders">order</a> containing the make is <a href="#broadcast-orders">broadcast</a>, an <a href="#offers">offer</a>
-with the same offer hash as the make will be created.</li>
+<li>A make represents the preparation of an <a href="#offers">offer</a>.</li>
+<li>Makes are generated when <a href="#orders">orders</a> that do not fill any offer are <a href="#create-orders">created</a>.</li>
+<li>When an order containing a make is <a href="#broadcast-orders">broadcast</a>, an offer will be created.</li>
 </ul>
 <h2 id='the-make-object'>The make object</h2>
+<p>TODO: Describe</p>
+
 <blockquote>
 <p>Example of a make</p>
 </blockquote>
@@ -1042,11 +1091,12 @@ with the same offer hash as the make will be created.</li>
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h1 id='offers'>Offers</h1>
 <ul>
-<li>An offer is created on a successful <a href="#makes">make</a>.</li>
-<li>This happens when the <a href="#orders">order</a> that contains the <a href="#makes">make</a> 
+<li>An offer represents the settlement of a <a href="#makes">make</a>.</li>
+<li>This happens when the <a href="#orders">order</a> that contains the make.
 is <a href="#broadcast-orders">broadcast</a>.</li>
+<li>Offered funds will be placed on hold unless the order is cancelled or filled.</li>
+<li>Orders containing offers can be cancelled only if the offer has not been completely filled yet. </li>
 <li>Offers can be seen in the <strong>ORDER BOOK</strong> column on <a href="https://switcheo.exchange">Switcheo Exchange</a>.</li>
-<li>There are two sides in offers: <a href="#currency-pairs">buys</a> and <a href="#currency-pairs">sells</a>. </br></li>
 </ul>
 <h2 id='get-offers'>Get Offers</h2><pre class="highlight shell tab-shell"><code> curl <span class="s2">"https://api.switcheo.network/v2/offers?contract_hash=SWITCHEO_CONTRACT_HASH&amp;pair=SWTH_NEO"</span>
 </code></pre>
@@ -1101,9 +1151,10 @@ is <a href="#broadcast-orders">broadcast</a>.</li>
 </tbody></table>
 <h1 id='trades'>Trades</h1>
 <ul>
-<li>A trade is created upon a successful <code>(full or partial)</code> <a href="#fills">fill</a> of an <a href="#offers">offer</a>.</li>
-<li>This happens when the <a href="#orders">order</a> that contains the <a href="#fills">fill</a> 
+<li>A trade represents the settlement of a <a href="#fills">fill</a>.</li>
+<li>This happens when an <a href="#orders">order</a> that contains a fill 
 is <a href="#broadcast-orders">broadcast</a>.</li>
+<li>Trades cannot be cancelled.</li>
 <li>Trades can be seen on the <strong>TRADE HISTORY</strong> column of <a href="https://switcheo.exchange">Switcheo Exchange</a>.</li>
 </ul>
 <h2 id='get-trades'>Get trades</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/trades"</span>
@@ -1183,31 +1234,7 @@ is <a href="#broadcast-orders">broadcast</a>.</li>
 <td>Only return one trade before this time (unix); overrides <code>from</code> and <code>to</code></td>
 </tr>
 </tbody></table>
-<h1 id='balances'>Balances</h1><h1 id='withdrawals'>Withdrawals</h1><h1 id='deposits'>Deposits</h1><h1 id='signatures'>Signatures</h1>
-<p>As a decentralised exchange, Switcheo does not use any sort of password or api key.
-For every transactions, digital signatures are required as a form of authentication.</p>
-<h2 id='creating-a-signature'>Creating a signature</h2>
-<p>Switcheo uses <a href="https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm">ECDSA</a> for signatures.</p>
-
-<p>To create a signature, these two parameters are required:</p>
-
-<ul>
-<li>A message that is hashed using <a href="https://en.wikipedia.org/wiki/SHA-2">SHA-256</a>.</li>
-<li>The signer&#39;s private key.</li>
-</ul>
-<pre class="highlight plaintext"><code>export const sign = (hashedMsg, privateKey) =&gt; {
-  const msgBuffer = Buffer.from(hashedMsg, 'hex')
-
-  const elliptic = new EC('p256')
-  const sig = elliptic.sign(msgBuffer, privateKey, null)
-  const signature = Buffer.concat([
-    sig.r.toArrayLike(Buffer, 'be', 32),
-    sig.s.toArrayLike(Buffer, 'be', 32),
-  ])
-
-  return signature.toString('hex')
-}
-</code></pre><h1 id='currency-pairs'>Currency pairs</h1>
+<h1 id='balances'>Balances</h1><h1 id='withdrawals'>Withdrawals</h1><h1 id='deposits'>Deposits</h1><h1 id='currency-pairs'>Currency pairs</h1>
 <p>Currency pairs in the Switcheo API are written in the format: </br> 
 <code>TRADE_BASE</code> </br>
 Eg: <code>SWTH_NEO</code></p>
