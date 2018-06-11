@@ -269,9 +269,6 @@
                     <a href="#description" class="toc-h2 toc-link" data-title="description">Description</a>
                   </li>
                   <li>
-                    <a href="#structure" class="toc-h2 toc-link" data-title="structure">Structure</a>
-                  </li>
-                  <li>
                     <a href="#list-orders" class="toc-h2 toc-link" data-title="list-orders">List orders</a>
                   </li>
                   <li>
@@ -464,112 +461,6 @@ with <a href="http://safecurves.cr.yp.to/">NIST P-256</a> as the curve parameter
 
 <p>NEO example:
    second step (serialize txn, sign)</p>
-<h2 id='structure'>Structure</h2>
-<blockquote>
-<p>Order example:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"be62c616-9185-4523-a630-caf71e91cd90"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"blockchain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"neo"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"contract_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dec966baae02856d4ea183969f80eba7e7199b6d"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f990c80f9b29de244f61a79b428977fee8d63b12"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sell"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45773785950"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1941723"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"transfer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"priority_gas_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"use_native_token"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"native_fee_transfer_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deposit_txn"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-05T10:07:35.051Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processed"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fills"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
-  </span><span class="s2">"makes"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="p">},</span><span class="w">
-</span></code></pre>
-<p>Look to the right for an example of an order</p>
-
-<table><thead>
-<tr>
-<th>Params</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td><strong>string</strong> containing the order id.</td>
-</tr>
-<tr>
-<td>blockchain</td>
-<td><strong>string</strong> containing the name of a blockchain in lowercase. eg. &quot;neo&quot;.</td>
-</tr>
-<tr>
-<td>contract_hash</td>
-<td><strong>string</strong> containing a Switcheo <a href="#contract_hash">contract hash</a>.</td>
-</tr>
-<tr>
-<td>address</td>
-<td><strong>string</strong> containing a hash of the order maker&#39;s wallet public address.</td>
-</tr>
-<tr>
-<td>side</td>
-<td>&quot;buy&quot; or &quot;sell&quot; <strong>string</strong>.</td>
-</tr>
-<tr>
-<td>offer_asset_id</td>
-<td><strong>string</strong> containing the hash of the asset offered in the order.</td>
-</tr>
-<tr>
-<td>want_asset_id</td>
-<td><strong>string</strong> containing the hash of the asset wanted in the order.</td>
-</tr>
-<tr>
-<td>offer_amount</td>
-<td><strong>string</strong> containing the number of assets offered in the order.</td>
-</tr>
-<tr>
-<td>want_amount</td>
-<td><strong>string</strong> containing the number of assets wanted in the order.</td>
-</tr>
-<tr>
-<td>transfer_amount</td>
-<td><strong>string</strong> containing the number of offered assets that needs to be transferred to contract</td>
-</tr>
-<tr>
-<td>priority_gas_amount</td>
-<td><strong>string</strong> containing the number of amount of gas to pay for priority</td>
-</tr>
-<tr>
-<td>use_native_token</td>
-<td><strong>boolean</strong> <code>true</code> if you are using Switcheo tokens to pay fees</td>
-</tr>
-<tr>
-<td>native_fee_transfer_amount</td>
-<td><strong>string</strong> containing amount of Switcheo tokens transferred to contract for fees TODO: why do i see a number</td>
-</tr>
-<tr>
-<td>deposit_txn</td>
-<td>TODO: This is V1? Remove if it is.</td>
-</tr>
-<tr>
-<td>created_at</td>
-<td><strong>string</strong> containing the time when order is created.</td>
-</tr>
-<tr>
-<td>status</td>
-<td><strong>string</strong> containing the <a href="#orderstatuses">status</a> of order</td>
-</tr>
-<tr>
-<td>fills</td>
-<td><strong>array</strong> containing the <a href="#fills">Fills</a> of order</td>
-</tr>
-<tr>
-<td>makes</td>
-<td><strong>array</strong> containing the <a href="#makes">Makes</a> of order</td>
-</tr>
-</tbody></table>
 <h2 id='list-orders'>List orders</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/orders?address=PUBLIC_ADDRESS"</span>
 </code></pre>
 <blockquote>
@@ -605,29 +496,29 @@ with <a href="http://safecurves.cr.yp.to/">NIST P-256</a> as the curve parameter
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Mandatory</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>address</td>
-<td>yes</td>
-<td>A <strong>string</strong> containing a wallet address. Only returns orders from this address.</td>
+<td><strong>string</strong></td>
+<td>Order maker&#39;s wallet address. Only returns orders from this address.</td>
 </tr>
 <tr>
 <td>contract_hash</td>
-<td>no</td>
-<td>A <strong>string</strong> containing a Switcheo <a href="#contract-hash">contract hash</a>. Only returns orders from this contract hash.</td>
+<td><strong>string</strong> (optional)</td>
+<td>Switcheo <a href="#contract-hash">contract hash</a>. Only returns orders from this contract hash.</td>
 </tr>
 <tr>
 <td>trade_asset_id</td>
-<td>no</td>
-<td>A <strong>string</strong> containing the hash of a trade asset. Only returns orders with this trade_asset_id.</td>
+<td><strong>string</strong> (optional)</td>
+<td>Hash of an asset. Only returns orders with this trade asset.</td>
 </tr>
 <tr>
 <td>base_asset_id</td>
-<td>no</td>
-<td>A <strong>string</strong> containing the hash of a base asset. Only returns orders with this base_asset_id.</td>
+<td><strong>string</strong> (optional)</td>
+<td>Hash of an asset. Only returns orders with this base asset.</td>
 </tr>
 </tbody></table>
 <h2 id='create-an-order'>Create an order</h2>
@@ -636,13 +527,13 @@ with <a href="http://safecurves.cr.yp.to/">NIST P-256</a> as the curve parameter
 </blockquote>
 <pre class="highlight plaintext"><code>{
   "blockchain": "neo",
-  "contractHash": "SwitcheoContractHash",
+  "contractHash": "add0fccaaa65a5d2835012a96e73a443bc8343ef",
   "address": "OrderMakerPublicAddress",
   "side": "buy",
   "price": """,
-  "offer_asset_id": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
-  "offer_amount": "100000000",
-  "want_asset_id": "602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
+  "offerAsset": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
+  "offerAmount": "100000000",
+  "wantAsset": "602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
   "wantDecimals": 8,
   "useNativeTokens": false,
 }
@@ -654,7 +545,7 @@ with <a href="http://safecurves.cr.yp.to/">NIST P-256</a> as the curve parameter
   can be seen on the right.</p>
 
 <aside class="notice">
-  Note: After calling this endpoint, remember to do the second api call (broadcast order) for the order to be created. 
+  Note: After calling this endpoint, do remember to call the second api (broadcast order) for the order to be created. 
 </aside>
 
 <blockquote>
@@ -703,69 +594,69 @@ with <a href="http://safecurves.cr.yp.to/">NIST P-256</a> as the curve parameter
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Mandatory</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>blockchain</td>
-<td>yes</td>
-<td><strong>string</strong> containing the name of a blockchain in lowercase. eg. &quot;neo&quot;.</td>
+<td><strong>string</strong></td>
+<td>Blockchain (in lowercase) that the offer is on. Possible values are: <code>neo</code></td>
 </tr>
 <tr>
 <td>contract_hash</td>
-<td>yes</td>
-<td><strong>string</strong> containing a Switcheo <a href="#contract-hash">contract hash</a> to execute the order on.</td>
+<td><strong>string</strong></td>
+<td>Switcheo <a href="#contract-hash">contract hash</a> to execute the order on.</td>
 </tr>
 <tr>
 <td>address</td>
-<td>yes</td>
-<td><strong>string</strong> containing a hash of the order maker&#39;s wallet public address.</td>
+<td><strong>string</strong></td>
+<td>Hash of the order maker&#39;s wallet public address.</td>
 </tr>
 <tr>
 <td>side</td>
-<td>yes</td>
-<td>&quot;buy&quot; or &quot;sell&quot; <strong>string</strong>.</td>
+<td><strong>string</strong></td>
+<td>Possible values are: <code>buy</code>, <code>sell</code></td>
 </tr>
 <tr>
 <td>price</td>
-<td>yes</td>
-<td><strong>string</strong> containing the order price to 8 decimal places</td>
+<td><strong>string</strong></td>
+<td>Order price to 8 decimal places</td>
 </tr>
 <tr>
 <td>offer_asset</td>
-<td>yes</td>
-<td><strong>string</strong> containing the hash of the asset offered in the order.</td>
+<td><strong>string</strong></td>
+<td>Hash of the asset offered in the order.</td>
 </tr>
 <tr>
 <td>offer_amount</td>
-<td>yes</td>
-<td><strong>string</strong> containing the number of assets offered in the order.</td>
+<td><strong>string</strong></td>
+<td>Number of assets offered in the order.</td>
 </tr>
 <tr>
 <td>want_asset</td>
-<td>yes</td>
-<td><strong>string</strong> containing the hash of the asset wanted in the order.</td>
+<td><strong>string</strong></td>
+<td>Hash of the asset wanted in the order.</td>
 </tr>
 <tr>
 <td>want_decimals</td>
-<td>yes</td>
-<td><strong>string</strong> containing the number of decimals for the wanted asset.</td>
+<td><strong>string</strong></td>
+<td>Number of decimals for the wanted asset.</td>
 </tr>
 <tr>
 <td>use_native_tokens</td>
-<td>yes</td>
-<td><strong>boolean</strong> <code>true</code> if using SWTH as fees.</td>
+<td><strong>string</strong></td>
+<td><code>true</code> if SWTH is used as fees. <code>false</code> if SWTH is not used for fees.</td>
 </tr>
 <tr>
 <td>public_key</td>
-<td>yes</td>
-<td><strong>string</strong> containing the public key of the order maker in hex format</td>
+<td><strong>string</strong></td>
+<td>Public key of the order maker in hex format</td>
 </tr>
 <tr>
 <td>signature</td>
-<td>yes</td>
-<td><strong>string</strong> containing the message hash signed with order maker&#39;s private key</td>
+<td><strong>string</strong></td>
+<td>Message hash signed with order maker&#39;s private key.</td>
 </tr>
 </tbody></table>
 <h2 id='broadcast-an-order'>Broadcast an order</h2>
@@ -829,18 +720,18 @@ After using the create order endpoint, you will receive a transaction as the res
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Mandatory</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>signature</td>
-<td>yes</td>
-<td>Signed with the address&#39;s private key</td>
+<td><strong>string</strong></td>
+<td>Message hash signed with the address&#39;s private key</td>
 </tr>
 <tr>
 <td>public_key</td>
-<td>yes</td>
+<td><strong>string</strong></td>
 <td>The public key of the user in hex format</td>
 </tr>
 </tbody></table>
@@ -888,7 +779,7 @@ Only orders that have </p>
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Mandatory</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -936,7 +827,7 @@ Only orders that have </p>
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Mandatory</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
