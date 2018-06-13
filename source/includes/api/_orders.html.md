@@ -94,15 +94,15 @@ This endpoint retrieves orders from a specific address filtered by the params pr
 ```
 {
   "blockchain": "neo",
-  "contractHash": "add0fccaaa65a5d2835012a96e73a443bc8343ef",
-  "address": "OrderMakerPublicAddress",
+  "contract_hash": "add0fccaaa65a5d2835012a96e73a443bc8343ef",
+  "address": "ede2491ec91f3beb24778572c97b1c1dd6495df8",
   "side": "buy",
-  "price": """,
-  "offerAsset": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
-  "offerAmount": "100000000",
-  "wantAsset": "602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
-  "wantDecimals": 8,
-  "useNativeTokens": false,
+  "price": "0.41234200",
+  "offer_asset": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
+  "offer_amount": "100000000",
+  "want_asset": "602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
+  "want_decimals": "8",
+  "use_native_tokens": false,
 }
 ```
 
@@ -165,52 +165,155 @@ curl https://test-api.switcheo.network/v2/orders \
     
 ### Url parameters
 
- Parameter         | Type             | Description
------------------- | ---------------- | -----------
- blockchain        | **string**       | Blockchain (in lowercase) that the offer is on. Possible values are: `neo`
- contract_hash     | **string**       | Switcheo [contract hash](#contract-hash) to execute the order on.
- address           | **string**       | Hash of the order maker's wallet public address.
- side              | **string**       | Possible values are: `buy`, `sell`
- price             | **string**       | Order price to 8 decimal places
- offer_asset       | **string**       | Hash of the asset offered in the order.
- offer_amount      | **string**       | Number of assets offered in the order.
- want_asset        | **string**       | Hash of the asset wanted in the order.
- want_decimals     | **string**       | Number of decimals for the wanted asset.
- use_native_tokens | **string**       | `true` if SWTH is used as fees. `false` if SWTH is not used for fees.
- public_key        | **string**       | Public key of the order maker in hex format
- signature         | **string**       | Message hash signed with order maker's private key.
+ Parameter         | Type        | Description
+------------------ | ------------| -----------
+ blockchain        | **string**  | Blockchain (in lowercase) that the offer is on. Possible values are: `neo`
+ contract_hash     | **string**  | Switcheo [contract hash](#contract-hash) to execute the order on.
+ address           | **string**  | Hash of the order maker's wallet public address.
+ pair              | **string**  | Pair to trade, e.g. `RPX_NEO` 
+ side              | **string**  | Possible values are: `buy`, `sell`
+ price             | **string**  | Order price to 8 decimal places
+ offer_amount      | **string**  | Number of assets offered in the order.
+ use_native_tokens | **boolean** | `true` if SWTH is used as fees. `false` if SWTH is not used for fees.
+ timestamp         | **int**     | Current timestamp (epoch milliseconds)
+ public_key        | **string**  | Public key of the order maker in hex format
+ signature         | **string**  | Message hash signed with order maker's private key.
  
 ## Broadcast an order
 
-> Message hash example (For signature):
+> 1.Example transaction received from first api call:
 
+```json
+{
+	"id": "8d2cce86-98b3-49a0-b3e7-3660b2073458",
+	"blockchain": "neo",
+	"contract_hash": "bdfab1bf3f214dc433a6d08c2202471ed220ae24",
+	"address": "ede2491ec91f3beb24778572c97b1c1dd6495df8",
+	"side": "buy",
+	"offer_asset_id": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
+	"want_asset_id": "ab38352559b8b203bde5fddfa0b07d8b2525e132",
+	"offer_amount": "15000000",
+	"want_amount": "500000000",
+	"transfer_amount": "0",
+	"priority_gas_amount": "0",
+	"use_native_token": false,
+	"native_fee_transfer_amount": 0,
+	"deposit_txn": null,
+	"created_at": "2018-06-13T05:30:21.640Z",
+	"status": "pending",
+	"fills": [],
+	"makes": [
+		{
+			"id": "b43aee10-d523-4804-9814-7f7e8c53acb0",
+			"offer_hash": null,
+			"available_amount": null,
+			"offer_asset_id": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
+			"offer_amount": "15000000",
+			"want_asset_id": "ab38352559b8b203bde5fddfa0b07d8b2525e132",
+			"want_amount": "500000000",
+			"filled_amount": null,
+			"txn": {
+				"offerHash": "3eda0632d6713dd3aa8e8512ab73c2e9e59151b04916a5350023629e913e36a7",
+				"hash": "ffe681b91911ec1217190c89899371abdabf73bf2be4eda8e1c3e3c8d202a038",
+				"sha256": "c0356803fd3ce5bb16fab7130d0baeb000eaed125edb4b9d10687e75306d30a0",
+				"invoke": {
+					"scriptHash": "bdfab1bf3f214dc433a6d08c2202471ed220ae24",
+					"operation": "makeOffer",
+					"args": [
+						"f85d49d61d1c7bc972857724eb3b1fc91e49e2ed",
+						"9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5",
+						15000000,
+						"32e125258b7db0a0dffde5bd03b2b859253538ab",
+						500000000,
+						"62343361656531302d643532332d343830342d393831342d376637653863353361636230"
+					]
+				},
+				"type": 209,
+				"version": 1,
+				"attributes": [
+					{
+						"usage": 32,
+						"data": "f85d49d61d1c7bc972857724eb3b1fc91e49e2ed"
+					}
+				],
+				"inputs": [
+					{
+						"prevHash": "be3b0c15e495e8d051efa528de06a24c69cecda5cd1a8f98a9af2af877988a60",
+						"prevIndex": 13
+					}
+				],
+				"outputs": [
+					{
+						"assetId": "602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
+						"scriptHash": "e707714512577b42f9a011f8b870625429f93573",
+						"value": 1e-8
+					}
+				],
+				"scripts": [],
+				"script": "2462343361656531302d643532332d343830342d393831342d376637653863353361636230080065cd1d000000001432e125258b7db0a0dffde5bd03b2b859253538ab08c0e1e40000000000209b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc514f85d49d61d1c7bc972857724eb3b1fc91e49e2ed56c1096d616b654f666665726724ae20d21e4702228cd0a633c44d213fbfb1fabd",
+				"gas": 0
+			},
+			"cancel_txn": null,
+			"price": "0.03",
+			"status": "pending",
+			"created_at": "2018-06-13T05:30:21.653Z",
+			"transaction_hash": "ffe681b91911ec1217190c89899371abdabf73bf2be4eda8e1c3e3c8d202a038",
+			"trades": []
+		}
+	]
+}
+```
+
+> 2.Message to sign from previous transaction:
+
+```json
+{
+  "offerHash": "3eda0632d6713dd3aa8e8512ab73c2e9e59151b04916a5350023629e913e36a7",
+  "hash": "ffe681b91911ec1217190c89899371abdabf73bf2be4eda8e1c3e3c8d202a038",
+  "sha256": "c0356803fd3ce5bb16fab7130d0baeb000eaed125edb4b9d10687e75306d30a0",
+  "invoke": {
+    "scriptHash": "bdfab1bf3f214dc433a6d08c2202471ed220ae24",
+    "operation": "makeOffer",
+    "args": [
+      "f85d49d61d1c7bc972857724eb3b1fc91e49e2ed",
+      "9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5",
+      15000000,
+      "32e125258b7db0a0dffde5bd03b2b859253538ab",
+      500000000,
+      "62343361656531302d643532332d343830342d393831342d376637653863353361636230"
+    ]
+  }
+}
+```
+
+
+> 3.What to put in signature url parameter from previous message:
 
 ```
 {
-    fills:
-      {
-        "FILL_ID": "FILL_SIGNATURE", ... 
-      },
+    fills: {},
     makes: 
       {
-        "MAKE_ID": "MAKE_SIGNATURE", ...
+        "b43aee10-d523-4804-9814-7f7e8c53acb0": "a294da6f9e5095190194532363051145f538cf2809b874c736e2dc5ca1584e9a848c849dc44077389ddcee5678f7e37ac3602cc69f030453f8c466c96aa2e8c6"
       }
 }
 ```
 
-This endpoint broadcasts a created order. <br/>
-After using the create order endpoint, you will receive a transaction as the response to be broadcast. <br/>
-<aside class="notice">
-  Every make and fill contained in the transaction needs to be signed.
-</aside>
+This is the second api call needed to create an order.
+  After using the create order endpoint, you will receive a transaction as the response to be broadcast.
 
-###Message to sign
-* The signature(s) must be provided in the url parameters.
-* Please look to the right for an example of the message hash
+Every [fill](#fills) and [make](#makes) in the transaction returned from the first api call has to be [signed](#authentication). 
+  Looking at the example on the right:
+   
+1. A transaction has been returned from calling the [create order](#create-an-order) endpoint.
+2. `fills` returns an empty array, so lets look at `makes`. The message we have to sign will be the value returned by the `txn` key.
+3. After signing the make, we will have to include the make id and signature in an object:
+ 
+ `{ makes: { id: <signature> }, fills: { id: <signature> } }`
+ 
+  and use it for the `signature` url parameter.
+  
 
-<aside class="notice">
- While signing, make sure that the keys of the message hash are in the same order as our example. 
-</aside>
  
  ```shell
  curl "https://api.switcheo.network/v2/orders/id/broadcast"
@@ -250,7 +353,7 @@ After using the create order endpoint, you will receive a transaction as the res
 Parameter | Type | Description
 --------- | ----------- | -----------
   signature | **string** | Message hash signed with the address's private key
-  public_key | **string** | The public key of the user in hex format
+  public_key | **string** | Public key of the user in hex format
 
 ## Cancel an order
 

@@ -4,9 +4,7 @@ As a decentralised exchange, Switcheo does not use any sort of password or api k
   Authentication is done in the form of signing the appropriate request or transaction using the blockchain 
   specific digital signature with the user's private key.
 
-## Signatures
-
-> Code example
+> Code example (neo)
 
 ```ReactJS
 var EC = require('elliptic').ec;
@@ -23,15 +21,14 @@ export const sign = (hashedMsg, privateKey) => {
   return signature.toString('hex')
 }
 ```
-
-Switcheo uses [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm)
+Eg Neo:
+ 
+Neo uses [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm)
 with [NIST P-256](http://safecurves.cr.yp.to/) as the curve parameter for signatures.
 
-### Creating a signature
+### Creating a signature in neo
 
 1. Hash the message using [SHA-256](https://en.wikipedia.org/wiki/SHA-2).
-2. Sign the message's hash with the signer's private key using ECDSA
+2. Sign the message's hash with the signer's private key using ECDSA.
 
-Look to the right for an example of how to create a signature.
-
-TODO: should we support der encoding?
+An example can be seen on the right.
