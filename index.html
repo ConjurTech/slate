@@ -256,11 +256,6 @@
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#signatures" class="toc-h2 toc-link" data-title="signatures">Signatures</a>
-                  </li>
-              </ul>
           </li>
           <li>
             <a href="#orders" class="toc-h1 toc-link" data-title="orders">Orders</a>
@@ -290,19 +285,9 @@
           </li>
           <li>
             <a href="#fills" class="toc-h1 toc-link" data-title="fills">Fills</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#fill-object" class="toc-h2 toc-link" data-title="fill-object">Fill object</a>
-                  </li>
-              </ul>
           </li>
           <li>
             <a href="#makes" class="toc-h1 toc-link" data-title="makes">Makes</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#the-make-object" class="toc-h2 toc-link" data-title="the-make-object">The make object</a>
-                  </li>
-              </ul>
           </li>
           <li>
             <a href="#offers" class="toc-h1 toc-link" data-title="offers">Offers</a>
@@ -397,9 +382,9 @@ API responses will be in the form of <a href="https://www.json.org/">JSON</a> or
 <p>As a decentralised exchange, Switcheo does not use any sort of password or api key.
   Authentication is done in the form of signing the appropriate request or transaction using the blockchain 
   specific digital signature with the user&#39;s private key.</p>
-<h2 id='signatures'>Signatures</h2>
+
 <blockquote>
-<p>Code example</p>
+<p>Code example (neo)</p>
 </blockquote>
 <pre class="highlight plaintext"><code>var EC = require('elliptic').ec;
 export const sign = (hashedMsg, privateKey) =&gt; {
@@ -415,17 +400,19 @@ export const sign = (hashedMsg, privateKey) =&gt; {
   return signature.toString('hex')
 }
 </code></pre>
-<p>Switcheo uses <a href="https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm">ECDSA</a>
+<p>Eg Neo:</p>
+
+<p>Neo uses <a href="https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm">ECDSA</a>
 with <a href="http://safecurves.cr.yp.to/">NIST P-256</a> as the curve parameter for signatures.</p>
-<h3 id='creating-a-signature'>Creating a signature</h3>
+
+<p>To sign a message for Neo:</p>
+
 <ol>
 <li>Hash the message using <a href="https://en.wikipedia.org/wiki/SHA-2">SHA-256</a>.</li>
-<li>Sign the message&#39;s hash with the signer&#39;s private key using ECDSA</li>
+<li>Sign the message&#39;s hash with the signer&#39;s private key using ECDSA.</li>
 </ol>
 
-<p>Look to the right for an example of how to create a signature.</p>
-
-<p>TODO: should we support der encoding?</p>
+<p>An example can be seen on the right.</p>
 <h1 id='orders'>Orders</h1><h2 id='description'>Description</h2>
 <p>Orders are instructions to buy or sell assets on Switcheo Exchange.</p>
 
@@ -527,15 +514,13 @@ with <a href="http://safecurves.cr.yp.to/">NIST P-256</a> as the curve parameter
 </blockquote>
 <pre class="highlight plaintext"><code>{
   "blockchain": "neo",
-  "contractHash": "add0fccaaa65a5d2835012a96e73a443bc8343ef",
-  "address": "OrderMakerPublicAddress",
+  "contract_hash": "add0fccaaa65a5d2835012a96e73a443bc8343ef",
+  "address": "ede2491ec91f3beb24778572c97b1c1dd6495df8",
+  "pair": "SWTH_NEO",
   "side": "buy",
-  "price": """,
-  "offerAsset": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
-  "offerAmount": "100000000",
-  "wantAsset": "602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
-  "wantDecimals": 8,
-  "useNativeTokens": false,
+  "price": "0.41234200",
+  "offer_amount": "100000000",
+  "use_native_tokens": false,
 }
 </code></pre>
 <p>This is the first api call required to create an order.
@@ -555,13 +540,13 @@ with <a href="http://safecurves.cr.yp.to/">NIST P-256</a> as the curve parameter
   -d <span class="nv">blockchain</span><span class="o">=</span>neo <span class="se">\</span>
   -d <span class="nv">contract_hash</span><span class="o">=</span>9c9d2fac35987621e252981e06762895b09eb035 <span class="se">\</span>
   -d <span class="nv">address</span><span class="o">=</span>1b7bc3c02fd9503d4896b24729513430162799d4 <span class="se">\</span>
+  -d <span class="nv">pair</span><span class="o">=</span>SWTH_NEO <span class="se">\</span>
   -d <span class="nv">side</span><span class="o">=</span>buy <span class="se">\</span>
   -d <span class="nv">price</span><span class="o">=</span>0.44999997 <span class="se">\</span>
   -d <span class="nv">offer_asset</span><span class="o">=</span>NEO <span class="se">\</span>
   -d <span class="nv">offer_amount</span><span class="o">=</span>44999997 <span class="se">\</span>
-  -d <span class="nv">want_asset</span><span class="o">=</span>SWTH <span class="se">\</span>
-  -d <span class="nv">want_decimals</span><span class="o">=</span>8 <span class="se">\</span>
   -d <span class="nv">use_native_tokens</span><span class="o">=</span><span class="nb">false</span> <span class="se">\</span>
+  -d <span class="nv">timestamp</span><span class="o">=</span>1528879294321 <span class="se">\</span>
   -d <span class="nv">public_key</span><span class="o">=</span>03dba309c4493d6fd2215b94f2abd1f8b5758361bf9eb0332ec8c0193884953955 <span class="se">\</span>
   -d <span class="nv">signature</span><span class="o">=</span>986961707a860eec03fecdba596fb171d64fe8d0c66277d19a32965c51d88abfc1b55c67f7bff0c95df20aa82b849b5e1c60a6d645a55ee466d594ee8da0b902
 </code></pre>
@@ -614,6 +599,11 @@ with <a href="http://safecurves.cr.yp.to/">NIST P-256</a> as the curve parameter
 <td>Hash of the order maker&#39;s wallet public address.</td>
 </tr>
 <tr>
+<td>pair</td>
+<td><strong>string</strong></td>
+<td>Pair to trade, e.g. <code>RPX_NEO</code></td>
+</tr>
+<tr>
 <td>side</td>
 <td><strong>string</strong></td>
 <td>Possible values are: <code>buy</code>, <code>sell</code></td>
@@ -624,29 +614,19 @@ with <a href="http://safecurves.cr.yp.to/">NIST P-256</a> as the curve parameter
 <td>Order price to 8 decimal places</td>
 </tr>
 <tr>
-<td>offer_asset</td>
-<td><strong>string</strong></td>
-<td>Hash of the asset offered in the order.</td>
-</tr>
-<tr>
 <td>offer_amount</td>
 <td><strong>string</strong></td>
 <td>Number of assets offered in the order.</td>
 </tr>
 <tr>
-<td>want_asset</td>
-<td><strong>string</strong></td>
-<td>Hash of the asset wanted in the order.</td>
-</tr>
-<tr>
-<td>want_decimals</td>
-<td><strong>string</strong></td>
-<td>Number of decimals for the wanted asset.</td>
-</tr>
-<tr>
 <td>use_native_tokens</td>
-<td><strong>string</strong></td>
+<td><strong>boolean</strong></td>
 <td><code>true</code> if SWTH is used as fees. <code>false</code> if SWTH is not used for fees.</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td><strong>int</strong></td>
+<td>Current timestamp (epoch milliseconds)</td>
 </tr>
 <tr>
 <td>public_key</td>
@@ -661,35 +641,165 @@ with <a href="http://safecurves.cr.yp.to/">NIST P-256</a> as the curve parameter
 </tbody></table>
 <h2 id='broadcast-an-order'>Broadcast an order</h2>
 <blockquote>
-<p>Message hash example (For signature):</p>
+<p>1.Example response from first api call:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8d2cce86-98b3-49a0-b3e7-3660b2073458"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"blockchain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"neo"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"contract_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bdfab1bf3f214dc433a6d08c2202471ed220ae24"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ede2491ec91f3beb24778572c97b1c1dd6495df8"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15000000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500000000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"transfer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"priority_gas_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"use_native_token"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"native_fee_transfer_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"deposit_txn"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-13T05:30:21.640Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fills"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"makes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b43aee10-d523-4804-9814-7f7e8c53acb0"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"offer_hash"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"available_amount"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15000000"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500000000"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"filled_amount"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"txn"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"offerHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3eda0632d6713dd3aa8e8512ab73c2e9e59151b04916a5350023629e913e36a7"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ffe681b91911ec1217190c89899371abdabf73bf2be4eda8e1c3e3c8d202a038"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"sha256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c0356803fd3ce5bb16fab7130d0baeb000eaed125edb4b9d10687e75306d30a0"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"invoke"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bdfab1bf3f214dc433a6d08c2202471ed220ae24"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"operation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"makeOffer"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                        </span><span class="s2">"f85d49d61d1c7bc972857724eb3b1fc91e49e2ed"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5"</span><span class="p">,</span><span class="w">
+                        </span><span class="mi">15000000</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"32e125258b7db0a0dffde5bd03b2b859253538ab"</span><span class="p">,</span><span class="w">
+                        </span><span class="mi">500000000</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"62343361656531302d643532332d343830342d393831342d376637653863353361636230"</span><span class="w">
+                    </span><span class="p">]</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="mi">209</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="s2">"usage"</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f85d49d61d1c7bc972857724eb3b1fc91e49e2ed"</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="s2">"inputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="s2">"prevHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"be3b0c15e495e8d051efa528de06a24c69cecda5cd1a8f98a9af2af877988a60"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"prevIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="s2">"outputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="s2">"assetId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e707714512577b42f9a011f8b870625429f93573"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">1e-8</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="s2">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+                </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2462343361656531302d643532332d343830342d393831342d376637653863353361636230080065cd1d000000001432e125258b7db0a0dffde5bd03b2b859253538ab08c0e1e40000000000209b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc514f85d49d61d1c7bc972857724eb3b1fc91e49e2ed56c1096d616b654f666665726724ae20d21e4702228cd0a633c44d213fbfb1fabd"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"gas"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"cancel_txn"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.03"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-13T05:30:21.653Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ffe681b91911ec1217190c89899371abdabf73bf2be4eda8e1c3e3c8d202a038"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"trades"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>2.Sign make from transaction:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"offerHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3eda0632d6713dd3aa8e8512ab73c2e9e59151b04916a5350023629e913e36a7"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ffe681b91911ec1217190c89899371abdabf73bf2be4eda8e1c3e3c8d202a038"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"sha256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c0356803fd3ce5bb16fab7130d0baeb000eaed125edb4b9d10687e75306d30a0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"invoke"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bdfab1bf3f214dc433a6d08c2202471ed220ae24"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"operation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"makeOffer"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"f85d49d61d1c7bc972857724eb3b1fc91e49e2ed"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5"</span><span class="p">,</span><span class="w">
+      </span><span class="mi">15000000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"32e125258b7db0a0dffde5bd03b2b859253538ab"</span><span class="p">,</span><span class="w">
+      </span><span class="mi">500000000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"62343361656531302d643532332d343830342d393831342d376637653863353361636230"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="mi">209</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"usage"</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f85d49d61d1c7bc972857724eb3b1fc91e49e2ed"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"inputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"prevHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"be3b0c15e495e8d051efa528de06a24c69cecda5cd1a8f98a9af2af877988a60"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"prevIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"outputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"assetId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e707714512577b42f9a011f8b870625429f93573"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">1e-8</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2462343361656531302d643532332d343830342d393831342d376637653863353361636230080065cd1d000000001432e125258b7db0a0dffde5bd03b2b859253538ab08c0e1e40000000000209b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc514f85d49d61d1c7bc972857724eb3b1fc91e49e2ed56c1096d616b654f666665726724ae20d21e4702228cd0a633c44d213fbfb1fabd"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"gas"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>3.Put signature and make id in this format for signature url parameter:</p>
 </blockquote>
 <pre class="highlight plaintext"><code>{
-    fills:
-      {
-        "FILL_ID": "FILL_SIGNATURE", ... 
-      },
+    fills: {},
     makes: 
       {
-        "MAKE_ID": "MAKE_SIGNATURE", ...
+        "b43aee10-d523-4804-9814-7f7e8c53acb0": "a294da6f9e5095190194532363051145f538cf2809b874c736e2dc5ca1584e9a848c849dc44077389ddcee5678f7e37ac3602cc69f030453f8c466c96aa2e8c6"
       }
 }
 </code></pre>
-<p>This endpoint broadcasts a created order. <br/>
-After using the create order endpoint, you will receive a transaction as the response to be broadcast. <br/>
-<aside class="notice">
-  Every make and fill contained in the transaction needs to be signed.
-</aside></p>
-<h3 id='message-to-sign'>Message to sign</h3>
-<ul>
-<li>The signature(s) must be provided in the url parameters.</li>
-<li>Please look to the right for an example of the message hash</li>
-</ul>
+<p>This is the second api call needed to create an order.
+  After using the create order endpoint, you will receive a transaction as the response to be broadcast.</p>
 
-<aside class="notice">
- While signing, make sure that the keys of the message hash are in the same order as our example. 
-</aside>
- 
-<pre class="highlight shell tab-shell"><code> curl <span class="s2">"https://api.switcheo.network/v2/orders/id/broadcast"</span>
+<p>Every <a href="#fills">fill</a> and <a href="#makes">make</a> in the response from the first api call has to be <a href="#authentication">signed</a>. </p>
+
+<p>Looking at the example on the right:</p>
+
+<ol>
+<li>A response is received from calling the <a href="#create-an-order">create order</a> endpoint.</li>
+<li><code>fills</code> returns an empty array, so lets look at <code>makes</code>. The message we have to sign will be the value returned by the <code>txn</code> key.</li>
+<li>After signing the make, we will have to include the make id and signature in an object:</li>
+</ol>
+
+<p><code>{ makes: { id: &lt;signature&gt; }, fills: { id: &lt;signature&gt; } }</code></p>
+
+<p>and use it for the <code>signature</code> url parameter.</p>
+
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code> curl https://api.switcheo.network/v2/orders/id/broadcast <span class="se">\</span>
+   -d <span class="s1">'{"public_key":"034d2ad7cc8a2598dd341271920fd78ea98209cd082aae6a1ef10d51a3b254d822","signatures":{"fills":{},"makes":{"48c908fb-95a6-4646-9484-d01ea509f6cc":"3eab5444213a78d9450505da829ba533071d53e020b9beb266a85032f63f3b7331bb21d2df820e59738534462fc02a4b7cc1bd689918870bcbd7b1fadc1f3aca"}}}'</span> 
 </code></pre>
 <blockquote>
 <p>Example response:</p>
@@ -727,12 +837,12 @@ After using the create order endpoint, you will receive a transaction as the res
 <tr>
 <td>signature</td>
 <td><strong>string</strong></td>
-<td>Message hash signed with the address&#39;s private key</td>
+<td>The signatures in this format: <code>{ makes: { id: &lt;signature&gt; }, fills: { id: &lt;signature&gt; } }</code></td>
 </tr>
 <tr>
 <td>public_key</td>
 <td><strong>string</strong></td>
-<td>The public key of the user in hex format</td>
+<td>Public key of the order maker in hex format</td>
 </tr>
 </tbody></table>
 <h2 id='cancel-an-order'>Cancel an order</h2>
@@ -870,117 +980,122 @@ Only orders that have </p>
 </tr>
 </tbody></table>
 <h1 id='fills'>Fills</h1>
-<ul>
-<li>A fill represents the preparation of a <a href="#trades">trade</a>, in agreement to the stated price of an <a href="#offer">offer</a></li>
-<li>Fills are generated when <a href="#orders">orders</a> that fill offers are <a href="#create-orders">created</a>.</li>
-<li>When an order containing a fill is <a href="#broadcast-orders">broadcast</a>, a trade is created.</li>
-</ul>
-<h2 id='fill-object'>Fill object</h2>
-<p>TODO: Describe</p>
-
 <blockquote>
 <p>Example of a fill</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-   </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"32028da3-ff8d-40c5-810b-e4a39a63024a"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"offer_hash"</span><span class="p">:</span><span class="s2">"8a951e84e0b6e556917950cc4a45d4ce20a54adf614f392c18c238b3f9450192"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"fill_amount"</span><span class="p">:</span><span class="s2">"500000"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="s2">"1000000000"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"filled_amount"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"fee_asset_id"</span><span class="p">:</span><span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"fee_amount"</span><span class="p">:</span><span class="s2">"1500000"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"price"</span><span class="p">:</span><span class="s2">"0.0005"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"txn"</span><span class="p">:{</span><span class="w">
-      </span><span class="s2">"hash"</span><span class="p">:</span><span class="s2">"1d636df0e8be8e5db401c175385c239404ee2dde8efceefa4c7a3579eed9e0c7"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"sha256"</span><span class="p">:</span><span class="s2">"ed027df7602e4d9de19736b80ee9d81014071bda7271aacc72c2f8d09d6146f4"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"invoke"</span><span class="p">:{</span><span class="w">
-         </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="s2">"dec966baae02856d4ea183969f80eba7e7199b6d"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"operation"</span><span class="p">:</span><span class="s2">"fillOffer"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"args"</span><span class="p">:[</span><span class="w">
-            </span><span class="s2">"123bd6e8fe7789429ba7614f24de299b0fc890f9"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"32e125258b7db0a0dffde5bd03b2b859253538ab9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"920145f9b338c2182c394f61df4aa520ced4454acc50799156e5b6e0841e958a"</span><span class="p">,</span><span class="w">
-            </span><span class="mi">1000000000</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"32e125258b7db0a0dffde5bd03b2b859253538ab"</span><span class="p">,</span><span class="w">
-            </span><span class="mi">1500000</span><span class="w">
-         </span><span class="p">]</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"type"</span><span class="p">:</span><span class="mi">209</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"version"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"attributes"</span><span class="p">:[</span><span class="w">
-         </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"usage"</span><span class="p">:</span><span class="mi">32</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"data"</span><span class="p">:</span><span class="s2">"123bd6e8fe7789429ba7614f24de299b0fc890f9"</span><span class="w">
-         </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="s2">"inputs"</span><span class="p">:[</span><span class="w">
-         </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"prevHash"</span><span class="p">:</span><span class="s2">"422762e60424520a54e4ddf9d71f9d547a9816f3944bb066d5f4e35d83c12125"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"prevIndex"</span><span class="p">:</span><span class="mi">22</span><span class="w">
-         </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="s2">"outputs"</span><span class="p">:[</span><span class="w">
-         </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"assetId"</span><span class="p">:</span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="s2">"e707714512577b42f9a011f8b870625429f93573"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"value"</span><span class="p">:</span><span class="mi">1e-08</span><span class="w">
-         </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="s2">"scripts"</span><span class="p">:[</span><span class="w">
-
-      </span><span class="p">],</span><span class="w">
-      </span><span class="s2">"script"</span><span class="p">:</span><span class="s2">"0860e31600000000001432e125258b7db0a0dffde5bd03b2b859253538ab0800ca9a3b0000000020920145f9b338c2182c394f61df4aa520ced4454acc50799156e5b6e0841e958a3432e125258b7db0a0dffde5bd03b2b859253538ab9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc514123bd6e8fe7789429ba7614f24de299b0fc890f956c10966696c6c4f66666572676d9b19e7a7eb809f9683a14e6d8502aeba66c9de"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"gas"</span><span class="p">:</span><span class="mi">0</span><span class="w">
-   </span><span class="p">},</span><span class="w">
-   </span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2018-06-06T07:28:37.507Z"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="s2">"1d636df0e8be8e5db401c175385c239404ee2dde8efceefa4c7a3579eed9e0c7"</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f9a7e1e0-9a73-43a9-87b4-64cc034026a8"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"offer_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ecf1b5e2992a82245b17a0f8c54e98357e04fc833db371f9e27de6511d7271e2"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"fill_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"89489747"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11007239"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"filled_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"fee_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"fee_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16510"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.123"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"txn"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0a41a03cb89e84c9daeae981797aa221d446cec2b6b8002eb2b4e0472f951975"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sha256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f5c1952f4e0dc3d5a0b8967d647877a5220d3f2e41af4482600c12969a5b0f1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"invoke"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bdfab1bf3f214dc433a6d08c2202471ed220ae24"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"operation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fillOffer"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"f85d49d61d1c7bc972857724eb3b1fc91e49e2ed"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc532e125258b7db0a0dffde5bd03b2b859253538ab"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"e271721d51e67de2f971b33d83fc047e35984ec5f8a0175b24822a99e2b5f1ec"</span><span class="p">,</span><span class="w">
+        </span><span class="mi">11007239</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5"</span><span class="p">,</span><span class="w">
+        </span><span class="mi">16510</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="mi">209</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"usage"</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f85d49d61d1c7bc972857724eb3b1fc91e49e2ed"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"inputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"prevHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"be3b0c15e495e8d051efa528de06a24c69cecda5cd1a8f98a9af2af877988a60"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"prevIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"outputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"assetId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e707714512577b42f9a011f8b870625429f93573"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">1e-8</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"087e40000000000000209b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc50807f5a7000000000020e271721d51e67de2f971b33d83fc047e35984ec5f8a0175b24822a99e2b5f1ec349b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc532e125258b7db0a0dffde5bd03b2b859253538ab14f85d49d61d1c7bc972857724eb3b1fc91e49e2ed56c10966696c6c4f666665726724ae20d21e4702228cd0a633c44d213fbfb1fabd"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"gas"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-13T07:33:56.912Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0a41a03cb89e84c9daeae981797aa221d446cec2b6b8002eb2b4e0472f951975"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Look to the right for an example of a fill</p>
-<h1 id='makes'>Makes</h1>
 <ul>
-<li>A make represents the preparation of an <a href="#offers">offer</a>.</li>
-<li>Makes are generated when <a href="#orders">orders</a> that do not fill any offer are <a href="#create-orders">created</a>.</li>
-<li>When an order containing a make is <a href="#broadcast-orders">broadcast</a>, an offer will be created.</li>
+<li>A fill is generated when an <a href="#orders">order</a>, that fills the make of another order, is created.</li>
+<li>When an order containing a fill is <a href="#broadcast-orders">broadcast</a>, a trade is created.</li>
 </ul>
-<h2 id='the-make-object'>The make object</h2>
-<p>TODO: Describe</p>
-
+<h1 id='makes'>Makes</h1>
 <blockquote>
 <p>Example of a make</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fdecd44e-94f4-41bb-b4b8-e21c59076666"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"offer_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"113b5c2894cc1074513ed90832c7dd83085aa236ff6a74145fd96d7173234b31"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"available_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22973785950"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"974547"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"filled_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22973785950"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"txn"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cancel_txn"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.000042419956472172145401224128668265928541917"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-05T10:07:35.077Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b9a77a943a0f4803081d656d3a556516757b603ca094aa2922be00b8db020a8d"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"trades"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="s2">"offerHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3eda0632d6713dd3aa8e8512ab73c2e9e59151b04916a5350023629e913e36a7"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ffe681b91911ec1217190c89899371abdabf73bf2be4eda8e1c3e3c8d202a038"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"sha256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c0356803fd3ce5bb16fab7130d0baeb000eaed125edb4b9d10687e75306d30a0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"invoke"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bdfab1bf3f214dc433a6d08c2202471ed220ae24"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"operation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"makeOffer"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"f85d49d61d1c7bc972857724eb3b1fc91e49e2ed"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5"</span><span class="p">,</span><span class="w">
+      </span><span class="mi">15000000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"32e125258b7db0a0dffde5bd03b2b859253538ab"</span><span class="p">,</span><span class="w">
+      </span><span class="mi">500000000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"62343361656531302d643532332d343830342d393831342d376637653863353361636230"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="mi">209</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abd4a797-2a35-42d1-ba22-ca9219867e3c"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500000513"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"filled_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"21209"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"fee_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"750000"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"fee_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00004242"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-05T10:08:39.542Z"</span><span class="w">
+      </span><span class="s2">"usage"</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f85d49d61d1c7bc972857724eb3b1fc91e49e2ed"</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"inputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"prevHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"be3b0c15e495e8d051efa528de06a24c69cecda5cd1a8f98a9af2af877988a60"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"prevIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"outputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"assetId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e707714512577b42f9a011f8b870625429f93573"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">1e-8</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2462343361656531302d643532332d343830342d393831342d376637653863353361636230080065cd1d000000001432e125258b7db0a0dffde5bd03b2b859253538ab08c0e1e40000000000209b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc514f85d49d61d1c7bc972857724eb3b1fc91e49e2ed56c1096d616b654f666665726724ae20d21e4702228cd0a633c44d213fbfb1fabd"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"gas"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h1 id='offers'>Offers</h1>
+</span></code></pre>
+<ul>
+<li>A make is generated when an <a href="#orders">order</a>, which does not fill any makes from other orders, is created.</li>
+<li>When an order containing a make is <a href="#broadcast-orders">broadcast</a>, an offer will be created.</li>
+</ul>
+
+<p>Look to the right for an example of a make  </p>
+<h1 id='offers'>Offers</h1>
 <ul>
 <li>An offer represents the settlement of a <a href="#makes">make</a>.</li>
 <li>This happens when the <a href="#orders">order</a> that contains the make.
