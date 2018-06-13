@@ -1,43 +1,51 @@
 # Makes
 
-* A make represents the preparation of an [offer](#offers).
-* Makes are generated when [orders](#orders) that do not fill any offer are [created](#create-orders).
-* When an order containing a make is [broadcast](#broadcast-orders), an offer will be created.
-
-
-## The make object
-
-TODO: Describe
-
 > Example of a make
 
 ```json
 {
-  "id": "fdecd44e-94f4-41bb-b4b8-e21c59076666",
-  "offer_hash": "113b5c2894cc1074513ed90832c7dd83085aa236ff6a74145fd96d7173234b31",
-  "available_amount": "0",
-  "offer_asset_id": "ab38352559b8b203bde5fddfa0b07d8b2525e132",
-  "offer_amount": "22973785950",
-  "want_asset_id": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
-  "want_amount": "974547",
-  "filled_amount": "22973785950",
-  "txn": null,
-  "cancel_txn": null,
-  "price": "0.000042419956472172145401224128668265928541917",
-  "status": "success",
-  "created_at": "2018-06-05T10:07:35.077Z",
-  "transaction_hash": "b9a77a943a0f4803081d656d3a556516757b603ca094aa2922be00b8db020a8d",
-  "trades": [
+  "offerHash": "3eda0632d6713dd3aa8e8512ab73c2e9e59151b04916a5350023629e913e36a7",
+  "hash": "ffe681b91911ec1217190c89899371abdabf73bf2be4eda8e1c3e3c8d202a038",
+  "sha256": "c0356803fd3ce5bb16fab7130d0baeb000eaed125edb4b9d10687e75306d30a0",
+  "invoke": {
+    "scriptHash": "bdfab1bf3f214dc433a6d08c2202471ed220ae24",
+    "operation": "makeOffer",
+    "args": [
+      "f85d49d61d1c7bc972857724eb3b1fc91e49e2ed",
+      "9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5",
+      15000000,
+      "32e125258b7db0a0dffde5bd03b2b859253538ab",
+      500000000,
+      "62343361656531302d643532332d343830342d393831342d376637653863353361636230"
+    ]
+  },
+  "type": 209,
+  "version": 1,
+  "attributes": [
     {
-      "id": "abd4a797-2a35-42d1-ba22-ca9219867e3c",
-      "status": "success",
-      "want_amount": "500000513",
-      "filled_amount": "21209",
-      "fee_amount": "750000",
-      "fee_asset_id": "ab38352559b8b203bde5fddfa0b07d8b2525e132",
-      "price": "0.00004242",
-      "created_at": "2018-06-05T10:08:39.542Z"
+      "usage": 32,
+      "data": "f85d49d61d1c7bc972857724eb3b1fc91e49e2ed"
     }
-  ]
+  ],
+  "inputs": [
+    {
+      "prevHash": "be3b0c15e495e8d051efa528de06a24c69cecda5cd1a8f98a9af2af877988a60",
+      "prevIndex": 13
+    }
+  ],
+  "outputs": [
+    {
+      "assetId": "602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
+      "scriptHash": "e707714512577b42f9a011f8b870625429f93573",
+      "value": 1e-8
+    }
+  ],
+  "scripts": [],
+  "script": "2462343361656531302d643532332d343830342d393831342d376637653863353361636230080065cd1d000000001432e125258b7db0a0dffde5bd03b2b859253538ab08c0e1e40000000000209b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc514f85d49d61d1c7bc972857724eb3b1fc91e49e2ed56c1096d616b654f666665726724ae20d21e4702228cd0a633c44d213fbfb1fabd",
+  "gas": 0
 }
 ```
+* A make is generated when an [order](#orders), which does not fill any makes from other orders, is created.
+* When an order containing a make is [broadcast](#broadcast-orders), an offer will be created.
+
+Look to the right for an example of a make  

@@ -26,7 +26,7 @@ Eg Neo:
 Neo uses [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm)
 with [NIST P-256](http://safecurves.cr.yp.to/) as the curve parameter for signatures.
 
-### Creating a signature in neo
+To sign a message for Neo:
 
 1. Hash the message using [SHA-256](https://en.wikipedia.org/wiki/SHA-2).
 2. Sign the message's hash with the signer's private key using ECDSA.
