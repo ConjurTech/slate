@@ -307,12 +307,34 @@
           </li>
           <li>
             <a href="#balances" class="toc-h1 toc-link" data-title="balances">Balances</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#description" class="toc-h2 toc-link" data-title="description">Description</a>
+                  </li>
+                  <li>
+                    <a href="#get-the-balance-of-an-address" class="toc-h2 toc-link" data-title="get-the-balance-of-an-address">Get the balance of an address</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#withdrawals" class="toc-h1 toc-link" data-title="withdrawals">Withdrawals</a>
           </li>
           <li>
             <a href="#deposits" class="toc-h1 toc-link" data-title="deposits">Deposits</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#description" class="toc-h2 toc-link" data-title="description">Description</a>
+                  </li>
+                  <li>
+                    <a href="#list-deposits" class="toc-h2 toc-link" data-title="list-deposits">List deposits</a>
+                  </li>
+                  <li>
+                    <a href="#create-a-deposit" class="toc-h2 toc-link" data-title="create-a-deposit">Create a deposit</a>
+                  </li>
+                  <li>
+                    <a href="#broadcast-a-deposit" class="toc-h2 toc-link" data-title="broadcast-a-deposit">Broadcast a deposit</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#currency-pairs" class="toc-h1 toc-link" data-title="currency-pairs">Currency pairs</a>
@@ -383,6 +405,8 @@ API responses will be in the form of <a href="https://www.json.org/">JSON</a> or
   Authentication is done in the form of signing the appropriate request or transaction using the blockchain 
   specific digital signature with the user&#39;s private key.</p>
 
+<p>Do take note that signing will differ across different blockchains.</p>
+
 <blockquote>
 <p>Code example (neo)</p>
 </blockquote>
@@ -408,11 +432,12 @@ with <a href="http://safecurves.cr.yp.to/">NIST P-256</a> as the curve parameter
 <p>To sign a message for Neo:</p>
 
 <ol>
+<li>Serialize the message to bytes.</li>
 <li>Hash the message using <a href="https://en.wikipedia.org/wiki/SHA-2">SHA-256</a>.</li>
 <li>Sign the message&#39;s hash with the signer&#39;s private key using ECDSA.</li>
 </ol>
 
-<p>An example can be seen on the right.</p>
+<p>An example can be seen on the right. </p>
 <h1 id='orders'>Orders</h1><h2 id='description'>Description</h2>
 <p>Orders are instructions to buy or sell assets on Switcheo Exchange.</p>
 
@@ -524,7 +549,8 @@ with <a href="http://safecurves.cr.yp.to/">NIST P-256</a> as the curve parameter
 }
 </code></pre>
 <p>This is the first api call required to create an order.
-  Orders can only be created after sufficient funds have been <a href="#deposits">deposited</a> into the order maker&#39;s contract balance.</p>
+  Orders can only be created after sufficient funds have been <a href="#deposits">deposited</a> into the order maker&#39;s contract balance.
+  A successfully order will be assigned an id and have makes and fills assigned to it by the order matching engine.</p>
 
 <p>A <a href="#authentication">signature</a> has to be provided for this api call. An example of the message required to be signed 
   can be seen on the right.</p>
@@ -641,155 +667,55 @@ with <a href="http://safecurves.cr.yp.to/">NIST P-256</a> as the curve parameter
 </tbody></table>
 <h2 id='broadcast-an-order'>Broadcast an order</h2>
 <blockquote>
-<p>1.Example response from first api call:</p>
+<p>Example response from first api call (neo):</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8d2cce86-98b3-49a0-b3e7-3660b2073458"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"blockchain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"neo"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"contract_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bdfab1bf3f214dc433a6d08c2202471ed220ae24"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ede2491ec91f3beb24778572c97b1c1dd6495df8"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15000000"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500000000"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"transfer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"priority_gas_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"use_native_token"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"native_fee_transfer_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"deposit_txn"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-13T05:30:21.640Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
     </span><span class="s2">"fills"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
     </span><span class="s2">"makes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b43aee10-d523-4804-9814-7f7e8c53acb0"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"offer_hash"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"available_amount"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15000000"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500000000"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"filled_amount"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"txn"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="err">...</span><span class="w">
+            </span><span class="s2">"txn"</span><span class="p">:</span><span class="w"> 
+            </span><span class="p">{</span><span class="w">
                 </span><span class="s2">"offerHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3eda0632d6713dd3aa8e8512ab73c2e9e59151b04916a5350023629e913e36a7"</span><span class="p">,</span><span class="w">
                 </span><span class="s2">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ffe681b91911ec1217190c89899371abdabf73bf2be4eda8e1c3e3c8d202a038"</span><span class="p">,</span><span class="w">
                 </span><span class="s2">"sha256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c0356803fd3ce5bb16fab7130d0baeb000eaed125edb4b9d10687e75306d30a0"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"invoke"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                    </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bdfab1bf3f214dc433a6d08c2202471ed220ae24"</span><span class="p">,</span><span class="w">
-                    </span><span class="s2">"operation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"makeOffer"</span><span class="p">,</span><span class="w">
-                    </span><span class="s2">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                        </span><span class="s2">"f85d49d61d1c7bc972857724eb3b1fc91e49e2ed"</span><span class="p">,</span><span class="w">
-                        </span><span class="s2">"9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5"</span><span class="p">,</span><span class="w">
-                        </span><span class="mi">15000000</span><span class="p">,</span><span class="w">
-                        </span><span class="s2">"32e125258b7db0a0dffde5bd03b2b859253538ab"</span><span class="p">,</span><span class="w">
-                        </span><span class="mi">500000000</span><span class="p">,</span><span class="w">
-                        </span><span class="s2">"62343361656531302d643532332d343830342d393831342d376637653863353361636230"</span><span class="w">
-                    </span><span class="p">]</span><span class="w">
-                </span><span class="p">},</span><span class="w">
-                </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="mi">209</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                    </span><span class="p">{</span><span class="w">
-                        </span><span class="s2">"usage"</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w">
-                        </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f85d49d61d1c7bc972857724eb3b1fc91e49e2ed"</span><span class="w">
-                    </span><span class="p">}</span><span class="w">
-                </span><span class="p">],</span><span class="w">
-                </span><span class="s2">"inputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                    </span><span class="p">{</span><span class="w">
-                        </span><span class="s2">"prevHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"be3b0c15e495e8d051efa528de06a24c69cecda5cd1a8f98a9af2af877988a60"</span><span class="p">,</span><span class="w">
-                        </span><span class="s2">"prevIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="w">
-                    </span><span class="p">}</span><span class="w">
-                </span><span class="p">],</span><span class="w">
-                </span><span class="s2">"outputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                    </span><span class="p">{</span><span class="w">
-                        </span><span class="s2">"assetId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
-                        </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e707714512577b42f9a011f8b870625429f93573"</span><span class="p">,</span><span class="w">
-                        </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">1e-8</span><span class="w">
-                    </span><span class="p">}</span><span class="w">
-                </span><span class="p">],</span><span class="w">
-                </span><span class="s2">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
-                </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2462343361656531302d643532332d343830342d393831342d376637653863353361636230080065cd1d000000001432e125258b7db0a0dffde5bd03b2b859253538ab08c0e1e40000000000209b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc514f85d49d61d1c7bc972857724eb3b1fc91e49e2ed56c1096d616b654f666665726724ae20d21e4702228cd0a633c44d213fbfb1fabd"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"gas"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+                </span><span class="err">...</span><span class="w">
             </span><span class="p">},</span><span class="w">
-            </span><span class="s2">"cancel_txn"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.03"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-13T05:30:21.653Z"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ffe681b91911ec1217190c89899371abdabf73bf2be4eda8e1c3e3c8d202a038"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"trades"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+            </span><span class="err">...</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p>2.Sign make from transaction:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"offerHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3eda0632d6713dd3aa8e8512ab73c2e9e59151b04916a5350023629e913e36a7"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ffe681b91911ec1217190c89899371abdabf73bf2be4eda8e1c3e3c8d202a038"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"sha256"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c0356803fd3ce5bb16fab7130d0baeb000eaed125edb4b9d10687e75306d30a0"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"invoke"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bdfab1bf3f214dc433a6d08c2202471ed220ae24"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"operation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"makeOffer"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"f85d49d61d1c7bc972857724eb3b1fc91e49e2ed"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5"</span><span class="p">,</span><span class="w">
-      </span><span class="mi">15000000</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"32e125258b7db0a0dffde5bd03b2b859253538ab"</span><span class="p">,</span><span class="w">
-      </span><span class="mi">500000000</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"62343361656531302d643532332d343830342d393831342d376637653863353361636230"</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="mi">209</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"usage"</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f85d49d61d1c7bc972857724eb3b1fc91e49e2ed"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"inputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"prevHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"be3b0c15e495e8d051efa528de06a24c69cecda5cd1a8f98a9af2af877988a60"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"prevIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"outputs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"assetId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e707714512577b42f9a011f8b870625429f93573"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">1e-8</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
-  </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2462343361656531302d643532332d343830342d393831342d376637653863353361636230080065cd1d000000001432e125258b7db0a0dffde5bd03b2b859253538ab08c0e1e40000000000209b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc514f85d49d61d1c7bc972857724eb3b1fc91e49e2ed56c1096d616b654f666665726724ae20d21e4702228cd0a633c44d213fbfb1fabd"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"gas"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<blockquote>
-<p>3.Put signature and make id in this format for signature url parameter:</p>
+<p>Example object for signatures parameter:</p>
 </blockquote>
 <pre class="highlight plaintext"><code>{
     fills: {},
     makes: 
       {
-        "b43aee10-d523-4804-9814-7f7e8c53acb0": "a294da6f9e5095190194532363051145f538cf2809b874c736e2dc5ca1584e9a848c849dc44077389ddcee5678f7e37ac3602cc69f030453f8c466c96aa2e8c6"
+        "b43aee10-d523-4804-9814-7f7e8c53acb0": "a294da6f9e5095190194532363051145f538cf2809..."
       }
 }
 </code></pre>
 <p>This is the second api call needed to create an order.
-  After using the create order endpoint, you will receive a transaction as the response to be broadcast.</p>
-
-<p>Every <a href="#fills">fill</a> and <a href="#makes">make</a> in the response from the first api call has to be <a href="#authentication">signed</a>. </p>
-
+  After using the create order endpoint, you will receive a transaction as the response to used for broadcasting.</p>
+<h3 id='broadcasting-an-order-neo-example'>Broadcasting an order(neo example)</h3>
 <p>Looking at the example on the right:</p>
 
-<ol>
-<li>A response is received from calling the <a href="#create-an-order">create order</a> endpoint.</li>
-<li><code>fills</code> returns an empty array, so lets look at <code>makes</code>. The message we have to sign will be the value returned by the <code>txn</code> key.</li>
-<li>After signing the make, we will have to include the make id and signature in an object:</li>
-</ol>
+<ul>
+<li><p>A response is received from calling the <a href="#create-an-order">create order</a> endpoint.</p></li>
+<li><p>Every <a href="#fills">fill</a> and <a href="#makes">make</a> in the response from the first api call has to be <a href="#authentication">signed</a> before broadcasting. </p></li>
+<li><p><code>fills</code> returns an empty array, so lets look at <code>makes</code>.
+An object is returned by <code>txn</code>.</p></li>
+<li><p><code>sha256</code> in the <code>txn</code> object returns a hash.
+This is the hash message required to be signed.  </p></li>
+<li><p>If you want to verify the message hash,
+You can serialize the entire object returned by txn to bytes,
+hash it with sha256,
+and then compare it with the hash returned by sha256.</p></li>
+<li><p>After signing the make, we will have to include the make id and signature in an object:</p></li>
+</ul>
 
 <p><code>{ makes: { id: &lt;signature&gt; }, fills: { id: &lt;signature&gt; } }</code></p>
 
@@ -835,7 +761,7 @@ with <a href="http://safecurves.cr.yp.to/">NIST P-256</a> as the curve parameter
 </tr>
 </thead><tbody>
 <tr>
-<td>signature</td>
+<td>signatures</td>
 <td><strong>string</strong></td>
 <td>The signatures in this format: <code>{ makes: { id: &lt;signature&gt; }, fills: { id: &lt;signature&gt; } }</code></td>
 </tr>
@@ -869,7 +795,8 @@ Only orders that have </p>
 <blockquote>
 <p>Example response:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w"> </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cancel-id"</span><span class="p">,</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w"> 
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cancel-id"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cancel_txn"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"hash_to_sign"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hash_to_sign"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"script_params"</span><span class="p">:</span><span class="w"> </span><span class="s2">"script_params"</span><span class="p">,</span><span class="w">
@@ -1043,6 +970,8 @@ Only orders that have </p>
 <li>A fill is generated when an <a href="#orders">order</a>, that fills the make of another order, is created.</li>
 <li>When an order containing a fill is <a href="#broadcast-orders">broadcast</a>, a trade is created.</li>
 </ul>
+
+<p>Look to the right for an example of a fill</p>
 <h1 id='makes'>Makes</h1>
 <blockquote>
 <p>Example of a make</p>
@@ -1240,7 +1169,374 @@ is <a href="#broadcast-orders">broadcast</a>.</li>
 <td>Only return one trade before this time (unix); overrides <code>from</code> and <code>to</code></td>
 </tr>
 </tbody></table>
-<h1 id='balances'>Balances</h1><h1 id='withdrawals'>Withdrawals</h1><h1 id='deposits'>Deposits</h1><h1 id='currency-pairs'>Currency pairs</h1>
+<h1 id='balances'>Balances</h1><h2 id='description'>Description</h2>
+<p>There are two types of balances:</p>
+
+<ul>
+<li>Wallet balance represents funds present in your wallet.</li>
+<li>Contract balance represents funds present in contract balance.</li>
+</ul>
+<h2 id='get-the-balance-of-an-address'>Get the balance of an address</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl https://test-api.switcheo.network/v2/orders <span class="se">\ </span>
+  -d <span class="nv">address</span><span class="o">=</span>ede2491ec91f3beb24778572c97b1c1dd6495df8 <span class="se">\</span>
+  -d contract_hashes[]<span class="o">=</span>9c9d2fac35987621e252981e06762895b09eb035 <span class="se">\</span>
+</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"confirming"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"NEO"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transferred"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">10990729</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"333e3a3c1213f9f4d24ad6283374df55ac4a4d751556cdd634e188221b09e84f"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-11T12:07:20.442Z"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transferred"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">10990729</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2877692111cd705934fb8ce54fc09d448688080b08f5d4b1fa3011fb6a4ae854"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-12T02:35:01.639Z"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transferred"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">11464496</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b5a93e29b954919640f7c390211a3bf666e7779d32b04000c57e56aaf19bf1a0"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-13T07:33:57.984Z"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transferred"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">10990729</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0a41a03cb89e84c9daeae981797aa221d446cec2b6b8002eb2b4e0472f951975"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-13T07:33:58.007Z"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"SWTH"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transferred"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-89489747</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"333e3a3c1213f9f4d24ad6283374df55ac4a4d751556cdd634e188221b09e84f"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-11T12:07:20.448Z"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transferred"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-89489747</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2877692111cd705934fb8ce54fc09d448688080b08f5d4b1fa3011fb6a4ae854"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-12T02:35:01.645Z"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transferred"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-93347300</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b5a93e29b954919640f7c390211a3bf666e7779d32b04000c57e56aaf19bf1a0"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-13T07:33:57.990Z"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"event_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transferred"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">-89489747</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0a41a03cb89e84c9daeae981797aa221d446cec2b6b8002eb2b4e0472f951975"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-13T07:33:58.013Z"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"confirmed"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"GAS"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100000000.0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"SWTH"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7761229601.0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"NEO"</span><span class="p">:</span><span class="w"> </span><span class="s2">"230808652.0"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint gets contract balances of the given address and contract.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>https://api.switcheo.network/v2/balances</code></p>
+<h3 id='url-parameters'>Url parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>address</td>
+<td><strong>string</strong></td>
+<td>The address to get balances for</td>
+</tr>
+<tr>
+<td>contract_hashes</td>
+<td><strong>array</strong></td>
+<td>Switcheo <a href="#contract-hash">contract hash</a>. Only returns balances from this contract hash.</td>
+</tr>
+</tbody></table>
+<h1 id='withdrawals'>Withdrawals</h1><h1 id='deposits'>Deposits</h1><h2 id='description'>Description</h2>
+<p>Used to move funds from wallet into smart contract ie. wallet balance.</p>
+<h3 id='overview'>Overview</h3>
+<p>To perform any action, <strong>two</strong> API calls are required. This defers from a traditional exchange API,
+ as the deposit must be co-signed by our off-chain service, and then broadcasted to the appropriate blockchain.</p>
+
+<p>The <strong>first</strong> API call creates an appropriate blockchain transaction (e.g. <a href="#create-an-deposit">create deposit</a>), which will 
+  be returned in the response.</p>
+
+<p>This transaction must then be signed in the specific way as required as by the blockchain; The signature should then
+  be returned as the payload in the <strong>second</strong> API call (e.g. <a href="#broadcast-an-deposit">broadcast deposit</a>).</p>
+
+<p>As mentioned above, the message to be signed in the second step of an action is simply the serialized 
+  blockchain transaction itself. </p>
+
+<p>As there is no transaction to be signed in the first step of an action, in general, the message 
+  to be signed in the first step of an action is the request parameters as an deposited JSON <strong>string</strong>.  </p>
+<h2 id='list-deposits'>List deposits</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/deposits?address=PUBLIC_ADDRESS"</span>
+</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c415f943-bea8-4dbf-82e3-8460c559d8b7"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"blockchain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"neo"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"contract_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c41d8b0c30252ce7e8b6d95e9ce13fdd68d2a5a8"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20abeefe84e4059f6681bf96d5dcb5ddeffcc377"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100000000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20000000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"transfer_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"priority_gas_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"use_native_token"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"native_fee_transfer_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"deposit_txn"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-15T10:54:20.054Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processed"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fills"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"makes"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves deposits from a specific address filtered by the params provided.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>https://api.switcheo.network/v2/deposits</code></p>
+<h3 id='url-parameters'>Url parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>address</td>
+<td><strong>string</strong></td>
+<td>deposit maker&#39;s wallet address. Only returns deposits from this address.</td>
+</tr>
+<tr>
+<td>contract_hash</td>
+<td><strong>string</strong> (optional)</td>
+<td>Switcheo <a href="#contract-hash">contract hash</a>. Only returns deposits from this contract hash.</td>
+</tr>
+<tr>
+<td>trade_asset_id</td>
+<td><strong>string</strong> (optional)</td>
+<td>Hash of an asset. Only returns deposits with this trade asset.</td>
+</tr>
+<tr>
+<td>base_asset_id</td>
+<td><strong>string</strong> (optional)</td>
+<td>Hash of an asset. Only returns deposits with this base asset.</td>
+</tr>
+</tbody></table>
+<h2 id='create-a-deposit'>Create a deposit</h2>
+<blockquote>
+<p>Example of message to sign:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>
+</code></pre>
+<p>This is the first api call required to create an deposit.
+  deposits can only be created after sufficient funds have been <a href="#deposits">deposited</a> into the deposit maker&#39;s contract balance.</p>
+
+<p>A <a href="#authentication">signature</a> has to be provided for this api call. An example of the message required to be signed 
+  can be seen on the right.</p>
+
+<aside class="notice">
+  Note: After calling this endpoint, do remember to call the second api (broadcast deposit) for the deposit to be created. 
+</aside>
+
+<blockquote>
+<p>Example Request:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl 
+</code></pre>
+<blockquote>
+<p>Example Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">
+</span></code></pre><h3 id='http-request-post'>HTTP Request (POST)</h3>
+<p><code>https://api.switcheo.network/v2/deposits</code></p>
+<h3 id='url-parameters-2'>Url parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>blockchain</td>
+<td><strong>string</strong></td>
+<td>Blockchain (in lowercase) that the offer is on. Possible values are: <code>neo</code></td>
+</tr>
+<tr>
+<td>contract_hash</td>
+<td><strong>string</strong></td>
+<td>Switcheo <a href="#contract-hash">contract hash</a> to execute the deposit on.</td>
+</tr>
+<tr>
+<td>address</td>
+<td><strong>string</strong></td>
+<td>Hash of the deposit maker&#39;s wallet public address.</td>
+</tr>
+<tr>
+<td>pair</td>
+<td><strong>string</strong></td>
+<td>Pair to trade, e.g. <code>RPX_NEO</code></td>
+</tr>
+<tr>
+<td>side</td>
+<td><strong>string</strong></td>
+<td>Possible values are: <code>buy</code>, <code>sell</code></td>
+</tr>
+<tr>
+<td>price</td>
+<td><strong>string</strong></td>
+<td>deposit price to 8 decimal places</td>
+</tr>
+<tr>
+<td>offer_amount</td>
+<td><strong>string</strong></td>
+<td>Number of assets offered in the deposit.</td>
+</tr>
+<tr>
+<td>use_native_tokens</td>
+<td><strong>boolean</strong></td>
+<td><code>true</code> if SWTH is used as fees. <code>false</code> if SWTH is not used for fees.</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td><strong>int</strong></td>
+<td>Current timestamp (epoch milliseconds)</td>
+</tr>
+<tr>
+<td>public_key</td>
+<td><strong>string</strong></td>
+<td>Public key of the deposit maker in hex format</td>
+</tr>
+<tr>
+<td>signature</td>
+<td><strong>string</strong></td>
+<td>Message hash signed with deposit maker&#39;s private key.</td>
+</tr>
+</tbody></table>
+<h2 id='broadcast-a-deposit'>Broadcast a deposit</h2>
+<blockquote>
+<p>1.Example response from first api call:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>2.Sign make from transaction:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>3.Put signature and make id in this format for signature url parameter:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>{
+    fills: {},
+    makes: 
+      {
+        "b43aee10-d523-4804-9814-7f7e8c53acb0": "a294da6f9e5095190194532363051145f538cf2809b874c736e2dc5ca1584e9a848c849dc44077389ddcee5678f7e37ac3602cc69f030453f8c466c96aa2e8c6"
+      }
+}
+</code></pre>
+<p>This is the second api call needed to create an deposit.
+  After using the create deposit endpoint, you will receive a transaction as the response to be broadcast.</p>
+
+<p>Every <a href="#fills">fill</a> and <a href="#makes">make</a> in the response from the first api call has to be <a href="#authentication">signed</a>. </p>
+
+<p>Looking at the example on the right:</p>
+
+<ol>
+<li>A response is received from calling the <a href="#create-an-deposit">create deposit</a> endpoint.</li>
+<li><code>fills</code> returns an empty array, so lets look at <code>makes</code>. The message we have to sign will be the value returned by the <code>txn</code> key.</li>
+<li>After signing the make, we will have to include the make id and signature in an object:</li>
+</ol>
+
+<p><code>{ makes: { id: &lt;signature&gt; }, fills: { id: &lt;signature&gt; } }</code></p>
+
+<p>and use it for the <code>signature</code> url parameter.</p>
+
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code> curl https://api.switcheo.network/v2/deposits/id/broadcast <span class="se">\</span>
+   -d <span class="s1">'{"public_key":"034d2ad7cc8a2598dd341271920fd78ea98209cd082aae6a1ef10d51a3b254d822","signatures":{"fills":{},"makes":{"48c908fb-95a6-4646-9484-d01ea509f6cc":"3eab5444213a78d9450505da829ba533071d53e020b9beb266a85032f63f3b7331bb21d2df820e59738534462fc02a4b7cc1bd689918870bcbd7b1fadc1f3aca"}}}'</span> 
+</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w"> 
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"474940c6-2be4-43a8-aa71-0f9b2bc8908c"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"blockchain"</span><span class="p">:</span><span class="s2">"neo"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"contract_hash"</span><span class="p">:</span><span class="s2">"06118464b88a1049f38abac013347ca9039fb8b0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"address"</span><span class="p">:</span><span class="s2">"20abeefe84e4059f6681bf96d5dcb5ddeffcc377"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"side"</span><span class="p">:</span><span class="s2">"sell"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"offer_asset_id"</span><span class="p">:</span><span class="s2">"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"want_asset_id"</span><span class="p">:</span><span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"offer_amount"</span><span class="p">:</span><span class="s2">"100000"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"want_amount"</span><span class="p">:</span><span class="s2">"143253"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transfer_amount"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"priority_gas_amount"</span><span class="p">:</span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"use_native_token"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"native_fee_transfer_amount"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"deposit_txn"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2018-05-23T03:20:19.481Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"fills"</span><span class="p">:[],</span><span class="w">
+  </span><span class="s2">"makes"</span><span class="p">:[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-2'>HTTP Request</h3>
+<p><code>https://api.switcheo.network/v2/deposits/id/broadcast</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>signature</td>
+<td><strong>string</strong></td>
+<td>The signatures in this format: <code>{ makes: { id: &lt;signature&gt; }, fills: { id: &lt;signature&gt; } }</code></td>
+</tr>
+<tr>
+<td>public_key</td>
+<td><strong>string</strong></td>
+<td>Public key of the deposit maker in hex format</td>
+</tr>
+</tbody></table>
+<h1 id='currency-pairs'>Currency pairs</h1>
 <p>Currency pairs in the Switcheo API are written in the format: </br> 
 <code>TRADE_BASE</code> </br>
 Eg: <code>SWTH_NEO</code></p>
