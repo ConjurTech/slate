@@ -3,6 +3,8 @@
 As a decentralised exchange, Switcheo does not use any sort of password or api key.
   Authentication is done in the form of signing the appropriate request or transaction using the blockchain 
   specific digital signature with the user's private key.
+  
+Do take note that signing will differ across different blockchains.
 
 > Code example (neo)
 
@@ -28,7 +30,8 @@ with [NIST P-256](http://safecurves.cr.yp.to/) as the curve parameter for signat
 
 To sign a message for Neo:
 
-1. Hash the message using [SHA-256](https://en.wikipedia.org/wiki/SHA-2).
-2. Sign the message's hash with the signer's private key using ECDSA.
+1. Serialize the message to bytes.
+2. Hash the message using [SHA-256](https://en.wikipedia.org/wiki/SHA-2).
+3. Sign the message's hash with the signer's private key using ECDSA.
 
-An example can be seen on the right.
+An example can be seen on the right. 

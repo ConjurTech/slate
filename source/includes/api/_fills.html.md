@@ -62,3 +62,5 @@
 
 * A fill is generated when an [order](#orders), that fills the make of another order, is created.
 * When an order containing a fill is [broadcast](#broadcast-orders), a trade is created.
+
+Look to the right for an example of a fill
