@@ -12,11 +12,11 @@ Before you proceed with the API documentation, be sure to explore Switcheo Excha
 
 ## System terminology
 
-Reource | Description
+Resource | Description
 --------- | -----------
 [Order](#orders) | Use this to buy or sell assets.
 [Offers](#offers) | Orders that are waiting to be filled in the order book.
-[Trades](#trades) | Orders that execute fills on offers. 
+[Trades](#trades) | Orders that execute fills on offers.
 Contract balance | Funds present in Switcheo's smart contract. You need to deposit funds here to create orders.  
 
 ## API
