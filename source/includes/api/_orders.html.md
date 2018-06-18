@@ -1,6 +1,6 @@
 # Orders
 
-## Description
+**Description**
 
 Orders are instructions to buy or sell assets on Switcheo Exchange.
 
@@ -11,7 +11,7 @@ Orders will therefore contain a combination of zero or one [make](#makes) and/or
 Once an order is placed, the funds required for the order is removed from the user's balance
  and placed on hold until the order is filled or the order is cancelled.
 
-### Overview
+**Overview**
 
 To perform any action, **two** API calls are required. This defers from a traditional exchange API,
  as the order must be co-signed by our off-chain service, and then broadcasted to the appropriate blockchain.
@@ -23,7 +23,9 @@ This transaction must then be signed in the specific way as required as by the b
   be returned as the payload in the **second** API call (e.g. [broadcast order](#broadcast-an-order)).
   
 As mentioned above, the message to be signed in the second step of an action is simply the serialized 
-  blockchain transaction itself. 
+  blockchain transaction itself.
+  
+**Authentication**
   
 As there is no transaction to be signed in the first step of an action, in general, the message 
   to be signed in the first step of an action is the request parameters as an ordered JSON **string**.  
@@ -31,13 +33,11 @@ As there is no transaction to be signed in the first step of an action, in gener
 For additional security, care should be taken to verify that the transaction returned from the API matches that of the
  requested order. An example of validating an order transaction can be found here:
  
- TODO: finish this.
- 
- NEO example:
-   first step (message prefix, sign)
-  
- NEO example:
-   second step (serialize txn, sign)
+NEO example:
+  first step (message prefix, sign)
+   
+NEO example:
+  second step (serialize txn, sign)
 
 ## List orders
 
@@ -246,7 +246,8 @@ Looking at the example on the right:
  
  ```shell
  curl https://api.switcheo.network/v2/orders/id/broadcast \
-   -d '{"public_key":"034d2ad7cc8a2598dd341271920fd78ea98209cd082aae6a1ef10d51a3b254d822","signatures":{"fills":{},"makes":{"48c908fb-95a6-4646-9484-d01ea509f6cc":"3eab5444213a78d9450505da829ba533071d53e020b9beb266a85032f63f3b7331bb21d2df820e59738534462fc02a4b7cc1bd689918870bcbd7b1fadc1f3aca"}}}' 
+   -d '{\"public_key\":\"034d2ad7cc8a2598dd341271920fd78ea98209cd082aae6a1ef10d51a3b254d822\", \
+        "signatures":{\"fills\":{},\"makes\":{\"48c908fb-95a6-4646-9484-d01ea509f6cc\":\"3eab5444213a78d9450...\"}}}'  
  ```
  
  > Example response:

@@ -23,7 +23,7 @@ export const sign = (hashedMsg, privateKey) => {
   return signature.toString('hex')
 }
 ```
-Eg Neo:
+**Signing example (neo)**
  
 Neo uses [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm)
 with [NIST P-256](http://safecurves.cr.yp.to/) as the curve parameter for signatures.
