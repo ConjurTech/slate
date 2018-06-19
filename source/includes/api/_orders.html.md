@@ -37,7 +37,7 @@ For more details, please consult the [Authentication](#authentication) section.
 ## List orders
 
 ```shell
-curl "https://api.switcheo.network/v2/orders?address=PUBLIC_ADDRESS"
+curl "https://api.switcheo.network/v2/orders?address=20abeefe84e4059f6681bf96d5dcb5ddeffcc377"
 ```
 
 > Example response:
@@ -79,7 +79,7 @@ Retrieves orders from a specific address filtered by the parameters provided.
 --------------- | --------------------- | -----------
  address        | **string**            | Only returns orders made by this address.
  contract_hash  | **string** (optional) | Switcheo [contract hash](#contract-hash). Only returns orders from this contract hash.
- pair           | **string** (optioonal) | TODO: NYI
+ pair           | **string** (optional) | TODO: NYI
 
 ## Create an order
 
@@ -100,7 +100,7 @@ Retrieves orders from a specific address filtered by the parameters provided.
 
 This is the first api API required to create an order.
   Orders can only be created after sufficient funds have been [deposited](#deposits) into the order maker's contract balance.
-  A successfully order will be assigned an id and have makes and fills assigned to it by the order matching engine.
+  A successful order will be assigned an id and have makes and fills assigned to it by the order matching engine.
 
 A [signature](#authentication) has to be provided for this API call. An example of the message required to be signed 
   can be seen on the right.
@@ -123,8 +123,8 @@ curl https://test-api.switcheo.network/v2/orders \
   -d offer_amount=44999997 \
   -d use_native_tokens=false \
   -d timestamp=1528879294321 \
-  -d public_key=03dba309c4493d6fd2215b94f2abd1f8b5758361bf9eb0332ec8c0193884953955 \
-  -d signature=986961707a860eec03fecdba596fb171d64fe8d0c66277d19a32965c51d88abfc1b55c67f7bff0c95df20aa82b849b5e1c60a6d645a55ee466d594ee8da0b902
+  -d public_key=03dba309c4493d6fd22.. \
+  -d signature=986961707a860eec03fe..
 ```
 
 > Example Response
@@ -166,76 +166,36 @@ curl https://test-api.switcheo.network/v2/orders \
  address           | **string**  | Address of the order maker (you). 
  side              | **string**  | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`.
  price             | **string**  | Order price at 8 decimal places precision
- offer_amount      | **string**  | Number of tokens offered in the order as an integer string. This means that all decimals should be specified up to the precision allowed by the given token, and the decimal point itself should be dropped. 
+ offer_amount      | **string**  | [Amount](#amounts) of tokens offered in the order as an integer string. 
  use_native_tokens | **boolean** | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
  timestamp         | **int**     | The current timestamp to be used as a nonce as epoch **milliseconds**.
  public_key        | **string**  | Public key of the order maker in hex format (big endian).
  signature         | **string**  | Signature of the request payload. See [Authentication](#authentication) for more details.
  
-## Broadcast an order
+## Execute an order
 
-> Example response from first api call (neo):
+> Example response create order (neo):
 
 ```json
 {
-	...
-	"fills": [],
-	"makes": [
-		{
-			...
-			"txn": 
-			{
-				"offerHash": "3eda0632d6713dd3aa8e8512ab73c2e9e59151b04916a5350023629e913e36a7",
-				"hash": "ffe681b91911ec1217190c89899371abdabf73bf2be4eda8e1c3e3c8d202a038",
-				"sha256": "c0356803fd3ce5bb16fab7130d0baeb000eaed125edb4b9d10687e75306d30a0",
-				...
-			},
-			...
-		}
-	]
+  ...
+  "fills": [],
+  "makes": [
+   {
+     ...
+     "txn": 
+     {
+       "offerHash": "3eda0...",
+       "hash": "ffe681b...",
+       "sha256": "c0356803...", // Message digest for signature (neo)
+       ...
+     },
+     ...
+   }
+  ]
 }
 ```
 
-> Example object for signatures parameter:
-
-```
-{
-    fills: {},
-    makes: 
-      {
-        "b43aee10-d523-4804-9814-7f7e8c53acb0": "a294da6f9e5095190194532363051145f538cf2809..."
-      }
-}
-```
-
-This is the second api call needed to create an order.
-  After using the create order endpoint, you will receive a transaction as the response to used for broadcasting.
-
-### Broadcasting an order(neo example)
-
-Looking at the example on the right:
-   
-* A response is received from calling the create order endpoint.
-
-* Every fill and make in the response from the first api call has to be [signed](#authentication) before broadcasting. 
-
-* `fills` returns an empty array, so lets look at `makes`.
-  An object is returned by `txn`.
-  
-* `sha256` in the `txn` object returns a hash.
-  This is the hash message required to be signed.  
-
-* If you want to verify the message hash,
-    You can serialize the entire object returned by txn to bytes,
-    hash it with sha256,
-    and then compare it with the hash returned by sha256.
-  
-* After signing the make, we will have to include the make id and signature in an object:
- 
- `{ makes: { id: <signature> }, fills: { id: <signature> } }`
- 
-  and use it for the `signature` url parameter.
-  
 > Example request:
  
  ```shell
@@ -268,6 +228,23 @@ Looking at the example on the right:
   "makes":[]
 }
  ```
+
+This is the second API call needed to create an order.
+  After using the create order endpoint, you will receive a transaction as the response to be executed.
+
+### Signing
+
+Every fill and make in the response has to be [signed](#authentication) before execution. 
+
+For neo transactions, the hashes needed for signing can be found in fills/makes > txn > sha256.  
+
+To verify the message hash for neo, serialize the value returned by `txn` and compare it with the hash returned by `sha256`.
+  
+After signing the makes and fills, we will have to include their ids and signatures in an object of this format:
+ 
+ `{ makes: { id: <signature> }, fills: { id: <signature> } }`
+ 
+  and use it for the `signature` url parameter.
  
 ### HTTP Request
  
