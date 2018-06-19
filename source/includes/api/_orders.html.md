@@ -82,7 +82,7 @@ Retrieves orders from a specific address filtered by the parameters provided.
  pair           | **string** (optional) | TODO: NYI
 
 ## Create an order
-
+  
 > Payload:
 
 ```
@@ -104,10 +104,6 @@ This is the first api API required to create an order.
 
 A [signature](#authentication) has to be provided for this API call. An example of the message required to be signed 
   can be seen on the right.
-  
-<aside class="notice">
-  Note: After calling this endpoint, the Execute Order endpoint has to be called for the order to be exeucted. 
-</aside>
 
 > Example Request
 
@@ -151,6 +147,10 @@ curl https://test-api.switcheo.network/v2/orders \
   "makes":[]
 }
 ```
+
+<aside class="notice">
+  Note: After calling this endpoint, the Execute Order endpoint has to be called for the order to be exeucted. 
+</aside>
     
 ### HTTP Request (POST)
 
@@ -232,8 +232,6 @@ curl https://test-api.switcheo.network/v2/orders \
 This is the second API call needed to create an order.
   After using the create order endpoint, you will receive a transaction as the response to be executed.
 
-### Signing
-
 Every fill and make in the response has to be [signed](#authentication) before execution. 
 
 For neo transactions, the hashes needed for signing can be found in fills/makes > txn > sha256.  
@@ -242,9 +240,9 @@ To verify the message hash for neo, serialize the value returned by `txn` and co
   
 After signing the makes and fills, we will have to include their ids and signatures in an object of this format:
  
- `{ makes: { id: <signature> }, fills: { id: <signature> } }`
+`{ makes: { id: <signature> }, fills: { id: <signature> } }`
  
-  and use it for the `signature` url parameter.
+and use it for the `signature` url parameter.
  
 ### HTTP Request
  
@@ -254,59 +252,78 @@ After signing the makes and fills, we will have to include their ids and signatu
  
  Parameter  | Type       | Description
  ---------- | ---------- | -----------
- signatures | **string** | The signatures in this format: `{ makes: { id: <signature> }, fills: { id: <signature> } }`
- public_key | **string** | Public key of the order maker in hex format
+ signatures | **string** | Signed fills and makes in response from create order endpoint. Format: `{ makes: { id: <signature> }, fills: { id: <signature> } }`
+ public_key | **string** | Public key of the order maker in hex format.
 
-## Cancel an order
+## Create cancellation
 
-> Message hash example (For signature):
-
+> Payload:
 
 ```
-TODO: Find out message hash format
-"hash_to_sign":"c9684604e5b6963499ae8a4abfe6c8e7657648f8a1ed8e7528d4ba9d64e41638"
+{ order_id }
 ```
 
-This endpoint prepares the cancellation of an order that has been broadcast. <br/>
-Only orders that have 
-
-###Generating a signature:
-
-* As Switcheo is a DEX, we need to sign as a form of authentication ([Click here for more information](#signatures))
-* The signature(s) must be provided in the url parameters.
-* Please look to the right for an example of the message hash\
-
-<aside class="notice">
- While signing, make sure that the keys of the message hash are in the same order as our example. 
-</aside>
+> Example request:
 
 ```shell
-curl "https://api.switcheo.network/v2/orders/ORDER_ID/create_cancel"
+curl "https://api.switcheo.network/v2/orders/c415f947/create_cancel"
+  -d order_id=474940c6... \
+  -d signature=986961707a860eec03fe... \
 ```
 
 > Example response:
 
 ```json
-{ 
-  "id": "cancel-id",
-  "transaction": "cancel_txn",
-  "hash_to_sign": "hash_to_sign",
-  "script_params": "script_params",
+{
+	"id": "fa764bc3...",
+	"transaction": {
+		"hash": "5b542708ee47...",
+		"type": 209,
+		"version": 1,
+		"attributes": [
+			{
+				"usage": 32,
+				"data": "f85d49d61d..."
+			}
+		],
+		"inputs": [
+			{
+				"prevHash": "1d1f3a631...",
+				"prevIndex": 0
+			}
+		],
+		"outputs": [
+			{
+				"assetId": "602c79718b16e...",
+				"scriptHash": "e707714512...",
+				"value": 1e-8
+			}
+		],
+		"scripts": [],
+		"script": "20a7ce4ae512908ed4150...",
+		"gas": 0
+	},
+	"hash_to_sign": "ea7936541844b61d73a8...",
+	"script_params": {
+		"scriptHash": "48756743d524af03aa7...",
+		"operation": "cancelOffer",
+		"args": [
+			"9b7cffdaa674...",
+			"a7ce4ae51290..."
+		]
+	}
 }
 ```
 
-### After receiving the response:
+This is the first api call required to cancel an order.
+  Only orders with makes with **more than 0** `available_amount` are eligible for cancellation.
 
-* Cancelling an order is a two step process.
-
-* First, you will have to create the cancellation.
-
-* After cancelling the order, you will receive a transaction as the response.
-
-* This transaction needs to be signed and broadcast for it to persist in the blockchain.
-
-([Click here for next step](#broadcast-a-cancellation))
-
+A [signature](#authentication) has to be provided for this API call. An example of the message required to be signed 
+  can be seen on the right.
+  
+<aside class="notice">
+  Note: After calling this endpoint, the broadcast cancel endpoint has to be called for the cancellation to be executed. 
+</aside>
 
 ### HTTP Request
 
@@ -314,12 +331,12 @@ curl "https://api.switcheo.network/v2/orders/ORDER_ID/create_cancel"
 
 ### URL Parameters
 
-Parameter | Type | Description
---------- | ----------- | -----------
-  order_id | yes |  the order id
-  signature | yes | Signed with the order maker's private key 
+ Parameter | Type       | Description
+---------- | ---------- | -----------
+ order_id  | **string** | Order ID to cancel.
+ signature | **string** | Signature of the request payload. See [Authentication](#authentication) for more details.
   
-## Broadcast a cancellation
+## Execute cancellation
 
 ```shell
 curl "https://api.switcheo.network/v2/cancellations/:id/broadcast"
@@ -329,28 +346,52 @@ curl "https://api.switcheo.network/v2/cancellations/:id/broadcast"
 
 ```json
 {
-  "id": "c415f943-bea8-4dbf-82e3-8460c559d8b7",
-  "blockchain": "neo",
-  "contract_hash": "c41d8b0c30252ce7e8b6d95e9ce13fdd68d2a5a8",
-  "address": "20abeefe84e4059f6681bf96d5dcb5ddeffcc377",
-  "side": "buy",
-  "offer_asset_id": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
-  "want_asset_id": "602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
-  "offer_amount": "100000000",
-  "want_amount": "20000000",
-  "transfer_amount": "0",
-  "priority_gas_amount": "0",
-  "use_native_token": false,
-  "native_fee_transfer_amount": 0,
-  "deposit_txn": null,
-  "created_at": "2018-05-15T10:54:20.054Z",
-  "status": "processed",
-  "fills": [],
-  "makes": []
+	"id": "a8c5bba2...",
+	"blockchain": "neo",
+	"contract_hash": "48756743...",
+	"address": "ede2491ec91...",
+	"side": "buy",
+	"offer_asset_id": "c56f33fc6ecfc...",
+	"want_asset_id": "ab38352559...",
+	"offer_amount": "100000000",
+	"want_amount": "10000000000",
+	"transfer_amount": "0",
+	"priority_gas_amount": "0",
+	"use_native_token": true,
+	"native_fee_transfer_amount": 0,
+	"deposit_txn": null,
+	"created_at": "2018-06-19T07:44:38.894Z",
+	"status": "processed",
+	"fills": [],
+	"makes": [
+		{
+			"id": "fa764bc3-1a6f...",
+			"offer_hash": "f4912191f6033c96f...",
+			"available_amount": "0",
+			"offer_asset_id": "c56f33fc6ecfcd0c...",
+			"offer_amount": "100000000",
+			"want_asset_id": "ab3835255...",
+			"want_amount": "10000000000",
+			"filled_amount": "0",
+			"txn": null,
+			"cancel_txn": null,
+			"price": "0.01",
+			"status": "cancelling",
+			"created_at": "2018-06-19T07:44:38.907Z",
+			"transaction_hash": "9c6442e14...",
+			"trades": []
+		}
+	]
 }
 ```
 
-This endpoint broadcasts a cancellation.
+This is the second API call needed to cancel an order.
+  After using the create cancellation endpoint, you will receive a transaction as the response to be executed.
+
+For neo transactions, the hash needed for signing can be found in `hash_to_sign`.  
+
+To verify the message hash for neo, serialize the value returned by `transaction` and compare it with the hash returned by `hash_to_sign`.
+  
 
 ### HTTP Request
 
@@ -358,6 +399,6 @@ This endpoint broadcasts a cancellation.
 
 ### URL Parameters
 
-Parameter | Type | Description
---------- | ----------- | -----------
-  signature | yes | the additional signature to attach
+ Parameter | Type       | Description
+---------- | ---------- | -----------
+ signature | **string** | Signed transaction in response from create cancel.
