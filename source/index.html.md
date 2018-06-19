@@ -17,6 +17,7 @@ includes:
   - api/balances
   - api/withdrawals
   - api/deposits
+  - api/amounts
   - api/currency_pairs
   - api/contract_hashes
   - errors
