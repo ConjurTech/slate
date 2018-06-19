@@ -1,8 +1,8 @@
 # Offers
 
-* An offer represents the settlement of a [make](#makes).
+* An offer represents the settlement of a make.
 * This happens when the [order](#orders) that contains the make.
-is [broadcast](#broadcast-orders).
+is broadcast.
 * Offered funds will be placed on hold unless the order is cancelled or filled.
 * Orders containing offers can be cancelled only if the offer has not been completely filled yet. 
 * Offers can be seen in the **ORDER BOOK** column on [Switcheo Exchange](https://switcheo.exchange).

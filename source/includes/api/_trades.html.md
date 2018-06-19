@@ -1,8 +1,8 @@
 # Trades
 
-* A trade represents the settlement of a [fill](#fills).
+* A trade represents the settlement of a fill.
 * This happens when an [order](#orders) that contains a fill 
-is [broadcast](#broadcast-orders).
+is broadcast.
 * Trades cannot be cancelled.
 * Trades can be seen on the **TRADE HISTORY** column of [Switcheo Exchange](https://switcheo.exchange).
 

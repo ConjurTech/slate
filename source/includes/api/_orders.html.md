@@ -6,7 +6,7 @@ Orders are instructions to buy or sell assets on Switcheo Exchange.
 
 At the moment, only Limit orders are available. Market, Fill-Or-Cancel, Make-Or-Cancel, etc. strategies are not available yet.
 
-Orders will therefore contain a combination of zero or one [make](#makes) and/or zero or more [fills](#fills).
+Orders will therefore contain a combination of zero or one make and/or zero or more fills.
 
 Once an order is placed, the funds required for the order is removed from the user's balance
  and placed on hold until the order is filled or the order is cancelled.
@@ -16,11 +16,11 @@ Once an order is placed, the funds required for the order is removed from the us
 To perform any action, **two** API calls are required. This defers from a traditional exchange API,
  as the order must be co-signed by our off-chain service, and then broadcasted to the appropriate blockchain.
  
-The **first** API call creates an appropriate blockchain transaction (e.g. [create order](#create-an-order)), which will 
+The **first** API call creates an appropriate blockchain transaction (e.g. create order), which will 
   be returned in the response.
 
 This transaction must then be signed in the specific way as required as by the blockchain; The signature should then
-  be returned as the payload in the **second** API call (e.g. [broadcast order](#broadcast-an-order)).
+  be returned as the payload in the **second** API call (e.g. broadcast order).
   
 As mentioned above, the message to be signed in the second step of an action is simply the serialized 
   blockchain transaction itself.
@@ -215,9 +215,9 @@ This is the second api call needed to create an order.
 
 Looking at the example on the right:
    
-* A response is received from calling the [create order](#create-an-order) endpoint.
+* A response is received from calling the create order endpoint.
 
-* Every [fill](#fills) and [make](#makes) in the response from the first api call has to be [signed](#authentication) before broadcasting. 
+* Every fill and make in the response from the first api call has to be [signed](#authentication) before broadcasting. 
 
 * `fills` returns an empty array, so lets look at `makes`.
   An object is returned by `txn`.
@@ -290,7 +290,7 @@ TODO: Find out message hash format
 "hash_to_sign":"c9684604e5b6963499ae8a4abfe6c8e7657648f8a1ed8e7528d4ba9d64e41638"
 ```
 
-This endpoint prepares the cancellation of an order that has been [broadcast](#broadcast-an-order). <br/>
+This endpoint prepares the cancellation of an order that has been broadcast. <br/>
 Only orders that have 
 
 ###Generating a signature:

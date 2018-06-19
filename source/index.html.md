@@ -12,16 +12,14 @@ includes:
   - api/introduction
   - api/authentication
   - api/orders
-  - api/fills
-  - api/makes
   - api/offers
   - api/trades
   - api/balances
   - api/withdrawals
   - api/deposits
   - api/currency_pairs
+  - api/contract_hashes
   - errors
 
 search: true
 ---
-
