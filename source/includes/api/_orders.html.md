@@ -27,17 +27,12 @@ As mentioned above, the message to be signed in the second step of an action is 
   
 **Authentication**
   
-As there is no transaction to be signed in the first step of an action, in general, the message 
-  to be signed in the first step of an action is the request parameters as an ordered JSON **string**.  
+The message to be signed in the first step of an action is the request parameters as an ordered JSON **string**.  
 
 For additional security, care should be taken to verify that the transaction returned from the API matches that of the
  requested order. An example of validating an order transaction can be found here:
  
-NEO example:
-  first step (message prefix, sign)
-   
-NEO example:
-  second step (serialize txn, sign)
+For more details, please consult the [Authentication](#authentication) section.
 
 ## List orders
 
@@ -72,24 +67,23 @@ curl "https://api.switcheo.network/v2/orders?address=PUBLIC_ADDRESS"
 ]
 ```
 
-This endpoint retrieves orders from a specific address filtered by the params provided.
+Retrieves orders from a specific address filtered by the parameters provided.
 
 ### HTTP Request
 
 `https://api.switcheo.network/v2/orders`
 
-### Url parameters
+### URL Parameters
 
  Parameter      | Type                  | Description
 --------------- | --------------------- | -----------
- address        | **string**            | Order maker's wallet address. Only returns orders from this address.
+ address        | **string**            | Only returns orders made by this address.
  contract_hash  | **string** (optional) | Switcheo [contract hash](#contract-hash). Only returns orders from this contract hash.
- trade_asset_id | **string** (optional) | Hash of an asset. Only returns orders with this trade asset.
- base_asset_id  | **string** (optional) | Hash of an asset. Only returns orders with this base asset.
+ pair           | **string** (optioonal) | TODO: NYI
 
 ## Create an order
 
-> Example of message to sign:
+> Payload:
 
 ```
 {
@@ -104,18 +98,18 @@ This endpoint retrieves orders from a specific address filtered by the params pr
 }
 ```
 
-This is the first api call required to create an order.
+This is the first api API required to create an order.
   Orders can only be created after sufficient funds have been [deposited](#deposits) into the order maker's contract balance.
   A successfully order will be assigned an id and have makes and fills assigned to it by the order matching engine.
 
-A [signature](#authentication) has to be provided for this api call. An example of the message required to be signed 
+A [signature](#authentication) has to be provided for this API call. An example of the message required to be signed 
   can be seen on the right.
   
 <aside class="notice">
-  Note: After calling this endpoint, do remember to call the second api (broadcast order) for the order to be created. 
+  Note: After calling this endpoint, the Execute Order endpoint has to be called for the order to be exeucted. 
 </aside>
 
-> Example Request:
+> Example Request
 
 ```shell
 curl https://test-api.switcheo.network/v2/orders \ 
@@ -133,7 +127,7 @@ curl https://test-api.switcheo.network/v2/orders \
   -d signature=986961707a860eec03fecdba596fb171d64fe8d0c66277d19a32965c51d88abfc1b55c67f7bff0c95df20aa82b849b5e1c60a6d645a55ee466d594ee8da0b902
 ```
 
-> Example Response:
+> Example Response
 
 ```json
 { 
@@ -162,21 +156,21 @@ curl https://test-api.switcheo.network/v2/orders \
 
 `https://api.switcheo.network/v2/orders`
     
-### Url parameters
+### URL Parameters
 
  Parameter         | Type        | Description
 ------------------ | ------------| -----------
- blockchain        | **string**  | Blockchain (in lowercase) that the offer is on. Possible values are: `neo`
- contract_hash     | **string**  | Switcheo [contract hash](#contract-hash) to execute the order on.
- address           | **string**  | Hash of the order maker's wallet public address.
- pair              | **string**  | Pair to trade, e.g. `RPX_NEO` 
- side              | **string**  | Possible values are: `buy`, `sell`
- price             | **string**  | Order price to 8 decimal places
- offer_amount      | **string**  | Number of assets offered in the order.
- use_native_tokens | **boolean** | `true` if SWTH is used as fees. `false` if SWTH is not used for fees.
- timestamp         | **int**     | Current timestamp (epoch milliseconds)
- public_key        | **string**  | Public key of the order maker in hex format
- signature         | **string**  | Message hash signed with order maker's private key.
+ pair              | **string**  | Pair to trade, e.g. `RPX_NEO`.
+ blockchain        | **string**  | Blockchain that the `pair` is on. Possible values are: `neo`.
+ contract_hash     | **string**  | Switcheo Exchange [contract hash](#contract-hash) to execute the order on.
+ address           | **string**  | Address of the order maker (you). 
+ side              | **string**  | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`.
+ price             | **string**  | Order price at 8 decimal places precision
+ offer_amount      | **string**  | Number of tokens offered in the order as an integer string. This means that all decimals should be specified up to the precision allowed by the given token, and the decimal point itself should be dropped. 
+ use_native_tokens | **boolean** | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
+ timestamp         | **int**     | The current timestamp to be used as a nonce as epoch **milliseconds**.
+ public_key        | **string**  | Public key of the order maker in hex format (big endian).
+ signature         | **string**  | Signature of the request payload. See [Authentication](#authentication) for more details.
  
 ## Broadcast an order
 

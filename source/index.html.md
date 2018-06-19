@@ -10,7 +10,6 @@ toc_footers:
 
 includes:
   - api/introduction
-  - api/tutorials
   - api/authentication
   - api/orders
   - api/fills
