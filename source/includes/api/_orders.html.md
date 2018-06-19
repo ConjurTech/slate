@@ -384,18 +384,3 @@ This endpoint broadcasts a cancellation.
 Parameter | Type | Description
 --------- | ----------- | -----------
   signature | yes | the additional signature to attach
-
-
-## Order Statuses
-
-(TODO: confirm properly)
-
-Represents the state of orders on Switcheo.
-
-Status | Description
---------- | ----------
-open | Order is waiting to be filled
-failed | Order has failed to confirm and is not persisted on the blockchain.
-cancelled | [Make](#makes) (only) of the order has been cancelled.
-processed | Order has completed but some part(s) may have been cancelled or failed.
-complete | Order has successfully completed.
