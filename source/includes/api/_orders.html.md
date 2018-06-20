@@ -108,7 +108,7 @@ sign(messageToSign)
 // => 986961707a860eec03fe..
 ```
 
-This endpoint creates an order which can be executed through (Broadcast Order)[#broadcast-order].
+This endpoint creates an order which can be executed through [Broadcast Order](#broadcast-order).
   Orders can only be created after sufficient funds have been [deposited](#deposits) into the user's contract balance.
   A successful order will have `0 - 1` makes and `>= 0` fills.
 

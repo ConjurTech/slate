@@ -1,6 +1,6 @@
 # Balances
 
-## Description
+**Description**
 
 There are two types of balances.
   Wallet balance represents tokens present in your wallet.
