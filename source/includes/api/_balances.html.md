@@ -3,8 +3,10 @@
 ## Description
 
 There are two types of balances.
-  Wallet balance represents funds present in your wallet.
-  Contract balance represents funds present in the Switcheo smart contract.
+  Wallet balance represents tokens present in your wallet.
+  Contract balance represents tokens present in the Switcheo smart contract.
+  
+Trading on Switcheo Exchange can only be done using your contract balance.
 
 ## Get the balance of an address
 
