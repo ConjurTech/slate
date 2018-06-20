@@ -184,7 +184,7 @@ curl https://test-api.switcheo.network/v2/orders \
  
 ## Broadcast Order
 
-> Example Response (NEO)
+> Example Order (NEO)
 
 ```json
 {
@@ -271,13 +271,13 @@ Note that a `sha256` parameter is provided for convenience to be used directly a
 > Payload
 
 ```
-{ order_id: "474940c6...", timestamp=1529474651000 }
+{ order_id: "474940c6...", timestamp: 1529474651000 }
 ```
 
 > Example Request
 
 ```shell
-curl "https://api.switcheo.network/v2/orders/c415f947/create_cancel"
+curl "https://api.switcheo.network/v2/cancellations"
   -d order_id=474940c6... \
   -d signature=986961707a860eec03fe... \
   -d public_key=03dba309c4493d6fd22.. \
@@ -316,7 +316,6 @@ curl "https://api.switcheo.network/v2/orders/c415f947/create_cancel"
 		"script": "20a7ce4ae512908ed4150...",
 		"gas": 0
 	},
-	"hash_to_sign": "ea7936541844b61d73a8...",
 	"script_params": {
 		"scriptHash": "48756743d524af03aa7...",
 		"operation": "cancelOffer",

@@ -11,6 +11,10 @@ Once a deposit has been executed, funds in your wallet balance would be deducted
   Funds deducted from your wallet balance will be added to your contract balance but put on hold until 
   the deposit has been fully executed.
 
-## Create a deposit
+## Create Deposit
 
-## Execute a deposit
+TODO
+
+## Execute Deposit
+
+TODO

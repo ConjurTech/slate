@@ -12,6 +12,10 @@ Withdrawals are not instantaneous.
   Tokens deducted from your contract balance will be added to your wallet balance but put on hold until 
   the withdrawal has been fully executed.
 
-## Create a withdrawal
+## Create Withdrawal
 
-## Execute a withdrawal
+TODO
+
+## Execute Withdrawal
+
+TODO
