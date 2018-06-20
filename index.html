@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>Switcheo API Reference</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -288,10 +288,10 @@
             <a href="#deposits" class="toc-h1 toc-link" data-title="deposits">Deposits</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#create-a-deposit" class="toc-h2 toc-link" data-title="create-a-deposit">Create a deposit</a>
+                    <a href="#create-deposit" class="toc-h2 toc-link" data-title="create-deposit">Create Deposit</a>
                   </li>
                   <li>
-                    <a href="#execute-a-deposit" class="toc-h2 toc-link" data-title="execute-a-deposit">Execute a deposit</a>
+                    <a href="#execute-deposit" class="toc-h2 toc-link" data-title="execute-deposit">Execute Deposit</a>
                   </li>
               </ul>
           </li>
@@ -299,10 +299,10 @@
             <a href="#withdrawals" class="toc-h1 toc-link" data-title="withdrawals">Withdrawals</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#create-a-withdrawal" class="toc-h2 toc-link" data-title="create-a-withdrawal">Create a withdrawal</a>
+                    <a href="#create-withdrawal" class="toc-h2 toc-link" data-title="create-withdrawal">Create Withdrawal</a>
                   </li>
                   <li>
-                    <a href="#execute-a-withdrawal" class="toc-h2 toc-link" data-title="execute-a-withdrawal">Execute a withdrawal</a>
+                    <a href="#execute-withdrawal" class="toc-h2 toc-link" data-title="execute-withdrawal">Execute Withdrawal</a>
                   </li>
               </ul>
           </li>
@@ -324,7 +324,7 @@
               </ul>
           </li>
           <li>
-            <a href="#currency-pairs" class="toc-h1 toc-link" data-title="currency-pairs">Currency pairs</a>
+            <a href="#currency-pairs" class="toc-h1 toc-link" data-title="currency-pairs">Currency Pairs</a>
           </li>
           <li>
             <a href="#contract-hash" class="toc-h1 toc-link" data-title="contract-hash">Contract Hash</a>
@@ -874,7 +874,7 @@ for an example.</p>
 </tbody></table>
 <h2 id='broadcast-order'>Broadcast Order</h2>
 <blockquote>
-<p>Example Response (NEO)</p>
+<p>Example Order (NEO)</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="err">...</span><span class="w">
@@ -963,12 +963,12 @@ for an example.</p>
 <blockquote>
 <p>Payload</p>
 </blockquote>
-<pre class="highlight plaintext"><code>{ order_id: "474940c6...", timestamp=1529474651000 }
+<pre class="highlight plaintext"><code>{ order_id: "474940c6...", timestamp: 1529474651000 }
 </code></pre>
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/orders/c415f947/create_cancel"</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.switcheo.network/v2/cancellations"</span>
   -d <span class="nv">order_id</span><span class="o">=</span>474940c6... <span class="se">\</span>
   -d <span class="nv">signature</span><span class="o">=</span>986961707a860eec03fe... <span class="se">\</span>
   -d <span class="nv">public_key</span><span class="o">=</span>03dba309c4493d6fd22.. <span class="se">\</span>
@@ -1006,7 +1006,6 @@ for an example.</p>
         </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20a7ce4ae512908ed4150..."</span><span class="p">,</span><span class="w">
         </span><span class="s2">"gas"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"hash_to_sign"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ea7936541844b61d73a8..."</span><span class="p">,</span><span class="w">
     </span><span class="s2">"script_params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"scriptHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"48756743d524af03aa7..."</span><span class="p">,</span><span class="w">
         </span><span class="s2">"operation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cancelOffer"</span><span class="p">,</span><span class="w">
@@ -1140,7 +1139,11 @@ for an example.</p>
   Deposits are not instantaneous.
   Funds deducted from your wallet balance will be added to your contract balance but put on hold until 
   the deposit has been fully executed.</p>
-<h2 id='create-a-deposit'>Create a deposit</h2><h2 id='execute-a-deposit'>Execute a deposit</h2><h1 id='withdrawals'>Withdrawals</h1>
+<h2 id='create-deposit'>Create Deposit</h2>
+<p>TODO</p>
+<h2 id='execute-deposit'>Execute Deposit</h2>
+<p>TODO</p>
+<h1 id='withdrawals'>Withdrawals</h1>
 <p><strong>Description</strong></p>
 
 <p>Withdrawals allow free movement of tokens from the Switcheo smart contract into your wallet.
@@ -1152,7 +1155,11 @@ for an example.</p>
 <p>Withdrawals are not instantaneous.
   Tokens deducted from your contract balance will be added to your wallet balance but put on hold until 
   the withdrawal has been fully executed.</p>
-<h2 id='create-a-withdrawal'>Create a withdrawal</h2><h2 id='execute-a-withdrawal'>Execute a withdrawal</h2><h1 id='address'>Address</h1>
+<h2 id='create-withdrawal'>Create Withdrawal</h2>
+<p>TODO</p>
+<h2 id='execute-withdrawal'>Execute Withdrawal</h2>
+<p>TODO</p>
+<h1 id='address'>Address</h1>
 <p>An <code>address</code> in Switcheo is always represented by a hex string. An <code>address</code> can refer to a user account, 
 or a smart contract. <strong>An address should never be prefixed by <code>0x</code></strong>.</p>
 <h5 id='neo-3'>NEO</h5>
@@ -1246,16 +1253,17 @@ An amount should be specified up to the precision allowed by the given token, an
 <td>Switcheo <a href="#contract-hash">contract hash</a>. Only returns balances from this contract hash.</td>
 </tr>
 </tbody></table>
-<h1 id='currency-pairs'>Currency pairs</h1>
-<p>Currency pairs in the Switcheo API are written in the format: </br> 
-<code>TRADE_BASE</code> </br>
-Eg: <code>SWTH_NEO</code></p>
+<h1 id='currency-pairs'>Currency Pairs</h1>
+<p>When trading on Switcheo Exchange, markets are representing as currency pairs. </p>
 
-<ul>
-<li>When you trade on Switcheo Exchange, you buy and sell in currency pairs.</li>
-<li>Sell on <code>SWTH_NEO</code> means you are selling <code>SWTH</code> for <code>NEO</code>.</li>
-<li>Buy on <code>SWTH_NEO</code> means you are buying <code>SWTH</code> for <code>NEO</code>. </li>
-</ul>
+<p>Currency pairs in the Switcheo API are written in the format: <code>&lt;trade&gt;_&lt;base&gt;</code>, where <code>trade</code> is the currency
+that is being bought or sold, and <code>base</code> is the base currency for the market that is given or taken in return, respectively. </p>
+
+<p>For example,
+- When <code>sell</code>ing on <code>SWTH_NEO</code>, it means the user is selling <code>SWTH</code> for <code>NEO</code>.
+- When <code>buy</code>ing on <code>SWTH_NEO</code>, it means the user is buying <code>SWTH</code> for <code>NEO</code>.</p>
+
+<p>The valid <code>base</code> currencies are currently: <code>NEO</code>, <code>GAS</code>, <code>SWTH</code>, <code>QTUM</code>, and <code>ETH</code>.</p>
 <h1 id='contract-hash'>Contract Hash</h1>
 <p>A <code>contract_hash</code> refers to the hash of the Switcheo Exchange Contract. This may defer by blockchain and version, and environment
 (TestNet vs MainNet). </p>
@@ -1292,19 +1300,23 @@ Eg: <code>SWTH_NEO</code></p>
 </thead><tbody>
 <tr>
 <td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
+<td>Bad Request -- Your request is badly formed.</td>
 </tr>
 <tr>
-<td>403</td>
-<td>Forbidden -- The specified endpoint is for administrators only.</td>
+<td>401</td>
+<td>Unauthorized -- You did not provide a valid signature.</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The specified endpoint could not be found.</td>
+<td>Not Found -- The specified endpoint or resource could not be found.</td>
 </tr>
 <tr>
 <td>406</td>
 <td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
+</tr>
+<tr>
+<td>422</td>
+<td>Unprocessible Entity -- Your request had validation errors.</td>
 </tr>
 <tr>
 <td>500</td>
