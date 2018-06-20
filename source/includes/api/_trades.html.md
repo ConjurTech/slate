@@ -1,18 +1,20 @@
 # Trades
 
-* A trade represents the settlement of a fill.
-* This happens when an [order](#orders) that contains a fill 
-is broadcast.
-* Trades cannot be cancelled.
-* Trades can be seen on the **TRADE HISTORY** column of [Switcheo Exchange](https://switcheo.exchange).
+A trade represents a fill of a standing order. 
 
-## Get trades
+This happens when an incoming order matches a standing order on the opposite side of the order book in price.
+
+Trades can be seen on the Trade History column on [Switcheo Exchange](https://switcheo.exchange).
+
+## Get Trades
+
+> Example Request
 
 ```shell
-curl "https://api.switcheo.network/v2/trades"
+curl "https://api.switcheo.network/v2/trades?contract_hash=01ba...&pair=SWTH_NEO&from=0&to=1529478240"
 ```
 
-> The above command returns JSON structured like this:
+> Example Response
 
 ```json
 [
@@ -53,19 +55,18 @@ curl "https://api.switcheo.network/v2/trades"
 ]
 ```
 
-This endpoint retrieves trades filtered by the params provided.
+This endpoint retrieves trades filtered by the given parameters.
 
 ### HTTP Request
 
-`https://api.switcheo.network/v2/trades`
+`GET https://api.switcheo.network/v2/trades`
                      
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-  contract_hash | Only return trades for a contract hash `(Switcheo)`
-  transaction_hash | Only return trades with this transaction hash
-  pair | Only return trades from this pair `(eg. SWTH_NEO)`
-  from | Only return trades after this time `(unix)`
-  to | Only return trades before this time `(unix)`
-  last_before | Only return one trade before this time (unix); overrides `from` and `to`
+contract_hash | Only return trades for a contract hash
+pair | Only return trades from this pair (eg. `SWTH_NEO`)
+from | Only return trades after this time (unix epoch)
+to | Only return trades before this time (unix epoch)
+limit | Only returns this number of trades (min: 1, max: 10000, default: 5000)

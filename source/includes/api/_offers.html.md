@@ -1,17 +1,13 @@
 # Offers
 
-* An offer represents the settlement of a make.
-* This happens when the [order](#orders) that contains the make.
-is broadcast.
-* Offered funds will be placed on hold unless the order is cancelled or filled.
-* Orders containing offers can be cancelled only if the offer has not been completely filled yet. 
-* Offers can be seen in the **ORDER BOOK** column on [Switcheo Exchange](https://switcheo.exchange).
+An offer represents an open order that rests on the [Switcheo Exchange](https://switcheo.exchange) offer book.
 
+Funds used to make an offer will be placed on hold unless the order is cancelled or filled.
 
 ## Get Offers
  
  ```shell
- curl "https://api.switcheo.network/v2/offers?contract_hash=SWITCHEO_CONTRACT_HASH&pair=SWTH_NEO"
+ curl "https://api.switcheo.network/v2/offers?contract_hash=01bafeeafe6...&pair=SWTH_NEO&blockchain=neo"
  ```
  
  > The above command returns JSON structured like this:
@@ -37,16 +33,16 @@ is broadcast.
  ]
  ```
  
-This endpoint gets the offer book (limited to 30 offers per side).
+Gets the best 70 offers (per side) on the offer book.
  
 ### HTTP Request
  
-`https://api.switcheo.network/v2/offers`
+`GET https://api.switcheo.network/v2/offers`
  
 ### URL Parameters
  
-Parameter| Mandatory | Description
+Parameter | Mandatory | Description
 --------- | ----------- | -----------
-  blockchain | no | Only returns offers from this blockchain `(eg. neo)`
-  contract_hash | no | Only return offers for this contract hash `(Switcheo)`
-  pair | no | Only returns offers from this pair `(eg. SWTH_NEO)`
+blockchain | no | Only returns offers from this blockchain
+contract_hash | no | Only return offers for this contract hash 
+pair | no | Only returns offers from this pair

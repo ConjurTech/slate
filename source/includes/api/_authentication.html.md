@@ -27,7 +27,7 @@ The message to be signed in the second step of an action is either a serialized 
 
 > **Signing a raw message**
 
-```JS
+```js
 import { ec as EC } from 'elliptic'
 import SHA256 from 'crypto-js/sha256'
 
@@ -58,7 +58,7 @@ To sign a message for the NEO blockchain:
 
 > **Signing parameters in API requests**
 
-```JSON
+```json
 // JSON Request
 {
    "blockchain": "switcheochain",
@@ -70,7 +70,7 @@ To sign a message for the NEO blockchain:
 }
 ```
 
-```JS
+```js
 // Message to be signed
 const message = "{\"apple\":\"Z\",\"blockchain\":\"switcheochain\",\"timestamp\":1529380859,\"zombies\":\"cool\"}" // note the serialization order
 sign(message)
@@ -89,7 +89,7 @@ to ensure that both client and server can arrive at a deterministic hash.
 For example, the JSON request on the right should be serialized as such. Both the public key and the signature of the 
  serialized message should then be appended to the JSON request payload.
  
-### Signing transactions in API requests
+### <a name="sign-txns"></a> Signing transactions in API requests
 
 Each blockchain serializes their transactions differently. Some blockchains may not require signing of transactions directly at all,
   and signing messages will suffice. 
@@ -100,11 +100,11 @@ Where signing of transactions is neccessary, the blockchain specific serializati
 The transaction data should also be checked that it is in accordance with the intent of the user before 
   serialization and signing. See each endpoint for more detail on how this can be done.
 
-#### NEO
+#### <a name="sign-neo-txn"></a> NEO
 
 To sign a transaction for the NEO blockchain, see [neon-js](https://github.com/CityOfZion/neon-js/blob/master/docs/api-transactions.md) 
 for an example.
 
-#### ETHEREUEM
+#### ETHEREUM
 
 Prefix messages with: `\x19Ethereum Signed Message:`.
