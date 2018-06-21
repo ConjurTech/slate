@@ -1,7 +1,7 @@
 # Authentication
 
 As a decentralised exchange, Switcheo does not use any sort of password or API key.
-  Authentication is done in by signing the **request payload** _or_ **blockchain transaction** using the **blockchain-specific**
+  Authentication is done by signing the **request payload** _or_ **blockchain transaction** using the **blockchain-specific**
   digital signature with the users' private key.
   
 Currently, all supported blockchains uses the ellipitic curve digital signature algorithim (ECDSA). However, the curves
@@ -12,7 +12,7 @@ and hashing algorithim used for each blockchain differ slightly per blockchain.
 | NEO        | ECDSA          | NIST P-256  | SHA-256       |
 | ETH        | ECDSA          | secp256k1   | SHA-3         |
 
-In general, each action requires two endpoints to be called. The first endpoint returns a blockchain transaction (e.g. create order),
+In general, each action requires **two endpoints** to be called. The first endpoint returns a blockchain transaction (e.g. create order),
   while the second endpoint broadcasts the transaction (e.g. broadcast order).
 
 As there is no transaction to be signed in the first step of an action, the message 
@@ -46,13 +46,36 @@ export const sign = (message, privateKey) => {
 Each blockchain has a different method of signing arbitrary messages. Therefore, when signing messages as a form of 
 authentication, care must be taken to use the correct signing strategy.
 
+> **Example algorithm to sign a message on the NEO blockchain:**
+
+```js
+const signNeoMessage = (message, privateKey) => {
+  const hexedString = hexEncode(message)
+  const messageLengthInHexString = `00${(message.length).toString(16)}`.slice(-2)
+  // wrap string in required bytes (this will form a hex string which is also ledger compatible)
+  const signableString = `010001f0${messageLengthInHexString}${hexedMessage}0000`
+  return sign(signableString, privateKey)
+}
+
+// Changes a string into it's hex equivalent
+const hexEncode = (rawMessage) => {
+  let result = ''
+  for (let i = 0; i < rawMessage.length; i++) {
+    const hex = rawMessage.charCodeAt(i).toString(16)
+    result += `0${hex}`.slice(-2)
+  }
+  return result
+}
+```
+
 #### NEO
 
-To sign a message for the NEO blockchain:
+To sign a message on the NEO blockchain:
 
 1. Serialize the message as a hex string.
-2. Hash the message using [SHA-256](https://en.wikipedia.org/wiki/SHA-2).
-3. Sign the message hash with your private key using ECDSA.
+2. 0 pad the length of the message to a 2 digit hex string
+3. Wrap the hex string and length of message in ledger compatible bytecode
+4. Sign the transaction hash with your private key using ECDSA.
 
 ### Signing parameters in API requests
 

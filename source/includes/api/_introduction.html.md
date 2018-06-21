@@ -24,7 +24,7 @@ There are two main types of API endpoints.
 ## Authentication
 
 Authentication for Switcheo Exchange API is different from traditional APIs as ECDSA signatures using users' private keys
-are used. Please see the Authentication section for more details.
+are used. Please see the [Authentication](#authentication-2) section for more details.
 
 ## Rate Limits
 
