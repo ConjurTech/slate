@@ -1,6 +1,6 @@
 # Trades
 
-A trade represents a fill of a standing order. 
+A trade represents a fill of a standing order.
 
 This happens when an incoming order matches a standing order on the opposite side of the order book in price.
 
@@ -60,7 +60,7 @@ This endpoint retrieves trades filtered by the given parameters.
 ### HTTP Request
 
 `GET https://api.switcheo.network/v2/trades`
-                     
+
 ### URL Parameters
 
 Parameter | Description

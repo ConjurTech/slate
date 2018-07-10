@@ -7,7 +7,7 @@ Welcome to the Switcheo Exchange API documentation.
 This documentation is intended for developers who want to write applications to interact with Switcheo Exchange
 programatically.
 
-This API 
+This API
 
 Before you proceed with the API documentation, be sure to explore Switcheo Exchange at [https://switcheo.exchange](https://switcheo.exchange)
 
@@ -29,7 +29,7 @@ are used. Please see the [Authentication](#authentication-2) section for more de
 ## Rate Limits
 
 All endpoints are rate-limited. We use a dynamic algorithm for determining these limits. The HTTP error code `429` will
-be returned if this limit is exceeded. You should implement an exponential backoff strategy when encountering this error code. 
+be returned if this limit is exceeded. You should implement an exponential backoff strategy when encountering this error code.
 
 ## Terminology
 
@@ -39,4 +39,4 @@ Resource | Description
 [Offers](#offers) | An offer is an open order on the order book that are waiting to be filled.
 Address | The address of the trading wallet. For NEO, this is the SHA-256 hash of the verification script for the wallet as a hex string in big endian format.
 Wallet Balance | Wallet balance refers to funds present in your wallet.
-Contract Balance | Contract balance refers to funds present in Switcheo's smart contract. Funds must be deposited here before they can be traded.  
+Contract Balance | Contract balance refers to funds present in Switcheo's smart contract. Funds must be deposited here before they can be traded.

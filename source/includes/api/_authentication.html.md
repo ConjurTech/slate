@@ -3,11 +3,11 @@
 As a decentralised exchange, Switcheo does not use any sort of password or API key.
   Authentication is done by signing the **request payload** _or_ **blockchain transaction** using the **blockchain-specific**
   digital signature with the users' private key.
-  
+
 Currently, all supported blockchains uses the ellipitic curve digital signature algorithim (ECDSA). However, the curves
 and hashing algorithim used for each blockchain differ slightly per blockchain.
 
-| Blockchain | Signature Algo | Curve       | Hash Function |  
+| Blockchain | Signature Algo | Curve       | Hash Function |
 | ---------- | -------------- | -----       | ------------- |
 | NEO        | ECDSA          | NIST P-256  | SHA-256       |
 | ETH        | ECDSA          | secp256k1   | SHA-3         |
@@ -15,9 +15,9 @@ and hashing algorithim used for each blockchain differ slightly per blockchain.
 In general, each action requires **two endpoints** to be called. The first endpoint returns a blockchain transaction (e.g. create order),
   while the second endpoint broadcasts the transaction (e.g. broadcast order).
 
-As there is no transaction to be signed in the first step of an action, the message 
+As there is no transaction to be signed in the first step of an action, the message
   to be signed in the first step of an action is typically the request parameters as an **ordered** JSON **string**.
-  
+
 The message to be signed in the second step of an action is either a serialized blockchain transaction, or a blockchain
   message (e.g. `\x19Ethereum Signed Message:`).
 
@@ -43,7 +43,7 @@ export const sign = (message, privateKey) => {
 }
 ```
 
-Each blockchain has a different method of signing arbitrary messages. Therefore, when signing messages as a form of 
+Each blockchain has a different method of signing arbitrary messages. Therefore, when signing messages as a form of
 authentication, care must be taken to use the correct signing strategy.
 
 > **Example algorithm to sign a message on the NEO blockchain:**
@@ -101,31 +101,31 @@ sign(message)
 ```
 
 When signing request parameters as a form of authentication, care must be taken that the message is serialized properly
-before passing it to the signing function. 
+before passing it to the signing function.
 
-In particular, 
+In particular,
 
-1. While the JSON format is unordered, the stringified JSON that is passed to the signing function must be ordered **alphanumerically** 
+1. While the JSON format is unordered, the stringified JSON that is passed to the signing function must be ordered **alphanumerically**
 to ensure that both client and server can arrive at a deterministic hash.
 2. The timestamp passed to the server is used as a nonce and must be within 1 minute of the server's time.
 
-For example, the JSON request on the right should be serialized as such. Both the public key and the signature of the 
+For example, the JSON request on the right should be serialized as such. Both the public key and the signature of the
  serialized message should then be appended to the JSON request payload.
- 
+
 ### <a name="sign-txns"></a> Signing transactions in API requests
 
 Each blockchain serializes their transactions differently. Some blockchains may not require signing of transactions directly at all,
-  and signing messages will suffice. 
+  and signing messages will suffice.
 
 Where signing of transactions is neccessary, the blockchain specific serialization should be used. Where signing of blockchain
   messages are neccessary, the blockchain specific prefix should be used.
 
-The transaction data should also be checked that it is in accordance with the intent of the user before 
+The transaction data should also be checked that it is in accordance with the intent of the user before
   serialization and signing. See each endpoint for more detail on how this can be done.
 
 #### <a name="sign-neo-txn"></a> NEO
 
-To sign a transaction for the NEO blockchain, see [neon-js](https://github.com/CityOfZion/neon-js/blob/master/docs/api-transactions.md) 
+To sign a transaction for the NEO blockchain, see [neon-js](https://github.com/CityOfZion/neon-js/blob/master/docs/api-transactions.md)
 for an example.
 
 #### ETHEREUM

@@ -5,13 +5,13 @@ An offer represents an open order that rests on the [Switcheo Exchange](https://
 Funds used to make an offer will be placed on hold unless the order is cancelled or filled.
 
 ## Get Offers
- 
+
  ```shell
  curl "https://api.switcheo.network/v2/offers?contract_hash=01bafeeafe6...&pair=SWTH_NEO&blockchain=neo"
  ```
- 
+
  > The above command returns JSON structured like this:
- 
+
  ```json
  [
   {
@@ -32,17 +32,17 @@ Funds used to make an offer will be placed on hold unless the order is cancelled
   }
  ]
  ```
- 
+
 Gets the best 70 offers (per side) on the offer book.
- 
+
 ### HTTP Request
- 
+
 `GET https://api.switcheo.network/v2/offers`
- 
+
 ### URL Parameters
- 
+
 Parameter | Mandatory | Description
 --------- | ----------- | -----------
 blockchain | no | Only returns offers from this blockchain
-contract_hash | no | Only return offers for this contract hash 
+contract_hash | no | Only return offers for this contract hash
 pair | no | Only returns offers from this pair

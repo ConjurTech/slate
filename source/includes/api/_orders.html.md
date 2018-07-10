@@ -15,23 +15,23 @@ Once an order is placed, the funds required for the order is removed from the us
 
 To perform any action, **two** API calls are required. This defers from a traditional exchange API,
  as the order must be co-signed by our off-chain service, and then broadcasted to the appropriate blockchain.
- 
-The **first** API call creates an appropriate blockchain transaction (e.g. create order), which will 
+
+The **first** API call creates an appropriate blockchain transaction (e.g. create order), which will
   be returned in the response.
 
 This transaction must then be signed in the specific way as required as by the blockchain; The signature should then
   be returned as the payload in the **second** API call (e.g. broadcast order).
-  
-As mentioned above, the message to be signed in the second step of an action is simply the serialized 
+
+As mentioned above, the message to be signed in the second step of an action is simply the serialized
   blockchain transaction itself.
-  
+
 **Authentication**
-  
-The message to be signed in the first step of an action is the request parameters as an ordered JSON **string**.  
+
+The message to be signed in the first step of an action is the request parameters as an ordered JSON **string**.
 
 For additional security, care should be taken to verify that the transaction returned from the API matches that of the
  requested order. An example of validating an order transaction can be found here:
- 
+
 For more details, please consult the [Authentication](#authentication) section.
 
 ## List Orders
@@ -84,7 +84,7 @@ Retrieves orders from a specific address filtered by the given parameters.
  pair           | **string** (optional) | The pair to buy or sell on.
 
 ## Create Order
-  
+
 > Payload
 
 ```json
@@ -112,13 +112,13 @@ This endpoint creates an order which can be executed through [Broadcast Order](#
   Orders can only be created after sufficient funds have been [deposited](#deposits) into the user's contract balance.
   A successful order will have `0 - 1` makes and `>= 0` fills.
 
-A [signature](#authentication) of the request payload has to be provided for this API call. 
+A [signature](#authentication) of the request payload has to be provided for this API call.
   An example of the message required to be signed for a given payload can be seen on the right.
 
 > Example Request
 
 ```shell
-curl https://test-api.switcheo.network/v2/orders \ 
+curl https://test-api.switcheo.network/v2/orders \
   -d blockchain=neo \
   -d contract_hash=9c9d2fac35987621e252981e06762895b09eb035 \
   -d address=1b7bc3c02fd9503d4896b24729513430162799d4 \
@@ -136,7 +136,7 @@ curl https://test-api.switcheo.network/v2/orders \
 > Example Response
 
 ```json
-{ 
+{
   "id":"474940c6-2be4-43a8-aa71-0f9b2bc8908c",
   "blockchain":"neo",
   "contract_hash":"06118464b88a1049f38abac013347ca9039fb8b0",
@@ -159,13 +159,13 @@ curl https://test-api.switcheo.network/v2/orders \
 ```
 
 <aside class="notice">
-  Note: After calling this endpoint, the Broadcast Order endpoint has to be called for the order to be exeucted. 
+  Note: After calling this endpoint, the Broadcast Order endpoint has to be called for the order to be exeucted.
 </aside>
-    
+
 ### HTTP Request
 
 `POST https://api.switcheo.network/v2/orders`
-    
+
 ### Request Parameters
 
  Parameter         | Type        | Description
@@ -173,15 +173,15 @@ curl https://test-api.switcheo.network/v2/orders \
  pair              | **string**  | Pair to trade, e.g. `RPX_NEO`.
  blockchain        | **string**  | Blockchain that the `pair` is on. Possible values are: `neo`.
  contract_hash     | **string**  | Switcheo Exchange [contract hash](#contract-hash) to execute the order on.
- address           | **string**  | Address of the order maker (you). 
+ address           | **string**  | Address of the order maker (you).
  side              | **string**  | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`.
  price             | **string**  | Order price at 8 decimal places precision.
- offer_amount      | **string**  | [Amount](#amounts) of tokens offered in the order as an integer string. 
+ offer_amount      | **string**  | [Amount](#amounts) of tokens offered in the order as an integer string.
  use_native_tokens | **boolean** | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
  timestamp         | **int**     | The current timestamp to be used as a nonce as epoch **milliseconds**.
  public_key        | **string**  | Public key of the order maker in hex format (big endian).
  signature         | **string**  | Signature of the request payload. See [Authentication](#authentication) for more details.
- 
+
 ## Broadcast Order
 
 > Example Order (NEO)
@@ -193,7 +193,7 @@ curl https://test-api.switcheo.network/v2/orders \
   "makes": [
    {
      ...
-     "txn": 
+     "txn":
      {
        "offerHash": "3eda0...",
        "hash": "ffe681b...",
@@ -207,17 +207,17 @@ curl https://test-api.switcheo.network/v2/orders \
 ```
 
 > Example Request
- 
+
  ```shell
  curl https://api.switcheo.network/v2/orders/id/broadcast \
    -d '{\"public_key\":\"034d2ad7cc8a2598dd341271920fd78ea98209cd082aae6a1ef10d51a3b254d822\", \
-        "signatures":{\"fills\":{},\"makes\":{\"48c908fb-95a6-4646-9484-d01ea509f6cc\":\"3eab5444213a78d9450...\"}}}'  
+        "signatures":{\"fills\":{},\"makes\":{\"48c908fb-95a6-4646-9484-d01ea509f6cc\":\"3eab5444213a78d9450...\"}}}'
  ```
- 
+
  > Example Response:
- 
+
  ```json
-{ 
+{
   "id":"474940c6-2be4-43a8-aa71-0f9b2bc8908c",
   "blockchain":"neo",
   "contract_hash":"06118464b88a1049f38abac013347ca9039fb8b0",
@@ -239,28 +239,28 @@ curl https://test-api.switcheo.network/v2/orders \
 }
  ```
 
-This is the second endpoint required to execute an order. After using the [Create Order](#create-order) endpoint, 
+This is the second endpoint required to execute an order. After using the [Create Order](#create-order) endpoint,
   you will receive response which requires additional signatures. The method for signing depends on the blockchain
   the order is to be executed on.
-  
+
 ##### NEO
 
 Every `fill` and `make` in the Create Order response should be [signed](#authentication).
-  
+
 The signatures should than be put in an object with this format: `{ makes: { [<make_id>]: <signature> }, fills: { [<fill_id>]: <signature> } }`,
  and attached as the `signature` parameter in the request payload.
- 
+
 Consult the [Authentication](#authentication) section to understand how to [sign a NEO transaction](#sign-neo-txn).
 
 Note that a `sha256` parameter is provided for convenience to be used directly as part of the ECDSA signature process.
  *In production mode, this should be recalculated for additional security.*
- 
+
 ### HTTP Request
- 
+
 `POST https://api.switcheo.network/v2/orders/:id/broadcast`
- 
+
 ### Request Parameters
- 
+
  Parameter  | Type       | Description
  ---------- | ---------- | -----------
  signatures | **string** | Signed fills and makes in response from create order endpoint. Format: `{ makes: { [<make_id>]: <signature> }, fills: { [<fill_id>]: <signature> } }`
@@ -330,11 +330,11 @@ curl "https://api.switcheo.network/v2/cancellations"
 This is the first api call required to cancel an order.
   Only orders with makes with **more than 0** `available_amount` are eligible for cancellation.
 
-A [signature](#authentication) has to be provided for this API call. An example of the payload required to be signed 
+A [signature](#authentication) has to be provided for this API call. An example of the payload required to be signed
   can be seen on the right.
-  
+
 <aside class="notice">
-  Note: After calling this endpoint, the Execute Cancellation endpoint has to be called for the cancellation to be executed. 
+  Note: After calling this endpoint, the Execute Cancellation endpoint has to be called for the cancellation to be executed.
 </aside>
 
 ### HTTP Request
@@ -349,7 +349,7 @@ A [signature](#authentication) has to be provided for this API call. An example 
  timestamp  | **int**    | The current timestamp to be used as a nonce as epoch **milliseconds**.
  public_key | **string** | Public key of the order maker in hex format (big endian).
  signature  | **string** | Signature of the request payload. See [Authentication](#authentication) for more details.
-  
+
 ## Execute Cancellation
 
 > Example Request
@@ -402,7 +402,7 @@ curl "https://api.switcheo.network/v2/cancellations/:id/broadcast"
 ```
 
 This is the second endpoint that must be called to cancel an order.
-  After calling the [Create Cancellation](#create-cancellation) endpoint, you will receive 
+  After calling the [Create Cancellation](#create-cancellation) endpoint, you will receive
   a message or transaction in the response which must be signed.
 
 Consult the [Authentication](#authentication) section to understand how to sign the `transaction` (NEO) or `message_to_sign` (Ethereum).
