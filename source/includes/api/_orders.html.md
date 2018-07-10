@@ -96,14 +96,15 @@ Retrieves orders from a specific address filtered by the given parameters.
   "side": "buy",
   "price": "0.41234200",
   "want_amount": "100000000",
-  "use_native_tokens": false
+  "use_native_tokens": false,
+  "order_type": "limit"
 }
 ```
 
 > Signature
 
 ```js
-const messageToSign = "{\"address\":\"ede2491ec91f3beb24778572c97b1c1dd6495df8\",\"blockchain\":\"neo\",\"contract_hash\":\"add0fccaaa65a5d2835012a96e73a443bc8343ef\",\"pair\":\"SWTH_NEO\",\"price\":\"0.41234200\",\"side\":\"buy\",\"timestamp\":1529474651000,\"use_native_tokens\":false,\"want_amount\":\"100000000\",}"
+const messageToSign = "{\"address\":\"ede2491ec91f3beb24778572c97b1c1dd6495df8\",\"blockchain\":\"neo\",\"contract_hash\":\"add0fccaaa65a5d2835012a96e73a443bc8343ef\",\"pair\":\"SWTH_NEO\",\"price\":\"0.41234200\",\"side\":\"buy\",\"timestamp\":1529474651000,\"use_native_tokens\":false,\"want_amount\":\"100000000\",\"order_type\": \"limit\",}"
 sign(messageToSign) // see the Authentication section for an example of the `sign` method
 // => 986961707a860eec03fe..
 ```
@@ -124,10 +125,11 @@ curl https://test-api.switcheo.network/v2/orders \
   -d address=1b7bc3c02fd9503d4896b24729513430162799d4 \
   -d pair=SWTH_NEO \
   -d side=buy \
-  -d price=0.44999997 \
-  -d offer_asset=NEO \
+  -d price=0.41234200 \
   -d offer_amount=44999997 \
+  -d want_amount=100000000 \
   -d use_native_tokens=false \
+  -d order_type=limit \
   -d timestamp=1528879294321 \
   -d public_key=03dba309c4493d6fd22.. \
   -d signature=986961707a860eec03fe..
@@ -181,6 +183,8 @@ For the below descriptions, the `order maker` refers to your API user.
  offer_amount      | **string**  | [Amount](#amounts) of tokens offered in the order as an integer string.
  use_native_tokens | **boolean** | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
  timestamp         | **int**     | The current timestamp to be used as a nonce as epoch **milliseconds**.
+ order_type        | **string**  | Order type supported by Switcheo Exchange. Possible values are: `limit`.
+ taker_address     | **string**  | Wallet address of a predetermined order-filler.
  public_key        | **string**  | Public key of the order maker in hex format (big endian).
  signature         | **string**  | Signature of the request payload. See [Authentication](#authentication) for more details.
 
