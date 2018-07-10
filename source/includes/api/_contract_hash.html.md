@@ -1,7 +1,7 @@
 # Contract Hash
 
 A `contract_hash` refers to the hash of the Switcheo Exchange Contract. This may defer by blockchain and version, and environment
-(TestNet vs MainNet). 
+(TestNet vs MainNet).
 
 The `/v2/exchange/contracts` endpoint can be used to get all available contracts for the given environment.
 

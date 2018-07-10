@@ -8,7 +8,7 @@ Deposits allows free movement of funds from your wallet into the Switcheo smart 
 
 Once a deposit has been executed, funds in your wallet balance would be deducted.
   Deposits are not instantaneous.
-  Funds deducted from your wallet balance will be added to your contract balance but put on hold until 
+  Funds deducted from your wallet balance will be added to your contract balance but put on hold until
   the deposit has been fully executed.
 
 ## Create Deposit

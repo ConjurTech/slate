@@ -1,12 +1,12 @@
 # Trades
 
-A trade represents a fill of a standing order. 
+A trade represents a fill of an offer.
 
-This happens when an incoming order matches a standing order on the opposite side of the order book in price.
+This happens when an incoming order matches an offer on the opposite side of the order book in price.
 
 Trades can be seen on the Trade History column on [Switcheo Exchange](https://switcheo.exchange).
 
-## Get Trades
+## List Trades
 
 > Example Request
 
@@ -55,18 +55,18 @@ curl "https://api.switcheo.network/v2/trades?contract_hash=01ba...&pair=SWTH_NEO
 ]
 ```
 
-This endpoint retrieves trades filtered by the given parameters.
+Retrieves trades filtered by the given parameters.
 
 ### HTTP Request
 
 `GET https://api.switcheo.network/v2/trades`
-                     
+
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
 contract_hash | Only return trades for a contract hash
-pair | Only return trades from this pair (eg. `SWTH_NEO`)
+pair | Only return trades for this pair (eg. `SWTH_NEO`)
 from | Only return trades after this time (unix epoch)
 to | Only return trades before this time (unix epoch)
-limit | Only returns this number of trades (min: 1, max: 10000, default: 5000)
+limit | Only return this number of trades (min: 1, max: 10000, default: 5000)
