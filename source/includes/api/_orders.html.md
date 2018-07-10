@@ -6,7 +6,7 @@ Orders are instructions to buy or sell assets on Switcheo Exchange.
 
 At the moment, only Limit orders are available. Market, Fill-Or-Cancel, Make-Or-Cancel, etc. strategies are not available yet.
 
-Orders will therefore contain a combination of zero or one make and/or zero or more fills.
+As such, orders will contain a combination of zero or one make and/or zero or more fills.
 
 Once an order is placed, the funds required for the order is removed from the user's balance
  and placed on hold until the order is filled or the order is cancelled.
@@ -19,7 +19,7 @@ To perform any action, **two** API calls are required. This defers from a tradit
 The **first** API call creates an appropriate blockchain transaction (e.g. create order), which will
   be returned in the response.
 
-This transaction must then be signed in the specific way as required as by the blockchain; The signature should then
+This transaction must then be signed in the specific way as required by the blockchain. The signature should then
   be returned as the payload in the **second** API call (e.g. broadcast order).
 
 As mentioned above, the message to be signed in the second step of an action is simply the serialized
@@ -104,13 +104,13 @@ Retrieves orders from a specific address filtered by the given parameters.
 
 ```js
 const messageToSign = "{\"address\":\"ede2491ec91f3beb24778572c97b1c1dd6495df8\",\"blockchain\":\"neo\",\"contract_hash\":\"add0fccaaa65a5d2835012a96e73a443bc8343ef\",\"pair\":\"SWTH_NEO\",\"price\":\"0.41234200\",\"side\":\"buy\",\"timestamp\":1529474651000,\"use_native_tokens\":false,\"want_amount\":\"100000000\",}"
-sign(messageToSign)
+sign(messageToSign) // see the Authentication section for an example of the `sign` method
 // => 986961707a860eec03fe..
 ```
 
 This endpoint creates an order which can be executed through [Broadcast Order](#broadcast-order).
   Orders can only be created after sufficient funds have been [deposited](#deposits) into the user's contract balance.
-  A successful order will have `0 - 1` makes and `>= 0` fills.
+  A successful order will have zero or one make and/or zero or more fills.
 
 A [signature](#authentication) of the request payload has to be provided for this API call.
   An example of the message required to be signed for a given payload can be seen on the right.
@@ -168,12 +168,14 @@ curl https://test-api.switcheo.network/v2/orders \
 
 ### Request Parameters
 
+For the below descriptions, the `order maker` refers to your API user.
+
  Parameter         | Type        | Description
 ------------------ | ------------| -----------
  pair              | **string**  | Pair to trade, e.g. `RPX_NEO`.
  blockchain        | **string**  | Blockchain that the `pair` is on. Possible values are: `neo`.
  contract_hash     | **string**  | Switcheo Exchange [contract hash](#contract-hash) to execute the order on.
- address           | **string**  | Address of the order maker (you).
+ address           | **string**  | Address of the order maker.
  side              | **string**  | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`.
  price             | **string**  | Order price at 8 decimal places precision.
  offer_amount      | **string**  | [Amount](#amounts) of tokens offered in the order as an integer string.
