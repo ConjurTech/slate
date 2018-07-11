@@ -184,7 +184,6 @@ For the below descriptions, the `order maker` refers to your API user.
  use_native_tokens | **boolean**           | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
  timestamp         | **int**               | The current timestamp to be used as a nonce as epoch **milliseconds**.
  order_type        | **string** (optional) | Order type supported by Switcheo Exchange. Possible values are: `limit`.
- taker_address     | **string**            | Wallet address of a predetermined order-filler.
  public_key        | **string**            | Public key of the order maker in hex format (big endian).
  signature         | **string**            | Signature of the request payload. See [Authentication](#authentication) for more details.
 
