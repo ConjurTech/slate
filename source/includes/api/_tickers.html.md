@@ -43,7 +43,7 @@ Returns candlestick chart data filtered by url parameters.
 
 ### HTTP Request
 
-`GET https://api.switcheo.network/v2/tickers/candlesticks`
+`GET /v2/tickers/candlesticks`
 
 ### Request parameters
 
@@ -125,7 +125,7 @@ Returns last price of given symbol(s). Defaults to all symbols.
 
 ### HTTP Request
 
-`GET https://test-api.switcheo.network/v2/tickers/last_price`
+`GET v2/tickers/last_price`
 
 ### Request parameters
 
@@ -158,7 +158,7 @@ Returns available currency [pairs](#currency_pairs) on Switcheo Exchange filtere
 
 ### HTTP Request
 
-`GET https://test-api.switcheo.network/v2/tickers/pairs`
+`GET /v2/tickers/pairs`
 
 ### Request parameters
 
@@ -193,4 +193,4 @@ Returns updated hashes of contracts deployed by Switcheo.
 
 ### HTTP Request
 
-`GET https://test-api.switcheo.network/v2/tickers/contracts`
+`GET /v2/tickers/contracts`
