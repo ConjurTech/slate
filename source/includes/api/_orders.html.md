@@ -172,21 +172,21 @@ curl https://test-api.switcheo.network/v2/orders \
 
 For the below descriptions, the `order maker` refers to your API user.
 
- Parameter         | Type        | Description
------------------- | ------------| -----------
- pair              | **string**  | Pair to trade, e.g. `RPX_NEO`.
- blockchain        | **string**  | Blockchain that the `pair` is on. Possible values are: `neo`.
- contract_hash     | **string**  | Switcheo Exchange [contract hash](#contract-hash) to execute the order on.
- address           | **string**  | Address of the order maker.
- side              | **string**  | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`.
- price             | **string**  | Order price at 8 decimal places precision.
- offer_amount      | **string**  | [Amount](#amounts) of tokens offered in the order as an integer string.
- use_native_tokens | **boolean** | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
- timestamp         | **int**     | The current timestamp to be used as a nonce as epoch **milliseconds**.
- order_type        | **string**  | Order type supported by Switcheo Exchange. Possible values are: `limit`.
- taker_address     | **string**  | Wallet address of a predetermined order-filler.
- public_key        | **string**  | Public key of the order maker in hex format (big endian).
- signature         | **string**  | Signature of the request payload. See [Authentication](#authentication) for more details.
+ Parameter         | Type                  | Description
+------------------ | ----------------------| -----------
+ pair              | **string**            | Pair to trade, e.g. `RPX_NEO`.
+ blockchain        | **string**            | Blockchain that the `pair` is on. Possible values are: `neo`.
+ contract_hash     | **string**            | Switcheo Exchange [contract hash](#contract-hash) to execute the order on.
+ address           | **string**            | Address of the order maker.
+ side              | **string**            | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`.
+ price             | **string**            | Order price at 8 decimal places precision.
+ offer_amount      | **string**            | [Amount](#amounts) of tokens offered in the order as an integer string.
+ use_native_tokens | **boolean**           | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
+ timestamp         | **int**               | The current timestamp to be used as a nonce as epoch **milliseconds**.
+ order_type        | **string** (optional) | Order type supported by Switcheo Exchange. Possible values are: `limit`.
+ taker_address     | **string**            | Wallet address of a predetermined order-filler.
+ public_key        | **string**            | Public key of the order maker in hex format (big endian).
+ signature         | **string**            | Signature of the request payload. See [Authentication](#authentication) for more details.
 
 ## Broadcast Order
 
