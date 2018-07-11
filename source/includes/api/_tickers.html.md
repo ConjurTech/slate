@@ -1,21 +1,41 @@
 # Tickers
 
-The tickers section consists of api that allow retrieval of market data on Switcheo Exchange.
-
-TODO: rules: rate limiting?
+The tickers section consists of endpoints that allow retrieval of market data on Switcheo Exchange.
+Authentication is not required for these endpoints.
 
 
 ## Candlesticks
 
-> Example Request (TODO: make a successful request)
+> Example Request
 
 ```shell
-curl "http://api.switcheo.network/v2/tickers/candlesticks?pair=SWTH_NEO&start_time=1531213200&end_time=1531220400&interval=1"
+curl "https://test-api.switcheo.network/v2/tickers/candlesticks?pair=SWTH_NEO&start_time=1531213200&end_time=1531220400&interval=1"
 ```
 
-> Example Response (TODO: fill in after successful request)
+> Example Response
 
 ```json
+[
+  {
+    "time": "1531215240",
+    "open": "0.00049408",
+    "close": "0.00049238",
+    "high": "0.000497",
+    "low": "0.00048919",
+    "volume": "110169445.0",
+    "quote_volume": "222900002152.0"
+  },
+  {
+    "time": "1531219800",
+    "open": "0.00050366",
+    "close": "0.00049408",
+    "high": "0.00050366",
+    "low": "0.00049408",
+    "volume": "102398958.0",
+    "quote_volume": "205800003323.0"
+  },
+  ...
+]
 
 ```
 
@@ -40,7 +60,7 @@ Returns candlestick chart data filtered by url parameters.
 > Example Request
 
 ```shell
-curl "http://api.switcheo.network/v2/tickers/last_24_hours"
+curl "https://test-api.switcheo.network/v2/tickers/last_24_hours"
 ```
 
 > Example Response
@@ -73,7 +93,7 @@ Returns 24-hour data for all pairs and markets.
 
 ### HTTP Request
 
-`GET https://api.switcheo.network/v2/tickers/last_24_hours`
+`GET https://test-api.switcheo.network/v2/tickers/last_24_hours`
 
 
 ## Last price
@@ -105,7 +125,7 @@ Returns last price of given symbol(s). Defaults to all symbols.
 
 ### HTTP Request
 
-`GET https://api.switcheo.network/v2/tickers/last_price`
+`GET https://test-api.switcheo.network/v2/tickers/last_price`
 
 ### Request parameters
 
@@ -138,7 +158,7 @@ Returns available currency [pairs](#currency_pairs) on Switcheo Exchange filtere
 
 ### HTTP Request
 
-`GET https://api.switcheo.network/v2/tickers/pairs`
+`GET https://test-api.switcheo.network/v2/tickers/pairs`
 
 ### Request parameters
 
@@ -173,4 +193,4 @@ Returns updated hashes of contracts deployed by Switcheo.
 
 ### HTTP Request
 
-`GET https://api.switcheo.network/v2/tickers/contracts`
+`GET https://test-api.switcheo.network/v2/tickers/contracts`
