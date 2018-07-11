@@ -11,7 +11,7 @@ Trades can be seen on the Trade History column on [Switcheo Exchange](https://sw
 > Example Request
 
 ```shell
-curl "https://api.switcheo.network/v2/trades?contract_hash=01ba...&pair=SWTH_NEO&from=0&to=1529478240"
+curl "https://test-api.switcheo.network/v2/trades?contract_hash=9c9d2fac35987621e252981e06762895b09eb035&pair=SWTH_NEO"
 ```
 
 > Example Response
@@ -19,54 +19,35 @@ curl "https://api.switcheo.network/v2/trades?contract_hash=01ba...&pair=SWTH_NEO
 ```json
 [
   {
-  "id": "2afddfc8-d49b-49be-8079-4aeea693940c",
-  "blockchain": "neo",
-  "block_number": 2283025,
-  "transaction_hash": "a1716c2906bdd70612159c36f4315544e427738aaae581bc23df0cdeaf907353",
-  "contract_hash": "01bafeeafe62e651efc3a530fde170cf2f7b09bd",
-  "event_time": "2018-05-18T09:37:18.000Z",
-  "address": "58ea964070e60c4c055d549b155b77e56d8db40d",
-  "offer_hash": "ed03574d60014e66c881fb459b480aad60c866ad31f42cd30d12c0454cc54b43",
-  "offer_asset_id": "45d493a6f73fa5f404244a5fb8472fc014ca5885",
-  "want_asset_id": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
-  "filled_amount": 1883290,
-  "offer_amount": 640575043,
-  "want_amount": 1883290,
-  "created_at": "2018-05-18T09:37:45.876Z",
-  "updated_at": "2018-05-18T09:37:45.876Z"
+    "id": "712a5019-3a23-463e-b0e1-80e9f0ad4f91",
+    "fill_amount": 9122032316,
+    "take_amount": 20921746,
+    "event_time": "2018-06-08T11:32:03.219Z",
+    "is_buy": false
   },
   {
-  "id": "81a6bbaf-d33e-4845-a2f1-50c65e5b0f91",
-  "blockchain": "neo",
-  "block_number": 2283021,
-  "transaction_hash": "e8f74d7e7c6d24a47aa7b4f3f8567e3b1b0c49b9142cfedf02263fb9fcca2095",
-  "contract_hash": "01bafeeafe62e651efc3a530fde170cf2f7b09bd",
-  "event_time": "2018-05-18T09:35:57.000Z",
-  "address": "58ea964070e60c4c055d549b155b77e56d8db40d",
-  "offer_hash": "43dd97fd90634236f64da66695350bac3d8ea43ef062c3b64a33698e7a0f5266",
-  "offer_asset_id": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
-  "want_asset_id": "602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
-  "filled_amount": 540131095,
-  "offer_amount": 500000000,
-  "want_amount": 1315789369,
-  "created_at": "2018-05-18T09:36:27.618Z",
-  "updated_at": "2018-05-18T09:36:27.618Z"
-  }
+    "id": "5d7e42a2-a8f3-40a9-bce5-7304921ff691",
+    "fill_amount": 280477933,
+    "take_amount": 4207169,
+    "event_time": "2018-06-08T11:31:42.200Z",
+    "is_buy": false
+  },
+  ...
 ]
 ```
 
-Retrieves trades filtered by the given parameters.
+Retrieves trades that have already occurred on Switcheo Exchange filtered by the request parameters.
 
 ### HTTP Request
 
-`GET https://api.switcheo.network/v2/trades`
+`GET /v2/trades`
 
-### URL Parameters
+### Request Parameters
 
-Parameter | Description
---------- | -----------
-contract_hash | Only return trades for a contract hash
-pair | Only return trades for this pair (eg. `SWTH_NEO`)
-from | Only return trades after this time (unix epoch)
-to | Only return trades before this time (unix epoch)
-limit | Only return this number of trades (min: 1, max: 10000, default: 5000)
+Parameter     | Type                   | Description
+------------- | ---------------------- | ----------- 
+contract_hash | **String**             | Only return trades for this [contract hash](#contracts).
+pair          | **String**             | Only return trades for this [pair](#pairs).
+from          | **Integer** (optional) | Only return trades after this time (unix epoch).
+to            | **Integer** (optional) | Only return trades before this time (unix epoch).
+limit         | **Integer** (optional) | Only return this number of trades (min: `1`, max: `10000`, default: `5000`).

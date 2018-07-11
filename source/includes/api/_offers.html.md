@@ -31,7 +31,7 @@ Retrieves the best 70 offers (per side) on the offer book.
 
 `GET /v2/offers`
 
-### URL Parameters
+### Request Parameters
 
 Parameter     | type                  | Description
 ------------- | --------------------- | -----------
