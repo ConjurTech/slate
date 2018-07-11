@@ -11,6 +11,7 @@ toc_footers:
 includes:
   - api/introduction
   - api/authentication
+  - api/tickers
   - api/offers
   - api/trades
   - api/orders
