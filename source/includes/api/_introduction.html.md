@@ -10,7 +10,7 @@ programatically.
 Before you proceed with the API documentation, be sure to explore Switcheo Exchange at
 [https://switcheo.exchange](https://switcheo.exchange).
 
-## API
+## API Requests
 
 The Switcheo API uses the [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) architecture.
 API requests and responses use the [JSON](https://www.json.org/) format.
@@ -19,6 +19,16 @@ There are two main types of API endpoints.
 
 - Trading APIs - these endpoints can be used to execute trades and must be authenticated
 - Exchange APIs - these endpoints provide exchange history, statistics and other data and do not need to be authenticated
+
+## Mainnet/Testnet URLs
+
+When testing the functionality of your applications, make sure to use our testnet URL:
+
+[https://test-api.switcheo.network](https://test-api.switcheo.network)
+
+For actual trading and market data, make sure to use our mainnet URL:
+
+[https://api.switcheo.network](https://api.switcheo.network)
 
 ## Authentication
 

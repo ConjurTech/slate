@@ -93,7 +93,7 @@ Returns 24-hour data for all pairs and markets.
 
 ### HTTP Request
 
-`GET https://test-api.switcheo.network/v2/tickers/last_24_hours`
+`GET /v2/tickers/last_24_hours`
 
 
 ## Last price
