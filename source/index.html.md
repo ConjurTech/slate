@@ -4,7 +4,6 @@ title: Switcheo API Reference
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
   - javascript
-  - ruby
 
 toc_footers:
 
