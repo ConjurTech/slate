@@ -49,7 +49,7 @@ Returns candlestick chart data filtered by url parameters.
 
  Parameter      | Type        | Description
 --------------- | ----------- | -----------
- pair           | **string**  | Only show chart data of this [trading pair](#currency_pairs)
+ pair           | **string**  | Only show chart data of this [trading pair](#pair)
  start_time     | **integer** | Start of time range for data returned (unix epoch)
  end_time       | **integer** | End of time range for data returned (unix epoch)
  interval       | **integer** | Candlestick period in minutes Possible values are `1, 5, 30, 60, 360, and 1440`
