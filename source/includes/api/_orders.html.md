@@ -161,7 +161,7 @@ curl https://test-api.switcheo.network/v2/orders \
 ```
 
 <aside class="notice">
-  Note: After calling this endpoint, the Broadcast Order endpoint has to be called for the order to be exeucted.
+  Reminder: After calling this endpoint, the Broadcast Order endpoint has to be called for the order to be executed.
 </aside>
 
 ### HTTP Request
@@ -339,7 +339,7 @@ A [signature](#authentication) has to be provided for this API call. An example 
   can be seen on the right.
 
 <aside class="notice">
-  Note: After calling this endpoint, the Execute Cancellation endpoint has to be called for the cancellation to be executed.
+  Reminder: After calling this endpoint, the Execute Cancellation endpoint has to be called for the cancellation to be executed.
 </aside>
 
 ### HTTP Request
