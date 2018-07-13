@@ -30,11 +30,6 @@ For actual trading and market data, the mainnet URL should be used:
 
 [https://api.switcheo.network](https://api.switcheo.network)
 
-## Authentication
-
-Authentication for Switcheo Exchange API uses ECDSA with a user's private key.
-Please see the [Authentication](#authentication-2) section for more details.
-
 ## Rate Limits
 
 All endpoints are rate-limited. We use a dynamic algorithm for determining these limits. The HTTP error code `429` will
