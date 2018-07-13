@@ -386,6 +386,6 @@ Note that a `sha256` parameter is provided for convenience to be used directly a
 
 ### URL Parameters
 
- Parameter | Type       | Description
----------- | ---------- | -----------
- signature | **string** | Signature of the transaction. See [Authentication](#authentication) for more details.
+ Parameter | Type       | Optional | Description
+---------- | ---------- | -------- | ------------
+ signature | **string** | no       | Signature of the transaction. See [Authentication](#authentication) for more details.
