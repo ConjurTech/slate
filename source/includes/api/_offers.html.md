@@ -33,8 +33,11 @@ Retrieves the best 70 offers (per side) on the offer book.
 
 ### Request Parameters
 
-Parameter     | type                  | Description
-------------- | --------------------- | -----------
-blockchain    | **string** (optional) | Only return offers from this blockchain. Possible values are `neo`.
-contract_hash | **string** (optional) | Only return offers for this [contract hash](#contracts).
-pair          | **string**            | Only return offers from this [pair](#pairs).
+Parameter     | Type       | Optional | Description
+------------- | ---------- | -------- | -----------
+blockchain    | **string** | no       | Only return offers from this blockchain. Possible values are `neo`.
+contract_hash | **string** | no       | Only return offers for this [contract hash](#contracts).
+pair          | **string** | no       | Only return offers from this [pair](#pairs).
+
+### Example
+[Full list offers example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/offers/listOffersExample.js)

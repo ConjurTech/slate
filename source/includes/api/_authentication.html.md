@@ -1,140 +1,101 @@
 # Authentication
 
 As a decentralised exchange, Switcheo does not use any sort of password or API key.
-Authentication is done by signing the **request payload** _or_ **blockchain transaction** using the **blockchain-specific**
+Instead, authentication is done by signing the **request payload** _or_ **blockchain transaction** using the **blockchain-specific**
 digital signature with the user's private key.
 
-Currently, all supported blockchains use the ellipitic curve digital signature algorithim (ECDSA). However, the curves
-and hashing algorithim used for each blockchain differ slightly per blockchain.
+## Action Authentication
+Two steps are required to perform an action.
 
-| Blockchain | Signature Algo | Curve       | Hash Function |
-| ---------- | -------------- | -----       | ------------- |
-| NEO        | ECDSA          | NIST P-256  | SHA-256       |
-| ETH        | ECDSA          | secp256k1   | SHA-3         |
-
-In general, each action requires **two endpoints** to be called. The first endpoint returns a blockchain transaction (e.g. create order),
-  while the second endpoint broadcasts the transaction (e.g. broadcast order).
-
-As there is no transaction to be signed in the first step of an action, the message
-  to be signed in the first step of an action is typically the request parameters as an **ordered** JSON **string**.
-
-The message to be signed in the second step of an action is either a serialized blockchain transaction, or a blockchain
-  message (e.g. `\x19Ethereum Signed Message:...`).
-
-
-## Signing Messages
-
-> **Signing a message**
-
-```js
-import { ec as EC } from 'elliptic'
-import SHA256 from 'crypto-js/sha256'
-
-export const sign = (message, privateKey) => {
-  const messageHash = SHA256(message).toString()
-  const elliptic = new EC('p256')
-  const sig = elliptic.sign(messageHash, privateKey, null)
-  const signature = Buffer.concat([
-    sig.r.toArrayLike(Buffer, 'be', 32),
-    sig.s.toArrayLike(Buffer, 'be', 32),
-  ])
-  return signature.toString('hex')
-}
-```
-
-Each blockchain has a different method of signing arbitrary messages. Therefore, when signing messages as a form of
-authentication, care must be taken to use the correct signing strategy.
+1. In the first step:
+  - Sign the parameters of the request using the user's private key
+  - Send both the raw parameters and the signed parameters to the first API endpoint
+  - A response with either a message or transaction will be returned
+2. In the second step:
+  - Sign the returned message or transaction with the user's private key
+  - Send the signed message or transaction to the second API endpoint
 
 ## Signing Messages for NEO
 
 > **Signing a message for NEO**
 
 ```js
-const signNeoMessage = (message, privateKey) => {
-  const hexedString = hexEncode(message)
-  const messageLengthInHexString = `00${(message.length).toString(16)}`.slice(-2)
-  // wrap string in required bytes (this will form a hex string which is also ledger compatible)
-  const signableString = `010001f0${messageLengthInHexString}${hexedMessage}0000`
-  return sign(signableString, privateKey) // this uses the `sign` method in the "Signing Messages" example
+const { wallet } = require('@cityofzion/neon-js')
+function signMessage(message, privateKey) {
+  return wallet.generateSignature(message, privateKey)
 }
+signMessage('Hello', 'b9609de8610cf33d832efaf9cd1e3f2c7601bbd7824fa109659e36be15a7a2ad')
 
-// Changes a string into it's hex equivalent
-const hexEncode = (rawMessage) => {
-  let result = ''
-  for (let i = 0; i < rawMessage.length; i++) {
-    const hex = rawMessage.charCodeAt(i).toString(16)
-    result += `0${hex}`.slice(-2)
-  }
-  return result
-}
 ```
+[neon-js](https://github.com/CityOfZion/neon-js) can be used to sign messages for NEO.
 
-
-To sign a message on the NEO blockchain:
-
-1. Serialize the message as a hex string.
-2. 0 pad the length of the message to a 2 digit hex string
-3. Wrap the hex string and length of message in ledger compatible bytecode
-4. Sign the transaction hash with your private key using ECDSA.
+[View implementation details](https://github.com/CityOfZion/neon-js/blob/cf5f92e4124c45a154449bf5852bcab28ddc1b32/src/wallet/core.js#L126)
 
 ## Signing Request Parameters
 
-> **Signing parameters in API requests**
+> **Signing parameters for API requests**
 
 ```js
-// API parameters to be signed
-{
-   "blockchain": "switcheochain",
-   "apple": "Z",
-   "zombies": "cool",
-   "timestamp": 1529380859 // must be the current time
-}
+// 1. Serialize parameters into a string, with parameters ordered alphanumerically
+const rawParams = { blockchain: 'neo', timestamp: 1529380859, apple: 'Z', }
+const stringify = require('json-stable-stringify')
+const parameterString = stringify(rawParams)
+// parameterString is '{"apple":"Z","blockchain":"neo","timestamp":1529380859}'
 
-// note the serialization order
-const message = "{\"apple\":\"Z\",\"blockchain\":\"switcheochain\",\"timestamp\":1529380859,\"zombies\":\"cool\"}"
-const signature = sign(message, "<user's private key>") // this uses the `sign` method in the "Signing Messages" example
-// => <signature> (e.g. "034d2ad7cc8a2598dd34...")
+// 2. Serialize the parameter string into a hex string
+const Neon = require('@cityofzion/neon-js')
+const parameterHexString = Neon.u.str2hexstring(parameterString)
+// parameterHexString is 7b226170706c65223a225a222c22626c6f636b636861696e223a226e656f222c2274696d657374616d70223a313532393338303835397d
 
-// Payload for the request
-// Note that the public_key is only included here and not in `message`
-{
-   "blockchain": "switcheochain",
-   "apple": "Z",
-   "zombies": "cool",
-   "timestamp": 1529380859,
-   "signature": signature,
-   "public_key": "3eab5444213a78d9450..."
-}
+// 3. Zero pad parameterHexString.length to a 2 digit hex string
+const lengthHex = (parameterHexString.length / 2).toString(16).padStart(2, '0')
+// lengthHex is 37
+
+// 4. Concat lengthHex and parameterHexString
+const concatenatedString = lengthHex + parameterHexString
+
+// 5. Wrap concatenatedString in ledger compatible bytecode
+const ledgerCompatibleString = '010001f0' + concatenatedString + '0000'
+
+// 6. Sign ledgerCompatibleString with the user's privateKey
+const signature = signMessage(ledgerCompatibleString, 'b9609de8610cf33d832efaf9cd1e3f2c7601bbd7824fa109659e36be15a7a2ad')
+
+// 7. Combine the raw parameters with the signature to get the final parameters to send
+const parametersToSend = { ...rawParams, signature }
 ```
+Actions require request parameters to be signed using the below process:
 
-When signing request parameters as a form of authentication, care must be taken that the message is serialized properly
-before passing it to the signing function.
-
-In particular,
-
-1. While the JSON format is unordered, the stringified JSON that is passed to the signing function must be ordered **alphanumerically**
-to ensure that both client and server can arrive at a deterministic hash.
-2. The timestamp passed to the server is used as a nonce and must be within 1 minute of the server's time.
-
-For example, the JSON request on the right should be serialized as shown. Both the public key and the signature of the
- serialized message should then be appended to the JSON request payload.
+1. Convert the API parameters into a string, with parameters ordered alphanumerically
+2. Serialize the parameter string into a hex string
+3. Zero pad the **length** of the result from (2) to a 2 digit hex string
+4. Concat the result of (3) and (2)
+5. Wrap the result of (4) in ledger compatible bytecode
+6. Sign the result of (5) with the user's private key
+7. Send the result of (6) together with the raw parameters to the API endpoint
 
 ## Signing Transactions
 
-Each blockchain serializes their transactions differently. Some blockchains may not require signing of transactions directly at all,
-  and signing messages will suffice.
+> **Signing a transaction for NEO**
 
-Where signing of transactions is neccessary, the blockchain specific serialization should be used. Where signing of blockchain
-  messages are neccessary, the blockchain specific prefix should be used.
+```js
+const { tx } = require('@cityofzion/neon-js')
 
-The transaction data should also be checked that it is in accordance with the intent of the user before
-  serialization and signing. See each endpoint for more detail on how this can be done.
+function signTransaction(transaction, privateKey) {
+  const txnSerialized = tx.serializeTransaction(transaction, false)
+  return signMessage(txnSerialized, privateKey)
+}
 
-### NEO
+const response = ... // Send the parameters for the first step of an action and retrieve the response
+const { transaction } = response
 
-To sign a transaction for the NEO blockchain, see [neon-js](https://github.com/CityOfZion/neon-js/blob/master/docs/api-transactions.md)
-for an example.
+... // verify the transaction data to ensure that it matches the user's intention
 
-### ETHEREUM
+signTransaction(transaction, 'b9609de8610cf33d832efaf9cd1e3f2c7601bbd7824fa109659e36be15a7a2ad')
+```
 
-Prefix messages with: `\x19Ethereum Signed Message:`.
+The second step of an action may require a transaction to be signed, this is done by:
+
+1. Checking the transaction data to ensure it matches the user's intention
+2. Serializing the transaction, this can be done with [neon-js](https://github.com/CityOfZion/neon-js)
+([View implementation details](https://github.com/CityOfZion/neon-js/blob/c6a169a82a4d037e00dccd424f53cdc818d6b3ae/src/transactions/core.js#L79))
+3. Signing the serialized transaction with the user's private key

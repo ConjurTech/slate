@@ -44,10 +44,13 @@ Retrieves trades that have already occurred on Switcheo Exchange filtered by the
 
 ### Request Parameters
 
-Parameter     | Type                   | Description
-------------- | ---------------------- | ----------- 
-contract_hash | **String**             | Only return trades for this [contract hash](#contracts).
-pair          | **String**             | Only return trades for this [pair](#pairs).
-from          | **Integer** (optional) | Only return trades after this time (unix epoch).
-to            | **Integer** (optional) | Only return trades before this time (unix epoch).
-limit         | **Integer** (optional) | Only return this number of trades (min: `1`, max: `10000`, default: `5000`).
+Parameter     | Type         | Optional | Description
+------------- | ------------ | -------- | -----------
+contract_hash | **String**   | no       | Only return trades for this [contract hash](#contracts).
+pair          | **String**   | no       | Only return trades for this [pair](#pairs).
+from          | **Integer**  | yes      | Only return trades after this time (unix epoch).
+to            | **Integer**  | yes      | Only return trades before this time (unix epoch).
+limit         | **Integer**  | yes      | Only return this number of trades (min: `1`, max: `10000`, default: `5000`).
+
+### Example
+[Full list trades example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/trades/listTradesExample.js)

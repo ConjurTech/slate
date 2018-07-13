@@ -47,12 +47,12 @@ Returns candlestick chart data filtered by url parameters.
 
 ### Request parameters
 
- Parameter      | Type        | Description
---------------- | ----------- | -----------
- pair           | **string**  | Only show chart data of this [trading pair](#pair)
- start_time     | **integer** | Start of time range for data returned (unix epoch)
- end_time       | **integer** | End of time range for data returned (unix epoch)
- interval       | **integer** | Candlestick period in minutes Possible values are `1, 5, 30, 60, 360, and 1440`
+ Parameter      | Type        | Optional  | Description
+--------------- | ----------- | --------- | ------------------------------------
+ pair           | **string**  | no       | Only show chart data of this [trading pair](#pair)
+ start_time     | **integer** | no       | Start of time range for data returned (unix epoch)
+ end_time       | **integer** | no       | End of time range for data returned (unix epoch)
+ interval       | **integer** | no       | Candlestick period in minutes Possible values are `1, 5, 30, 60, 360, and 1440`
 
 
 ## Last 24 hours
@@ -87,7 +87,7 @@ curl "https://test-api.switcheo.network/v2/tickers/last_24_hours"
   }
 ]
 
-```  
+```
 
 Returns 24-hour data for all pairs and markets.
 
@@ -113,7 +113,7 @@ curl "https://test-api.switcheo.network/v2/tickers/last_price"
    {
       "NEO": "0.1"
    },
-  "SWTH": 
+  "SWTH":
    {
       "NEO": "0.00050369"
    }
@@ -129,11 +129,11 @@ Returns last price of given symbol(s). Defaults to all symbols.
 
 ### Request parameters
 
- Parameter      | Type                  | Description
---------------- | --------------------- | -----------
- symbols        | **array** (optional)  | Return the price for these symbols.
- bases          | **array** (optional)  | Return the price for pairs of these bases. Possible values are `NEO, GAS, SWTH, USD`.
- 
+ Parameter      | Type      | Optional  | Description
+--------------- | --------- | --------- | -----------
+ symbols        | **array** | yes | Return the price for these symbols.
+ bases          | **array** | yes | Return the price for pairs of these bases. Possible values are `NEO, GAS, SWTH, USD`.
+
 
 ## Pairs
 
@@ -162,10 +162,10 @@ Returns available currency [pairs](#currency_pairs) on Switcheo Exchange filtere
 
 ### Request parameters
 
- Parameter      | Type                  | Description
---------------- | --------------------- | -----------
- bases          | **array** (optional)  | Provides pairs for these base symbols. Possible values are `NEO, GAS, SWTH, USD`.
- 
+ Parameter      | Type      | Optional  | Description
+--------------- | --------- | --------- | -----------
+ bases          | **array** | yes | Provides pairs for these base symbols. Possible values are `NEO, GAS, SWTH, USD`.
+
 ## Contracts
 
 > Example request
@@ -179,7 +179,7 @@ curl "https://test-api.switcheo.network/v2/tickers/contracts"
 
 ```json
 {
-  "NEO": 
+  "NEO":
   {
     "V1": "0ec5712e0f7c63e4b0fea31029a28cea5e9d551f",
     "V1_5": "c41d8b0c30252ce7e8b6d95e9ce13fdd68d2a5a8",
