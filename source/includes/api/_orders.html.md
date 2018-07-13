@@ -6,33 +6,10 @@ Orders are instructions to buy or sell assets on Switcheo Exchange.
 
 At the moment, only Limit orders are available. Market, Fill-Or-Cancel, Make-Or-Cancel, etc. strategies are not available yet.
 
-As such, orders will contain a combination of zero or one make and/or zero or more fills.
+As such, orders will contain a combination of zero or one **make** and/or zero or more **fills**.
 
 Once an order is placed, the funds required for the order is removed from the user's balance
  and placed on hold until the order is filled or the order is cancelled.
-
-**Overview**
-
-To perform any action, **two** API calls are required. This defers from a traditional exchange API,
- as the order must be co-signed by our off-chain service, and then broadcasted to the appropriate blockchain.
-
-The **first** API call creates an appropriate blockchain transaction (e.g. create order), which will
-  be returned in the response.
-
-This transaction must then be signed in the specific way as required by the blockchain. The signature should then
-  be returned as the payload in the **second** API call (e.g. broadcast order).
-
-As mentioned above, the message to be signed in the second step of an action is simply the serialized
-  blockchain transaction itself.
-
-**Authentication**
-
-The message to be signed in the first step of an action is the request parameters as an ordered JSON **string**.
-
-For additional security, care should be taken to verify that the transaction returned from the API matches that of the
- requested order. An example of validating an order transaction can be found here:
-
-For more details, please consult the [Authentication](#authentication) section.
 
 ## List Orders
 
@@ -77,88 +54,21 @@ Retrieves orders from a specific address filtered by the given parameters.
 
 ### Request Parameters
 
- Parameter      | Type                  | Description
---------------- | --------------------- | -----------
- address        | **string**            | Only returns orders made by this [address](#address).
- contract_hash  | **string** (optional) | Only returns orders from this [contract hash](#contract-hash).
- pair           | **string** (optional) | The pair to buy or sell on.
+ Parameter      | Type       | Optional | Description
+--------------- | ---------- | -------- | -------------
+ address        | **string** | no       | Only returns orders made by this [address](#address).
+ contract_hash  | **string** | no       | Only returns orders from this [contract hash](#contract-hash).
+ pair           | **string** | yes      | The pair to buy or sell on.
+
+### Example
+[Full list orders example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/listOrdersExample.js)
+
 
 ## Create Order
 
-> Payload
-
-```json
-{
-  "blockchain": "neo",
-  "contract_hash": "add0fccaaa65a5d2835012a96e73a443bc8343ef",
-  "address": "ede2491ec91f3beb24778572c97b1c1dd6495df8",
-  "pair": "SWTH_NEO",
-  "side": "buy",
-  "price": "0.41234200",
-  "want_amount": "100000000",
-  "use_native_tokens": false,
-  "order_type": "limit"
-}
-```
-
-> Signature
-
-```js
-const messageToSign = "{\"address\":\"ede2491ec91f3beb24778572c97b1c1dd6495df8\",\"blockchain\":\"neo\",\"contract_hash\":\"add0fccaaa65a5d2835012a96e73a443bc8343ef\",\"pair\":\"SWTH_NEO\",\"price\":\"0.41234200\",\"side\":\"buy\",\"timestamp\":1529474651000,\"use_native_tokens\":false,\"want_amount\":\"100000000\",\"order_type\": \"limit\",}"
-sign(messageToSign) // see the Authentication section for an example of the `sign` method
-// => 986961707a860eec03fe..
-```
-
 This endpoint creates an order which can be executed through [Broadcast Order](#broadcast-order).
-  Orders can only be created after sufficient funds have been [deposited](#deposits) into the user's contract balance.
-  A successful order will have zero or one make and/or zero or more fills.
-
-A [signature](#authentication) of the request payload has to be provided for this API call.
-  An example of the message required to be signed for a given payload can be seen on the right.
-
-> Example Request
-
-```shell
-curl https://test-api.switcheo.network/v2/orders \
-  -d blockchain=neo \
-  -d contract_hash=9c9d2fac35987621e252981e06762895b09eb035 \
-  -d address=1b7bc3c02fd9503d4896b24729513430162799d4 \
-  -d pair=SWTH_NEO \
-  -d side=buy \
-  -d price=0.41234200 \
-  -d offer_amount=44999997 \
-  -d want_amount=100000000 \
-  -d use_native_tokens=false \
-  -d order_type=limit \
-  -d timestamp=1528879294321 \
-  -d public_key=03dba309c4493d6fd22.. \
-  -d signature=986961707a860eec03fe..
-```
-
-> Example Response
-
-```json
-{
-  "id":"474940c6-2be4-43a8-aa71-0f9b2bc8908c",
-  "blockchain":"neo",
-  "contract_hash":"06118464b88a1049f38abac013347ca9039fb8b0",
-  "address":"20abeefe84e4059f6681bf96d5dcb5ddeffcc377",
-  "side":"sell",
-  "offer_asset_id":"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
-  "want_asset_id":"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
-  "offer_amount":"100000",
-  "want_amount":"143253",
-  "transfer_amount":"0",
-  "priority_gas_amount":"0",
-  "use_native_token":false,
-  "native_fee_transfer_amount":0,
-  "deposit_txn":null,
-  "created_at":"2018-05-23T03:20:19.481Z",
-  "status":"pending",
-  "fills":[],
-  "makes":[]
-}
-```
+Orders can only be created after sufficient funds have been [deposited](#deposits) into the user's contract balance.
+A successful order will have zero or one **make** and/or zero or more **fills**.
 
 <aside class="notice">
   Reminder: After calling this endpoint, the Broadcast Order endpoint has to be called for the order to be executed.
@@ -172,93 +82,135 @@ curl https://test-api.switcheo.network/v2/orders \
 
 For the below descriptions, the `order maker` refers to your API user.
 
- Parameter         | Type                  | Description
------------------- | ----------------------| -----------
- pair              | **string**            | Pair to trade, e.g. `RPX_NEO`.
- blockchain        | **string**            | Blockchain that the `pair` is on. Possible values are: `neo`.
- contract_hash     | **string**            | Switcheo Exchange [contract hash](#contract-hash) to execute the order on.
- address           | **string**            | Address of the order maker.
- side              | **string**            | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`.
- price             | **string**            | Order price at 8 decimal places precision.
- offer_amount      | **string**            | [Amount](#amounts) of tokens offered in the order as an integer string.
- use_native_tokens | **boolean**           | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
- timestamp         | **int**               | The current timestamp to be used as a nonce as epoch **milliseconds**.
- order_type        | **string** (optional) | Order type supported by Switcheo Exchange. Possible values are: `limit`.
- public_key        | **string**            | Public key of the order maker in hex format (big endian).
- signature         | **string**            | Signature of the request payload. See [Authentication](#authentication) for more details.
+> Create an order
 
-## Broadcast Order
+```js
+function createOrder({ pair, blockchain, side, price,
+                       wantAmount, useNativeTokens, orderType,
+                       privateKey, address }) {
+  const contractHash = CONTRACT_HASH
+  const signableParams = { pair, blockchain, side, price, wantAmount,
+                           useNativeTokens, orderType, timestamp: getTimestamp(),
+                           contractHash: CONTRACT_HASH }
 
-> Example Order (NEO)
+  const signature = signParams(signableParams, privateKey)
+  const apiParams = { ...signableParams, address, signature }
+  return api.post(API_URL + '/orders', apiParams)
+}
 
-```json
+createOrder({ pair: 'SWTH_NEO',
+              blockchain: 'neo',
+              address: user.address,
+              side: 'buy',
+              price: (0.001).toFixed(8),
+              wantAmount: toNeoAssetAmount(20.5),
+              useNativeTokens: true,
+              orderType: 'limit',
+              privateKey: user.privateKey })
+
+// View the full example at:
+// https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createOrderExample.js
+```
+
+> Example request
+
+```js
 {
-  ...
-  "fills": [],
-  "makes": [
-   {
-     ...
-     "txn":
-     {
-       "offerHash": "3eda0...",
-       "hash": "ffe681b...",
-       "sha256": "c0356803...", // Message digest for signature (neo)
-       ...
-     },
-     ...
-   }
-  ]
+  "pair": "SWTH_NEO",
+  "blockchain": "neo",
+  "side": "buy",
+  "price": "0.00100000",
+  "wantAmount": "2050000000",
+  "useNativeTokens": true,
+  "orderType": "limit",
+  "timestamp": 1531468986445,
+  "contractHash": "eed0d2e14b0027f5f30ade45f2b23dc57dd54ad2",
+  "address": "87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f",
+  "signature": "cec9e2a8ad49b3ac349b7907c4301d8b1e9cd71b80dee6d6d481a6096781a5315a43ceee336ce1e7f3d66cb30f7a153d2f846e202780f2df2730ef78856d281a"
 }
 ```
 
-> Example Request
+> Example response
 
- ```shell
- curl https://api.switcheo.network/v2/orders/id/broadcast \
-   -d '{\"public_key\":\"034d2ad7cc8a2598dd341271920fd78ea98209cd082aae6a1ef10d51a3b254d822\", \
-        "signatures":{\"fills\":{},\"makes\":{\"48c908fb-95a6-4646-9484-d01ea509f6cc\":\"3eab5444213a78d9450...\"}}}'
- ```
-
- > Example Response:
-
- ```json
+```js
 {
-  "id":"474940c6-2be4-43a8-aa71-0f9b2bc8908c",
-  "blockchain":"neo",
-  "contract_hash":"06118464b88a1049f38abac013347ca9039fb8b0",
-  "address":"20abeefe84e4059f6681bf96d5dcb5ddeffcc377",
-  "side":"sell",
-  "offer_asset_id":"602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
-  "want_asset_id":"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
-  "offer_amount":"100000",
-  "want_amount":"143253",
-  "transfer_amount":"0",
-  "priority_gas_amount":"0",
-  "use_native_token":false,
-  "native_fee_transfer_amount":0,
-  "deposit_txn":null,
-  "created_at":"2018-05-23T03:20:19.481Z",
-  "status":"pending",
-  "fills":[],
-  "makes":[]
+  "id": "cfd3805c-50e1-4786-a81f-a60ffba33434",
+  "blockchain": "neo",
+  "contract_hash": "eed0d2e14b0027f5f30ade45f2b23dc57dd54ad2",
+  "address": "87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f",
+  "side": "buy",
+  "offer_asset_id": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
+  "want_asset_id": "ab38352559b8b203bde5fddfa0b07d8b2525e132",
+  "offer_amount": "2050000",
+  "want_amount": "2050000000",
+  "transfer_amount": "0",
+  "priority_gas_amount": "0",
+  "use_native_token": true,
+  "native_fee_transfer_amount": 0,
+  "deposit_txn": null,
+  "created_at": "2018-07-13T07:58:11.340Z",
+  "status": "pending",
+  "fills": [
+    {
+      "id": "2eaa3621-0e7e-4b3d-9c8c-454427f20949",
+      "offer_hash": "bb70a40e8465596bf63dbddf9862a009246e3ca27a4cf5140d70f01bdd107277",
+      "offer_asset_id": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
+      "want_asset_id": "ab38352559b8b203bde5fddfa0b07d8b2525e132",
+      "fill_amount": "1031498",
+      "want_amount": "2050000000",
+      "filled_amount": "",
+      "fee_asset_id": "ab38352559b8b203bde5fddfa0b07d8b2525e132",
+      "fee_amount": "1537500",
+      "price": "0.00050317",
+      "txn": [Object],
+      "status": "pending",
+      "created_at": "2018-07-13T07:58:11.353Z",
+      "transaction_hash": "97ad8c0af68d22304e7f2d09d04f3beed29a845fe57de53444fff1507b752b99"
+    }
+  ],
+  "makes": []
 }
- ```
+```
 
-This is the second endpoint required to execute an order. After using the [Create Order](#create-order) endpoint,
-  you will receive response which requires additional signatures. The method for signing depends on the blockchain
-  the order is to be executed on.
+ Parameter         | Type        | Optional   | Description
+------------------ | ----------- | ---------- | -----------
+ pair              | **string**  | no         | Pair to trade, e.g. `RPX_NEO`.
+ blockchain        | **string**  | no         | Blockchain that the `pair` is on. Possible values are: `neo`.
+ side              | **string**  | no         | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`.
+ price             | **string**  | no         | Buy or sell price to 8 decimal places precision.
+ want_amount       | **string**  | no         | [Amount](#amounts) of tokens offered in the order.
+ use_native_tokens | **boolean** | no         | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
+ order_type        | **string**  | yes        | Order type supported by Switcheo Exchange. Possible values are: `limit`.
+ timestamp         | **int**     | no         | The current time in epoch **milliseconds**.
+ signature         | **string**  | no         | Signature of the request payload. See [Authentication](#authentication) for more details.
+ address           | **string**  | no         | Address of the order maker. Do not include this in the parameters to be signed.
+ contract_hash     | **string**  | no         | Switcheo Exchange [contract hash](#contract-hash) to execute the order on.
 
-##### NEO
+### Example
+[View full create order example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createOrderExample.js)
 
-Every `fill` and `make` in the Create Order response should be [signed](#authentication).
+## Broadcast Order
 
-The signatures should than be put in an object with this format: `{ makes: { [<make_id>]: <signature> }, fills: { [<fill_id>]: <signature> } }`,
- and attached as the `signature` parameter in the request payload.
+This is the second endpoint required to execute an order.
+After using the [Create Order](#create-order) endpoint, you will receive a response which needs to be signed.
 
-Consult the [Authentication](#authentication) section to understand how to [sign a NEO transaction](#sign-neo-txn).
+> Format of signatures parameter
 
-Note that a `sha256` parameter is provided for convenience to be used directly as part of the ECDSA signature process.
- *In production mode, this should be recalculated for additional security.*
+```js
+{
+  makes: {
+    <make_id>: <signature>
+  },
+  fills: {
+    <fill_id_1>: <signature_1>,
+    <fill_id_2>: <signature_2>
+  }
+}
+```
+
+Every `txn` of the `fills` and `makes` in the Create Order response should be [signed](#authentication),
+and structured in the `signatures` format shown on the right.
+
 
 ### HTTP Request
 
@@ -266,77 +218,68 @@ Note that a `sha256` parameter is provided for convenience to be used directly a
 
 ### Request Parameters
 
- Parameter  | Type       | Description
- ---------- | ---------- | -----------
- signatures | **string** | Signed fills and makes in response from create order endpoint. Format: `{ makes: { [<make_id>]: <signature> }, fills: { [<fill_id>]: <signature> } }`
- public_key | **string** | Public key of the order maker in hex format (big endian).
+> Broadcast an order
 
-## Create Cancellation
+```js
+function signArray(array, privateKey) {
+  return array.reduce((map, item) => {
+    map[item.id] = signTransaction(item.txn, privateKey)
+    return map
+  }, {})
+}
 
-> Payload
+function broadcastOrder({ order, privateKey }) {
+  const { fills, makes } = order
+  const signatures = {
+    fills: signArray(order.fills, privateKey),
+    makes: signArray(order.makes, privateKey)
+  }
+  const url = `${API_URL}/orders/${order.id}/broadcast`
+  return api.post(url, { signatures })
+}
 
+// View the full example at:
+// https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/broadcastOrderExample.js
 ```
-{ order_id: "474940c6...", timestamp: 1529474651000 }
-```
 
-> Example Request
+> Example request
 
-```shell
-curl "https://api.switcheo.network/v2/cancellations"
-  -d order_id=474940c6... \
-  -d signature=986961707a860eec03fe... \
-  -d public_key=03dba309c4493d6fd22.. \
-  -d timestamp=1529474651000
-```
-
-> Example Response
-
-```json
+```js
 {
-	"id": "fa764bc3...",
-	"transaction": {
-		"hash": "5b542708ee47...",
-		"type": 209,
-		"version": 1,
-		"attributes": [
-			{
-				"usage": 32,
-				"data": "f85d49d61d..."
-			}
-		],
-		"inputs": [
-			{
-				"prevHash": "1d1f3a631...",
-				"prevIndex": 0
-			}
-		],
-		"outputs": [
-			{
-				"assetId": "602c79718b16e...",
-				"scriptHash": "e707714512...",
-				"value": 1e-8
-			}
-		],
-		"scripts": [],
-		"script": "20a7ce4ae512908ed4150...",
-		"gas": 0
-	},
-	"script_params": {
-		"scriptHash": "48756743d524af03aa7...",
-		"operation": "cancelOffer",
-		"args": [
-			"9b7cffdaa674...",
-			"a7ce4ae51290..."
-		]
-	}
+  "signatures": {
+    "fills": {
+      "c821c814-d4a3-475b-b461-e909d8c8a59a": "b2e4c8b18e0ebcb00fac9b366ba86618ba0b4d3d791f79be5a938da886e98350b2bd7b0c6792ca2eb47697a7a0918442ff9186703021b8938954df99d6ce53e0"
+    },
+    "makes": {}
+  }
 }
 ```
 
-This is the first api call required to cancel an order.
-  Only orders with makes with **more than 0** `available_amount` are eligible for cancellation.
+ Parameter  | Type       | Optional | Description
+ ---------- | ---------- | -------- | -----------
+ signatures | **hash**   | no       | See the section description and example for the format.
 
-A [signature](#authentication) has to be provided for this API call. An example of the payload required to be signed
-  can be seen on the right.
+### Example
+[Full broadcast order example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/broadcastOrderExample.js)
+
+## Create Cancellation
+
+> Create a cancellation
+
+```js
+function createCancellation({ order, address, privateKey }) {
+  const signableParams = { orderId: order.id, timestamp: getTimestamp() }
+  const signature = signParams(signableParams, privateKey)
+  const apiParams = { ...signableParams, signature, address }
+  return api.post(API_URL + '/cancellations', apiParams)
+}
+
+// View the full example at:
+// https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createCancellationExample.js
+```
+
+This is the first API call required to cancel an order.
+Only orders **with makes** and with an `available_amount` of **more than 0** can be cancelled.
 
 <aside class="notice">
   Reminder: After calling this endpoint, the Execute Cancellation endpoint has to be called for the cancellation to be executed.
@@ -348,72 +291,94 @@ A [signature](#authentication) has to be provided for this API call. An example 
 
 ### URL Parameters
 
- Parameter  | Type       | Description
------------ | ---------- | -----------
- order_id   | **string** | Order ID to cancel.
- timestamp  | **int**    | The current timestamp to be used as a nonce as epoch **milliseconds**.
- public_key | **string** | Public key of the order maker in hex format (big endian).
- signature  | **string** | Signature of the request payload. See [Authentication](#authentication) for more details.
+> Example request
 
-## Execute Cancellation
-
-> Example Request
-
-```shell
-curl "https://api.switcheo.network/v2/cancellations/:id/broadcast"
-```
-
-> Example Response
-
-```json
+```js
 {
-	"id": "a8c5bba2...",
-	"blockchain": "neo",
-	"contract_hash": "48756743...",
-	"address": "ede2491ec91...",
-	"side": "buy",
-	"offer_asset_id": "c56f33fc6ecfc...",
-	"want_asset_id": "ab38352559...",
-	"offer_amount": "100000000",
-	"want_amount": "10000000000",
-	"transfer_amount": "0",
-	"priority_gas_amount": "0",
-	"use_native_token": true,
-	"native_fee_transfer_amount": 0,
-	"deposit_txn": null,
-	"created_at": "2018-06-19T07:44:38.894Z",
-	"status": "processed",
-	"fills": [],
-	"makes": [
-		{
-			"id": "fa764bc3-1a6f...",
-			"offer_hash": "f4912191f6033c96f...",
-			"available_amount": "0",
-			"offer_asset_id": "c56f33fc6ecfcd0c...",
-			"offer_amount": "100000000",
-			"want_asset_id": "ab3835255...",
-			"want_amount": "10000000000",
-			"filled_amount": "0",
-			"txn": null,
-			"cancel_txn": null,
-			"price": "0.01",
-			"status": "cancelling",
-			"created_at": "2018-06-19T07:44:38.907Z",
-			"transaction_hash": "9c6442e14...",
-			"trades": []
-		}
-	]
+  "orderId": "69c60da5-5832-4705-8390-de4bb4ed62c5",
+  "timestamp": 1531471743957,
+  "signature": "04ecdea766f4e8e6122eb0f722544baa11ee19b8c2839fc4b1f4453ec9bbc43b79fececd4d28f325bcbfcc0294b792aa4eb70beeec8d7478feec7ee6c2eea1e0",
+  "address": "87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f"
 }
 ```
 
-This is the second endpoint that must be called to cancel an order.
-  After calling the [Create Cancellation](#create-cancellation) endpoint, you will receive
-  a message or transaction in the response which must be signed.
+> Example response
 
-Consult the [Authentication](#authentication) section to understand how to sign the `transaction` (NEO) or `message_to_sign` (Ethereum).
+```js
+{
+  "id": "e4cf0472-59e3-4887-b2d3-720b98da0de6",
+  "transaction": {
+    "hash": "b4013bdfde6370198f043f2a5fb235242d20280361241d85ee0774c63856f65b",
+    "sha256": "f760aaa9efe99059af46a2a9640e91527119e78f18322729ab620e20116b3cf8",
+    "type": 209,
+    "version": 1,
+    "attributes": [
+      [
+        null
+      ]
+    ],
+    "inputs": [
+      [
+        null
+      ]
+    ],
+    "outputs": [
+      [
+        null
+      ]
+    ],
+    "scripts": [],
+    "script": "206e62f9555edc1f791d36f6f081d44b249e8696ab73f41cc809db73316eff6e65349b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc532e125258b7db0a0dffde5bd03b2b859253538ab52c10b63616e63656c4f6666657267d24ad57dc53db2f245de0af3f527004be1d2d0ee",
+    "gas": 0
+  },
+  "script_params": {
+    "scriptHash": "eed0d2e14b0027f5f30ade45f2b23dc57dd54ad2",
+    "operation": "cancelOffer",
+    "args": [
+      "9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc532e125258b7db0a0dffde5bd03b2b859253538ab",
+      "6e62f9555edc1f791d36f6f081d44b249e8696ab73f41cc809db73316eff6e65"
+    ]
+  }
+}
+```
+
+ Parameter  | Type       | Optional | Description
+----------- | ---------- | -------- | ------------------------------
+ order_id   | **string** | no       | The ID of the order to cancel.
+ timestamp  | **int**    | no       | The current time in epoch **milliseconds**.
+ signature  | **string** | no       | Signature of the request payload. See [Authentication](#authentication) for more details.
+ address    | **string** | no       | Address of the order maker. Do not include this in the parameters to be signed.
+
+## Execute Cancellation
+
+> Execute a cancellation
+
+```js
+function executeCancellation({ cancellation, privateKey }) {
+  const signature = signTransaction(cancellation.transaction, privateKey)
+  const url = `${API_URL}/cancellations/${cancellation.id}/broadcast`
+  return api.post(url, { signature })
+}
+
+// View the full example at:
+// https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/executeCancellationExample.js
+```
+
+This is the second endpoint that must be called to cancel an order.
+After calling the [Create Cancellation](#create-cancellation) endpoint, you will receive
+a transaction in the response which must be signed.
 
 Note that a `sha256` parameter is provided for convenience to be used directly as part of the ECDSA signature process.
- *In production mode, this should be recalculated for additional security.*
+
+*In production mode, this should be recalculated for additional security.*
+
+> Example request
+
+```js
+{
+  "signature": "d4b8f006dbd290d85a017768e9a1b08b29efd4f90e98139b17fab276daf0e783db165f41df24a92cce8e3b34cf51a84e54f08de8c2b84195cc9b6c1996b02ae2"
+}
+```
 
 ### HTTP Request
 
@@ -423,4 +388,4 @@ Note that a `sha256` parameter is provided for convenience to be used directly a
 
  Parameter | Type       | Description
 ---------- | ---------- | -----------
- signature | **string** | Signature of the message or transaction required to execute the cancellation.
+ signature | **string** | Signature of the transaction. See [Authentication](#authentication) for more details.
