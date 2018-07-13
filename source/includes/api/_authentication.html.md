@@ -62,6 +62,9 @@ const signature = signMessage(ledgerCompatibleString, 'b9609de8610cf33d832efaf9c
 
 // 7. Combine the raw parameters with the signature to get the final parameters to send
 const parametersToSend = { ...rawParams, signature }
+
+// View a full example at:
+// https://github.com/ConjurTech/switcheo-api-examples/blob/7f0097ffdab7ce6149d8512d26afc0a0b0a142d6/src/utils.js#L48
 ```
 Actions require request parameters to be signed using the below process:
 
@@ -72,6 +75,10 @@ Actions require request parameters to be signed using the below process:
 5. Wrap the result of (4) in ledger compatible bytecode
 6. Sign the result of (5) with the user's private key
 7. Send the result of (6) together with the raw parameters to the API endpoint
+
+### Example
+
+[Full sign parameters example](https://github.com/ConjurTech/switcheo-api-examples/blob/7f0097ffdab7ce6149d8512d26afc0a0b0a142d6/src/utils.js#L48)
 
 ## Signing Transactions
 
