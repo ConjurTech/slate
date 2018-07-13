@@ -83,9 +83,9 @@ A [signature](#authentication) of the request payload has to be provided for thi
 
  Parameter         | Type       | optional | Description
 ------------------ | ---------- | -------- | ------------
- blockchain        | **string** | no       | Blockchain that the `pair` is on. Possible values are: `neo`.
+ blockchain        | **string** | no       | Blockchain that the token to deposit is on. Possible values are: `neo`.
  contract_hash     | **string** | no       | Switcheo Exchange [contract hash](#contract-hash) to execute the deposit on.
- asset_id          | **string** | no       | The asset symbol or ID to deposit. Note that this can be either the symbol ie. `SWTH` or the hash of the token ie. `` 
+ asset_id          | **string** | no       | The asset symbol or ID to deposit. Note that this can be either the symbol ie. `SWTH` or the hash of the token ie. `ab38352559b8b203bde5fddfa0b07d8b2525e132` 
  amount            | **string** | no       | [Amount](#amounts) of tokens to deposit.
  address           | **string** | no       | The depositer's address (do not include in signature!)
  user_balance      | **string** | yes      | NEO exclusive parameter! The balances of this user - do not include in signature!
