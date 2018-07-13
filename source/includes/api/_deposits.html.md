@@ -77,10 +77,9 @@ A [signature](#authentication) of the request payload has to be provided for thi
 
 ### HTTP Request
 
-`POST https://api.switcheo.network/v2/deposit`
+`POST /v2/deposits`
 
 ### Request Parameters
-`POST /v2/deposits.json`
 
  Parameter         | Type       | optional | Description
 ------------------ | ---------- | -------- | ------------
