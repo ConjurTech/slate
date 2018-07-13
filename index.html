@@ -232,15 +232,12 @@
                     <a href="#mainnet-testnet-urls" class="toc-h2 toc-link" data-title="mainnet-testnet-urls">Mainnet/Testnet URLs</a>
                   </li>
                   <li>
-                    <a href="#authentication" class="toc-h2 toc-link" data-title="authentication">Authentication</a>
-                  </li>
-                  <li>
                     <a href="#rate-limits" class="toc-h2 toc-link" data-title="rate-limits">Rate Limits</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#authentication-2" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#action-authentication" class="toc-h2 toc-link" data-title="action-authentication">Action Authentication</a>
@@ -391,13 +388,10 @@ API requests and responses use the <a href="https://www.json.org/">JSON</a> form
 <p>For actual trading and market data, the mainnet URL should be used:</p>
 
 <p><a href="https://api.switcheo.network">https://api.switcheo.network</a></p>
-<h2 id='authentication'>Authentication</h2>
-<p>Authentication for Switcheo Exchange API uses ECDSA with a user&#39;s private key.
-Please see the <a href="#authentication-2">Authentication</a> section for more details.</p>
 <h2 id='rate-limits'>Rate Limits</h2>
 <p>All endpoints are rate-limited. We use a dynamic algorithm for determining these limits. The HTTP error code <code>429</code> will
 be returned if this limit is exceeded. You should implement an exponential backoff strategy when encountering this error code.</p>
-<h1 id='authentication-2'>Authentication</h1>
+<h1 id='authentication'>Authentication</h1>
 <p>As a decentralised exchange, Switcheo does not use any sort of password or API key.
 Instead, authentication is done by signing the <strong>request payload</strong> <em>or</em> <strong>blockchain transaction</strong> using the <strong>blockchain-specific</strong>
 digital signature with the user&#39;s private key.</p>
@@ -1314,12 +1308,14 @@ a transaction in the response which must be signed.</p>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
+<th>Optional</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>signature</td>
 <td><strong>string</strong></td>
+<td>no</td>
 <td>Signature of the transaction. See <a href="#authentication">Authentication</a> for more details.</td>
 </tr>
 </tbody></table>
@@ -1457,6 +1453,8 @@ a transaction in the response which must be signed.</p>
 <td>Signature of the request payload. See <a href="#authentication">Authentication</a> for more details.</td>
 </tr>
 </tbody></table>
+
+<p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/deposits/createDepositExample.js">View full create deposit example</a></p>
 <h2 id='execute-deposit'>Execute Deposit</h2>
 <blockquote>
 <p>Example Deposit (NEO)</p>
@@ -1500,6 +1498,8 @@ a transaction in the response which must be signed.</p>
 <td>Signed response from create deposit endpoint. (See how and what to sign for different blockchains above)</td>
 </tr>
 </tbody></table>
+
+<p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/deposits/executeDepositExample.js">View full execute deposit example</a></p>
 <h1 id='withdrawals'>Withdrawals</h1>
 <p><strong>Description</strong></p>
 
@@ -1599,6 +1599,8 @@ a transaction in the response which must be signed.</p>
 <td>Signature of the request payload. See <a href="#authentication">Authentication</a> for more details.</td>
 </tr>
 </tbody></table>
+
+<p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/withdrawals/createWithdrawalExample.js">View full create withdrawal example</a></p>
 <h2 id='execute-withdrawal'>Execute Withdrawal</h2>
 <blockquote>
 <p>Example Withdrawal (NEO)</p>
@@ -1647,6 +1649,8 @@ a transaction in the response which must be signed.</p>
 <td>The current timestamp to be used as a nonce as epoch <strong>milliseconds</strong>.</td>
 </tr>
 </tbody></table>
+
+<p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/withdrawals/executeWithdrawalExample.js">View full execute withdrawal example</a></p>
 <h1 id='address'>Address</h1>
 <p>An <code>address</code> in Switcheo is always represented by a hex string. An <code>address</code> can refer to a user account,
 or a smart contract. <strong>An address should never be prefixed by <code>0x</code></strong>.</p>
