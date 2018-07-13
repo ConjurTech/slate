@@ -92,6 +92,8 @@ A [signature](#authentication) of the request payload has to be provided for thi
  timestamp         | **int**    | no       | The current timestamp to be used as a nonce as epoch **milliseconds**.
  signature         | **string** | no       | Signature of the request payload. See [Authentication](#authentication) for more details.
 
+ [View full create deposit example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/deposits/createDepositExample.js)
+
 ## Execute Deposit
 
 > Example Deposit (NEO)
@@ -133,3 +135,5 @@ Note that a `sha256` parameter is provided for convenience to be used directly a
  Parameter  | Type       | Description
  ---------- | ---------- | -----------
  signatures | **string** | Signed response from create deposit endpoint. (See how and what to sign for different blockchains above)
+
+ [View full execute deposit example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/deposits/executeDepositExample.js)

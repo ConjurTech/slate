@@ -66,6 +66,8 @@ A [signature](#authentication) of the request payload has to be provided for thi
  timestamp         | **int**    | no       | The current timestamp to be used as a nonce as epoch **milliseconds**.
  signature         | **string** | no       | Signature of the request payload. See [Authentication](#authentication) for more details.
 
+ [View full create withdrawal example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/withdrawals/createWithdrawalExample.js)
+
 ## Execute Withdrawal
 
 > Example Withdrawal (NEO)
@@ -100,3 +102,5 @@ Consult the [Authentication](#authentication) section to understand how to [sign
  signatures | **string** | no       | Signed response from create withdrawal endpoint. (See how and what to sign for different blockchains above)
  id         | **string** | no       | `id` parameter in the response from create withdrawal endpoint.
  timestamp  | **int**    | no       | The current timestamp to be used as a nonce as epoch **milliseconds**.
+
+[View full execute withdrawal example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/withdrawals/executeWithdrawalExample.js)
