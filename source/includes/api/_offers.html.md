@@ -6,13 +6,19 @@ Funds used to make an offer will be placed on hold unless the order is cancelled
 
 ## List Offers
 
- ```shell
- curl "https://test-api.switcheo.network/v2/offers?contract_hash=9c9d2fac35987621e252981e06762895b09eb035&pair=SWTH_NEO&blockchain=neo"
+> Example request
+
+ ```js
+{
+  "blockchain": "neo",
+  "pair": "SWTH_NEO",
+  "contract_hash": "eed0d2e14b0027f5f30ade45f2b23dc57dd54ad2"
+}
  ```
 
- > The above command returns JSON structured like this:
+ > Example response
 
- ```json
+ ```js
  [
    {
      "id": "b3a91e19-3726-4d09-8488-7c22eca76fc0",
@@ -33,11 +39,11 @@ Retrieves the best 70 offers (per side) on the offer book.
 
 ### Request Parameters
 
-Parameter     | Type       | Optional | Description
+Parameter     | Type       | Required | Description
 ------------- | ---------- | -------- | -----------
-blockchain    | **string** | no       | Only return offers from this blockchain. Possible values are `neo`.
-contract_hash | **string** | no       | Only return offers for this [contract hash](#contracts).
-pair          | **string** | no       | Only return offers from this [pair](#pairs).
+blockchain    | **string** | yes       | Only return offers from this blockchain. Possible values are `neo`.
+pair          | **string** | yes       | Only return offers from this [pair](#pairs).
+contract_hash | **string** | yes       | Only return offers for this [contract hash](#contracts).
 
 ### Example
 [Full list offers example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/offers/listOffersExample.js)

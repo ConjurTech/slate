@@ -3,7 +3,14 @@
 An `address` in Switcheo is always represented by a hex string. An `address` can refer to a user account,
 or a smart contract. **An address should never be prefixed by `0x`**.
 
-##### NEO
+## NEO
+
+> Convert a public key to an address
+
+```js
+const { wallet } = require('@cityofzion/neon-js')
+const address = wallet.getScriptHashFromPublicKey('<public key>')
+```
 
 For NEO, an `address` refers to the [RIPEMD160](https://en.wikipedia.org/wiki/RIPEMD) hash of the verification script for the user's public key.
 
@@ -17,7 +24,7 @@ Note that as a deployed contract's verification script is in essence itself, the
 
 An `address` is always 20 bytes (40 hex digits) long in NEO.
 
-##### ETHEREUM
+## Ethereum
 
 For Ethereum, an `address` refers to the [Keccak](https://en.wikipedia.org/wiki/SHA-3) hash of the user's public key.
 

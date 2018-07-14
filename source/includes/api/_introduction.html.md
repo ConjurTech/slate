@@ -17,10 +17,10 @@ API requests and responses use the [JSON](https://www.json.org/) format.
 
 There are two main types of API endpoints.
 
-- Trading APIs - these endpoints can be used to execute trades and must be authenticated
 - Exchange APIs - these endpoints provide exchange history, statistics and other data and do not need to be authenticated
+- Trading APIs - these endpoints can be used to execute trades and must be authenticated
 
-## Mainnet/Testnet URLs
+## Mainnet/Testnet API URLs
 
 When developing your application, the testnet URL should be used:
 

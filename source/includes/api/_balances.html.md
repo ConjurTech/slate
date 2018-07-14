@@ -3,64 +3,66 @@
 **Description**
 
 There are two types of balances.
-  Wallet balance represents tokens present in your wallet.
-  Contract balance represents tokens present in the Switcheo smart contract.
+
+Balance          | Description
+---------------- | ----------
+Wallet balance   | Number of tokens present in your wallet.
+Contract balance | Number of tokens present in the Switcheo smart contract.
 
 Trading on Switcheo Exchange can only be done using your contract balance.
 
-## Get the balance of an address
+## List balances
 
 > Example request:
 
-```shell
-curl https://test-api.switcheo.network/v2/orders \
-  -d address=ede2491ec91f3beb24778572c97b1c1dd6495df8 \
-  -d contract_hashes[]=9c9d2fac35987621e252981e06762895b09eb035 \
+```js
+{
+  "addresses": [
+    "87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f"
+  ],
+  "contract_hashes": [
+    "<contract hash 1>",
+    "<contract hash 2>"
+  ]
+}
 ```
 
 > Example response:
 
-```json
+```js
 {
-	"confirming": {
-		"NEO": [
-			{
-				"event_type": "transferred",
-				"asset_id": "c56f33fc6ecfcd0...",
-				"amount": 10990729,
-				"transaction_hash": "333e3a3c12...",
-				"created_at": "2018-06-11T12:07:20.442Z"
-			},
-			...
-		],
-		"SWTH": [
-			{
-				"event_type": "transferred",
-				"asset_id": "ab383525...",
-				"amount": -89489747,
-				"transaction_hash": "333e3a3c1213f9...",
-				"created_at": "2018-06-11T12:07:20.448Z"
-			},
-			...
-		]
-	},
-	"confirmed": {
-		"GAS": "100000000.0",
-		"SWTH": "7761229601.0",
-		"NEO": "230808652.0"
-	}
+  "confirming": {
+    "GAS": [
+      {
+        "event_type": "withdrawal",
+        "asset_id": "602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
+        "amount": -100000000,
+        "transaction_hash": null,
+        "created_at": "2018-07-12T10:48:48.866Z"
+      }
+    ]
+  },
+  "confirmed": {
+    "GAS": "47320000000.0",
+    "SWTH": "421549852102.0",
+    "NEO": "50269113921.0"
+  },
+  "locked": {
+    "GAS": "500000000.0",
+    "NEO": "1564605000.0"
+  }
 }
 ```
 
 
-This endpoint gets contract balances of the given address and contract.
+List contract balances of the given address and contract.
 
 ### HTTP Request
-`https://api.switcheo.network/v2/balances`
+`/v2/balances`
 
-### Url parameters
+### URL parameters
 
- Parameter      | Type                  | Description
---------------- | --------------------- | -----------
-address         | **string**            | The address to get balances for
-contract_hashes | **array**             | Switcheo [contract hash](#contract-hash). Only returns balances from this contract hash.
+ Parameter      | Type       | Required | Description
+--------------- | ---------- | -------- | -----------
+addresses       | **string** | yes       | Only return balances for these [addresses](#address)
+contract_hashes | **array**  | yes       | Only return balances from these [contract hashes](#contract-hash).

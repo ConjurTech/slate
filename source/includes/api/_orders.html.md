@@ -13,10 +13,13 @@ Once an order is placed, the funds required for the order is removed from the us
 
 ## List Orders
 
-> Example Request
+> Example request
 
-```shell
-curl "https://api.switcheo.network/v2/orders?pair=GAS_NEO&address=20abeefe84e4059f6681bf96d5dcb5ddeffcc377&contract_hash=c41d8b0c30252ce7e8b6d95e9ce13fdd68d2a5a8"
+```js
+{
+  "address": "87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f",
+  "contract_hash": "<contract hash>"
+}
 ```
 
 > Example Response
@@ -40,8 +43,8 @@ curl "https://api.switcheo.network/v2/orders?pair=GAS_NEO&address=20abeefe84e405
     "deposit_txn": null,
     "created_at": "2018-05-15T10:54:20.054Z",
     "status": "processed",
-    "fills": [],
-    "makes": []
+    "fills": [...],
+    "makes": [...]
   }
 ]
 ```
@@ -50,15 +53,15 @@ Retrieves orders from a specific address filtered by the given parameters.
 
 ### HTTP Request
 
-`GET https://api.switcheo.network/v2/orders`
+`GET /v2/orders`
 
 ### Request Parameters
 
- Parameter      | Type       | Optional | Description
+ Parameter      | Type       | Required | Description
 --------------- | ---------- | -------- | -------------
- address        | **string** | no       | Only returns orders made by this [address](#address).
- contract_hash  | **string** | no       | Only returns orders from this [contract hash](#contract-hash).
- pair           | **string** | yes      | The pair to buy or sell on.
+ address        | **string** | yes       | Only returns orders made by this [address](#address).
+ pair           | **string** | no      | The pair to buy or sell on.
+ contract_hash  | **string** | yes       | Only returns orders from this [contract hash](#contract-hash).
 
 ### Example
 [Full list orders example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/listOrdersExample.js)
@@ -71,12 +74,12 @@ Orders can only be created after sufficient funds have been [deposited](#deposit
 A successful order will have zero or one **make** and/or zero or more **fills**.
 
 <aside class="notice">
-  Reminder: After calling this endpoint, the Broadcast Order endpoint has to be called for the order to be executed.
+  IMPORTANT: After calling this endpoint, the Broadcast Order endpoint has to be called for the order to be executed.
 </aside>
 
 ### HTTP Request
 
-`POST https://api.switcheo.network/v2/orders`
+`POST /v2/orders`
 
 ### Request Parameters
 
@@ -88,7 +91,6 @@ For the below descriptions, the `order maker` refers to your API user.
 function createOrder({ pair, blockchain, side, price,
                        wantAmount, useNativeTokens, orderType,
                        privateKey, address }) {
-  const contractHash = CONTRACT_HASH
   const signableParams = { pair, blockchain, side, price, wantAmount,
                            useNativeTokens, orderType, timestamp: getTimestamp(),
                            contractHash: CONTRACT_HASH }
@@ -98,18 +100,17 @@ function createOrder({ pair, blockchain, side, price,
   return api.post(API_URL + '/orders', apiParams)
 }
 
-createOrder({ pair: 'SWTH_NEO',
-              blockchain: 'neo',
-              address: user.address,
-              side: 'buy',
-              price: (0.001).toFixed(8),
-              wantAmount: toNeoAssetAmount(20.5),
-              useNativeTokens: true,
-              orderType: 'limit',
-              privateKey: user.privateKey })
-
-// View the full example at:
-// https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createOrderExample.js
+createOrder({
+  pair: 'SWTH_NEO',
+  blockchain: 'neo',
+  address: user.address,
+  side: 'buy',
+  price: (0.001).toFixed(8),
+  wantAmount: toNeoAssetAmount(20.5),
+  useNativeTokens: true,
+  orderType: 'limit',
+  privateKey: user.privateKey
+})
 ```
 
 > Example request
@@ -120,13 +121,13 @@ createOrder({ pair: 'SWTH_NEO',
   "blockchain": "neo",
   "side": "buy",
   "price": "0.00100000",
-  "wantAmount": "2050000000",
-  "useNativeTokens": true,
-  "orderType": "limit",
-  "timestamp": 1531468986445,
-  "contractHash": "eed0d2e14b0027f5f30ade45f2b23dc57dd54ad2",
+  "want_amount": "2050000000",
+  "use_native_tokens": true,
+  "order_type": "limit",
+  "timestamp": 1531541888559,
+  "contract_hash": "<contract hash>",
   "address": "87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f",
-  "signature": "cec9e2a8ad49b3ac349b7907c4301d8b1e9cd71b80dee6d6d481a6096781a5315a43ceee336ce1e7f3d66cb30f7a153d2f846e202780f2df2730ef78856d281a"
+  "signature": "<signature>"
 }
 ```
 
@@ -172,22 +173,22 @@ createOrder({ pair: 'SWTH_NEO',
 }
 ```
 
- Parameter         | Type        | Optional   | Description
+ Parameter         | Type        | Required   | Description
 ------------------ | ----------- | ---------- | -----------
- pair              | **string**  | no         | Pair to trade, e.g. `RPX_NEO`.
- blockchain        | **string**  | no         | Blockchain that the `pair` is on. Possible values are: `neo`.
- side              | **string**  | no         | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`.
- price             | **string**  | no         | Buy or sell price to 8 decimal places precision.
- want_amount       | **string**  | no         | [Amount](#amounts) of tokens offered in the order.
- use_native_tokens | **boolean** | no         | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
- order_type        | **string**  | yes        | Order type supported by Switcheo Exchange. Possible values are: `limit`.
- timestamp         | **int**     | no         | The current time in epoch **milliseconds**.
- signature         | **string**  | no         | Signature of the request payload. See [Authentication](#authentication) for more details.
- address           | **string**  | no         | Address of the order maker. Do not include this in the parameters to be signed.
- contract_hash     | **string**  | no         | Switcheo Exchange [contract hash](#contract-hash) to execute the order on.
+ pair              | **string**  | yes         | Pair to trade, e.g. `RPX_NEO`.
+ blockchain        | **string**  | yes         | Blockchain that the `pair` is on. Possible values are: `neo`.
+ side              | **string**  | yes         | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`.
+ price             | **string**  | yes         | Buy or sell price to 8 decimal places precision.
+ want_amount       | **string**  | yes         | [Amount](#amounts) of tokens offered in the order.
+ use_native_tokens | **boolean** | yes         | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
+ order_type        | **string**  | yes         | Order type, possible values are: `limit`.
+ timestamp         | **int**     | yes         | The current time in epoch **milliseconds**.
+ signature         | **string**  | yes         | Signature of the request payload. See [Authentication](#authentication) for more details.
+ address           | **string**  | yes         | [Address](#address) of the order maker. Do not include this in the parameters to be signed.
+ contract_hash     | **string**  | yes         | Switcheo Exchange [contract hash](#contract-hash) to execute the order on.
 
 ### Example
-[View full create order example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createOrderExample.js)
+[Full create order example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createOrderExample.js)
 
 ## Broadcast Order
 
@@ -214,7 +215,7 @@ and structured in the `signatures` format shown on the right.
 
 ### HTTP Request
 
-`POST https://api.switcheo.network/v2/orders/:id/broadcast`
+`POST /v2/orders/:id/broadcast`
 
 ### Request Parameters
 
@@ -237,9 +238,6 @@ function broadcastOrder({ order, privateKey }) {
   const url = `${API_URL}/orders/${order.id}/broadcast`
   return api.post(url, { signatures })
 }
-
-// View the full example at:
-// https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/broadcastOrderExample.js
 ```
 
 > Example request
@@ -248,16 +246,19 @@ function broadcastOrder({ order, privateKey }) {
 {
   "signatures": {
     "fills": {
-      "c821c814-d4a3-475b-b461-e909d8c8a59a": "b2e4c8b18e0ebcb00fac9b366ba86618ba0b4d3d791f79be5a938da886e98350b2bd7b0c6792ca2eb47697a7a0918442ff9186703021b8938954df99d6ce53e0"
+      "c821c814-d4a3-475b-b461-e909d8c8a59a": "<signature_1>"
     },
-    "makes": {}
+    "makes": {
+      "d034djb1-9sd8-5b6k-1f9g-40fd9jntk86k": "<signature_2>",
+      "ufdh03kt-23jg-h6k5-45fd-56dfy7ks0g9a": "<signature_3>"
+    }
   }
 }
 ```
 
- Parameter  | Type       | Optional | Description
+ Parameter  | Type       | Required | Description
  ---------- | ---------- | -------- | -----------
- signatures | **hash**   | no       | See the section description and example for the format.
+ signatures | **hash**   | yes       | See the section description and example for the format.
 
 ### Example
 [Full broadcast order example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/broadcastOrderExample.js)
@@ -273,21 +274,18 @@ function createCancellation({ order, address, privateKey }) {
   const apiParams = { ...signableParams, signature, address }
   return api.post(API_URL + '/cancellations', apiParams)
 }
-
-// View the full example at:
-// https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createCancellationExample.js
 ```
 
 This is the first API call required to cancel an order.
 Only orders **with makes** and with an `available_amount` of **more than 0** can be cancelled.
 
 <aside class="notice">
-  Reminder: After calling this endpoint, the Execute Cancellation endpoint has to be called for the cancellation to be executed.
+  IMPORTANT: After calling this endpoint, the Execute Cancellation endpoint has to be called for the cancellation to be executed.
 </aside>
 
 ### HTTP Request
 
-`POST https://api.switcheo.network/v2/cancellations`
+`POST /v2/cancellations`
 
 ### URL Parameters
 
@@ -295,9 +293,9 @@ Only orders **with makes** and with an `available_amount` of **more than 0** can
 
 ```js
 {
-  "orderId": "69c60da5-5832-4705-8390-de4bb4ed62c5",
+  "order_id": "69c60da5-5832-4705-8390-de4bb4ed62c5",
   "timestamp": 1531471743957,
-  "signature": "04ecdea766f4e8e6122eb0f722544baa11ee19b8c2839fc4b1f4453ec9bbc43b79fececd4d28f325bcbfcc0294b792aa4eb70beeec8d7478feec7ee6c2eea1e0",
+  "signature": "<signature>",
   "address": "87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f"
 }
 ```
@@ -342,12 +340,12 @@ Only orders **with makes** and with an `available_amount` of **more than 0** can
 }
 ```
 
- Parameter  | Type       | Optional | Description
+ Parameter  | Type       | Required | Description
 ----------- | ---------- | -------- | ------------------------------
- order_id   | **string** | no       | The ID of the order to cancel.
- timestamp  | **int**    | no       | The current time in epoch **milliseconds**.
- signature  | **string** | no       | Signature of the request payload. See [Authentication](#authentication) for more details.
- address    | **string** | no       | Address of the order maker. Do not include this in the parameters to be signed.
+ order_id   | **string** | yes       | The ID of the order to cancel.
+ timestamp  | **int**    | yes       | The current time in epoch **milliseconds**.
+ signature  | **string** | yes       | Signature of the request payload. See [Authentication](#authentication) for more details.
+ address    | **string** | yes       | [Address](#address) of the order maker. Do not include this in the parameters to be signed.
 
 ## Execute Cancellation
 
@@ -359,9 +357,6 @@ function executeCancellation({ cancellation, privateKey }) {
   const url = `${API_URL}/cancellations/${cancellation.id}/broadcast`
   return api.post(url, { signature })
 }
-
-// View the full example at:
-// https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/executeCancellationExample.js
 ```
 
 This is the second endpoint that must be called to cancel an order.
@@ -376,16 +371,16 @@ Note that a `sha256` parameter is provided for convenience to be used directly a
 
 ```js
 {
-  "signature": "d4b8f006dbd290d85a017768e9a1b08b29efd4f90e98139b17fab276daf0e783db165f41df24a92cce8e3b34cf51a84e54f08de8c2b84195cc9b6c1996b02ae2"
+  "signature": "<signature>"
 }
 ```
 
 ### HTTP Request
 
-`POST https://api.switcheo.network/v2/cancellations/:id/broadcast`
+`POST /v2/cancellations/:id/broadcast`
 
 ### URL Parameters
 
- Parameter | Type       | Optional | Description
+ Parameter | Type       | Required | Description
 ---------- | ---------- | -------- | ------------
- signature | **string** | no       | Signature of the transaction. See [Authentication](#authentication) for more details.
+ signature | **string** | yes       | Signature of the transaction. See [Authentication](#authentication) for more details.

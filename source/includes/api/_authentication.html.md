@@ -9,7 +9,7 @@ Two steps are required to perform an action.
 
 1. In the first step:
   - Sign the parameters of the request using the user's private key
-  - Send both the raw parameters and the signed parameters to the first API endpoint
+  - Send both the raw parameters and the result of signing the parameters to the first API endpoint
   - A response with either a message or transaction will be returned
 2. In the second step:
   - Sign the returned message or transaction with the user's private key
@@ -17,14 +17,14 @@ Two steps are required to perform an action.
 
 ## Signing Messages for NEO
 
-> **Signing a message for NEO**
+> Signing a message for NEO
 
 ```js
 const { wallet } = require('@cityofzion/neon-js')
 function signMessage(message, privateKey) {
   return wallet.generateSignature(message, privateKey)
 }
-signMessage('Hello', 'b9609de8610cf33d832efaf9cd1e3f2c7601bbd7824fa109659e36be15a7a2ad')
+signMessage('Hello', '<private key>')
 
 ```
 [neon-js](https://github.com/CityOfZion/neon-js) can be used to sign messages for NEO.
@@ -33,23 +33,23 @@ signMessage('Hello', 'b9609de8610cf33d832efaf9cd1e3f2c7601bbd7824fa109659e36be15
 
 ## Signing Request Parameters
 
-> **Signing parameters for API requests**
+> Signing parameters for API requests
 
 ```js
-// 1. Serialize parameters into a string, with parameters ordered alphanumerically
+// 1. Serialize parameters into a string
+// Note that parameters must be ordered alphanumerically
 const rawParams = { blockchain: 'neo', timestamp: 1529380859, apple: 'Z', }
 const stringify = require('json-stable-stringify')
 const parameterString = stringify(rawParams)
-// parameterString is '{"apple":"Z","blockchain":"neo","timestamp":1529380859}'
+// parameterString: '{"apple":"Z","blockchain":"neo","timestamp":1529380859}'
 
 // 2. Serialize the parameter string into a hex string
 const Neon = require('@cityofzion/neon-js')
 const parameterHexString = Neon.u.str2hexstring(parameterString)
-// parameterHexString is 7b226170706c65223a225a222c22626c6f636b636861696e223a226e656f222c2274696d657374616d70223a313532393338303835397d
 
-// 3. Zero pad parameterHexString.length to a 2 digit hex string
+// 3. Zero pad parameterHexString.length into a two digit hex string
 const lengthHex = (parameterHexString.length / 2).toString(16).padStart(2, '0')
-// lengthHex is 37
+// lengthHex: 37
 
 // 4. Concat lengthHex and parameterHexString
 const concatenatedString = lengthHex + parameterHexString
@@ -58,19 +58,18 @@ const concatenatedString = lengthHex + parameterHexString
 const ledgerCompatibleString = '010001f0' + concatenatedString + '0000'
 
 // 6. Sign ledgerCompatibleString with the user's privateKey
-const signature = signMessage(ledgerCompatibleString, 'b9609de8610cf33d832efaf9cd1e3f2c7601bbd7824fa109659e36be15a7a2ad')
+const signature = signMessage(ledgerCompatibleString, '<private key>')
 
-// 7. Combine the raw parameters with the signature to get the final parameters to send
+// 7. Combine the raw parameters with the signature
+// to get the final parameters to send
 const parametersToSend = { ...rawParams, signature }
-
-// View a full example at:
-// https://github.com/ConjurTech/switcheo-api-examples/blob/7f0097ffdab7ce6149d8512d26afc0a0b0a142d6/src/utils.js#L48
 ```
-Actions require request parameters to be signed using the below process:
 
-1. Convert the API parameters into a string, with parameters ordered alphanumerically
+To perform an action, request parameters have to be signed using the steps outlined below:
+
+1. Convert the API parameters into a string, with parameters **ordered alphanumerically**
 2. Serialize the parameter string into a hex string
-3. Zero pad the **length** of the result from (2) to a 2 digit hex string
+3. Zero pad the **length** of the result from (2) into a two digit hex string
 4. Concat the result of (3) and (2)
 5. Wrap the result of (4) in ledger compatible bytecode
 6. Sign the result of (5) with the user's private key
@@ -78,29 +77,33 @@ Actions require request parameters to be signed using the below process:
 
 ### Example
 
-[Full sign parameters example](https://github.com/ConjurTech/switcheo-api-examples/blob/7f0097ffdab7ce6149d8512d26afc0a0b0a142d6/src/utils.js#L48)
+[View a full example implementation](https://github.com/ConjurTech/switcheo-api-examples/blob/7f0097ffdab7ce6149d8512d26afc0a0b0a142d6/src/utils.js#L48)
 
 ## Signing Transactions
 
-> **Signing a transaction for NEO**
+> Signing a transaction for NEO
 
 ```js
+// Send the parameters for the first step of an action
+// and retrieve the response
+const response = ...
+const { transaction } = response
+
+// verify the transaction data to ensure that it matches the user's intention
+...
+
 const { tx } = require('@cityofzion/neon-js')
 
 function signTransaction(transaction, privateKey) {
-  const txnSerialized = tx.serializeTransaction(transaction, false)
-  return signMessage(txnSerialized, privateKey)
+  const serializedTxn = tx.serializeTransaction(transaction, false)
+  return signMessage(serializedTxn, privateKey)
 }
 
-const response = ... // Send the parameters for the first step of an action and retrieve the response
-const { transaction } = response
-
-... // verify the transaction data to ensure that it matches the user's intention
-
-signTransaction(transaction, 'b9609de8610cf33d832efaf9cd1e3f2c7601bbd7824fa109659e36be15a7a2ad')
+// send the result to the second API endpoint
+const signatureToSend = signTransaction(transaction, '<private key>')
 ```
 
-The second step of an action may require a transaction to be signed, this is done by:
+The second step of an action usually requires a transaction to be signed, this is done by:
 
 1. Checking the transaction data to ensure it matches the user's intention
 2. Serializing the transaction, this can be done with [neon-js](https://github.com/CityOfZion/neon-js)

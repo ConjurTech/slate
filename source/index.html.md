@@ -1,12 +1,6 @@
 ---
 title: Switcheo API Reference
 
-language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - javascript
-
-toc_footers:
-
 includes:
   - api/introduction
   - api/authentication
@@ -20,7 +14,7 @@ includes:
   - api/amounts
   - api/balances
   - api/currency_pairs
-  - api/contract_hash
+  - api/supported_assets
   - errors
 
 search: true

@@ -8,15 +8,20 @@ Trades can be seen on the Trade History column on [Switcheo Exchange](https://sw
 
 ## List Trades
 
-> Example Request
+> Example request
 
-```shell
-curl "https://test-api.switcheo.network/v2/trades?contract_hash=9c9d2fac35987621e252981e06762895b09eb035&pair=SWTH_NEO"
+```js
+{
+  "blockchain": "neo",
+  "pair": "SWTH_NEO",
+  "limit": 3,
+  "contract_hash": "<contract hash>"
+}
 ```
 
-> Example Response
+> Example response
 
-```json
+```js
 [
   {
     "id": "712a5019-3a23-463e-b0e1-80e9f0ad4f91",
@@ -44,13 +49,13 @@ Retrieves trades that have already occurred on Switcheo Exchange filtered by the
 
 ### Request Parameters
 
-Parameter     | Type         | Optional | Description
+Parameter     | Type         | Required | Description
 ------------- | ------------ | -------- | -----------
-contract_hash | **String**   | no       | Only return trades for this [contract hash](#contracts).
-pair          | **String**   | no       | Only return trades for this [pair](#pairs).
-from          | **Integer**  | yes      | Only return trades after this time (unix epoch).
-to            | **Integer**  | yes      | Only return trades before this time (unix epoch).
-limit         | **Integer**  | yes      | Only return this number of trades (min: `1`, max: `10000`, default: `5000`).
+contract_hash | **String**   | yes       | Only return trades for this [contract hash](#contracts).
+pair          | **String**   | yes       | Only return trades for this [pair](#pairs).
+from          | **Integer**  | no      | Only return trades after this time in epoch seconds.
+to            | **Integer**  | no      | Only return trades before this time in epoch seconds.
+limit         | **Integer**  | no      | Only return this number of trades (min: `1`, max: `10000`, default: `5000`).
 
 ### Example
 [Full list trades example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/trades/listTradesExample.js)

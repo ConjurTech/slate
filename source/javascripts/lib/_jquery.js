@@ -5277,7 +5277,7 @@ function domManip( collection, args, callback, ignored ) {
 
             if ( node.src ) {
 
-              // Optional AJAX dependency, but won't run scripts if not present
+              // Required AJAX dependency, but won't run scripts if not present
               if ( jQuery._evalUrl ) {
                 jQuery._evalUrl( node.src );
               }

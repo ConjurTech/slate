@@ -6,15 +6,20 @@ Authentication is not required for these endpoints.
 
 ## Candlesticks
 
-> Example Request
+> Example request
 
-```shell
-curl "https://test-api.switcheo.network/v2/tickers/candlesticks?pair=SWTH_NEO&start_time=1531213200&end_time=1531220400&interval=1"
+```js
+{
+  "pair": "SWTH_NEO",
+  "interval": 1,
+  "startTime": 1531213200,
+  "endTime": 1531220400
+}
 ```
 
-> Example Response
+> Example response
 
-```json
+```js
 [
   {
     "time": "1531215240",
@@ -47,25 +52,19 @@ Returns candlestick chart data filtered by url parameters.
 
 ### Request parameters
 
- Parameter      | Type        | Optional  | Description
+ Parameter      | Type        | Required  | Description
 --------------- | ----------- | --------- | ------------------------------------
- pair           | **string**  | no       | Only show chart data of this [trading pair](#pair)
- start_time     | **integer** | no       | Start of time range for data returned (unix epoch)
- end_time       | **integer** | no       | End of time range for data returned (unix epoch)
- interval       | **integer** | no       | Candlestick period in minutes Possible values are `1, 5, 30, 60, 360, and 1440`
+ pair           | **string**  | yes       | Only show chart data of this [trading pair](#pair)
+ start_time     | **integer** | yes       | Start of time range for data in epoch **seconds**
+ end_time       | **integer** | yes       | End of time range for data in epoch **seconds**
+ interval       | **integer** | yes       | Candlestick period in minutes Possible values are: 1, 5, 30, 60, 360, 1440
 
 
 ## Last 24 hours
 
-> Example Request
+> Example response
 
-```shell
-curl "https://test-api.switcheo.network/v2/tickers/last_24_hours"
-```
-
-> Example Response
-
-```json
+```js
 [
   {
     "pair": "SWTH_NEO",
@@ -98,16 +97,9 @@ Returns 24-hour data for all pairs and markets.
 
 ## Last price
 
-> Example request
-
-```shell
-curl "https://test-api.switcheo.network/v2/tickers/last_price"
-
-```
-
 > Example response
 
-```json
+```js
 {
   "GAS":
    {
@@ -129,27 +121,20 @@ Returns last price of given symbol(s). Defaults to all symbols.
 
 ### Request parameters
 
- Parameter      | Type      | Optional  | Description
+ Parameter      | Type      | Required  | Description
 --------------- | --------- | --------- | -----------
- symbols        | **array** | yes | Return the price for these symbols.
- bases          | **array** | yes | Return the price for pairs of these bases. Possible values are `NEO, GAS, SWTH, USD`.
+ symbols        | **array** | no       | Return the price for these symbols.
+ bases          | **array** | no       | Return the price for pairs of these bases. Possible values are `NEO, GAS, SWTH, USD`.
 
 
 ## Pairs
 
-> Example request
-
-```shell
-curl "https://test-api.switcheo.network/v2/tickers/pairs"
-
-```
-
 > Example response
 
-```json
+```js
 [
-"GAS_NEO",
-"SWTH_NEO",
+  "GAS_NEO",
+  "SWTH_NEO"
 ]
 
 ```
@@ -162,22 +147,15 @@ Returns available currency [pairs](#currency_pairs) on Switcheo Exchange filtere
 
 ### Request parameters
 
- Parameter      | Type      | Optional  | Description
+ Parameter      | Type      | Required  | Description
 --------------- | --------- | --------- | -----------
- bases          | **array** | yes | Provides pairs for these base symbols. Possible values are `NEO, GAS, SWTH, USD`.
+ bases          | **array** | no | Provides pairs for these base symbols. Possible values are `NEO, GAS, SWTH, USD`.
 
 ## Contracts
 
-> Example request
-
-```shell
-curl "https://test-api.switcheo.network/v2/tickers/contracts"
-
-```
-
 > Example response
 
-```json
+```js
 {
   "NEO":
   {
