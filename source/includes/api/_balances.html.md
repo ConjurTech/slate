@@ -66,3 +66,7 @@ List contract balances of the given address and contract.
 --------------- | ---------- | -------- | -----------
 addresses       | **string** | yes       | Only return balances for these [addresses](#address)
 contract_hashes | **array**  | yes       | Only return balances from these [contract hashes](#contract-hash).
+
+### Example
+
+[Full list balances example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/balances/listBalancesExample.js)

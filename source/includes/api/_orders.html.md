@@ -64,6 +64,7 @@ Retrieves orders from a specific address filtered by the given parameters.
  contract_hash  | **string** | yes       | Only returns orders from this [contract hash](#contract-hash).
 
 ### Example
+
 [Full list orders example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/listOrdersExample.js)
 
 
@@ -347,6 +348,10 @@ Only orders **with makes** and with an `available_amount` of **more than 0** can
  signature  | **string** | yes       | Signature of the request payload. See [Authentication](#authentication) for more details.
  address    | **string** | yes       | [Address](#address) of the order maker. Do not include this in the parameters to be signed.
 
+### Example
+
+[Full create cancellation example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createCancellationExample.js)
+
 ## Execute Cancellation
 
 > Execute a cancellation
@@ -384,3 +389,7 @@ Note that a `sha256` parameter is provided for convenience to be used directly a
  Parameter | Type       | Required | Description
 ---------- | ---------- | -------- | ------------
  signature | **string** | yes       | Signature of the transaction. See [Authentication](#authentication) for more details.
+
+### Example
+
+[Full execute cancellation example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/executeCancellationExample.js)
