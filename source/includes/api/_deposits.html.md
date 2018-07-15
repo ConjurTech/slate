@@ -11,6 +11,17 @@ Once a deposit has been executed, funds in your wallet balance would be deducted
 Funds deducted from your wallet balance will be added to your contract balance but put on hold until
 Switcheo has determined that it has been successfully broadcasted to the blockchain.
 
+## TestNet Faucet
+
+For the convenience of testing API endpoints, tokens can be received through our TestNet faucet.
+To use the faucet:
+
+1. Go to [https://switcheo.exchange/](https://switcheo.exchange/)
+2. Click on the TestNet/MainNet selector at the bottom of the page
+3. Select TestNet V2
+4. Click on **WALLET LOGIN** to login
+5. Click on the **FAUCET** button to receive tokens for testing
+
 ## Create Deposit
 
 > Create a deposit
@@ -104,7 +115,7 @@ To be able to make a deposit, sufficient funds are required in the depositing wa
  Parameter         | Type       | Required | Description
 ------------------ | ---------- | -------- | ------------
  blockchain        | **string** | yes       | Blockchain that the token to deposit is on. Possible values are: `neo`.
- asset_id          | **string** | yes       | The [asset symbol or ID](#supported-assets) to deposit. 
+ asset_id          | **string** | yes       | The [asset symbol or ID](#supported-assets) to deposit.
  amount            | **string** | yes       | [Amount](#amounts) of tokens to deposit.
  contract_hash     | **string** | yes       | Switcheo Exchange [contract hash](#contract-hash) to execute the deposit on.
  timestamp         | **int**    | yes       | The current timestamp to be used as a nonce as epoch **milliseconds**.
