@@ -363,9 +363,6 @@
               </ul>
           </li>
           <li>
-            <a href="#currency-pairs" class="toc-h1 toc-link" data-title="currency-pairs">Currency Pairs</a>
-          </li>
-          <li>
             <a href="#supported-assets" class="toc-h1 toc-link" data-title="supported-assets">Supported Assets</a>
           </li>
           <li>
@@ -572,7 +569,7 @@ Authentication is not required for these endpoints.</p>
 <td>pair</td>
 <td><strong>string</strong></td>
 <td>yes</td>
-<td>Only show chart data of this <a href="#pair">trading pair</a></td>
+<td>Only show chart data of this <a href="#currency-pairs">trading pair</a></td>
 </tr>
 <tr>
 <td>start_time</td>
@@ -674,6 +671,21 @@ Authentication is not required for these endpoints.</p>
 
 </code></pre>
 <p>Returns available currency <a href="#currency_pairs">pairs</a> on Switcheo Exchange filtered by the <code>base</code> parameter. Defaults to all pairs.</p>
+<h3 id='currency-pairs'>Currency Pairs</h3>
+<p>When trading on Switcheo Exchange, markets are represented as currency pairs.</p>
+
+<p>Currency pairs in the Switcheo API are written in the format: <code>&lt;trade&gt;_&lt;base&gt;</code>, where <code>trade</code> is the currency
+that is being bought or sold, and <code>base</code> is the base currency for the market that is given or taken in return, respectively.</p>
+
+<p>For example:</p>
+
+<ul>
+<li>When <strong>selling</strong> on <code>SWTH_NEO</code>, it means the user is selling <code>SWTH</code> for <code>NEO</code>.</li>
+<li>When <strong>buying</strong> on <code>SWTH_NEO</code>, it means the user is buying <code>SWTH</code> for <code>NEO</code>.</li>
+</ul>
+
+<p>The valid <code>base</code> currencies are currently:
+<code>NEO</code>, <code>GAS</code>, <code>SWTH</code>.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
 <p><code>GET /v2/tickers/pairs</code></p>
 <h3 id='request-parameters-3'>Request parameters</h3>
@@ -1383,7 +1395,7 @@ you will receive a response which requires additional signing.</p>
 </tr>
 <tr>
 <td>transfer_amount</td>
-<td>Amount(out of the <code>offer_amount</code>) that was deposited into the contract in order to create the order.</td>
+<td><a href="#amounts">Amount</a>(out of the <code>offer_amount</code>) that was deposited into the contract in order to create the order.</td>
 </tr>
 <tr>
 <td>priority_gas_amount</td>
@@ -1441,18 +1453,18 @@ you will receive a response which requires additional signing.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>When an order created, the order matching engine will match the order against existing offers.
-  If no offer is filled by the order, the matching engine will generate a <code>make</code> transaction.
+  If no offer is filled by the order, the matching engine will generate a <code>make</code> transaction within the order.
   This transaction must be signed when using the <a href="#execute-order">broadcast order endpoint</a>.</p>
-<h3 id='parameters-2'>Parameters</h3>
+<h3 id='attributes'>Attributes</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
+<th>Attribute</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>id</td>
-<td>Unique identifier for the order object.</td>
+<td>Unique identifier for the make object.</td>
 </tr>
 <tr>
 <td>offer_hash</td>
@@ -1468,7 +1480,7 @@ you will receive a response which requires additional signing.</p>
 </tr>
 <tr>
 <td>offer_amount</td>
-<td><a href="#amounts">Amount</a> of tokens that the make wants.</td>
+<td><a href="#amounts">Amount</a> of tokens that the make is offering.</td>
 </tr>
 <tr>
 <td>want_asset_id</td>
@@ -1533,18 +1545,18 @@ you will receive a response which requires additional signing.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>When an order created, the order matching engine will match the order against existing offers.
-  If the order fills any offer, the matching engine will generate a <code>fill</code> transaction.
+  If the order fills any offer, the matching engine will generate a <code>fill</code> transaction within the order.
   This transaction must be signed when using the <a href="#execute-order">broadcast order endpoint</a>.</p>
-<h3 id='parameters-3'>Parameters</h3>
+<h3 id='attributes-2'>Attributes</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
+<th>Attribute</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>id</td>
-<td>Unique identifier for the order object.</td>
+<td>Unique identifier for the fill object.</td>
 </tr>
 <tr>
 <td>offer_hash</td>
@@ -2197,21 +2209,6 @@ and the decimal point itself should be dropped.</p>
 </tbody></table>
 <h3 id='example-12'>Example</h3>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/balances/listBalancesExample.js">Full list balances example</a></p>
-<h1 id='currency-pairs'>Currency Pairs</h1>
-<p>When trading on Switcheo Exchange, markets are represented as currency pairs.</p>
-
-<p>Currency pairs in the Switcheo API are written in the format: <code>&lt;trade&gt;_&lt;base&gt;</code>, where <code>trade</code> is the currency
-that is being bought or sold, and <code>base</code> is the base currency for the market that is given or taken in return, respectively.</p>
-
-<p>For example:</p>
-
-<ul>
-<li>When <strong>selling</strong> on <code>SWTH_NEO</code>, it means the user is selling <code>SWTH</code> for <code>NEO</code>.</li>
-<li>When <strong>buying</strong> on <code>SWTH_NEO</code>, it means the user is buying <code>SWTH</code> for <code>NEO</code>.</li>
-</ul>
-
-<p>The valid <code>base</code> currencies are currently:
-<code>NEO</code>, <code>GAS</code>, <code>SWTH</code>.</p>
 <h1 id='supported-assets'>Supported Assets</h1>
 <p>The Switcheo API supports the following assets:</p>
 
