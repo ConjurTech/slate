@@ -51,11 +51,20 @@ Retrieves trades that have already occurred on Switcheo Exchange filtered by the
 
 Parameter     | Type         | Required | Description
 ------------- | ------------ | -------- | -----------
-contract_hash | **String**   | yes       | Only return trades for this [contract hash](#contracts).
-pair          | **String**   | yes       | Only return trades for this [pair](#pairs).
-from          | **Integer**  | no      | Only return trades after this time in epoch seconds.
-to            | **Integer**  | no      | Only return trades before this time in epoch seconds.
-limit         | **Integer**  | no      | Only return this number of trades (min: `1`, max: `10000`, default: `5000`).
+contract_hash | **String**   | yes      | Only return trades for this [contract hash](#contracts).
+pair          | **String**   | yes      | Only return trades for this [pair](#pairs).
+from          | **Integer**  | no       | Only return trades after this time in epoch seconds.
+to            | **Integer**  | no       | Only return trades before this time in epoch seconds.
+limit         | **Integer**  | no       | Only return this number of trades (min: `1`, max: `10000`, default: `5000`).
+
+### Response parameters
+
+Parameter   | Description
+----------- | ----------
+id          | Unique identifier for the trade object.
+fill_amount | Amount of tokens that is given by the trade to the [offer](#offers) that it is filling.
+take_amount | Amount of tokens that the trade takes from the [offer's](#offers) `available_amount` that it is filling.
+is_buy      | Whether the side of the trade is a buy.
 
 ### Example
 [Full list trades example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/trades/listTradesExample.js)

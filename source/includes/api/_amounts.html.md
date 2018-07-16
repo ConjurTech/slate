@@ -12,7 +12,7 @@ return bigNumber.times(assetMultiplier).toFixed(0)
 
 Some endpoints (e.g. create order) will require you to specify asset amounts as URL parameters (e.g. `offer_asset_amount`).
 
-An amount should be specified in string so as to preserve precision across the system.
+An amount is a positive number that must be converted to a string so as to preserve precision across the system.
 
 It should also be specified up to the precision allowed by the given token,
 and the decimal point itself should be dropped.

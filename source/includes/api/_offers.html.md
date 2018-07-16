@@ -49,12 +49,12 @@ contract_hash | **string** | yes      | Only return offers for this [contract ha
 
 Parameter        | Description
 ---------------- | ----------
-id               | Id of offer.
-offer_asset      | [Symbol](#supported-assets) of token that the offer maker is offering.
-want_asset       | [Symbol](#supported-assets) of token that the offer maker wants .
-available_amount | Remaining [amount](#amounts) of `offer_asset` that has not been taken by other orders.
-offer_amount     | Total [amount](#amounts) of `offer_asset`.
-want_amount      | Total [amount](#amounts) of `want_asset`.
+id               | Unique identifier for the offer object.
+offer_asset      | [Symbol](#supported-assets) of the token that the offer maker is offering.
+want_asset       | [Symbol](#supported-assets) of the token that the offer maker wants .
+available_amount | Remaining [amount](#amounts) of the `offer_asset` that has not been taken by other orders.
+offer_amount     | Total [amount](#amounts) of the `offer_asset`.
+want_amount      | Total [amount](#amounts) of the `want_asset`.
 
 ### Example
 [Full list offers example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/offers/listOffersExample.js)
