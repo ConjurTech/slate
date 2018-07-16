@@ -54,7 +54,7 @@ Returns candlestick chart data filtered by url parameters.
 
  Parameter      | Type        | Required  | Description
 --------------- | ----------- | --------- | ------------------------------------
- pair           | **string**  | yes       | Only show chart data of this [trading pair](#pair)
+ pair           | **string**  | yes       | Only show chart data of this [trading pair](#currency-pairs)
  start_time     | **integer** | yes       | Start of time range for data in epoch **seconds**
  end_time       | **integer** | yes       | End of time range for data in epoch **seconds**
  interval       | **integer** | yes       | Candlestick period in minutes Possible values are: 1, 5, 30, 60, 360, 1440
@@ -140,6 +140,20 @@ Returns last price of given symbol(s). Defaults to all symbols.
 ```
 
 Returns available currency [pairs](#currency_pairs) on Switcheo Exchange filtered by the `base` parameter. Defaults to all pairs.
+
+### Currency Pairs
+When trading on Switcheo Exchange, markets are represented as currency pairs.
+
+Currency pairs in the Switcheo API are written in the format: `<trade>_<base>`, where `trade` is the currency
+that is being bought or sold, and `base` is the base currency for the market that is given or taken in return, respectively.
+
+For example:
+
+- When **selling** on `SWTH_NEO`, it means the user is selling `SWTH` for `NEO`.
+- When **buying** on `SWTH_NEO`, it means the user is buying `SWTH` for `NEO`.
+
+The valid `base` currencies are currently:
+`NEO`, `GAS`, `SWTH`.
 
 ### HTTP Request
 
