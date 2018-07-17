@@ -20,4 +20,4 @@ Returns updated hashes of contracts deployed by Switcheo.
 
 ### HTTP Request
 
-`GET /v2/tickers/contracts`
+`GET /v2/contracts`

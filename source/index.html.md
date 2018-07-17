@@ -13,6 +13,7 @@ includes:
   - api/address
   - api/amounts
   - api/balances
+  - api/pairs
   - api/supported_assets
   - api/contracts
   - errors
