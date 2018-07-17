@@ -262,9 +262,6 @@
                   <li>
                     <a href="#last-price" class="toc-h2 toc-link" data-title="last-price">Last price</a>
                   </li>
-                  <li>
-                    <a href="#pairs" class="toc-h2 toc-link" data-title="pairs">Pairs</a>
-                  </li>
               </ul>
           </li>
           <li>
@@ -356,6 +353,14 @@
               <ul class="toc-list-h2">
                   <li>
                     <a href="#list-balances" class="toc-h2 toc-link" data-title="list-balances">List balances</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#pairs" class="toc-h1 toc-link" data-title="pairs">Pairs</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#list-currency-pairs" class="toc-h2 toc-link" data-title="list-currency-pairs">List Currency Pairs</a>
                   </li>
               </ul>
           </li>
@@ -665,50 +670,6 @@ Authentication is not required for these endpoints.</p>
 <td>Return the price for pairs of these bases. Possible values are <code>NEO, GAS, SWTH, USD</code>.</td>
 </tr>
 </tbody></table>
-<h2 id='pairs'>Pairs</h2>
-<blockquote>
-<p>Example response</p>
-</blockquote>
-<pre class="highlight javascript"><code><span class="p">[</span>
-  <span class="s2">"GAS_NEO"</span><span class="p">,</span>
-  <span class="s2">"SWTH_NEO"</span>
-<span class="p">]</span>
-
-</code></pre>
-<p>Returns available currency pairs on Switcheo Exchange filtered by the <code>base</code> parameter. Defaults to all pairs.</p>
-<h3 id='currency-pairs'>Currency Pairs</h3>
-<p>When trading on Switcheo Exchange, markets are represented as currency pairs.</p>
-
-<p>Currency pairs in the Switcheo API are written in the format: <code>&lt;trade&gt;_&lt;base&gt;</code>, where <code>trade</code> is the currency
-that is being bought or sold, and <code>base</code> is the base currency for the market that is given or taken in return, respectively.</p>
-
-<p>For example:</p>
-
-<ul>
-<li>When <strong>selling</strong> on <code>SWTH_NEO</code>, it means the user is selling <code>SWTH</code> for <code>NEO</code>.</li>
-<li>When <strong>buying</strong> on <code>SWTH_NEO</code>, it means the user is buying <code>SWTH</code> for <code>NEO</code>.</li>
-</ul>
-
-<p>The valid <code>base</code> currencies are currently:
-<code>NEO</code>, <code>GAS</code>, <code>SWTH</code>.</p>
-<h3 id='http-request-4'>HTTP Request</h3>
-<p><code>GET /v2/tickers/pairs</code></p>
-<h3 id='request-parameters-3'>Request parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>bases</td>
-<td><strong>array</strong></td>
-<td>no</td>
-<td>Provides pairs for these base symbols. Possible values are <code>NEO, GAS, SWTH, USD</code>.</td>
-</tr>
-</tbody></table>
 <h1 id='offers'>Offers</h1>
 <p>An offer represents an open order that rests on the <a href="https://switcheo.exchange">Switcheo Exchange</a> offer book.</p>
 
@@ -738,9 +699,9 @@ that is being bought or sold, and <code>base</code> is the base currency for the
  <span class="p">]</span>
 </code></pre>
 <p>Retrieves the best 70 offers (per side) on the offer book.</p>
-<h3 id='http-request-5'>HTTP Request</h3>
+<h3 id='http-request-4'>HTTP Request</h3>
 <p><code>GET /v2/offers</code></p>
-<h3 id='request-parameters-4'>Request Parameters</h3>
+<h3 id='request-parameters-3'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -841,9 +802,9 @@ that is being bought or sold, and <code>base</code> is the base currency for the
 <span class="p">]</span>
 </code></pre>
 <p>Retrieves trades that have already occurred on Switcheo Exchange filtered by the request parameters.</p>
-<h3 id='http-request-6'>HTTP Request</h3>
+<h3 id='http-request-5'>HTTP Request</h3>
 <p><code>GET /v2/trades</code></p>
-<h3 id='request-parameters-5'>Request Parameters</h3>
+<h3 id='request-parameters-4'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1010,9 +971,9 @@ To be able to make a deposit, sufficient funds are required in the depositing wa
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Deposit endpoint has to be called for the deposit to be executed.
 </aside>
-<h3 id='http-request-7'>HTTP Request</h3>
+<h3 id='http-request-6'>HTTP Request</h3>
 <p><code>POST /v2/deposits</code></p>
-<h3 id='request-parameters-6'>Request Parameters</h3>
+<h3 id='request-parameters-5'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1091,9 +1052,9 @@ you will receive a response which requires additional signing.</p>
 
 <p>Note that a <code>sha256</code> parameter is provided for convenience to be used directly as part of the ECDSA signature process.
  <em>In production mode, this should be recalculated for additional security.</em>  </p>
-<h3 id='http-request-8'>HTTP Request</h3>
+<h3 id='http-request-7'>HTTP Request</h3>
 <p><code>POST /v2/deposits/:id/broadcast</code></p>
-<h3 id='request-parameters-7'>Request Parameters</h3>
+<h3 id='request-parameters-6'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1169,9 +1130,9 @@ To be able to make a withdrawal, sufficient funds are required in the contract b
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Withdrawal endpoint has to be called for the withdrawal to be executed.
 </aside>
-<h3 id='http-request-9'>HTTP Request</h3>
+<h3 id='http-request-8'>HTTP Request</h3>
 <p><code>POST /v2/withdrawals</code></p>
-<h3 id='request-parameters-8'>Request Parameters</h3>
+<h3 id='request-parameters-7'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1266,9 +1227,9 @@ To be able to make a withdrawal, sufficient funds are required in the contract b
 <p>This is the second endpoint required to execute a withdrawal.
 After using the <a href="#create-withdrawal">Create Withdrawal</a> endpoint,
 you will receive a response which requires additional signing.</p>
-<h3 id='http-request-10'>HTTP Request</h3>
+<h3 id='http-request-9'>HTTP Request</h3>
 <p><code>POST /v2/withdrawals/:id/broadcast</code></p>
-<h3 id='request-parameters-9'>Request Parameters</h3>
+<h3 id='request-parameters-8'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1635,9 +1596,9 @@ you will receive a response which requires additional signing.</p>
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>Retrieves orders from a specific address filtered by the given parameters.</p>
-<h3 id='http-request-11'>HTTP Request</h3>
+<h3 id='http-request-10'>HTTP Request</h3>
 <p><code>GET /v2/orders</code></p>
-<h3 id='request-parameters-10'>Request Parameters</h3>
+<h3 id='request-parameters-9'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1675,9 +1636,9 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Broadcast Order endpoint has to be called for the order to be executed.
 </aside>
-<h3 id='http-request-12'>HTTP Request</h3>
+<h3 id='http-request-11'>HTTP Request</h3>
 <p><code>POST /v2/orders</code></p>
-<h3 id='request-parameters-11'>Request Parameters</h3>
+<h3 id='request-parameters-10'>Request Parameters</h3>
 <p>For the below descriptions, the <code>order maker</code> refers to your API user.</p>
 
 <blockquote>
@@ -1861,9 +1822,9 @@ After using the <a href="#create-order">Create Order</a> endpoint, you will rece
 </code></pre>
 <p>Every <code>txn</code> of the <code>fills</code> and <code>makes</code> in the Create Order response should be <a href="#authentication">signed</a>,
 and structured in the <code>signatures</code> format shown on the right.</p>
-<h3 id='http-request-13'>HTTP Request</h3>
+<h3 id='http-request-12'>HTTP Request</h3>
 <p><code>POST /v2/orders/:id/broadcast</code></p>
-<h3 id='request-parameters-12'>Request Parameters</h3>
+<h3 id='request-parameters-11'>Request Parameters</h3>
 <blockquote>
 <p>Broadcast an order</p>
 </blockquote>
@@ -1933,7 +1894,7 @@ Only orders <strong>with makes</strong> and with an <code>available_amount</code
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Cancellation endpoint has to be called for the cancellation to be executed.
 </aside>
-<h3 id='http-request-14'>HTTP Request</h3>
+<h3 id='http-request-13'>HTTP Request</h3>
 <p><code>POST /v2/cancellations</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <blockquote>
@@ -2044,7 +2005,7 @@ a transaction in the response which must be signed.</p>
 <pre class="highlight javascript"><code><span class="p">{</span>
   <span class="s2">"signature"</span><span class="p">:</span> <span class="s2">"&lt;signature&gt;"</span>
 <span class="p">}</span>
-</code></pre><h3 id='http-request-15'>HTTP Request</h3>
+</code></pre><h3 id='http-request-14'>HTTP Request</h3>
 <p><code>POST /v2/cancellations/:id/broadcast</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
@@ -2171,7 +2132,7 @@ and the decimal point itself should be dropped.</p>
 <span class="p">}</span>
 </code></pre>
 <p>List contract balances of the given address and contract.</p>
-<h3 id='http-request-16'>HTTP Request</h3>
+<h3 id='http-request-15'>HTTP Request</h3>
 <p><code>/v2/balances</code></p>
 <h3 id='url-parameters-3'>URL parameters</h3>
 <table><thead>
@@ -2197,6 +2158,50 @@ and the decimal point itself should be dropped.</p>
 </tbody></table>
 <h3 id='example-12'>Example</h3>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/balances/listBalancesExample.js">Full list balances example</a></p>
+<h1 id='pairs'>Pairs</h1>
+<p>When trading on Switcheo Exchange, markets are represented as currency pairs.</p>
+
+<p>Currency pairs in the Switcheo API are written in the format: <code>&lt;trade&gt;_&lt;base&gt;</code>, where <code>trade</code> is the currency
+that is being bought or sold, and <code>base</code> is the base currency for the market that is given or taken in return, respectively.</p>
+
+<p>For example:</p>
+
+<ul>
+<li>When <strong>selling</strong> on <code>SWTH_NEO</code>, it means the user is selling <code>SWTH</code> for <code>NEO</code>.</li>
+<li>When <strong>buying</strong> on <code>SWTH_NEO</code>, it means the user is buying <code>SWTH</code> for <code>NEO</code>.</li>
+</ul>
+
+<p>The valid <code>base</code> currencies are currently:
+<code>NEO</code>, <code>GAS</code>, <code>SWTH</code>.</p>
+<h2 id='list-currency-pairs'>List Currency Pairs</h2>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">[</span>
+  <span class="s2">"GAS_NEO"</span><span class="p">,</span>
+  <span class="s2">"SWTH_NEO"</span>
+<span class="p">]</span>
+
+</code></pre>
+<p>Returns available currency pairs on Switcheo Exchange filtered by the <code>base</code> parameter. Defaults to all pairs.</p>
+<h3 id='http-request-16'>HTTP Request</h3>
+<p><code>GET /v2/pairs</code></p>
+<h3 id='request-parameters-12'>Request parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>bases</td>
+<td><strong>array</strong></td>
+<td>no</td>
+<td>Provides pairs for these base symbols. Possible values are <code>NEO, GAS, SWTH, USD</code>.</td>
+</tr>
+</tbody></table>
 <h1 id='supported-assets'>Supported Assets</h1>
 <p>The Switcheo API supports the following assets:</p>
 
@@ -2323,7 +2328,7 @@ and the decimal point itself should be dropped.</p>
 </code></pre>
 <p>Returns updated hashes of contracts deployed by Switcheo.</p>
 <h3 id='http-request-17'>HTTP Request</h3>
-<p><code>GET /v2/tickers/contracts</code></p>
+<p><code>GET /v2/contracts</code></p>
 <h1 id='errors'>Errors</h1>
 <p>The Switcheo API uses the following error codes:</p>
 
