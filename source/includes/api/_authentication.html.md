@@ -1,6 +1,6 @@
 # Authentication
 
-As a decentralised exchange, Switcheo does not use any sort of password or API key.
+As a decentralised exchange, Switcheo does not use passwords or API keys.
 Instead, authentication is done by signing the **request payload** _or_ **blockchain transaction** using the **blockchain-specific**
 digital signature with the user's private key.
 
@@ -103,9 +103,9 @@ function signTransaction(transaction, privateKey) {
 const signatureToSend = signTransaction(transaction, '<private key>')
 ```
 
-The second step of an action usually requires a transaction to be signed, this is done by:
+The second step of an action usually requires the returned transaction to be signed, this is done by:
 
-1. Checking the transaction data to ensure it matches the user's intention
+1. Checking the returned transaction data to ensure it matches the user's intention
 2. Serializing the transaction, this can be done with [neon-js](https://github.com/CityOfZion/neon-js)
 ([View implementation details](https://github.com/CityOfZion/neon-js/blob/c6a169a82a4d037e00dccd424f53cdc818d6b3ae/src/transactions/core.js#L79))
 3. Signing the serialized transaction with the user's private key

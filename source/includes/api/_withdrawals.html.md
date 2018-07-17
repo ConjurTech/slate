@@ -77,7 +77,7 @@ A [signature](#authentication) of the request payload has to be provided for thi
  asset_id          | **string** | yes       | The [asset symbol or ID](#supported-assets) to withdraw.
  amount            | **string** | yes       | [Amount](#amounts) of tokens to withdraw.
  timestamp         | **int**    | yes       | The current time in epoch **milliseconds**.
- contract_hash     | **string** | yes       | Switcheo Exchange [contract hash](#contract-hash) to execute the withdraw on.
+ contract_hash     | **string** | yes       | Switcheo Exchange [contract hash](#contracts) to execute the withdraw on.
  signature         | **string** | yes       | Signature of the request payload. See [Authentication](#authentication) for more details.
  address           | **string** | yes       | The withdrawer's [address](#address). Do not include this in the parameters to be signed.
 

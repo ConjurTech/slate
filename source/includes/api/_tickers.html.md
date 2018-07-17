@@ -139,7 +139,7 @@ Returns last price of given symbol(s). Defaults to all symbols.
 
 ```
 
-Returns available currency [pairs](#currency_pairs) on Switcheo Exchange filtered by the `base` parameter. Defaults to all pairs.
+Returns available currency pairs on Switcheo Exchange filtered by the `base` parameter. Defaults to all pairs.
 
 ### Currency Pairs
 When trading on Switcheo Exchange, markets are represented as currency pairs.

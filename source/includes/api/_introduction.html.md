@@ -15,7 +15,7 @@ Before you proceed with the API documentation, be sure to explore Switcheo Excha
 The Switcheo API uses [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) architecture.
 API requests and responses use the [JSON](https://www.json.org/) format.
 
-There are two main types of API endpoints.
+There are two types of API endpoints.
 
 - Exchange APIs - these endpoints provide exchange history, statistics and other data and do not need to be authenticated
 - Trading APIs - these endpoints can be used to execute trades and must be authenticated
