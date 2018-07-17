@@ -14,6 +14,7 @@ includes:
   - api/amounts
   - api/balances
   - api/supported_assets
+  - api/contracts
   - errors
 
 search: true
