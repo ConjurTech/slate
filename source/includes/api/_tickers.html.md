@@ -12,8 +12,8 @@ Authentication is not required for these endpoints.
 {
   "pair": "SWTH_NEO",
   "interval": 1,
-  "startTime": 1531213200,
-  "endTime": 1531220400
+  "star_time": 1531213200,
+  "end_time": 1531220400
 }
 ```
 
