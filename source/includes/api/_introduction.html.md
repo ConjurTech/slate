@@ -10,6 +10,8 @@ Switcheo Exchange programatically.
 Before you proceed with the API documentation, be sure to explore Switcheo Exchange at
 [https://switcheo.exchange](https://switcheo.exchange).
 
+If you have technical questions, you can ask them at our [slack channel](https://join.slack.com/t/switcheonetwork/shared_invite/enQtNDAyMTQ3Mzg3NjA1LTc0ODBlMWMxMjRkNTE5ZjkzN2VkNDNhYjQ2MjFlZTUwMzQ3NGMxYzZlODM5ZTAwZTcxMWM2YjA5MTAyN2FkYmI).
+
 ## API Requests
 
 The Switcheo API uses [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) architecture.
