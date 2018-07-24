@@ -124,4 +124,3 @@ Returns last price of given symbol(s). Defaults to all symbols.
  Parameter      | Type      | Required  | Description
 --------------- | --------- | --------- | -----------
  symbols        | **array** | no       | Return the price for these symbols.
- bases          | **array** | no       | Return the price for pairs of these bases. Possible values are `NEO, GAS, SWTH, USD`.
