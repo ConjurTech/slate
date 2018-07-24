@@ -420,6 +420,15 @@ html, body {
       padding: 10px;
     }
 
+    tr {
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+    }
+
+    tr:first-child {
+      border-top: 1px solid #ccc;
+    }
+
     tr:last-child {
       border-bottom: 1px solid #ccc;
     }
