@@ -665,12 +665,6 @@ Authentication is not required for these endpoints.</p>
 <td>no</td>
 <td>Return the price for these symbols.</td>
 </tr>
-<tr>
-<td>bases</td>
-<td><strong>array</strong></td>
-<td>no</td>
-<td>Return the price for pairs of these bases. Possible values are <code>NEO, GAS, SWTH, USD</code>.</td>
-</tr>
 </tbody></table>
 <h1 id='offers'>Offers</h1>
 <p>An offer represents an open order that rests on the <a href="https://switcheo.exchange">Switcheo Exchange</a> offer book.</p>
@@ -2022,8 +2016,7 @@ a transaction in the response which must be signed.</p>
 <h3 id='example-11'>Example</h3>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/executeCancellationExample.js">Full execute cancellation example</a></p>
 <h1 id='address'>Address</h1>
-<p>An <code>address</code> in Switcheo is always represented by a hex string. An <code>address</code> can refer to a user account,
-or a smart contract. <strong>An address should never be prefixed by <code>0x</code></strong>.</p>
+<p>An <code>address</code> in Switcheo is always represented by a hex string, and should <strong>never</strong> be prefixed by <code>0x</code>.</p>
 <h2 id='neo'>NEO</h2>
 <blockquote>
 <p>Convert a public key to an address</p>
@@ -2031,24 +2024,14 @@ or a smart contract. <strong>An address should never be prefixed by <code>0x</co
 <pre class="highlight javascript"><code><span class="kr">const</span> <span class="p">{</span> <span class="nx">wallet</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@cityofzion/neon-js'</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">address</span> <span class="o">=</span> <span class="nx">wallet</span><span class="p">.</span><span class="nx">getScriptHashFromPublicKey</span><span class="p">(</span><span class="s1">'&lt;public key&gt;'</span><span class="p">)</span>
 </code></pre>
-<p>For NEO, an <code>address</code> refers to the <a href="https://en.wikipedia.org/wiki/RIPEMD">RIPEMD160</a> hash of the verification script for the user&#39;s public key.</p>
+<p>For NEO, an <code>address</code> refers to the <a href="https://en.wikipedia.org/wiki/RIPEMD">RIPEMD160</a> hash of the the user&#39;s public key.</p>
 
-<p>An example implemention to derive an <code>address</code> from a user public key can be found in the
-<a href="https://github.com/CityOfZion/neon-js/blob/5d61c31a5d6e5e2e29095e08c70d23449810b509/src/wallet/core.js#L92">neon-js javascript library</a>. <em>(Note the difference in terminology: Switcheo&#39;s <code>address</code> refers to <code>scriptHash</code> in neon-js)</em></p>
+<p>An example implemention to derive an <code>address</code> from a user&#39;s public key can be found in the
+<a href="https://github.com/CityOfZion/neon-js/blob/5d61c31a5d6e5e2e29095e08c70d23449810b509/src/wallet/core.js#L92">neon-js javascript library</a>.</p>
 
-<p>Where the <code>address</code> refers to a deployed contract, this is simply the RIPEMD160 hash of the deployed contract (bytes).</p>
-
-<p>Note that as a deployed contract&#39;s verification script is in essence itself, there is no actual difference in calculating
- the <code>address</code> of a user public key versus a deployed contract.</p>
-
-<p>An <code>address</code> is always 20 bytes (40 hex digits) long in NEO.</p>
+<p>Please note the difference in terminology between Switcheo and neon-js. Switcheo&#39;s <code>address</code> is equivalent to neon-js&#39;s <code>scriptHash</code>.</p>
 <h2 id='ethereum'>Ethereum</h2>
 <p>For Ethereum, an <code>address</code> refers to the <a href="https://en.wikipedia.org/wiki/SHA-3">Keccak</a> hash of the user&#39;s public key.</p>
-
-<p>Where <code>address</code> refers to a deployed contract, it is the last 20 bytes of the transaction hash of the deployment
-  transaction, and depends only on the sender <code>address</code> and <code>nonce</code>.</p>
-
-<p>An <code>address</code> is always 20 bytes (40 hex digits) long in Ethereum.</p>
 <h1 id='amounts'>Amounts</h1>
 <blockquote>
 <p>Convert a number to an asset amount</p>
