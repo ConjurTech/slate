@@ -22,15 +22,21 @@ There are two types of API endpoints.
 - Exchange APIs - these endpoints provide exchange history, statistics and other data and do not need to be authenticated
 - Trading APIs - these endpoints can be used to execute trades and must be authenticated
 
-## Mainnet/Testnet API URLs
+## Mainnet / Testnet URLs
 
-When developing your application, the testnet URL should be used:
+Use the testnet URLs when developing your application:
 
-[https://test-api.switcheo.network](https://test-api.switcheo.network)
+    | URL
+--- | ----------
+UI  | [https://beta.switcheo.exchange/](https://beta.switcheo.exchange/)
+API | [https://test-api.switcheo.network](https://test-api.switcheo.network)
 
-For actual trading and market data, the mainnet URL should be used:
+Use the mainnet URLs for actual trading and market data:
 
-[https://api.switcheo.network](https://api.switcheo.network)
+    | URL
+--- | ----------
+UI  | [https://switcheo.exchange/](https://switcheo.exchange/)
+API | [https://api.switcheo.network](https://api.switcheo.network)
 
 ## Rate Limits
 
