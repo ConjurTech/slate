@@ -16,7 +16,7 @@ Switcheo has determined that it has been successfully broadcasted to the blockch
 For the convenience of testing API endpoints, tokens can be received through our TestNet faucet.
 To use the faucet:
 
-1. Go to [https://switcheo.exchange/](https://switcheo.exchange/)
+1. Go to [https://beta.switcheo.exchange/](https://beta.switcheo.exchange/)
 2. Click on the TestNet/MainNet selector at the bottom of the page
 3. Select TestNet V2
 4. Click on **WALLET LOGIN** to login
@@ -154,7 +154,7 @@ you will receive a response which requires additional signing.
 The signature should then be attached as the `signature` parameter in the request payload.
 
 Note that a `sha256` parameter is provided for convenience to be used directly as part of the ECDSA signature process.
- *In production mode, this should be recalculated for additional security.*  
+ *In production mode, this should be recalculated for additional security.*
 
 ### HTTP Request
 
