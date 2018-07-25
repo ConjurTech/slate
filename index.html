@@ -226,7 +226,7 @@
                     <a href="#api-requests" class="toc-h2 toc-link" data-title="api-requests">API Requests</a>
                   </li>
                   <li>
-                    <a href="#mainnet-testnet-api-urls" class="toc-h2 toc-link" data-title="mainnet-testnet-api-urls">Mainnet/Testnet API URLs</a>
+                    <a href="#mainnet-testnet-urls" class="toc-h2 toc-link" data-title="mainnet-testnet-urls">Mainnet / Testnet URLs</a>
                   </li>
                   <li>
                     <a href="#rate-limits" class="toc-h2 toc-link" data-title="rate-limits">Rate Limits</a>
@@ -403,14 +403,42 @@ API requests and responses use the <a href="https://www.json.org/">JSON</a> form
 <li>Exchange APIs - these endpoints provide exchange history, statistics and other data and do not need to be authenticated</li>
 <li>Trading APIs - these endpoints can be used to execute trades and must be authenticated</li>
 </ul>
-<h2 id='mainnet-testnet-api-urls'>Mainnet/Testnet API URLs</h2>
-<p>When developing your application, the testnet URL should be used:</p>
+<h2 id='mainnet-testnet-urls'>Mainnet / Testnet URLs</h2>
+<p>Use the testnet URLs when developing your application:</p>
 
-<p><a href="https://test-api.switcheo.network">https://test-api.switcheo.network</a></p>
+<table><thead>
+<tr>
+<th></th>
+<th>URL</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>UI</td>
+<td><a href="https://beta.switcheo.exchange/">https://beta.switcheo.exchange/</a></td>
+</tr>
+<tr>
+<td>API</td>
+<td><a href="https://test-api.switcheo.network">https://test-api.switcheo.network</a></td>
+</tr>
+</tbody></table>
 
-<p>For actual trading and market data, the mainnet URL should be used:</p>
+<p>Use the mainnet URLs for actual trading and market data:</p>
 
-<p><a href="https://api.switcheo.network">https://api.switcheo.network</a></p>
+<table><thead>
+<tr>
+<th></th>
+<th>URL</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>UI</td>
+<td><a href="https://switcheo.exchange/">https://switcheo.exchange/</a></td>
+</tr>
+<tr>
+<td>API</td>
+<td><a href="https://api.switcheo.network">https://api.switcheo.network</a></td>
+</tr>
+</tbody></table>
 <h2 id='rate-limits'>Rate Limits</h2>
 <p>All endpoints are rate-limited. We use a dynamic algorithm for determining these limits. The HTTP error code <code>429</code> will
 be returned if this limit is exceeded. You should implement an exponential backoff strategy when encountering this error code.</p>
@@ -882,7 +910,7 @@ Switcheo has determined that it has been successfully broadcasted to the blockch
 To use the faucet:</p>
 
 <ol>
-<li>Go to <a href="https://switcheo.exchange/">https://switcheo.exchange/</a></li>
+<li>Go to <a href="https://beta.switcheo.exchange/">https://beta.switcheo.exchange/</a></li>
 <li>Click on the TestNet/MainNet selector at the bottom of the page</li>
 <li>Select TestNet V2</li>
 <li>Click on <strong>WALLET LOGIN</strong> to login</li>
@@ -1047,7 +1075,7 @@ you will receive a response which requires additional signing.</p>
 <p>The signature should then be attached as the <code>signature</code> parameter in the request payload.</p>
 
 <p>Note that a <code>sha256</code> parameter is provided for convenience to be used directly as part of the ECDSA signature process.
- <em>In production mode, this should be recalculated for additional security.</em>  </p>
+ <em>In production mode, this should be recalculated for additional security.</em></p>
 <h3 id='http-request-7'>HTTP Request</h3>
 <p><code>POST /v2/deposits/:id/broadcast</code></p>
 <h3 id='request-parameters-6'>Request Parameters</h3>
