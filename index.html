@@ -446,6 +446,30 @@ be returned if this limit is exceeded. You should implement an exponential backo
 <p>As a decentralised exchange, Switcheo does not use passwords or API keys.
 Instead, authentication is done by signing the <strong>request payload</strong> <em>or</em> <strong>blockchain transaction</strong> using the <strong>blockchain-specific</strong>
 digital signature with the user&#39;s private key.</p>
+
+<p>Currently, all supported blockchains uses the ellipitic curve digital signature algorithim (ECDSA). However, the curves and hashing algorithim used for each blockchain differ slightly per blockchain.</p>
+
+<table><thead>
+<tr>
+<th>Blockchain</th>
+<th>Signature Algo</th>
+<th>Curve</th>
+<th>Hash Function</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>NEO</td>
+<td>ECDSA</td>
+<td>NIST P-256</td>
+<td>SHA-256</td>
+</tr>
+<tr>
+<td>ETH</td>
+<td>ECDSA</td>
+<td>secp256k1</td>
+<td>SHA-3</td>
+</tr>
+</tbody></table>
 <h2 id='action-authentication'>Action Authentication</h2>
 <p>Two steps are required to perform an action.</p>
 
@@ -931,9 +955,9 @@ To use the faucet:</p>
 <span class="nx">createDeposit</span><span class="p">({</span>
   <span class="na">blockchain</span><span class="p">:</span> <span class="s1">'neo'</span><span class="p">,</span>
   <span class="na">address</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span>
-  <span class="na">assetID</span><span class="p">:</span> <span class="s1">'SWTH'</span><span class="p">,</span>
+  <span class="na">asset_id</span><span class="p">:</span> <span class="s1">'SWTH'</span><span class="p">,</span>
   <span class="na">amount</span><span class="p">:</span> <span class="nx">toNeoAssetAmount</span><span class="p">(</span><span class="mi">7</span><span class="p">),</span>
-  <span class="na">privateKey</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">privateKey</span>
+  <span class="na">private_key</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">privateKey</span>
 <span class="p">})</span>
 </code></pre>
 <blockquote>
@@ -1121,9 +1145,9 @@ the withdrawal has been fully executed.</p>
 <span class="nx">createWithdrawal</span><span class="p">({</span>
   <span class="na">blockchain</span><span class="p">:</span> <span class="s1">'neo'</span><span class="p">,</span>
   <span class="na">address</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span>
-  <span class="na">assetID</span><span class="p">:</span> <span class="s1">'SWTH'</span><span class="p">,</span>
+  <span class="na">asset_id</span><span class="p">:</span> <span class="s1">'SWTH'</span><span class="p">,</span>
   <span class="na">amount</span><span class="p">:</span> <span class="p">(</span><span class="nx">toNeoAssetAmount</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span>
-  <span class="na">privateKey</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">privateKey</span>
+  <span class="na">private_key</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">privateKey</span>
 <span class="p">})</span>
 </code></pre>
 <blockquote>
@@ -1680,10 +1704,10 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
   <span class="na">address</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span>
   <span class="na">side</span><span class="p">:</span> <span class="s1">'buy'</span><span class="p">,</span>
   <span class="na">price</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.001</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span>
-  <span class="na">wantAmount</span><span class="p">:</span> <span class="nx">toNeoAssetAmount</span><span class="p">(</span><span class="mf">20.5</span><span class="p">),</span>
-  <span class="na">useNativeTokens</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="na">orderType</span><span class="p">:</span> <span class="s1">'limit'</span><span class="p">,</span>
-  <span class="na">privateKey</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">privateKey</span>
+  <span class="na">want_amount</span><span class="p">:</span> <span class="nx">toNeoAssetAmount</span><span class="p">(</span><span class="mf">20.5</span><span class="p">),</span>
+  <span class="na">use_native_tokens</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">order_type</span><span class="p">:</span> <span class="s1">'limit'</span><span class="p">,</span>
+  <span class="na">private_key</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">privateKey</span>
 <span class="p">})</span>
 </code></pre>
 <blockquote>
