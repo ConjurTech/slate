@@ -247,10 +247,10 @@ createOrder({
   address: user.address,
   side: 'buy',
   price: (0.001).toFixed(8),
-  wantAmount: toNeoAssetAmount(20.5),
-  useNativeTokens: true,
-  orderType: 'limit',
-  privateKey: user.privateKey
+  want_amount: toNeoAssetAmount(20.5),
+  use_native_tokens: true,
+  order_type: 'limit',
+  private_key: user.privateKey
 })
 ```
 

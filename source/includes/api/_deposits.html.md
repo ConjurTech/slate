@@ -38,9 +38,9 @@ function createDeposit ({ blockchain, address, assetID, amount, privateKey }) {
 createDeposit({
   blockchain: 'neo',
   address: user.address,
-  assetID: 'SWTH',
+  asset_id: 'SWTH',
   amount: toNeoAssetAmount(7),
-  privateKey: user.privateKey
+  private_key: user.privateKey
 })
 ```
 

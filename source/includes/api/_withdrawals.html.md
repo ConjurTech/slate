@@ -28,9 +28,9 @@ function createWithdrawal ({ blockchain, address, assetID, amount, privateKey })
 createWithdrawal({
   blockchain: 'neo',
   address: user.address,
-  assetID: 'SWTH',
+  asset_id: 'SWTH',
   amount: (toNeoAssetAmount(1)),
-  privateKey: user.privateKey
+  private_key: user.privateKey
 })
 ```
 
