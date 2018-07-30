@@ -524,11 +524,11 @@ digital signature with the user&#39;s private key.</p>
 <span class="c1">// 4. Concat lengthHex and parameterHexString</span>
 <span class="kr">const</span> <span class="nx">concatenatedString</span> <span class="o">=</span> <span class="nx">lengthHex</span> <span class="o">+</span> <span class="nx">parameterHexString</span>
 
-<span class="c1">// 5. Wrap concatenatedString in ledger compatible bytecode</span>
-<span class="kr">const</span> <span class="nx">ledgerCompatibleString</span> <span class="o">=</span> <span class="s1">'010001f0'</span> <span class="o">+</span> <span class="nx">concatenatedString</span> <span class="o">+</span> <span class="s1">'0000'</span>
+<span class="c1">// 5. Wrap concatenatedString in an empty neo transaction and serialize it</span>
+<span class="kr">const</span> <span class="nx">serializedTransaction</span> <span class="o">=</span> <span class="s1">'010001f0'</span> <span class="o">+</span> <span class="nx">concatenatedString</span> <span class="o">+</span> <span class="s1">'0000'</span>
 
-<span class="c1">// 6. Sign ledgerCompatibleString with the user's privateKey</span>
-<span class="kr">const</span> <span class="nx">signature</span> <span class="o">=</span> <span class="nx">signMessage</span><span class="p">(</span><span class="nx">ledgerCompatibleString</span><span class="p">,</span> <span class="s1">'&lt;private key&gt;'</span><span class="p">)</span>
+<span class="c1">// 6. Sign serializedTransaction with the user's privateKey</span>
+<span class="kr">const</span> <span class="nx">signature</span> <span class="o">=</span> <span class="nx">signMessage</span><span class="p">(</span><span class="nx">serializedTransaction</span><span class="p">,</span> <span class="s1">'&lt;private key&gt;'</span><span class="p">)</span>
 
 <span class="c1">// 7. Combine the raw parameters with the signature</span>
 <span class="c1">// to get the final parameters to send</span>
