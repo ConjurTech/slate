@@ -61,11 +61,11 @@ const lengthHex = (parameterHexString.length / 2).toString(16).padStart(2, '0')
 // 4. Concat lengthHex and parameterHexString
 const concatenatedString = lengthHex + parameterHexString
 
-// 5. Wrap concatenatedString in ledger compatible bytecode
-const ledgerCompatibleString = '010001f0' + concatenatedString + '0000'
+// 5. Wrap concatenatedString in an empty neo transaction and serialize it
+const serializedTransaction = '010001f0' + concatenatedString + '0000'
 
-// 6. Sign ledgerCompatibleString with the user's privateKey
-const signature = signMessage(ledgerCompatibleString, '<private key>')
+// 6. Sign serializedTransaction with the user's privateKey
+const signature = signMessage(serializedTransaction, '<private key>')
 
 // 7. Combine the raw parameters with the signature
 // to get the final parameters to send
