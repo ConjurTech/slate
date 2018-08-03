@@ -952,12 +952,15 @@ To use the faucet:</p>
   <span class="k">return</span> <span class="nx">api</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">API_URL</span> <span class="o">+</span> <span class="s1">'/deposits'</span><span class="p">,</span> <span class="nx">apiParams</span><span class="p">)</span>
 <span class="p">}</span>
 
+<span class="c1">// NOTE: in this example, the parameters can be in camel case because</span>
+<span class="c1">// the `signParams` and `api.post` method automatically convert param keys</span>
+<span class="c1">// to snake case</span>
 <span class="nx">createDeposit</span><span class="p">({</span>
   <span class="na">blockchain</span><span class="p">:</span> <span class="s1">'neo'</span><span class="p">,</span>
   <span class="na">address</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span>
-  <span class="na">asset_id</span><span class="p">:</span> <span class="s1">'SWTH'</span><span class="p">,</span>
+  <span class="na">assetID</span><span class="p">:</span> <span class="s1">'SWTH'</span><span class="p">,</span>
   <span class="na">amount</span><span class="p">:</span> <span class="nx">toNeoAssetAmount</span><span class="p">(</span><span class="mi">7</span><span class="p">),</span>
-  <span class="na">private_key</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">privateKey</span>
+  <span class="na">privateKey</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">privateKey</span>
 <span class="p">})</span>
 </code></pre>
 <blockquote>
@@ -1142,12 +1145,15 @@ the withdrawal has been fully executed.</p>
   <span class="k">return</span> <span class="nx">api</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">API_URL</span> <span class="o">+</span> <span class="s1">'/withdrawals'</span><span class="p">,</span> <span class="nx">apiParams</span><span class="p">)</span>
 <span class="p">}</span>
 
+<span class="c1">// NOTE: in this example, the parameters can be in camel case because</span>
+<span class="c1">// the `signParams` and `api.post` method automatically convert param keys</span>
+<span class="c1">// to snake case</span>
 <span class="nx">createWithdrawal</span><span class="p">({</span>
   <span class="na">blockchain</span><span class="p">:</span> <span class="s1">'neo'</span><span class="p">,</span>
   <span class="na">address</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span>
-  <span class="na">asset_id</span><span class="p">:</span> <span class="s1">'SWTH'</span><span class="p">,</span>
+  <span class="na">assetID</span><span class="p">:</span> <span class="s1">'SWTH'</span><span class="p">,</span>
   <span class="na">amount</span><span class="p">:</span> <span class="p">(</span><span class="nx">toNeoAssetAmount</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span>
-  <span class="na">private_key</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">privateKey</span>
+  <span class="na">privateKey</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">privateKey</span>
 <span class="p">})</span>
 </code></pre>
 <blockquote>
@@ -1698,6 +1704,9 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
   <span class="k">return</span> <span class="nx">api</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">API_URL</span> <span class="o">+</span> <span class="s1">'/orders'</span><span class="p">,</span> <span class="nx">apiParams</span><span class="p">)</span>
 <span class="p">}</span>
 
+<span class="c1">// NOTE: in this example, the parameters can be in camel case because</span>
+<span class="c1">// the `signParams` and `api.post` method automatically convert param keys</span>
+<span class="c1">// to snake case</span>
 <span class="nx">createOrder</span><span class="p">({</span>
   <span class="na">pair</span><span class="p">:</span> <span class="s1">'SWTH_NEO'</span><span class="p">,</span>
   <span class="na">blockchain</span><span class="p">:</span> <span class="s1">'neo'</span><span class="p">,</span>
@@ -1705,9 +1714,9 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
   <span class="na">side</span><span class="p">:</span> <span class="s1">'buy'</span><span class="p">,</span>
   <span class="na">price</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.001</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span>
   <span class="na">want_amount</span><span class="p">:</span> <span class="nx">toNeoAssetAmount</span><span class="p">(</span><span class="mf">20.5</span><span class="p">),</span>
-  <span class="na">use_native_tokens</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="na">order_type</span><span class="p">:</span> <span class="s1">'limit'</span><span class="p">,</span>
-  <span class="na">private_key</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">privateKey</span>
+  <span class="na">useNativeTokens</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">orderType</span><span class="p">:</span> <span class="s1">'limit'</span><span class="p">,</span>
+  <span class="na">privateKey</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">privateKey</span>
 <span class="p">})</span>
 </code></pre>
 <blockquote>
@@ -2075,6 +2084,9 @@ a transaction in the response which must be signed.</p>
 </blockquote>
 <pre class="highlight javascript"><code><span class="kr">const</span> <span class="p">{</span> <span class="nx">wallet</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@cityofzion/neon-js'</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">address</span> <span class="o">=</span> <span class="nx">wallet</span><span class="p">.</span><span class="nx">getScriptHashFromPublicKey</span><span class="p">(</span><span class="s1">'&lt;public key&gt;'</span><span class="p">)</span>
+
+<span class="c1">// you can also retrieve the script hash from a wallet address directly with:</span>
+<span class="nx">wallet</span><span class="p">.</span><span class="nx">getScriptHashFromAddress</span><span class="p">(</span><span class="s1">'AQV8FNNi2o7EtMNn4etWBYx1cqBREAifgE'</span><span class="p">)</span>
 </code></pre>
 <p>For NEO, an <code>address</code> refers to the <a href="https://en.wikipedia.org/wiki/RIPEMD">RIPEMD160</a> hash of the the user&#39;s public key.</p>
 
