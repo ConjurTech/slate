@@ -2140,13 +2140,16 @@ and the decimal point itself should be dropped.</p>
 </blockquote>
 <pre class="highlight javascript"><code><span class="p">{</span>
   <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
-    <span class="s2">"87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f"</span>
+    <span class="s2">"&lt;address 1&gt;"</span>
   <span class="p">],</span>
   <span class="s2">"contract_hashes"</span><span class="p">:</span> <span class="p">[</span>
     <span class="s2">"&lt;contract hash 1&gt;"</span><span class="p">,</span>
     <span class="s2">"&lt;contract hash 2&gt;"</span>
   <span class="p">]</span>
 <span class="p">}</span>
+
+<span class="c1">// The URL should be:</span>
+<span class="c1">// /v2/balances?addresses[]=address_1&amp;contract_hashes[]=contract_hash_1&amp;contract_hashes[]=contract_hash_2</span>
 </code></pre>
 <blockquote>
 <p>Example response:</p>
@@ -2175,6 +2178,12 @@ and the decimal point itself should be dropped.</p>
 <span class="p">}</span>
 </code></pre>
 <p>List contract balances of the given address and contract.</p>
+
+<p>The purpose of this endpoint is to allow convenient querying of a user&#39;s balance across
+multiple blockchains, for example, if you want to retrieve a user&#39;s NEO and ethereum balances.</p>
+
+<p>As such, when using this endpoint, balances for the specified addresses and contract hashes
+will be merged and summed.</p>
 <h3 id='http-request-15'>HTTP Request</h3>
 <p><code>/v2/balances</code></p>
 <h3 id='url-parameters-3'>URL parameters</h3>
@@ -2188,7 +2197,7 @@ and the decimal point itself should be dropped.</p>
 </thead><tbody>
 <tr>
 <td>addresses</td>
-<td><strong>string</strong></td>
+<td><strong>array</strong></td>
 <td>yes</td>
 <td>Only return balances for these <a href="#address">addresses</a></td>
 </tr>
