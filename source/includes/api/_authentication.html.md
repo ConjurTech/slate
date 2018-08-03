@@ -5,7 +5,7 @@ Instead, authentication is done by signing the **request payload** _or_ **blockc
 digital signature with the user's private key.
 
 Currently, all supported blockchains uses the ellipitic curve digital signature algorithim (ECDSA). However, the curves and hashing algorithim used for each blockchain differ slightly per blockchain.
- 
+
 | Blockchain | Signature Algo | Curve       | Hash Function |
 | ---------- | -------------- | -----       | ------------- |
 | NEO        | ECDSA          | NIST P-256  | SHA-256       |
@@ -78,7 +78,7 @@ To perform an action, request parameters have to be signed using the steps outli
 2. Serialize the parameter string into a hex string
 3. Zero pad the **length** of the result from (2) into a two digit hex string
 4. Concat the result of (3) and (2)
-5. Wrap the result of (4) in ledger compatible bytecode
+5. Wrap the result of (4) in a neo transaction
 6. Sign the result of (5) with the user's private key
 7. Send the result of (6) together with the raw parameters to the API endpoint
 
