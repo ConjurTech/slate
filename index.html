@@ -541,7 +541,7 @@ digital signature with the user&#39;s private key.</p>
 <li>Serialize the parameter string into a hex string</li>
 <li>Zero pad the <strong>length</strong> of the result from (2) into a two digit hex string</li>
 <li>Concat the result of (3) and (2)</li>
-<li>Wrap the result of (4) in ledger compatible bytecode</li>
+<li>Wrap the result of (4) in a neo transaction</li>
 <li>Sign the result of (5) with the user&#39;s private key</li>
 <li>Send the result of (6) together with the raw parameters to the API endpoint</li>
 </ol>
