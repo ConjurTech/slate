@@ -25,12 +25,15 @@ function createWithdrawal ({ blockchain, address, assetID, amount, privateKey })
   return api.post(API_URL + '/withdrawals', apiParams)
 }
 
+// NOTE: in this example, the parameters can be in camel case because
+// the `signParams` and `api.post` method automatically convert param keys
+// to snake case
 createWithdrawal({
   blockchain: 'neo',
   address: user.address,
-  asset_id: 'SWTH',
+  assetID: 'SWTH',
   amount: (toNeoAssetAmount(1)),
-  private_key: user.privateKey
+  privateKey: user.privateKey
 })
 ```
 

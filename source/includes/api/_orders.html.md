@@ -241,6 +241,9 @@ function createOrder({ pair, blockchain, side, price,
   return api.post(API_URL + '/orders', apiParams)
 }
 
+// NOTE: in this example, the parameters can be in camel case because
+// the `signParams` and `api.post` method automatically convert param keys
+// to snake case
 createOrder({
   pair: 'SWTH_NEO',
   blockchain: 'neo',
@@ -248,9 +251,9 @@ createOrder({
   side: 'buy',
   price: (0.001).toFixed(8),
   want_amount: toNeoAssetAmount(20.5),
-  use_native_tokens: true,
-  order_type: 'limit',
-  private_key: user.privateKey
+  useNativeTokens: true,
+  orderType: 'limit',
+  privateKey: user.privateKey
 })
 ```
 

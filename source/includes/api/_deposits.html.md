@@ -35,12 +35,15 @@ function createDeposit ({ blockchain, address, assetID, amount, privateKey }) {
   return api.post(API_URL + '/deposits', apiParams)
 }
 
+// NOTE: in this example, the parameters can be in camel case because
+// the `signParams` and `api.post` method automatically convert param keys
+// to snake case
 createDeposit({
   blockchain: 'neo',
   address: user.address,
-  asset_id: 'SWTH',
+  assetID: 'SWTH',
   amount: toNeoAssetAmount(7),
-  private_key: user.privateKey
+  privateKey: user.privateKey
 })
 ```
 
