@@ -18,13 +18,16 @@ Trading on Switcheo Exchange can only be done using your contract balance.
 ```js
 {
   "addresses": [
-    "87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f"
+    "<address 1>"
   ],
   "contract_hashes": [
     "<contract hash 1>",
     "<contract hash 2>"
   ]
 }
+
+// The URL should be:
+// /v2/balances?addresses[]=address_1&contract_hashes[]=contract_hash_1&contract_hashes[]=contract_hash_2
 ```
 
 > Example response:
@@ -57,6 +60,12 @@ Trading on Switcheo Exchange can only be done using your contract balance.
 
 List contract balances of the given address and contract.
 
+The purpose of this endpoint is to allow convenient querying of a user's balance across
+multiple blockchains, for example, if you want to retrieve a user's NEO and ethereum balances.
+
+As such, when using this endpoint, balances for the specified addresses and contract hashes
+will be merged and summed.
+
 ### HTTP Request
 `/v2/balances`
 
@@ -64,7 +73,7 @@ List contract balances of the given address and contract.
 
  Parameter      | Type       | Required | Description
 --------------- | ---------- | -------- | -----------
-addresses       | **string** | yes       | Only return balances for these [addresses](#address)
+addresses       | **array** | yes       | Only return balances for these [addresses](#address)
 contract_hashes | **array**  | yes       | Only return balances from these [contract hashes](#contracts).
 
 ### Example
