@@ -9,6 +9,9 @@ An `address` in Switcheo is always represented by a hex string, and should **nev
 ```js
 const { wallet } = require('@cityofzion/neon-js')
 const address = wallet.getScriptHashFromPublicKey('<public key>')
+
+// you can also retrieve the script hash from a wallet address directly with:
+wallet.getScriptHashFromAddress('AQV8FNNi2o7EtMNn4etWBYx1cqBREAifgE')
 ```
 
 For NEO, an `address` refers to the [RIPEMD160](https://en.wikipedia.org/wiki/RIPEMD) hash of the the user's public key.
