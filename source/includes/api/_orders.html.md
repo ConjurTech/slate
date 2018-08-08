@@ -57,7 +57,7 @@ use_native_token           | Whether SWTH tokens was used by the order maker to 
 native_fee_transfer_amount | Amount of SWTH that was deposited into the contract in order to pay the taker fees of the order.
 deposit_txn                | Transaction that was used for deposits related to the order creation.
 created_at                 | Time when the order was created.
-status                     | Status of the order.
+status                     | Status of the order. Possible values are `pending` (after creation), `processed` (after broadcast), `expired` (after creation but not broadcasted for a long time)
 fills                      | Refer to the [fills](#the-fill-object) section for more details.
 makes                      | Refer to the [makes](#the-make-object) section for more details.
 
@@ -92,7 +92,7 @@ These `fills` represent the filling of the order by the matching offers.
 Attribute                  | Description
 -------------------------- | ----------
 id                         | Unique identifier for the fill object.
-offer_hash                 | The blockchain that the offer exists on.
+offer_hash                 | The hash of the corresponding offer for this fill object.
 offer_asset_id             | [Asset ID](#supported-assets) of the token that the order maker is offering.
 want_asset_id              | [Asset ID](#supported-assets) of the token that the order maker wants.
 fill_amount                | [Amount](#amounts) of tokens that the target offer wants.
@@ -102,7 +102,7 @@ fee_asset_id               | [Asset id](#supported-assets) of the token used for
 fee_amount                 | [Amount](#amounts) of fees paid for the fill.
 price                      | The buy or sell price of order.
 txn                        | The transaction representing this fill.
-status                     | Status of the fill.
+status                     | Status of the fill. Possible values are `pending` (after order creation), `confirming` (after order broadcast), `success` (after broadcast success), `expired` (after order creation but not broadcasted for a long while)
 created_at                 | Time when the fill was created.
 transaction_hash           | Transaction hash of the transaction representing this fill.
 
@@ -137,7 +137,7 @@ This `make` represents the unfilled amount of the order.
 Attribute                  | Description
 -------------------------- | ----------
 id                         | Unique identifier for the make object.
-offer_hash                 | The blockchain that the order exists on.
+offer_hash                 | The hash of the corresponding offer for this make object.
 available_amount           | Remaining [amount](#amounts) of the offered tokens in the make that has not been filled by other offers.
 offer_asset_id             | [Asset ID](#supported-assets) of the token that the make is offering.
 offer_amount               | [Amount](#amounts) of tokens that the make is offering.
@@ -147,7 +147,7 @@ filled_amount              | [Amount](#amounts) of tokens out of the make's `off
 txn                        | The transaction representing this make.
 cancel_txn                 | If this make was cancelled, this parameter would be the transaction that represents the cancellation.
 price                      | Buy or sell price of order.
-status                     | Status of the make.
+status                     | Status of the make. Possible values are `pending` (after order creation), `confirming` (after order broadcast), `success` (after broadcast success), `cancelling` (after cancellation broadcasted), `cancelled` (after cancellation broadcast success), `expired` (after order creation but not broadcasted for a long while)
 created_at                 | Time when the make was created.
 transaction_hash           | Transaction hash of the transaction representing this make.
 
