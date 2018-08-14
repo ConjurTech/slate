@@ -1419,7 +1419,7 @@ you will receive a response which requires additional signing.</p>
 </tr>
 <tr>
 <td>status</td>
-<td>Status of the order.</td>
+<td>Status of the order. Possible values are <code>pending</code> (after creation), <code>processed</code> (after broadcast), <code>expired</code> (after creation but not broadcasted for a long time)</td>
 </tr>
 <tr>
 <td>fills</td>
@@ -1468,7 +1468,7 @@ These <code>fills</code> represent the filling of the order by the matching offe
 </tr>
 <tr>
 <td>offer_hash</td>
-<td>The blockchain that the offer exists on.</td>
+<td>The hash of the corresponding offer for this fill object.</td>
 </tr>
 <tr>
 <td>offer_asset_id</td>
@@ -1508,7 +1508,7 @@ These <code>fills</code> represent the filling of the order by the matching offe
 </tr>
 <tr>
 <td>status</td>
-<td>Status of the fill.</td>
+<td>Status of the fill. Possible values are <code>pending</code> (after order creation), <code>confirming</code> (after order broadcast), <code>success</code> (after broadcast success), <code>expired</code> (after order creation but not broadcasted for a long while)</td>
 </tr>
 <tr>
 <td>created_at</td>
@@ -1557,7 +1557,7 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 </tr>
 <tr>
 <td>offer_hash</td>
-<td>The blockchain that the order exists on.</td>
+<td>The hash of the corresponding offer for this make object.</td>
 </tr>
 <tr>
 <td>available_amount</td>
@@ -1597,7 +1597,7 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 </tr>
 <tr>
 <td>status</td>
-<td>Status of the make.</td>
+<td>Status of the make. Possible values are <code>pending</code> (after order creation), <code>confirming</code> (after order broadcast), <code>success</code> (after broadcast success), <code>cancelling</code> (after cancellation broadcasted), <code>cancelled</code> (after cancellation broadcast success), <code>expired</code> (after order creation but not broadcasted for a long while)</td>
 </tr>
 <tr>
 <td>created_at</td>
