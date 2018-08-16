@@ -3,6 +3,7 @@ title: Switcheo API Reference
 
 includes:
   - api/introduction
+  - api/troubleshooting
   - api/important_information
   - api/exchange_information
   - api/authentication

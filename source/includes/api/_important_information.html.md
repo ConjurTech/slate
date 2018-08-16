@@ -5,6 +5,7 @@ Subject                   | Things to note
 [Addresses](#addresses)   | Addresses must be in the correct format.
 [Amounts](#amounts)       | Amounts must be converted to the correct format.
 [Parameter casing](#parameter-casing)          | Parameters must be snake cased: e.g. `contract_hash` and not `contractHash`
+[Private keys](#private-keys)          | Private keys must be in the correct format.
 [Signature](#signing-request-parameters) | Not all parameters should be included to generate the signature, excluded parameters are specified in their respective endpoint's documentation.
 [Timestamp](#timestamp)   | If a timestamp parameter is required, then it should first be fetched from the server
 
@@ -47,10 +48,29 @@ For example, if the token's precision is `8`, and the original amount is `9.1234
 
 ## Parameter Casing
 
-Parameters sent in API requests should always be snake cased.
+Parameters used to generate a signature or sent in API requests should always be snake cased.
 
-Parameters are camel cased in the examples, this is because the examples are in JavaScript and it is
+Parameters are camel cased in the examples because the examples are in JavaScript and it is
 JavaScript's convention to use camel case.
 
 The code in the examples make use of helper methods to automatically convert camel cased keys into
 snake cased keys.
+
+
+## Private Keys
+
+Please check the documentation of the respective blockchains for signing with private keys.
+
+For NEO, there is both a WIF and a private key.
+
+Example WIF:
+<code style=" hyphens: none;">
+L479CJz4ZyxHiumy2viAjBFk8nixKeMY45DCQa5p4n4AT6M6WsWq
+</code>
+
+Example private key:
+<code style=" hyphens: none;">
+cd7b887c29a110e0ce53e81d6dd02805fc7b912718ff8b6659d8da42887342bd
+</code>
+
+The private key should be used for signing, not the WIF.
