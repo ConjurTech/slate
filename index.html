@@ -489,7 +489,7 @@ the expected inputs and outputs at each step of generating a signature.</p></li>
 </tr>
 <tr>
 <td><a href="#timestamp">Timestamp</a></td>
-<td>If a timestamp parameter is required, then it should first be fetched from the server</td>
+<td>If a timestamp parameter is required, then it should first be fetched from the server. If the timestamp is not within an acceptable range of the exchange&#39;s timestamp then an invalid signature error will be returned.</td>
 </tr>
 </tbody></table>
 <h2 id='addresses'>Addresses</h2>
@@ -564,6 +564,8 @@ Authentication is not required for these endpoints.</p>
 </code></pre>
 <p>Returns the current timestamp in the exchange, this value should be fetched and used when a
 timestamp parameter is required for API requests.</p>
+
+<p>If the timestamp used for your API request is not within an acceptable range of the exchange&#39;s timestamp then an invalid signature error will be returned. The acceptable range might vary, but it should be less than one minute.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET /v2/exchange/timestamp</code></p>
 <h2 id='contracts'>Contracts</h2>
@@ -1281,9 +1283,9 @@ To be able to make a deposit, sufficient funds are required in the depositing wa
 </tr>
 <tr>
 <td>timestamp</td>
-<td><strong>int</strong></td>
+<td><a href="#timestamp">timestamp</a></td>
 <td>yes</td>
-<td>The current timestamp to be used as a nonce as epoch <strong>milliseconds</strong>.</td>
+<td>The exchange&#39;s timestamp to be used as a nonce.</td>
 </tr>
 <tr>
 <td>signature</td>
@@ -1437,9 +1439,9 @@ To be able to make a withdrawal, sufficient funds are required in the contract b
 </tr>
 <tr>
 <td>timestamp</td>
-<td><strong>int</strong></td>
+<td><a href="#timestamp">timestamp</a></td>
 <td>yes</td>
-<td>The current time in epoch <strong>milliseconds</strong>.</td>
+<td>The exchange&#39;s timestamp to be used as a nonce.</td>
 </tr>
 <tr>
 <td>contract_hash</td>
@@ -1522,9 +1524,9 @@ you will receive a response which requires additional signing.</p>
 </tr>
 <tr>
 <td>timestamp</td>
-<td><strong>int</strong></td>
+<td><a href="#timestamp">timestamp</a></td>
 <td>yes</td>
-<td>The current timestamp to be used as a nonce as epoch <strong>milliseconds</strong>.</td>
+<td>The exchange&#39;s timestamp to be used as a nonce.</td>
 </tr>
 <tr>
 <td>signature</td>
@@ -2052,9 +2054,9 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 </tr>
 <tr>
 <td>timestamp</td>
-<td><strong>int</strong></td>
+<td><a href="#timestamp">timestamp</a></td>
 <td>yes</td>
-<td>The current time in epoch <strong>milliseconds</strong>.</td>
+<td>The exchange&#39;s timestamp to be used as a nonce.</td>
 </tr>
 <tr>
 <td>signature</td>
@@ -2236,9 +2238,9 @@ Only orders <strong>with makes</strong> and with an <code>available_amount</code
 </tr>
 <tr>
 <td>timestamp</td>
-<td><strong>int</strong></td>
+<td><a href="#timestamp">timestamp</a></td>
 <td>yes</td>
-<td>The current time in epoch <strong>milliseconds</strong>.</td>
+<td>The exchange&#39;s timestamp to be used as a nonce.</td>
 </tr>
 <tr>
 <td>signature</td>
