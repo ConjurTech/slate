@@ -79,7 +79,7 @@ A [signature](#authentication) of the request payload has to be provided for thi
  blockchain        | **string** | yes       | Blockchain that the token to withdraw is on. Possible values are: `neo`.
  asset_id          | **string** | yes       | The [asset symbol or ID](#supported-assets) to withdraw.
  amount            | [amount](#amounts) | yes       | [Amount](#amounts) of tokens to withdraw.
- timestamp         | **int**    | yes       | The current time in epoch **milliseconds**.
+ timestamp         | [timestamp](#timestamp)    | yes       | The exchange's timestamp to be used as a nonce.
  contract_hash     | **string** | yes       | Switcheo Exchange [contract hash](#contracts) to execute the withdraw on.
  signature         | **string** | yes       | Signature of the request payload. See [Authentication](#authentication) for more details.
  address           | [address](#addresses) | yes       | The withdrawer's [address](#addresses). **Do not include this in the parameters to be signed.**
@@ -143,7 +143,7 @@ you will receive a response which requires additional signing.
  Parameter  | Type       | Required | Description
  ---------- | ---------- | -------- | -----------
  id         | **string** | yes       | `id` parameter in the response from create withdrawal endpoint.
- timestamp  | **int**    | yes       | The current timestamp to be used as a nonce as epoch **milliseconds**.
+ timestamp  | [timestamp](#timestamp)    | yes       | The exchange's timestamp to be used as a nonce.
  signature  | **string** | yes       | Signature of the request payload. See [Authentication](#authentication) for more details.
 
 ### Example

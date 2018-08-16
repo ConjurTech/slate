@@ -16,6 +16,8 @@ Authentication is not required for these endpoints.
 Returns the current timestamp in the exchange, this value should be fetched and used when a
 timestamp parameter is required for API requests.
 
+If the timestamp used for your API request is not within an acceptable range of the exchange's timestamp then an invalid signature error will be returned. The acceptable range might vary, but it should be less than one minute.
+
 ### HTTP Request
 
 `GET /v2/exchange/timestamp`

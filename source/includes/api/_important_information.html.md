@@ -7,7 +7,7 @@ Subject                   | Things to note
 [Parameter casing](#parameter-casing)          | Parameters must be snake cased: e.g. `contract_hash` and not `contractHash`
 [Private keys](#private-keys)          | Private keys must be in the correct format.
 [Signature](#signing-request-parameters) | Not all parameters should be included to generate the signature, excluded parameters are specified in their respective endpoint's documentation.
-[Timestamp](#timestamp)   | If a timestamp parameter is required, then it should first be fetched from the server
+[Timestamp](#timestamp)   | If a timestamp parameter is required, then it should first be fetched from the server. If the timestamp is not within an acceptable range of the exchange's timestamp then an invalid signature error will be returned.
 
 ## Addresses
 An `address` in Switcheo is always represented by a hex string, and should **never** be prefixed by `0x`.

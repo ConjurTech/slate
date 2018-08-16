@@ -327,7 +327,7 @@ createOrder({
  want_amount       | [amount](#amounts)  | yes         | If the pair is `SWTH_NEO` and the side is `buy` then this is the [amount](#amounts) of `SWTH` you want to buy. If the side is `sell` then this is the [amount](#amounts) of `SWTH` you want to sell.
  use_native_tokens | **boolean** | yes         | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
  order_type        | **string**  | yes         | Order type, possible values are: `limit`.
- timestamp         | **int**     | yes         | The current time in epoch **milliseconds**.
+ timestamp         | [timestamp](#timestamp)     | yes         | The exchange's timestamp to be used as a nonce.
  signature         | **string**  | yes         | Signature of the request payload. See [Authentication](#authentication) for more details.
  contract_hash     | **string**  | yes         | Switcheo Exchange [contract hash](#contracts) to execute the order on.
  address           | [address](#addresses)  | yes         | [Address](#addresses) of the order maker. **Do not include this in the parameters to be signed.**
@@ -488,7 +488,7 @@ Only orders **with makes** and with an `available_amount` of **more than 0** can
  Parameter  | Type       | Required | Description
 ----------- | ---------- | -------- | ------------------------------
  order_id   | **string** | yes       | The ID of the order to cancel.
- timestamp  | **int**    | yes       | The current time in epoch **milliseconds**.
+ timestamp  | [timestamp](#timestamp)    | yes       | The exchange's timestamp to be used as a nonce.
  signature  | **string** | yes       | Signature of the request payload. See [Authentication](#authentication) for more details.
  address    | [address](#addresses) | yes       | [Address](#addresses) of the order maker. **Do not include this in the parameters to be signed.**
 
