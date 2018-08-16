@@ -3,6 +3,8 @@ title: Switcheo API Reference
 
 includes:
   - api/introduction
+  - api/important_information
+  - api/exchange_information
   - api/authentication
   - api/tickers
   - api/offers
@@ -10,12 +12,7 @@ includes:
   - api/deposits
   - api/withdrawals
   - api/orders
-  - api/address
-  - api/amounts
   - api/balances
-  - api/pairs
-  - api/supported_assets
-  - api/contracts
   - errors
 
 search: true
