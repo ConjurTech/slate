@@ -73,7 +73,7 @@ will be merged and summed.
 
  Parameter      | Type       | Required | Description
 --------------- | ---------- | -------- | -----------
-addresses       | **array** | yes       | Only return balances for these [addresses](#address)
+addresses       | **array** | yes       | Only return balances for these [addresses](#addresses)
 contract_hashes | **array**  | yes       | Only return balances from these [contract hashes](#contracts).
 
 ### Example

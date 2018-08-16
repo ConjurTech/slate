@@ -4,6 +4,8 @@ Subject                   | Things to note
 ------------------------- | ----------
 [Addresses](#addresses)   | Addresses must be in the correct format.
 [Amounts](#amounts)       | Amounts must be converted to the correct format.
+[Parameter casing](#parameter-casing)          | Parameters must be snake cased: e.g. `contract_hash` and not `contractHash`
+[Signature](#signing-request-parameters) | Not all parameters should be included to generate the signature, excluded parameters are specified in their respective endpoint's documentation.
 [Timestamp](#timestamp)   | If a timestamp parameter is required, then it should first be fetched from the server
 
 ## Addresses
@@ -42,3 +44,13 @@ For example, if the token's precision is `8`, and the original amount is `9.1234
 1. Following the above steps: `9.12345678 * (10 ^ 8)` = `912345678.00`
 2. Drop any decimals to get: `912345678`
 3. Convert the result to a string to get `"912345678"`
+
+## Parameter Casing
+
+Parameters sent in API requests should always be snake cased.
+
+Parameters are camel cased in the examples, this is because the examples are in JavaScript and it is
+JavaScript's convention to use camel case.
+
+The code in the examples make use of helper methods to automatically convert camel cased keys into
+snake cased keys.

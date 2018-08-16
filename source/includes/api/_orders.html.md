@@ -45,7 +45,7 @@ Attribute                  | Description
 id                         | Unique identifier for the order object.
 blockchain                 | The blockchain that the order exists on.
 contract_hash              | Switcheo Exchange [contract hash](#contracts) that the order is on.
-address                    | Wallet [Address](#address) of the order maker.
+address                    | Wallet [Address](#addresses) of the order maker.
 side                       | Whether the order maker is buying or selling.
 offer_asset_id             | [Asset ID](#supported-assets) of the token that the order maker is offering.
 want_asset_id              | [Asset ID](#supported-assets) of the token that the order maker wants.
@@ -199,7 +199,7 @@ Retrieves orders from a specific address filtered by the given parameters.
 
  Parameter      | Type       | Required | Description
 --------------- | ---------- | -------- | -------------
- address        | **string** | yes      | Only returns orders made by this [address](#address).
+ address        | [address](#addresses) | yes      | Only returns orders made by this [address](#addresses).
  pair           | **string** | no       | The pair to buy or sell on.
  contract_hash  | **string** | yes      | Only returns orders from this [contract hash](#contracts).
 
@@ -250,7 +250,8 @@ createOrder({
   address: user.address,
   side: 'buy',
   price: (0.001).toFixed(8),
-  want_amount: toNeoAssetAmount(20.5),
+  // the amount of SWTH to sell or buy
+  wantAmount: toAssetAmount(20.5, 'SWTH'),
   useNativeTokens: true,
   orderType: 'limit',
   privateKey: user.privateKey
@@ -319,17 +320,17 @@ createOrder({
 
  Parameter         | Type        | Required   | Description
 ------------------ | ----------- | ---------- | -----------
- pair              | **string**  | yes         | Pair to trade, e.g. `RPX_NEO`.
+ pair              | **string**  | yes         | Pair to trade, e.g. `SWTH_NEO`.
  blockchain        | **string**  | yes         | Blockchain that the `pair` is on. Possible values are: `neo`.
- side              | **string**  | yes         | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`.
+ side              | **string**  | yes         | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`. If the pair is `SWTH_NEO` and the side is `buy` then the order is to buy `SWTH` using `NEO`. If the side is `sell` then the order is to sell `SWTH` for `NEO`.
  price             | **string**  | yes         | Buy or sell price to 8 decimal places precision.
- want_amount       | **string**  | yes         | [Amount](#amounts) of tokens offered in the order.
+ want_amount       | [amount](#amounts)  | yes         | If the pair is `SWTH_NEO` and the side is `buy` then this is the [amount](#amounts) of `SWTH` you want to buy. If the side is `sell` then this is the [amount](#amounts) of `SWTH` you want to sell.
  use_native_tokens | **boolean** | yes         | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
  order_type        | **string**  | yes         | Order type, possible values are: `limit`.
  timestamp         | **int**     | yes         | The current time in epoch **milliseconds**.
  signature         | **string**  | yes         | Signature of the request payload. See [Authentication](#authentication) for more details.
- address           | **string**  | yes         | [Address](#address) of the order maker. Do not include this in the parameters to be signed.
  contract_hash     | **string**  | yes         | Switcheo Exchange [contract hash](#contracts) to execute the order on.
+ address           | [address](#addresses)  | yes         | [Address](#addresses) of the order maker. **Do not include this in the parameters to be signed.**
 
 ### Example
 [Full create order example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createOrderExample.js)
@@ -489,7 +490,7 @@ Only orders **with makes** and with an `available_amount` of **more than 0** can
  order_id   | **string** | yes       | The ID of the order to cancel.
  timestamp  | **int**    | yes       | The current time in epoch **milliseconds**.
  signature  | **string** | yes       | Signature of the request payload. See [Authentication](#authentication) for more details.
- address    | **string** | yes       | [Address](#address) of the order maker. Do not include this in the parameters to be signed.
+ address    | [address](#addresses) | yes       | [Address](#addresses) of the order maker. **Do not include this in the parameters to be signed.**
 
 ### Example
 

@@ -119,11 +119,11 @@ To be able to make a deposit, sufficient funds are required in the depositing wa
 ------------------ | ---------- | -------- | ------------
  blockchain        | **string** | yes       | Blockchain that the token to deposit is on. Possible values are: `neo`.
  asset_id          | **string** | yes       | The [asset symbol or ID](#supported-assets) to deposit.
- amount            | **string** | yes       | [Amount](#amounts) of tokens to deposit.
+ amount            | [amount](#amounts) | yes       | [Amount](#amounts) of tokens to deposit.
  contract_hash     | **string** | yes       | Switcheo Exchange [contract hash](#contracts) to execute the deposit on.
  timestamp         | **int**    | yes       | The current timestamp to be used as a nonce as epoch **milliseconds**.
  signature         | **string** | yes       | Signature of the request payload. See [Authentication](#authentication) for more details.
- address           | **string** | yes       | The depositer's address. Do not include this in the parameters to be signed.
+ address           | [address](#addresses) | yes       | The depositer's [address](#addresses). **Do not include this in the parameters to be signed.**
 
 
 ### Example

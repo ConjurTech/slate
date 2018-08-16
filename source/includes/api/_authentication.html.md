@@ -46,15 +46,15 @@ signMessage('Hello', '<private key>')
 // 1. Serialize parameters into a string
 // Note that parameters must be ordered alphanumerically
 const rawParams = { blockchain: 'neo', timestamp: 1529380859, apple: 'Z', }
-const stringify = require('json-stable-stringify')
-const parameterString = stringify(rawParams)
+const stableStringify = require('json-stable-stringify')
+const parameterString = stableStringify(rawParams)
 // parameterString: '{"apple":"Z","blockchain":"neo","timestamp":1529380859}'
 
 // 2. Serialize the parameter string into a hex string
 const Neon = require('@cityofzion/neon-js')
 const parameterHexString = Neon.u.str2hexstring(parameterString)
 
-// 3. Zero pad parameterHexString.length into a two digit hex string
+// 3. Zero pad (parameterHexString.length / 2) into a two digit hex string
 const lengthHex = (parameterHexString.length / 2).toString(16).padStart(2, '0')
 // lengthHex: 37
 
@@ -72,17 +72,41 @@ const signature = signMessage(serializedTransaction, '<private key>')
 const parametersToSend = { ...rawParams, signature }
 ```
 
-To perform an action, request parameters have to be signed using the steps outlined below:
+To perform an action, request parameters have to be signed to generate a signature
+parameter. This signature parameter should then be sent together with the other parameters in the request.
 
 1. Convert the API parameters into a string, with parameters **ordered alphanumerically**
 2. Serialize the parameter string into a hex string
-3. Zero pad the **length** of the result from (2) into a two digit hex string
+3. Zero pad the **length / 2** of the result from (2) into a two digit hex string
 4. Concat the result of (3) and (2)
 5. Wrap the result of (4) in a neo transaction
 6. Sign the result of (5) with the user's private key
 7. Send the result of (6) together with the raw parameters to the API endpoint
 
 ### Example
+
+Using the following parameters as an example:
+
+`{ blockchain: 'neo', timestamp: 1529380859, apple: 'Z' }`
+
+1. Convert the parameters into a string with parameters ordered alphanumerically:
+`{"apple":"Z","blockchain":"neo","timestamp":1529380859}`
+2. Serialize the parameter into a hex string to get:
+`7b226170706c65223a225a222c22626c6f636b636861696e223a226e656f222c2274696d657374616d70223a313532393338303835397d`
+3. The length of this string is `110`, divide this by 2 to get `55`
+4. Convert `55` to hexadecimal to get `37`
+5. Zero pad `37` into a two digit string if needed. In this case `37` is already two digits so
+no padding is needed, but if the value was something like `8` then it should be padded to become `08`
+6. Form a string by concatenating `37`, and the result of (2) to get:
+`377b226170706c65223a225a222c22626c6f636b636861696e223a226e656f222c2274696d657374616d70223a313532393338303835397d`
+7. Prepend `010001f0` and append `0000` to (6) to get:
+`010001f0377b226170706c65223a225a222c22626c6f636b636861696e223a226e656f222c2274696d657374616d70223a313532393338303835397d0000`
+8. Let the user's private key be
+<code style=" hyphens: none;">cd7b887c29a110e0ce53e81d6dd02805fc7b912718ff8b6659d8da42887342bd</code>
+9. Sign the result from (7) with the private key in (8) to get
+<code style=" hyphens: none;">
+f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cbf71498b81e1e9478f06bef02d32da5d8f8bb7fdfc449879a
+</code>
 
 [View a full example implementation](https://github.com/ConjurTech/switcheo-api-examples/blob/7f0097ffdab7ce6149d8512d26afc0a0b0a142d6/src/utils.js#L48)
 
@@ -99,11 +123,11 @@ const { transaction } = response
 // verify the transaction data to ensure that it matches the user's intention
 ...
 
-const { tx } = require('@cityofzion/neon-js')
+const { tx, wallet } = require('@cityofzion/neon-js')
 
 function signTransaction(transaction, privateKey) {
   const serializedTxn = tx.serializeTransaction(transaction, false)
-  return signMessage(serializedTxn, privateKey)
+  return wallet.generateSignature(serializedTxn, privateKey)
 }
 
 // send the result to the second API endpoint

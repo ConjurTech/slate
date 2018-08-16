@@ -1,6 +1,6 @@
 # Exchange information
 
-The tickers section consists of endpoints that allow retrieval of basic Switcheo Exchange information.
+This section consists of endpoints that allow retrieval of Switcheo Exchange information.
 Authentication is not required for these endpoints.
 
 ## Timestamp
