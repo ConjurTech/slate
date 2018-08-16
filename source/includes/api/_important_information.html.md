@@ -46,6 +46,8 @@ For example, if the token's precision is `8`, and the original amount is `9.1234
 2. Drop any decimals to get: `912345678`
 3. Convert the result to a string to get `"912345678"`
 
+The list of supported assets and their corresponding precisions can be found in the [Tokens](#tokens) section.
+
 ## Parameter Casing
 
 Parameters used to generate a signature or sent in API requests should always be snake cased.
