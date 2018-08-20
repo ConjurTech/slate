@@ -235,6 +235,11 @@
           </li>
           <li>
             <a href="#troubleshooting" class="toc-h1 toc-link" data-title="troubleshooting">Troubleshooting</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#cors" class="toc-h2 toc-link" data-title="cors">CORS</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#important-information" class="toc-h1 toc-link" data-title="important-information">Important Information</a>
@@ -460,6 +465,10 @@ wrong parameters included to be signed, wrong timestamp.</p></li>
 <a href="#signing-request-parameters"> Signing Request Parameters</a>, this example has
 the expected inputs and outputs at each step of generating a signature.</p></li>
 </ol>
+<h2 id='cors'>CORS</h2>
+<p>When developing on a localhost server, you might encounter a CORS error.</p>
+
+<p>To avoid this, please run your localhost server on port 8080.</p>
 <h1 id='important-information'>Important Information</h1>
 <table><thead>
 <tr>
@@ -564,7 +573,7 @@ Authentication is not required for these endpoints.</p>
   <span class="s2">"timestamp"</span><span class="p">:</span> <span class="mi">1534392760908</span>
 <span class="p">}</span>
 </code></pre>
-<p>Returns the current timestamp in the exchange, this value should be fetched and used when a
+<p>Retrieve the current timestamp in the exchange, this value should be fetched and used when a
 timestamp parameter is required for API requests.</p>
 
 <p>If the timestamp used for your API request is not within an acceptable range of the exchange&#39;s timestamp then an invalid signature error will be returned. The acceptable range might vary, but it should be less than one minute.</p>
@@ -584,7 +593,7 @@ timestamp parameter is required for API requests.</p>
 <span class="p">}</span>
 
 </code></pre>
-<p>Returns updated hashes of contracts deployed by Switcheo.</p>
+<p>Retrieve updated contract hashes deployed by Switcheo.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET /v2/exchange/contracts</code></p>
 <h2 id='tokens'>Tokens</h2>
@@ -607,7 +616,7 @@ timestamp parameter is required for API requests.</p>
   <span class="p">...</span>
 <span class="p">}</span>
 </code></pre>
-<p>Returns updated hashes of contracts deployed by Switcheo.</p>
+<p>Retrieve a list of supported tokens on Switcheo.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET /v2/exchange/tokens</code></p>
 <h2 id='pairs'>Pairs</h2>
