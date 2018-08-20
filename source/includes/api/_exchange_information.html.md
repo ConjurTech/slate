@@ -13,7 +13,7 @@ Authentication is not required for these endpoints.
 }
 ```
 
-Returns the current timestamp in the exchange, this value should be fetched and used when a
+Retrieve the current timestamp in the exchange, this value should be fetched and used when a
 timestamp parameter is required for API requests.
 
 If the timestamp used for your API request is not within an acceptable range of the exchange's timestamp then an invalid signature error will be returned. The acceptable range might vary, but it should be less than one minute.
@@ -38,7 +38,7 @@ If the timestamp used for your API request is not within an acceptable range of 
 
 ```
 
-Returns updated hashes of contracts deployed by Switcheo.
+Retrieve updated contract hashes deployed by Switcheo.
 
 ### HTTP Request
 
@@ -66,7 +66,7 @@ Returns updated hashes of contracts deployed by Switcheo.
 }
 ```
 
-Returns updated hashes of contracts deployed by Switcheo.
+Retrieve a list of supported tokens on Switcheo.
 
 ### HTTP Request
 
