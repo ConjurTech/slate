@@ -30,15 +30,22 @@ If the timestamp used for your API request is not within an acceptable range of 
 {
   "NEO":
   {
-    "V1": "0ec5712e0f7c63e4b0fea31029a28cea5e9d551f",
-    "V1_5": "c41d8b0c30252ce7e8b6d95e9ce13fdd68d2a5a8",
-    "V2": "48756743d524af03aa75729e911651ffd3cbe7d8"
+    "V1": "<contract hash 1>",
+    "V1_5": "<contract hash 1.5>",
+    "V2": "<contract hash 2>"
   }
 }
 
 ```
 
 Retrieve updated contract hashes deployed by Switcheo.
+
+Please note that different contract hashes should be used for the TestNet vs the MainNet.
+
+    | URL
+--- | ----------
+TestNet  | Retrieve contract hashes from [TestNet_URL]/v2/exchange/contracts
+MainNet | Retrieve contract hashes from [MainNet_URL]/v2/exchange/contracts
 
 ### HTTP Request
 

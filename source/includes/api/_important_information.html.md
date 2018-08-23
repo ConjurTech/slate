@@ -4,6 +4,7 @@ Subject                   | Things to note
 ------------------------- | ----------
 [Addresses](#addresses)   | Addresses must be in the correct format.
 [Amounts](#amounts)       | Amounts must be converted to the correct format.
+[Contract Hash](#contracts) | The correct contract hash must be used depending on whether you are using the TestNet or MainNet endpoints.
 [Parameter casing](#parameter-casing)          | Parameters must be snake cased: e.g. `contract_hash` and not `contractHash`
 [Private keys](#private-keys)          | Private keys must be in the correct format.
 [Signature](#signing-request-parameters) | Not all parameters should be included to generate the signature, excluded parameters are specified in their respective endpoint's documentation.
