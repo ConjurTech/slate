@@ -485,6 +485,10 @@ the expected inputs and outputs at each step of generating a signature.</p></li>
 <td>Amounts must be converted to the correct format.</td>
 </tr>
 <tr>
+<td><a href="#contracts">Contract Hash</a></td>
+<td>The correct contract hash must be used depending on whether you are using the TestNet or MainNet endpoints.</td>
+</tr>
+<tr>
 <td><a href="#parameter-casing">Parameter casing</a></td>
 <td>Parameters must be snake cased: e.g. <code>contract_hash</code> and not <code>contractHash</code></td>
 </tr>
@@ -586,14 +590,32 @@ timestamp parameter is required for API requests.</p>
 <pre class="highlight javascript"><code><span class="p">{</span>
   <span class="s2">"NEO"</span><span class="p">:</span>
   <span class="p">{</span>
-    <span class="s2">"V1"</span><span class="p">:</span> <span class="s2">"0ec5712e0f7c63e4b0fea31029a28cea5e9d551f"</span><span class="p">,</span>
-    <span class="s2">"V1_5"</span><span class="p">:</span> <span class="s2">"c41d8b0c30252ce7e8b6d95e9ce13fdd68d2a5a8"</span><span class="p">,</span>
-    <span class="s2">"V2"</span><span class="p">:</span> <span class="s2">"48756743d524af03aa75729e911651ffd3cbe7d8"</span>
+    <span class="s2">"V1"</span><span class="p">:</span> <span class="s2">"&lt;contract hash 1&gt;"</span><span class="p">,</span>
+    <span class="s2">"V1_5"</span><span class="p">:</span> <span class="s2">"&lt;contract hash 1.5&gt;"</span><span class="p">,</span>
+    <span class="s2">"V2"</span><span class="p">:</span> <span class="s2">"&lt;contract hash 2&gt;"</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 </code></pre>
 <p>Retrieve updated contract hashes deployed by Switcheo.</p>
+
+<p>Please note that different contract hashes should be used for the TestNet vs the MainNet.</p>
+
+<table><thead>
+<tr>
+<th></th>
+<th>URL</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>TestNet</td>
+<td>Retrieve contract hashes from [TestNet_URL]/v2/exchange/contracts</td>
+</tr>
+<tr>
+<td>MainNet</td>
+<td>Retrieve contract hashes from [MainNet_URL]/v2/exchange/contracts</td>
+</tr>
+</tbody></table>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET /v2/exchange/contracts</code></p>
 <h2 id='tokens'>Tokens</h2>
