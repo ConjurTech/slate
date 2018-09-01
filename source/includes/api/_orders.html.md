@@ -197,11 +197,13 @@ Retrieves orders from a specific address filtered by the given parameters.
 
 ### Request Parameters
 
- Parameter      | Type       | Required | Description
---------------- | ---------- | -------- | -------------
- address        | [address](#addresses) | yes      | Only returns orders made by this [address](#addresses).
- pair           | **string** | no       | The pair to buy or sell on.
- contract_hash  | **string** | yes      | Only returns orders from this [contract hash](#contracts).
+ Parameter      | Type                  | Required | Description
+--------------- | --------------------- | -------- | -------------
+ address        | [address](#addresses) | yes      | Only return orders made by this [address](#addresses).
+ pair           | **string**            | no       | Only reutrn orders from this [pair](#pair).
+ contract_hash  | **string**            | yes      | Only return orders from this [contract hash](#contracts).
+ from           | **integer**           | no       | Only return orders that are last updated at or after this time
+ limit          | **integer**           | no       | Only return up to this number of orders (min: `1`, max: `500`, default: `50`).
 
 ### Example
 
@@ -318,19 +320,20 @@ createOrder({
 }
 ```
 
- Parameter         | Type        | Required   | Description
------------------- | ----------- | ---------- | -----------
- pair              | **string**  | yes         | Pair to trade, e.g. `SWTH_NEO`.
- blockchain        | **string**  | yes         | Blockchain that the `pair` is on. Possible values are: `neo`.
- side              | **string**  | yes         | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`. If the pair is `SWTH_NEO` and the side is `buy` then the order is to buy `SWTH` using `NEO`. If the side is `sell` then the order is to sell `SWTH` for `NEO`.
- price             | **string**  | yes         | Buy or sell price to 8 decimal places precision.
- want_amount       | [amount](#amounts)  | yes         | If the pair is `SWTH_NEO` and the side is `buy` then this is the [amount](#amounts) of `SWTH` you want to buy. If the side is `sell` then this is the [amount](#amounts) of `SWTH` you want to sell.
- use_native_tokens | **boolean** | yes         | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
- order_type        | **string**  | yes         | Order type, possible values are: `limit`.
- timestamp         | [timestamp](#timestamp)     | yes         | The exchange's timestamp to be used as a nonce.
- signature         | **string**  | yes         | Signature of the request payload. See [Authentication](#authentication) for more details.
- contract_hash     | **string**  | yes         | Switcheo Exchange [contract hash](#contracts) to execute the order on.
- address           | [address](#addresses)  | yes         | [Address](#addresses) of the order maker. **Do not include this in the parameters to be signed.**
+ Parameter         | Type                    | Required   | Description
+------------------ | ----------------------- | ---------- | -----------
+ blockchain        | **string**              | yes | Blockchain that the `pair` is on. Possible values are: `neo`.
+ contract_hash     | **string**              | yes | Switcheo Exchange [contract hash](#contracts) to execute the order on.
+ pair              | **string**              | yes | Pair to trade, e.g. `SWTH_NEO`.
+ side              | **string**              | yes | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`. If the pair is `SWTH_NEO` and the side is `buy` then the order is to buy `SWTH` using `NEO`. If the side is `sell` then the order is to sell `SWTH` for `NEO`.
+ price             | **string**              | yes | Buy or sell price to 8 decimal places precision.
+ want_amount       | [amount](#amounts)      | yes | If the pair is `SWTH_NEO` and the side is `buy` then this is the [amount](#amounts) of `SWTH` you want to buy. If the side is `sell` then this is the [amount](#amounts) of `SWTH` you want to sell.
+ use_native_tokens | **boolean**             | yes | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
+ order_type        | **string**              | yes | Order type, possible values are: `limit`, `otc`.
+ otc_address       | [address](#addresses)   | no  | Address of the counterparty in OTC trades. Must be provided if and only if `order_type` is `otc`.
+ timestamp         | [timestamp](#timestamp) | yes | The exchange's timestamp to be used as a nonce.
+ signature         | **string**              | yes | Signature of the request payload. See [Authentication](#authentication) for more details.
+ address           | [address](#addresses)   | yes | [Address](#addresses) of the order maker. **Do not include this in the parameters to be signed.**
 
 ### Example
 [Full create order example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createOrderExample.js)

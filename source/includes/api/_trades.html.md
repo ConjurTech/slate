@@ -51,11 +51,11 @@ Retrieves trades that have already occurred on Switcheo Exchange filtered by the
 
 Parameter     | Type         | Required | Description
 ------------- | ------------ | -------- | -----------
-contract_hash | **String**   | yes      | Only return trades for this [contract hash](#contracts).
-pair          | **String**   | yes      | Only return trades for this [pair](#pairs).
-from          | **Integer**  | no       | Only return trades after this time in epoch seconds.
-to            | **Integer**  | no       | Only return trades before this time in epoch seconds.
-limit         | **Integer**  | no       | Only return this number of trades (min: `1`, max: `10000`, default: `5000`).
+contract_hash | **string**   | yes      | Only return trades for this [contract hash](#contracts).
+pair          | **string**   | yes      | Only return trades for this [pair](#pairs).
+from          | **integer**  | no       | Only return trades after this time in epoch seconds.
+to            | **integer**  | no       | Only return trades before this time in epoch seconds.
+limit         | **integer**  | no       | Only return this number of trades (min: `1`, max: `10000`, default: `5000`).
 
 ### Response parameters
 
