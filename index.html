@@ -1120,31 +1120,31 @@ Authentication is not required for these endpoints.</p>
 </thead><tbody>
 <tr>
 <td>contract_hash</td>
-<td><strong>String</strong></td>
+<td><strong>string</strong></td>
 <td>yes</td>
 <td>Only return trades for this <a href="#contracts">contract hash</a>.</td>
 </tr>
 <tr>
 <td>pair</td>
-<td><strong>String</strong></td>
+<td><strong>string</strong></td>
 <td>yes</td>
 <td>Only return trades for this <a href="#pairs">pair</a>.</td>
 </tr>
 <tr>
 <td>from</td>
-<td><strong>Integer</strong></td>
+<td><strong>integer</strong></td>
 <td>no</td>
 <td>Only return trades after this time in epoch seconds.</td>
 </tr>
 <tr>
 <td>to</td>
-<td><strong>Integer</strong></td>
+<td><strong>integer</strong></td>
 <td>no</td>
 <td>Only return trades before this time in epoch seconds.</td>
 </tr>
 <tr>
 <td>limit</td>
-<td><strong>Integer</strong></td>
+<td><strong>integer</strong></td>
 <td>no</td>
 <td>Only return this number of trades (min: <code>1</code>, max: <code>10000</code>, default: <code>5000</code>).</td>
 </tr>
@@ -1916,19 +1916,31 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 <td>address</td>
 <td><a href="#addresses">address</a></td>
 <td>yes</td>
-<td>Only returns orders made by this <a href="#addresses">address</a>.</td>
+<td>Only return orders made by this <a href="#addresses">address</a>.</td>
 </tr>
 <tr>
 <td>pair</td>
 <td><strong>string</strong></td>
 <td>no</td>
-<td>The pair to buy or sell on.</td>
+<td>Only reutrn orders from this <a href="#pair">pair</a>.</td>
 </tr>
 <tr>
 <td>contract_hash</td>
 <td><strong>string</strong></td>
 <td>yes</td>
-<td>Only returns orders from this <a href="#contracts">contract hash</a>.</td>
+<td>Only return orders from this <a href="#contracts">contract hash</a>.</td>
+</tr>
+<tr>
+<td>from</td>
+<td><strong>integer</strong></td>
+<td>no</td>
+<td>Only return orders that are last updated at or after this time</td>
+</tr>
+<tr>
+<td>limit</td>
+<td><strong>integer</strong></td>
+<td>no</td>
+<td>Only return up to this number of orders (min: <code>1</code>, max: <code>500</code>, default: <code>50</code>).</td>
 </tr>
 </tbody></table>
 <h3 id='example-7'>Example</h3>
@@ -2044,16 +2056,22 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 </tr>
 </thead><tbody>
 <tr>
-<td>pair</td>
-<td><strong>string</strong></td>
-<td>yes</td>
-<td>Pair to trade, e.g. <code>SWTH_NEO</code>.</td>
-</tr>
-<tr>
 <td>blockchain</td>
 <td><strong>string</strong></td>
 <td>yes</td>
 <td>Blockchain that the <code>pair</code> is on. Possible values are: <code>neo</code>.</td>
+</tr>
+<tr>
+<td>contract_hash</td>
+<td><strong>string</strong></td>
+<td>yes</td>
+<td>Switcheo Exchange <a href="#contracts">contract hash</a> to execute the order on.</td>
+</tr>
+<tr>
+<td>pair</td>
+<td><strong>string</strong></td>
+<td>yes</td>
+<td>Pair to trade, e.g. <code>SWTH_NEO</code>.</td>
 </tr>
 <tr>
 <td>side</td>
@@ -2083,7 +2101,13 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 <td>order_type</td>
 <td><strong>string</strong></td>
 <td>yes</td>
-<td>Order type, possible values are: <code>limit</code>.</td>
+<td>Order type, possible values are: <code>limit</code>, <code>otc</code>.</td>
+</tr>
+<tr>
+<td>otc_address</td>
+<td><a href="#addresses">address</a></td>
+<td>no</td>
+<td>Address of the counterparty in OTC trades. Must be provided if and only if <code>order_type</code> is <code>otc</code>.</td>
 </tr>
 <tr>
 <td>timestamp</td>
@@ -2096,12 +2120,6 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 <td><strong>string</strong></td>
 <td>yes</td>
 <td>Signature of the request payload. See <a href="#authentication">Authentication</a> for more details.</td>
-</tr>
-<tr>
-<td>contract_hash</td>
-<td><strong>string</strong></td>
-<td>yes</td>
-<td>Switcheo Exchange <a href="#contracts">contract hash</a> to execute the order on.</td>
 </tr>
 <tr>
 <td>address</td>
