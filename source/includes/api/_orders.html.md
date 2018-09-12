@@ -34,6 +34,7 @@ Once an order is placed, the funds required for the order is removed from the us
     "deposit_txn": null,
     "created_at": "2018-05-15T10:54:20.054Z",
     "status": "processed",
+    "order_status": "completed",
     "fills": [...],
     "makes": [...]
   }
@@ -57,7 +58,8 @@ use_native_token           | Whether SWTH tokens was used by the order maker to 
 native_fee_transfer_amount | Amount of SWTH that was deposited into the contract in order to pay the taker fees of the order.
 deposit_txn                | Transaction that was used for deposits related to the order creation.
 created_at                 | Time when the order was created.
-status                     | Status of the order. Possible values are `pending` (after creation), `processed` (after broadcast), `expired` (after creation but not broadcasted for a long time)
+status                     | Status of the order in the context of the blockchain. Possible values are `pending` (after creation), `processed` (after broadcast), `expired` (created but not broadcasted for a long time)
+order_status               | Status of the order in the context of the exchange. Possible values are `open` (on orderbook waiting to be filled),`cancelled` (cancelled open order), `completed` (maker order that is entirely filled or broadcasted filler order)
 fills                      | Refer to the [fills](#the-fill-object) section for more details.
 makes                      | Refer to the [makes](#the-make-object) section for more details.
 
@@ -183,6 +185,7 @@ transaction_hash           | Transaction hash of the transaction representing th
     "deposit_txn": null,
     "created_at": "2018-05-15T10:54:20.054Z",
     "status": "processed",
+    "order_status": "processed",
     "fills": [...],
     "makes": [...]
   }
@@ -200,10 +203,12 @@ Retrieves orders from a specific address filtered by the given parameters.
  Parameter      | Type                  | Required | Description
 --------------- | --------------------- | -------- | -------------
  address        | [address](#addresses) | yes      | Only return orders made by this [address](#addresses).
- pair           | **string**            | no       | Only reutrn orders from this [pair](#pair).
+ pair           | **string**            | no       | Only return orders from this [pair](#pair).
  contract_hash  | **string**            | yes      | Only return orders from this [contract hash](#contracts).
  from           | **integer**           | no       | Only return orders that are last updated at or after this time
- limit          | **integer**           | no       | Only return up to this number of orders (min: `1`, max: `500`, default: `50`).
+ order_status   | **string**            | no       | Only return orders have this status. Possible values are `open`, `cancelled`, `completed`
+ before_id      | **string**            | no       | Only return orders that are created before the order with this id
+ limit          | **integer**           | no       | Only return up to this number of orders (min: `1`, max: `200`, default: `50`).
 
 ### Example
 
@@ -298,6 +303,7 @@ createOrder({
   "deposit_txn": null,
   "created_at": "2018-07-13T07:58:11.340Z",
   "status": "pending",
+  "order_status": "nil",
   "fills": [
     {
       "id": "2eaa3621-0e7e-4b3d-9c8c-454427f20949",
