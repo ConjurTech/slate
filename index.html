@@ -1603,6 +1603,7 @@ you will receive a response which requires additional signing.</p>
     </span><span class="s2">"deposit_txn"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-15T10:54:20.054Z"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processed"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"order_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"fills"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span><span class="w">
     </span><span class="s2">"makes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -1676,7 +1677,11 @@ you will receive a response which requires additional signing.</p>
 </tr>
 <tr>
 <td>status</td>
-<td>Status of the order. Possible values are <code>pending</code> (after creation), <code>processed</code> (after broadcast), <code>expired</code> (after creation but not broadcasted for a long time)</td>
+<td>Status of the order in the context of the blockchain. Possible values are <code>pending</code> (after creation), <code>processed</code> (after broadcast), <code>expired</code> (created but not broadcasted for a long time)</td>
+</tr>
+<tr>
+<td>order_status</td>
+<td>Status of the order in the context of the exchange. Possible values are <code>open</code> (on orderbook waiting to be filled),<code>cancelled</code> (cancelled open order), <code>completed</code> (maker order that is entirely filled or broadcasted filler order)</td>
 </tr>
 <tr>
 <td>fills</td>
@@ -1895,6 +1900,7 @@ This <code>make</code> represents the unfilled amount of the order.</p>
     </span><span class="s2">"deposit_txn"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-15T10:54:20.054Z"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processed"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"order_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processed"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"fills"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span><span class="w">
     </span><span class="s2">"makes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -1922,7 +1928,7 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 <td>pair</td>
 <td><strong>string</strong></td>
 <td>no</td>
-<td>Only reutrn orders from this <a href="#pair">pair</a>.</td>
+<td>Only return orders from this <a href="#pair">pair</a>.</td>
 </tr>
 <tr>
 <td>contract_hash</td>
@@ -1937,10 +1943,22 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 <td>Only return orders that are last updated at or after this time</td>
 </tr>
 <tr>
+<td>order_status</td>
+<td><strong>string</strong></td>
+<td>no</td>
+<td>Only return orders have this status. Possible values are <code>open</code>, <code>cancelled</code>, <code>completed</code></td>
+</tr>
+<tr>
+<td>before_id</td>
+<td><strong>string</strong></td>
+<td>no</td>
+<td>Only return orders that are created before the order with this id</td>
+</tr>
+<tr>
 <td>limit</td>
 <td><strong>integer</strong></td>
 <td>no</td>
-<td>Only return up to this number of orders (min: <code>1</code>, max: <code>500</code>, default: <code>50</code>).</td>
+<td>Only return up to this number of orders (min: <code>1</code>, max: <code>200</code>, default: <code>50</code>).</td>
 </tr>
 </tbody></table>
 <h3 id='example-7'>Example</h3>
@@ -2026,6 +2044,7 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
   <span class="s2">"deposit_txn"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
   <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2018-07-13T07:58:11.340Z"</span><span class="p">,</span>
   <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"pending"</span><span class="p">,</span>
+  <span class="s2">"order_status"</span><span class="p">:</span> <span class="s2">"nil"</span><span class="p">,</span>
   <span class="s2">"fills"</span><span class="p">:</span> <span class="p">[</span>
     <span class="p">{</span>
       <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"2eaa3621-0e7e-4b3d-9c8c-454427f20949"</span><span class="p">,</span>
