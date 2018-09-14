@@ -546,3 +546,41 @@ Note that a `sha256` parameter is provided for convenience to be used directly a
 ### Example
 
 [Full execute cancellation example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/executeCancellationExample.js)
+
+## Computing the Offer Hash
+
+
+> Computing the offer_hash
+
+```js
+const invoke = {
+    scriptHash: contractHash,
+    operation: 'makeOffer',
+    args: [
+      u.reverseHex(userHash),
+      u.reverseHex(offerAssetID), new BigNumber(offerAmount).toNumber(),
+      u.reverseHex(wantAssetID), new BigNumber(wantAmount).toNumber(),
+      u.str2hexstring(uuid),
+    ],
+  }
+
+const offerKeyBytes = invoke.args[0] + invoke.args[1] + invoke.args[3] +
+  numToHex(invoke.args[2]) + numToHex(invoke.args[4]) + invoke.args[5]
+const offerHash = u.reverseHex(u.hash256(offerKeyBytes))
+
+const numToHex = (num) => {
+  if (typeof num !== 'number') throw new Error('numToHex received a non-number')
+  if (num < 0) throw Error.new(`numToHex received a negative number (${num})!`)
+  if (num <= 16) {
+    return u.num2hexstring(num)
+  }
+  return u.num2hexstring(num, 8, true)
+}
+
+```
+
+In the previous sections,
+  you may have noticed that offer_hashes are generated for fills and makes right after creation.
+  
+To compute the offer_hash yourself, you can take reference from the example code snippet that is shown on the right.
+  You can find the `u` library from [neon-js](https://github.com/CityOfZion/neon-js/tree/31600a3cb9c38b9a0d961e98475e4cc81c908cd8/packages/neon-core/src/u).
