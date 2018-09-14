@@ -377,6 +377,9 @@
                   <li>
                     <a href="#execute-cancellation" class="toc-h2 toc-link" data-title="execute-cancellation">Execute Cancellation</a>
                   </li>
+                  <li>
+                    <a href="#computing-the-offer-hash" class="toc-h2 toc-link" data-title="computing-the-offer-hash">Computing the Offer Hash</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -2371,6 +2374,40 @@ a transaction in the response which must be signed.</p>
 </tbody></table>
 <h3 id='example-11'>Example</h3>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/executeCancellationExample.js">Full execute cancellation example</a></p>
+<h2 id='computing-the-offer-hash'>Computing the Offer Hash</h2>
+<blockquote>
+<p>Computing the offer_hash</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">invoke</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">scriptHash</span><span class="p">:</span> <span class="nx">contractHash</span><span class="p">,</span>
+    <span class="na">operation</span><span class="p">:</span> <span class="s1">'makeOffer'</span><span class="p">,</span>
+    <span class="na">args</span><span class="p">:</span> <span class="p">[</span>
+      <span class="nx">u</span><span class="p">.</span><span class="nx">reverseHex</span><span class="p">(</span><span class="nx">userHash</span><span class="p">),</span>
+      <span class="nx">u</span><span class="p">.</span><span class="nx">reverseHex</span><span class="p">(</span><span class="nx">offerAssetID</span><span class="p">),</span> <span class="k">new</span> <span class="nx">BigNumber</span><span class="p">(</span><span class="nx">offerAmount</span><span class="p">).</span><span class="nx">toNumber</span><span class="p">(),</span>
+      <span class="nx">u</span><span class="p">.</span><span class="nx">reverseHex</span><span class="p">(</span><span class="nx">wantAssetID</span><span class="p">),</span> <span class="k">new</span> <span class="nx">BigNumber</span><span class="p">(</span><span class="nx">wantAmount</span><span class="p">).</span><span class="nx">toNumber</span><span class="p">(),</span>
+      <span class="nx">u</span><span class="p">.</span><span class="nx">str2hexstring</span><span class="p">(</span><span class="nx">uuid</span><span class="p">),</span>
+    <span class="p">],</span>
+  <span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">offerKeyBytes</span> <span class="o">=</span> <span class="nx">invoke</span><span class="p">.</span><span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nx">invoke</span><span class="p">.</span><span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="nx">invoke</span><span class="p">.</span><span class="nx">args</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span>
+  <span class="nx">numToHex</span><span class="p">(</span><span class="nx">invoke</span><span class="p">.</span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="nx">numToHex</span><span class="p">(</span><span class="nx">invoke</span><span class="p">.</span><span class="nx">args</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">+</span> <span class="nx">invoke</span><span class="p">.</span><span class="nx">args</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+<span class="kr">const</span> <span class="nx">offerHash</span> <span class="o">=</span> <span class="nx">u</span><span class="p">.</span><span class="nx">reverseHex</span><span class="p">(</span><span class="nx">u</span><span class="p">.</span><span class="nx">hash256</span><span class="p">(</span><span class="nx">offerKeyBytes</span><span class="p">))</span>
+
+<span class="kr">const</span> <span class="nx">numToHex</span> <span class="o">=</span> <span class="p">(</span><span class="nx">num</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">num</span> <span class="o">!==</span> <span class="s1">'number'</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">'numToHex received a non-number'</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">num</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="s2">`numToHex received a negative number (</span><span class="p">${</span><span class="nx">num</span><span class="p">}</span><span class="s2">)!`</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">num</span> <span class="o">&lt;=</span> <span class="mi">16</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">u</span><span class="p">.</span><span class="nx">num2hexstring</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">u</span><span class="p">.</span><span class="nx">num2hexstring</span><span class="p">(</span><span class="nx">num</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+<span class="p">}</span>
+
+</code></pre>
+<p>In the previous sections,
+  you may have noticed that offer_hashes are generated for fills and makes right after creation.</p>
+
+<p>To compute the offer_hash yourself, you can take reference from the example code snippet that is shown on the right.
+  You can find the <code>u</code> library from <a href="https://github.com/CityOfZion/neon-js/tree/31600a3cb9c38b9a0d961e98475e4cc81c908cd8/packages/neon-core/src/u">neon-js</a>.</p>
 <h1 id='balances'>Balances</h1>
 <p><strong>Description</strong></p>
 
