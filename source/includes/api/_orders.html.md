@@ -257,7 +257,8 @@ createOrder({
   address: user.address,
   side: 'buy',
   price: (0.001).toFixed(8),
-  // the amount of SWTH to sell or buy
+  // if the side is 'buy', then this is the amount of SWTH you want
+  // if the side is 'sell' then this is the amount of NEO you want
   wantAmount: toAssetAmount(20.5, 'SWTH'),
   useNativeTokens: true,
   orderType: 'limit',
@@ -333,7 +334,7 @@ createOrder({
  pair              | **string**              | yes | Pair to trade, e.g. `SWTH_NEO`.
  side              | **string**              | yes | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`. If the pair is `SWTH_NEO` and the side is `buy` then the order is to buy `SWTH` using `NEO`. If the side is `sell` then the order is to sell `SWTH` for `NEO`.
  price             | **string**              | yes | Buy or sell price to 8 decimal places precision.
- want_amount       | [amount](#amounts)      | yes | If the pair is `SWTH_NEO` and the side is `buy` then this is the [amount](#amounts) of `SWTH` you want to buy. If the side is `sell` then this is the [amount](#amounts) of `SWTH` you want to sell.
+ want_amount       | [amount](#amounts)      | yes | If the pair is `SWTH_NEO` and the side is `buy` then this is the [amount](#amounts) of `SWTH` you want. If the side is `sell` then this is the [amount](#amounts) of `NEO` you want.
  use_native_tokens | **boolean**             | yes | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
  order_type        | **string**              | yes | Order type, possible values are: `limit`, `otc`.
  otc_address       | [address](#addresses)   | no  | Address of the counterparty in OTC trades. Must be provided if and only if `order_type` is `otc`.
@@ -581,6 +582,6 @@ const numToHex = (num) => {
 
 In the previous sections,
   you may have noticed that offer_hashes are generated for fills and makes right after creation.
-  
+
 To compute the offer_hash yourself, you can take reference from the example code snippet that is shown on the right.
   You can find the `u` library from [neon-js](https://github.com/CityOfZion/neon-js/tree/31600a3cb9c38b9a0d961e98475e4cc81c908cd8/packages/neon-core/src/u).
