@@ -2003,7 +2003,8 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
   <span class="na">address</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span>
   <span class="na">side</span><span class="p">:</span> <span class="s1">'buy'</span><span class="p">,</span>
   <span class="na">price</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.001</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span>
-  <span class="c1">// the amount of SWTH to sell or buy</span>
+  <span class="c1">// if the side is 'buy', then this is the amount of SWTH you want</span>
+  <span class="c1">// if the side is 'sell' then this is the amount of NEO you want</span>
   <span class="na">wantAmount</span><span class="p">:</span> <span class="nx">toAssetAmount</span><span class="p">(</span><span class="mf">20.5</span><span class="p">,</span> <span class="s1">'SWTH'</span><span class="p">),</span>
   <span class="na">useNativeTokens</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="na">orderType</span><span class="p">:</span> <span class="s1">'limit'</span><span class="p">,</span>
@@ -2111,7 +2112,7 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 <td>want_amount</td>
 <td><a href="#amounts">amount</a></td>
 <td>yes</td>
-<td>If the pair is <code>SWTH_NEO</code> and the side is <code>buy</code> then this is the <a href="#amounts">amount</a> of <code>SWTH</code> you want to buy. If the side is <code>sell</code> then this is the <a href="#amounts">amount</a> of <code>SWTH</code> you want to sell.</td>
+<td>If the pair is <code>SWTH_NEO</code> and the side is <code>buy</code> then this is the <a href="#amounts">amount</a> of <code>SWTH</code> you want. If the side is <code>sell</code> then this is the <a href="#amounts">amount</a> of <code>NEO</code> you want.</td>
 </tr>
 <tr>
 <td>use_native_tokens</td>
