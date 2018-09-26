@@ -68,3 +68,50 @@ is_buy      | Whether the side of the trade is a buy.
 
 ### Example
 [Full list trades example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/trades/listTradesExample.js)
+
+
+## Recent Trades
+
+> Example response
+
+```js
+[
+  {
+  "id": "dc1c8926-dda1-4f39-afae-0872da950340",
+  "pair": "SWTH_NEO",
+  "side": "sell",
+  "price": "0.00046835",
+  "quantity": "84.0",
+  "total": "0.0393414",
+  "timestamp": 1537924944
+  },
+  {
+  "id": "43ad04f5-557b-497d-b12c-3f965d32ab20",
+  "pair": "RHTC_NEO",
+  "side": "sell",
+  "price": "43000000.0",
+  "quantity": "1.0",
+  "total": "0.43",
+  "timestamp": 1537914916
+  },
+  ...
+]
+```
+
+Returns `20` most recent trades on all pairs sorted in descending order by executed time.
+
+### HTTP Request
+
+`GET /v2/trades/recent`
+
+### Response parameters
+
+Parameter   | Description
+----------- | ----------
+id          | Unique identifier for the trade object.
+pair        | The [pair](#pairs) on which the trade occurred.
+side        | Whether the trade was a buy or sell on this pair. Possible values are: `buy`, `sell`. If the pair is `SWTH_NEO` and the side is `buy` then the trade bought `SWTH` using `NEO`. If the side is `sell` then the trade sold `SWTH` for `NEO`.
+price       | Buy or sell price to 8 decimal places precision.
+quantity    | If `buy` side, returns amount of tokens that the trade takes from the [offer's](#offers) `available_amount` that it is filling. If `sell` side, returns amount of tokens that the trade gives the [offer](#offers) that it is filling
+total       | If `buy` side, returns amount of tokens that the trade gives the [offer](#offers) that it is filling. If `sell` side, returns amount of tokens that the trade takes from the [offer's](#offers) `available_amount` that it is filling
+timestamp   | Time that trade was broadcasted in epoch **seconds**
