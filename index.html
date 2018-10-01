@@ -1210,6 +1210,22 @@ Authentication is not required for these endpoints.</p>
 <p>Returns <code>20</code> most recent trades on all pairs sorted in descending order by executed time.</p>
 <h3 id='http-request-10'>HTTP Request</h3>
 <p><code>GET /v2/trades/recent</code></p>
+<h3 id='request-parameters-6'>Request Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pair</td>
+<td><strong>string</strong></td>
+<td>yes</td>
+<td>Only return trades for this <a href="#pairs">pair</a>.</td>
+</tr>
+</tbody></table>
 <h3 id='response-parameters-3'>Response parameters</h3>
 <table><thead>
 <tr>
@@ -1352,7 +1368,7 @@ To be able to make a deposit, sufficient funds are required in the depositing wa
 </aside>
 <h3 id='http-request-11'>HTTP Request</h3>
 <p><code>POST /v2/deposits</code></p>
-<h3 id='request-parameters-6'>Request Parameters</h3>
+<h3 id='request-parameters-7'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1433,7 +1449,7 @@ you will receive a response which requires additional signing.</p>
  <em>In production mode, this should be recalculated for additional security.</em></p>
 <h3 id='http-request-12'>HTTP Request</h3>
 <p><code>POST /v2/deposits/:id/broadcast</code></p>
-<h3 id='request-parameters-7'>Request Parameters</h3>
+<h3 id='request-parameters-8'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1514,7 +1530,7 @@ To be able to make a withdrawal, sufficient funds are required in the contract b
 </aside>
 <h3 id='http-request-13'>HTTP Request</h3>
 <p><code>POST /v2/withdrawals</code></p>
-<h3 id='request-parameters-8'>Request Parameters</h3>
+<h3 id='request-parameters-9'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1611,7 +1627,7 @@ After using the <a href="#create-withdrawal">Create Withdrawal</a> endpoint,
 you will receive a response which requires additional signing.</p>
 <h3 id='http-request-14'>HTTP Request</h3>
 <p><code>POST /v2/withdrawals/:id/broadcast</code></p>
-<h3 id='request-parameters-9'>Request Parameters</h3>
+<h3 id='request-parameters-10'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1980,7 +1996,7 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 <p>Retrieves orders from a specific address filtered by the given parameters.</p>
 <h3 id='http-request-15'>HTTP Request</h3>
 <p><code>GET /v2/orders</code></p>
-<h3 id='request-parameters-10'>Request Parameters</h3>
+<h3 id='request-parameters-11'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2044,7 +2060,7 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 </aside>
 <h3 id='http-request-16'>HTTP Request</h3>
 <p><code>POST /v2/orders</code></p>
-<h3 id='request-parameters-11'>Request Parameters</h3>
+<h3 id='request-parameters-12'>Request Parameters</h3>
 <p>For the below descriptions, the <code>order maker</code> refers to your API user.</p>
 
 <blockquote>
@@ -2242,7 +2258,7 @@ After using the <a href="#create-order">Create Order</a> endpoint, you will rece
 and structured in the <code>signatures</code> format shown on the right.</p>
 <h3 id='http-request-17'>HTTP Request</h3>
 <p><code>POST /v2/orders/:id/broadcast</code></p>
-<h3 id='request-parameters-12'>Request Parameters</h3>
+<h3 id='request-parameters-13'>Request Parameters</h3>
 <blockquote>
 <p>Broadcast an order</p>
 </blockquote>
