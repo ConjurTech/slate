@@ -104,6 +104,12 @@ Returns `20` most recent trades on all pairs sorted in descending order by execu
 
 `GET /v2/trades/recent`
 
+### Request Parameters
+
+Parameter     | Type         | Required | Description
+------------- | ------------ | -------- | -----------
+pair          | **string**   | yes      | Only return trades for this [pair](#pairs).
+
 ### Response parameters
 
 Parameter   | Description
