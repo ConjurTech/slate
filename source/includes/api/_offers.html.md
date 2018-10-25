@@ -58,3 +58,61 @@ want_amount      | Total [amount](#amounts) of the `want_asset`.
 
 ### Example
 [Full list offers example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/offers/listOffersExample.js)
+
+## Offer book
+
+> Example request
+
+ ```js
+{
+  "pair": "SWTH_NEO",
+  "contract_hash": "eed0d2e14b0027f5f30ade45f2b23dc57dd54ad2"
+}
+ ```
+
+ > Example response
+
+ ```js
+{
+  asks: [
+    {
+      "price": "0.00046103",
+      "quantity": "9378.0"
+    },
+    {
+      "price": "0.00046759",
+      "quantity": "1084.30496802"
+    }
+  ],
+  bids: [
+    {
+    "price": "0.00045645",
+    "quantity": "6678.0"
+    },
+    {
+      "price": "0.0004534",
+      "quantity": "12279.38328187"
+    },
+  ]
+}
+ ```
+
+Retrieves the offer book.
+
+### HTTP Request
+
+`GET /v2/offers/book`
+
+### Request Parameters
+
+Parameter     | Type       | Required | Description
+------------- | ---------- | -------- | -----------
+pair          | **string** | yes      | Only return offers from this [pair](#pairs).
+contract_hash | **string** | yes      | Only return offers for this [contract hash](#contracts).
+
+### Response parameters
+
+Parameter   | Description
+----------- | ----------
+price       | Bid or Ask price.
+quantity    | If `bids` side, returns amount of tokens being bought. If `asks` side, returns amount of tokens that is being sold. 
