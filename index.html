@@ -315,6 +315,9 @@
                   <li>
                     <a href="#list-offers" class="toc-h2 toc-link" data-title="list-offers">List Offers</a>
                   </li>
+                  <li>
+                    <a href="#offer-book" class="toc-h2 toc-link" data-title="offer-book">Offer book</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -1074,6 +1077,82 @@ Authentication is not required for these endpoints.</p>
 </tbody></table>
 <h3 id='example-2'>Example</h3>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/offers/listOffersExample.js">Full list offers example</a></p>
+<h2 id='offer-book'>Offer book</h2>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span>
+  <span class="s2">"pair"</span><span class="p">:</span> <span class="s2">"SWTH_NEO"</span><span class="p">,</span>
+  <span class="s2">"contract_hash"</span><span class="p">:</span> <span class="s2">"eed0d2e14b0027f5f30ade45f2b23dc57dd54ad2"</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span>
+  <span class="nl">asks</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"price"</span><span class="p">:</span> <span class="s2">"0.00046103"</span><span class="p">,</span>
+      <span class="s2">"quantity"</span><span class="p">:</span> <span class="s2">"9378.0"</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">"price"</span><span class="p">:</span> <span class="s2">"0.00046759"</span><span class="p">,</span>
+      <span class="s2">"quantity"</span><span class="p">:</span> <span class="s2">"1084.30496802"</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nx">bids</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+    <span class="s2">"price"</span><span class="p">:</span> <span class="s2">"0.00045645"</span><span class="p">,</span>
+    <span class="s2">"quantity"</span><span class="p">:</span> <span class="s2">"6678.0"</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">"price"</span><span class="p">:</span> <span class="s2">"0.0004534"</span><span class="p">,</span>
+      <span class="s2">"quantity"</span><span class="p">:</span> <span class="s2">"12279.38328187"</span>
+    <span class="p">},</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+<p>Retrieves the offer book.</p>
+<h3 id='http-request-9'>HTTP Request</h3>
+<p><code>GET /v2/offers/book</code></p>
+<h3 id='request-parameters-5'>Request Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pair</td>
+<td><strong>string</strong></td>
+<td>yes</td>
+<td>Only return offers from this <a href="#pairs">pair</a>.</td>
+</tr>
+<tr>
+<td>contract_hash</td>
+<td><strong>string</strong></td>
+<td>no</td>
+<td>Only return offers for this <a href="#contracts">contract hash</a>.</td>
+</tr>
+</tbody></table>
+<h3 id='response-parameters-2'>Response parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>price</td>
+<td>Bid or Ask price.</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>If <code>bids</code> side, returns amount of tokens being bought. If <code>asks</code> side, returns amount of tokens that is being sold.</td>
+</tr>
+</tbody></table>
 <h1 id='trades'>Trades</h1>
 <p>A trade represents a fill of an offer.</p>
 
@@ -1113,9 +1192,9 @@ Authentication is not required for these endpoints.</p>
 <span class="p">]</span>
 </code></pre>
 <p>Retrieves trades that have already occurred on Switcheo Exchange filtered by the request parameters.</p>
-<h3 id='http-request-9'>HTTP Request</h3>
+<h3 id='http-request-10'>HTTP Request</h3>
 <p><code>GET /v2/trades</code></p>
-<h3 id='request-parameters-5'>Request Parameters</h3>
+<h3 id='request-parameters-6'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1155,7 +1234,7 @@ Authentication is not required for these endpoints.</p>
 <td>Only return this number of trades (min: <code>1</code>, max: <code>10000</code>, default: <code>5000</code>).</td>
 </tr>
 </tbody></table>
-<h3 id='response-parameters-2'>Response parameters</h3>
+<h3 id='response-parameters-3'>Response parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1208,9 +1287,9 @@ Authentication is not required for these endpoints.</p>
 <span class="p">]</span>
 </code></pre>
 <p>Returns <code>20</code> most recent trades on all pairs sorted in descending order by executed time.</p>
-<h3 id='http-request-10'>HTTP Request</h3>
+<h3 id='http-request-11'>HTTP Request</h3>
 <p><code>GET /v2/trades/recent</code></p>
-<h3 id='request-parameters-6'>Request Parameters</h3>
+<h3 id='request-parameters-7'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1226,7 +1305,7 @@ Authentication is not required for these endpoints.</p>
 <td>Only return trades for this <a href="#pairs">pair</a>.</td>
 </tr>
 </tbody></table>
-<h3 id='response-parameters-3'>Response parameters</h3>
+<h3 id='response-parameters-4'>Response parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1366,9 +1445,9 @@ To be able to make a deposit, sufficient funds are required in the depositing wa
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Deposit endpoint has to be called for the deposit to be executed.
 </aside>
-<h3 id='http-request-11'>HTTP Request</h3>
+<h3 id='http-request-12'>HTTP Request</h3>
 <p><code>POST /v2/deposits</code></p>
-<h3 id='request-parameters-7'>Request Parameters</h3>
+<h3 id='request-parameters-8'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1447,9 +1526,9 @@ you will receive a response which requires additional signing.</p>
 
 <p>Note that a <code>sha256</code> parameter is provided for convenience to be used directly as part of the ECDSA signature process.
  <em>In production mode, this should be recalculated for additional security.</em></p>
-<h3 id='http-request-12'>HTTP Request</h3>
+<h3 id='http-request-13'>HTTP Request</h3>
 <p><code>POST /v2/deposits/:id/broadcast</code></p>
-<h3 id='request-parameters-8'>Request Parameters</h3>
+<h3 id='request-parameters-9'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1528,9 +1607,9 @@ To be able to make a withdrawal, sufficient funds are required in the contract b
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Withdrawal endpoint has to be called for the withdrawal to be executed.
 </aside>
-<h3 id='http-request-13'>HTTP Request</h3>
+<h3 id='http-request-14'>HTTP Request</h3>
 <p><code>POST /v2/withdrawals</code></p>
-<h3 id='request-parameters-9'>Request Parameters</h3>
+<h3 id='request-parameters-10'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1625,9 +1704,9 @@ To be able to make a withdrawal, sufficient funds are required in the contract b
 <p>This is the second endpoint required to execute a withdrawal.
 After using the <a href="#create-withdrawal">Create Withdrawal</a> endpoint,
 you will receive a response which requires additional signing.</p>
-<h3 id='http-request-14'>HTTP Request</h3>
+<h3 id='http-request-15'>HTTP Request</h3>
 <p><code>POST /v2/withdrawals/:id/broadcast</code></p>
-<h3 id='request-parameters-10'>Request Parameters</h3>
+<h3 id='request-parameters-11'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1994,9 +2073,9 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>Retrieves orders from a specific address filtered by the given parameters.</p>
-<h3 id='http-request-15'>HTTP Request</h3>
+<h3 id='http-request-16'>HTTP Request</h3>
 <p><code>GET /v2/orders</code></p>
-<h3 id='request-parameters-11'>Request Parameters</h3>
+<h3 id='request-parameters-12'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2058,9 +2137,9 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Broadcast Order endpoint has to be called for the order to be executed.
 </aside>
-<h3 id='http-request-16'>HTTP Request</h3>
+<h3 id='http-request-17'>HTTP Request</h3>
 <p><code>POST /v2/orders</code></p>
-<h3 id='request-parameters-12'>Request Parameters</h3>
+<h3 id='request-parameters-13'>Request Parameters</h3>
 <p>For the below descriptions, the <code>order maker</code> refers to your API user.</p>
 
 <blockquote>
@@ -2256,9 +2335,9 @@ After using the <a href="#create-order">Create Order</a> endpoint, you will rece
 </code></pre>
 <p>Every <code>txn</code> of the <code>fills</code> and <code>makes</code> in the Create Order response should be <a href="#authentication">signed</a>,
 and structured in the <code>signatures</code> format shown on the right.</p>
-<h3 id='http-request-17'>HTTP Request</h3>
+<h3 id='http-request-18'>HTTP Request</h3>
 <p><code>POST /v2/orders/:id/broadcast</code></p>
-<h3 id='request-parameters-13'>Request Parameters</h3>
+<h3 id='request-parameters-14'>Request Parameters</h3>
 <blockquote>
 <p>Broadcast an order</p>
 </blockquote>
@@ -2328,7 +2407,7 @@ Only orders <strong>with makes</strong> and with an <code>available_amount</code
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Cancellation endpoint has to be called for the cancellation to be executed.
 </aside>
-<h3 id='http-request-18'>HTTP Request</h3>
+<h3 id='http-request-19'>HTTP Request</h3>
 <p><code>POST /v2/cancellations</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <blockquote>
@@ -2439,7 +2518,7 @@ a transaction in the response which must be signed.</p>
 <pre class="highlight javascript"><code><span class="p">{</span>
   <span class="s2">"signature"</span><span class="p">:</span> <span class="s2">"&lt;signature&gt;"</span>
 <span class="p">}</span>
-</code></pre><h3 id='http-request-19'>HTTP Request</h3>
+</code></pre><h3 id='http-request-20'>HTTP Request</h3>
 <p><code>POST /v2/cancellations/:id/broadcast</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
@@ -2565,7 +2644,7 @@ multiple blockchains, for example, if you want to retrieve a user&#39;s NEO and 
 
 <p>As such, when using this endpoint, balances for the specified addresses and contract hashes
 will be merged and summed.</p>
-<h3 id='http-request-20'>HTTP Request</h3>
+<h3 id='http-request-21'>HTTP Request</h3>
 <p><code>/v2/balances</code></p>
 <h3 id='url-parameters-3'>URL parameters</h3>
 <table><thead>
