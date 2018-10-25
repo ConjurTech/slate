@@ -108,7 +108,7 @@ Retrieves the offer book.
 Parameter     | Type       | Required | Description
 ------------- | ---------- | -------- | -----------
 pair          | **string** | yes      | Only return offers from this [pair](#pairs).
-contract_hash | **string** | yes      | Only return offers for this [contract hash](#contracts).
+contract_hash | **string** | no       | Only return offers for this [contract hash](#contracts).
 
 ### Response parameters
 
