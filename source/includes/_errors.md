@@ -8,7 +8,7 @@ Error Code | Meaning
 401 | Unauthorized -- You did not provide a valid signature.
 404 | Not Found -- The specified endpoint or resource could not be found.
 406 | Not Acceptable -- You requested a format that isn't json.
-429 | Too Many Requests -- Slow down requests and use Exponential backoff timing.
 422 | Unprocessible Entity -- Your request had validation errors.
+429 | Too Many Requests -- Slow down requests and use Exponential backoff timing.
 500 | Internal Server Error -- We had a problem with our server. Try again later.
 503 | Service Unavailable -- We're temporarily offline for maintenance. Please try again later.
