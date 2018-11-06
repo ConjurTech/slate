@@ -163,4 +163,4 @@ Parameter    | Description
 ------------ | ----------
 *base*       | JSON Object containing a list of *symbol:price* tuples
 *symbol*     | Symbol Name
-*price*      | Decimal Price of *symbol* in *base* units
+*price*      | Decimal Last Price of *symbol* in *base* units
