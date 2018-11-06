@@ -10,6 +10,7 @@ includes:
   - api/tickers
   - api/offers
   - api/trades
+  - api/fees
   - api/deposits
   - api/withdrawals
   - api/orders
