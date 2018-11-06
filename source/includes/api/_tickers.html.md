@@ -134,9 +134,6 @@ quote_volume | Volume in Quoted Asset traded during the interval.
     "GAS": {
         "NEO": "0.31200000"
     },
-    "NEO": {
-        "SWTH": "2290.00050120"
-    },
     "SWTH": {
         "GAS": "0.00410000",
         "NEO": "0.00106600"
@@ -145,7 +142,7 @@ quote_volume | Volume in Quoted Asset traded during the interval.
 
 ```
 
-Returns last price of given symbol(s). Defaults to all symbols.
+Returns last price of the requested symbol(s) / base(s). Defaults to all symbols & bases.
 
 ### HTTP Request
 
