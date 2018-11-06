@@ -7,6 +7,12 @@ Authentication is not required for these endpoints.
 
 ## Candlesticks
 
+Returns candlestick chart data filtered by url parameters.
+
+### HTTP Request
+
+`GET /v2/tickers/candlesticks`
+
 > Example request
 
 ```js
@@ -45,11 +51,6 @@ Authentication is not required for these endpoints.
 
 ```
 
-Returns candlestick chart data filtered by url parameters.
-
-### HTTP Request
-
-`GET /v2/tickers/candlesticks`
 
 ### Request parameters
 
@@ -73,6 +74,12 @@ volume       | Volume in Base Asset traded during the interval.
 quote_volume | Volume in Quoted Asset traded during the interval.
 
 ## Last 24 hours
+
+Returns 24-hour data for all pairs and markets.
+
+### HTTP Request
+
+`GET /v2/tickers/last_24_hours`
 
 > Example response
 
@@ -100,12 +107,6 @@ quote_volume | Volume in Quoted Asset traded during the interval.
 
 ```
 
-Returns 24-hour data for all pairs and markets.
-
-### HTTP Request
-
-`GET /v2/tickers/last_24_hours`
-
 ### Response parameters
 
 Parameter    | Description
@@ -119,6 +120,12 @@ volume       | Volume in Base Asset traded during the interval.
 quote_volume | Volume in Quoted Asset traded during the interval.
 
 ## Last price
+
+Returns last price of the requested symbol(s) / base(s). Defaults to all symbols & bases.
+
+### HTTP Request
+
+`GET v2/tickers/last_price`
 
 > Example request
 
@@ -142,12 +149,6 @@ quote_volume | Volume in Quoted Asset traded during the interval.
 }
 
 ```
-
-Returns last price of the requested symbol(s) / base(s). Defaults to all symbols & bases.
-
-### HTTP Request
-
-`GET v2/tickers/last_price`
 
 ### Request parameters
 
