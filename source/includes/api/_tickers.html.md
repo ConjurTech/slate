@@ -59,6 +59,17 @@ Returns candlestick chart data filtered by url parameters.
  end_time       | **integer** | yes       | End of time range for data in epoch **seconds**
  interval       | **integer** | yes       | Candlestick period in minutes Possible values are: 1, 5, 30, 60, 360, 1440
 
+### Response parameters
+
+Parameter    | Description
+------------ | ----------
+time         | Epoch time for the beginning of the interval (in seconds).
+open         | Opening price at the start of the interval.
+close        | Closing price at the end of the interval.
+high         | Highest price during the interval.
+low          | Lowest price during the interval.
+volume       | Volume in Base Asset traded during the interval.
+quote_volume | Volume in Quoted Asset traded during the interval.
 
 ## Last 24 hours
 
@@ -94,21 +105,42 @@ Returns 24-hour data for all pairs and markets.
 
 `GET /v2/tickers/last_24_hours`
 
+### Response parameters
+
+Parameter    | Description
+------------ | ----------
+time         | Epoch time for the beginning of the interval (in seconds).
+open         | Opening price at the start of the interval.
+close        | Closing price at the end of the interval.
+high         | Highest price during the interval.
+low          | Lowest price during the interval.
+volume       | Volume in Base Asset traded during the interval.
+quote_volume | Volume in Quoted Asset traded during the interval.
 
 ## Last price
+
+> Example request
+
+```js
+{
+  "symbols": ["SWTH","GAS"]
+}
+```
 
 > Example response
 
 ```js
 {
-  "GAS":
-   {
-      "NEO": "0.1"
-   },
-  "SWTH":
-   {
-      "NEO": "0.00050369"
-   }
+    "GAS": {
+        "NEO": "0.31200000"
+    },
+    "NEO": {
+        "SWTH": "2290.00050120"
+    },
+    "SWTH": {
+        "GAS": "0.00410000",
+        "NEO": "0.00106600"
+    }
 }
 
 ```
@@ -123,4 +155,13 @@ Returns last price of given symbol(s). Defaults to all symbols.
 
  Parameter      | Type      | Required  | Description
 --------------- | --------- | --------- | -----------
- symbols        | **array** | no       | Return the price for these symbols.
+ symbols        | **array** | no        | Return the price for only these symbols.
+ bases          | **array** | no        | Return the price for only these bases.
+
+### Response parameters
+
+Parameter    | Description
+------------ | ----------
+*base*       | JSON Object containing a list of *symbol:price* tuples
+*symbol*     | Symbol Name
+*price*      | Decimal Price of *symbol* in *base* units
