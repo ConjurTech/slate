@@ -1,10 +1,17 @@
 # Tickers
 
 This tickers section consists of endpoints that allow retrieval of market data on Switcheo Exchange.
+
 Authentication is not required for these endpoints.
 
 
 ## Candlesticks
+
+Returns candlestick chart data filtered by url parameters.
+
+### HTTP Request
+
+`GET /v2/tickers/candlesticks`
 
 > Example request
 
@@ -44,11 +51,6 @@ Authentication is not required for these endpoints.
 
 ```
 
-Returns candlestick chart data filtered by url parameters.
-
-### HTTP Request
-
-`GET /v2/tickers/candlesticks`
 
 ### Request parameters
 
@@ -59,8 +61,25 @@ Returns candlestick chart data filtered by url parameters.
  end_time       | **integer** | yes       | End of time range for data in epoch **seconds**
  interval       | **integer** | yes       | Candlestick period in minutes Possible values are: 1, 5, 30, 60, 360, 1440
 
+### Response parameters
+
+Parameter    | Description
+------------ | ----------
+time         | Epoch time for the beginning of the interval (in seconds).
+open         | Opening price at the start of the interval.
+close        | Closing price at the end of the interval.
+high         | Highest price during the interval.
+low          | Lowest price during the interval.
+volume       | Volume in Base Asset traded during the interval.
+quote_volume | Volume in Quoted Asset traded during the interval.
 
 ## Last 24 hours
+
+Returns 24-hour data for all pairs and markets.
+
+### HTTP Request
+
+`GET /v2/tickers/last_24_hours`
 
 > Example response
 
@@ -88,39 +107,60 @@ Returns candlestick chart data filtered by url parameters.
 
 ```
 
-Returns 24-hour data for all pairs and markets.
+### Response parameters
 
-### HTTP Request
-
-`GET /v2/tickers/last_24_hours`
-
+Parameter    | Description
+------------ | ----------
+time         | Epoch time for the beginning of the interval (in seconds).
+open         | Opening price at the start of the interval.
+close        | Closing price at the end of the interval.
+high         | Highest price during the interval.
+low          | Lowest price during the interval.
+volume       | Volume in Base Asset traded during the interval.
+quote_volume | Volume in Quoted Asset traded during the interval.
 
 ## Last price
 
-> Example response
-
-```js
-{
-  "GAS":
-   {
-      "NEO": "0.1"
-   },
-  "SWTH":
-   {
-      "NEO": "0.00050369"
-   }
-}
-
-```
-
-Returns last price of given symbol(s). Defaults to all symbols.
+Returns last price of the requested symbol(s) / base(s). Defaults to all symbols & bases.
 
 ### HTTP Request
 
 `GET v2/tickers/last_price`
 
+> Example request
+
+```js
+{
+  "symbols": ["SWTH","GAS"]
+}
+```
+
+> Example response
+
+```js
+{
+    "GAS": {
+        "NEO": "0.31200000"
+    },
+    "SWTH": {
+        "GAS": "0.00410000",
+        "NEO": "0.00106600"
+    }
+}
+
+```
+
 ### Request parameters
 
  Parameter      | Type      | Required  | Description
 --------------- | --------- | --------- | -----------
- symbols        | **array** | no       | Return the price for these symbols.
+ symbols        | **array** | no        | Return the price for only these symbols.
+ bases          | **array** | no        | Return the price for only these bases.
+
+### Response parameters
+
+Parameter    | Description
+------------ | ----------
+*symbol*     | JSON Object containing a list of *base:price* tuples
+*base*       | Base Symbol Name
+*price*      | Decimal Last Price of *symbol* in *base* units
