@@ -161,5 +161,5 @@ Retrieve the currently active Switcheo Exchange Announcement
 
 Parameter    | Description
 ------------ | ----------
-message      | list of *Symbol / Base* Name concatenations
+message      | html formatted message
 message_type | Importance of Message - Possible Values: alert \| warning \| info
