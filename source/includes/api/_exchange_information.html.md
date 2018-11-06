@@ -162,4 +162,4 @@ Retrieve the currently active Switcheo Exchange Announcement
 Parameter    | Description
 ------------ | ----------
 message      | html formatted message
-message_type | Importance of Message - Possible Values: alert \| warning \| info
+message_type | Importance of Message - Possible Values: "alert" \| "warning" \| "info"
