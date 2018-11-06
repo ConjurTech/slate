@@ -1,6 +1,7 @@
 # Tickers
 
 This tickers section consists of endpoints that allow retrieval of market data on Switcheo Exchange.
+
 Authentication is not required for these endpoints.
 
 
