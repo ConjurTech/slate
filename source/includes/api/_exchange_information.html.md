@@ -9,7 +9,7 @@ Retrieve the current epoch timestamp in the exchange.
 
 ### HTTP Request
 
-`GET /v2/exchange/timestamp` **or alias** `GET /v2/timestamp`
+`GET /v2/exchange/timestamp`  **or alias**  `GET /v2/timestamp`
 
 > Example response
 
@@ -30,7 +30,7 @@ If the timestamp used for your API request is not within an acceptable range of 
 
 ### HTTP Request
 
-`GET /v2/exchange/contracts`
+`GET /v2/exchange/contracts`   **or alias**  `GET /v2/contracts`
 
 > Example response
 
@@ -65,7 +65,7 @@ Retrieve a list of supported tokens on Switcheo.
 
 ### HTTP Request
 
-`GET /v2/exchange/tokens`
+`GET /v2/exchange/tokens`   **or alias**  `GET /v2/tokens`
 
 > Example response
 
@@ -114,7 +114,7 @@ The valid `base` currencies are currently: `NEO`, `GAS`, `SWTH`, `USD`.
 
 ### HTTP Request
 
-`GET /v2/exchange/pairs?bases=["NEO"]`
+`GET /v2/exchange/pairs?bases=["NEO"]`   **or alias**  `GET /v2/pairs`
 
 > Example response
 
