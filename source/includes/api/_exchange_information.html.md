@@ -9,7 +9,7 @@ Retrieve the current epoch timestamp in the exchange.
 
 ### HTTP Request
 
-`GET /v2/exchange/timestamp`
+`GET /v2/exchange/timestamp` **or alias** `GET /v2/timestamp`
 
 > Example response
 
