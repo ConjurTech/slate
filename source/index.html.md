@@ -15,6 +15,7 @@ includes:
   - api/withdrawals
   - api/orders
   - api/balances
+  - api/ws
   - errors
 
 search: true
