@@ -161,6 +161,6 @@ Returns last price of the requested symbol(s) / base(s). Defaults to all symbols
 
 Parameter    | Description
 ------------ | ----------
-*base*       | JSON Object containing a list of *symbol:price* tuples
-*symbol*     | Symbol Name
+*symbol*     | JSON Object containing a list of *base:price* tuples
+*base*       | Base Symbol Name
 *price*      | Decimal Last Price of *symbol* in *base* units
