@@ -67,6 +67,8 @@ Retrieve a list of supported tokens on Switcheo.
 
 `GET /v2/exchange/tokens`   **or alias**  `GET /v2/tokens`
 
+`GET /v2/tokens?show_listing_details=1&show_inactive=1`
+
 > Example response
 
 ```js
@@ -76,24 +78,71 @@ Retrieve a list of supported tokens on Switcheo.
         "decimals": 8,
         "minimum_precision": 3,
         "trading_active": true
-  },
+        "active": true,
+        "listing_info": {
+            "deposits": {
+                "start": 1514764800,
+                "end": 7983792000,
+                "paused": false
+            },
+            "trading": {
+                "start": 1514764800,
+                "end": 7983792000,
+                "paused": false
+            },
+            "cancellations": {
+                "start": 1514764800,
+                "end": 7983792000,
+                "paused": false
+            },
+            "withdrawals": {
+                "start": 1514764800,
+                "end": 7983792000,
+                "paused": false
+            }
+        }
+
+ },
+  ...
   "SWC": {
         "hash": "0x00bb907302e508707108cd835621dfd2b44ca7cf",
         "decimals": 18,
         "minimum_precision": 1,
         "trading_active": true
-  }
+        "active": true,
+        "listing_info": {
+            "deposits": {
+                "start": 1514764800,
+                "end": 7983792000,
+                "paused": false
+            },
+            "trading": {
+                "start": 1514764800,
+                "end": 7983792000,
+                "paused": false
+            },
+            "cancellations": {
+                "start": 1514764800,
+                "end": 7983792000,
+                "paused": false
+            },
+            "withdrawals": {
+                "start": 1514764800,
+                "end": 7983792000,
+                "paused": false
+            }
+        }
+   }
   ...
 }
 ```
 
 ### Request parameters
 
- Parameter      | Type      | Required  | Description
---------------- | --------- | --------- | -----------
- bases          | **array** | no        | Return pairs for these base symbols. Possible values are `NEO, GAS, SWTH, USD`.
- show_details   | String    | no        | Show all details for token (default is *hash* & *decimals* )
- show_inactive  | String    | no        | Show inactive tokens (default is to not return inactive tokens)
+ Parameter              | Type      | Required  | Description
+---------------         | --------- | --------- | -----------
+ show_listing_details   | Boolean   | no        | Show all details for token (default is *hash* & *decimals* )
+ show_inactive          | Boolean   | no        | Show inactive tokens (default is to not return inactive tokens)
 
 ### Response parameters
 
@@ -101,8 +150,13 @@ Parameter         | Description
 ----------------- | ----------
 hash              | Contract hash of the Symbol
 decimals          | Number of implied Decimal Places in price values
-minimum_precision | Minimum Display/Trading Precision (Digits right of decimal point)
+minimum_precision | Minimum Trading Size Precision (Digits right of decimal point)
 trading_active    | Trading in this Symbol is activ on the Exchange **true / false**
+active            | This Symbol is visible on Exchange
+listing_info      | Status of the Symbol for trading activities \["deposits", "trading", "cancellations", "withdrawals"  (only returned if show_listing_details=1)
+start             | Starting time for the activity (in epoch seconds)
+end               | Ending time for the activity (in epoch seconds)
+paused            | true if activity is paused, false otherwise
 
 
 ## Pairs
@@ -114,9 +168,9 @@ The valid `base` currencies are currently: `NEO`, `GAS`, `SWTH`, `USD`.
 
 ### HTTP Request
 
-`GET /v2/exchange/pairs?bases=["NEO"]`   **or alias**  `GET /v2/pairs`
+`GET /v2/exchange/pairs?bases=["NEO"]&show_details=0`   **or alias**  `GET /v2/pairs`
 
-> Example response
+> Example response - (show_details=0)
 
 ```js
 [
@@ -126,18 +180,38 @@ The valid `base` currencies are currently: `NEO`, `GAS`, `SWTH`, `USD`.
 ]
 
 ```
+> Example response - (show_details=1)
+```js
+[
+    {
+        "name": "GAS_NEO",
+        "price_precision": 3
+    },
+    {
+        "name": "SWTH_NEO",
+        "price_precision": 6
+    },
+...
+]
+```
+
 
 ### Request parameters
 
- Parameter      | Type      | Required  | Description
---------------- | --------- | --------- | -----------
- bases          | **array** | no        | Provides pairs for these base symbols. Possible values are `NEO, GAS, SWTH, USD`.
+ Parameter              | Type      | Required  | Description
+---------------         | --------- | --------- | -----------
+ bases                  | **array** | no        | Provides pairs for these base symbols. Possible values are `NEO, GAS, SWTH, USD`.
+ show_details           | Boolean   | no        | Show further details for token
+ show_inactive          | Boolean   | no        | Show inactive tokens (default is to not return inactive tokens)
+
 
 ### Response parameters
 
-Parameter    | Description
------------- | ----------
-*symbol*\_*base*     | list of *Symbol / Base* Name concatenations
+Parameter        | Description
+------------     | ----------
+*symbol*\_*base* | list of *Symbol / Base* Name Pairs (show_details=0)
+name             | *Symbol / Base* Name Pairs (show_details=1)
+price_precision  | Minimum Displaed Price Precision (Digits right of decimal point)
 
 
 ## Announcement Message
