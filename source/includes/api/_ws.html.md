@@ -1,15 +1,11 @@
-# Websocket Interface
+# Websocket API
 
-This section documents the  Switcheo Exchange websocket interface, which is used for transfer of streaming data to clients.
+This section documents the Switcheo Exchange websocket interface, which is used for transfer of streaming data to clients. It is recommended to use [https://socket.io/](socket.io) for connecting to this interface.
 
 Authentication is not required for these endpoints.
 
-### HTTP Request
-
-MainNet: `wss://ws.switcheo.io`
-TestNet: `wss://test-ws.switcheo.io`
-
 ## Offers
+
 > Example response
 
 ```js
@@ -22,7 +18,7 @@ TestNet: `wss://test-ws.switcheo.io`
 ]
 ```
 
-### Join Request
+### Join Room
 
 ### Request parameters
 

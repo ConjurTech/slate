@@ -1,4 +1,4 @@
-# Exchange information
+# Exchange Information
 
 This section consists of endpoints that allow retrieval of Switcheo Exchange information.
 
