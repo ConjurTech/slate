@@ -64,6 +64,7 @@ Parameter   | Description
 id          | Unique identifier for the trade object.
 fill_amount | Amount of tokens that is given by the trade to the [offer](#offers) that it is filling.
 take_amount | Amount of tokens that the trade takes from the [offer's](#offers) `available_amount` that it is filling.
+event_time  | Datetime that the trade occurs in Zulu Time (UDT+0)
 is_buy      | Whether the side of the trade is a buy.
 
 ### Example
@@ -85,20 +86,11 @@ is_buy      | Whether the side of the trade is a buy.
   "total": "0.0393414",
   "timestamp": 1537924944
   },
-  {
-  "id": "43ad04f5-557b-497d-b12c-3f965d32ab20",
-  "pair": "RHTC_NEO",
-  "side": "sell",
-  "price": "43000000.0",
-  "quantity": "1.0",
-  "total": "0.43",
-  "timestamp": 1537914916
-  },
   ...
 ]
 ```
 
-Returns `20` most recent trades on all pairs sorted in descending order by executed time.
+Returns `20` most recent trades on the selected pair sorted by executed time in descending order (most recent first).
 
 ### HTTP Request
 
