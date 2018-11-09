@@ -11,9 +11,10 @@ Subject                   | Things to note
 [Timestamp](#timestamp)   | If a timestamp parameter is required, then it should first be fetched from the server. If the timestamp is not within an acceptable range of the exchange's timestamp then an invalid signature error will be returned.
 
 ## Addresses
-An `address` in Switcheo is always represented by a hex string, and should **never** be prefixed by `0x`.
+An `address` in Switcheo is always represented by a hex string, and is prefixed by a `0x` only if it is
+an Ethereum address. Addresses should always be in a **lowercase** hex string representation.
 
-## NEO Addresses
+### NEO Addresses
 
 > Getting the user's address
 
@@ -27,12 +28,18 @@ wallet.getScriptHashFromAddress('AQV8FNNi2o7EtMNn4etWBYx1cqBREAifgE')
 // Result: 87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f
 ```
 
-For NEO, an `address` refers to the [RIPEMD160](https://en.wikipedia.org/wiki/RIPEMD) hash of the the user's public key.
+For NEO, an `address` refers to the [RIPEMD160](https://en.wikipedia.org/wiki/RIPEMD) hash of the the user's ECDSA public key.
 
 An example implemention to derive an `address` from a user's public key can be found in the
 [neon-js javascript library](https://github.com/CityOfZion/neon-js/blob/5d61c31a5d6e5e2e29095e08c70d23449810b509/src/wallet/core.js#L92).
 
 Please note the difference in terminology between Switcheo and neon-js. Switcheo's `address` is equivalent to neon-js's `scriptHash`.
+
+### Ethereum Addresses
+
+For Ethereum, an `addresses` refers to the (Keccak)[https://en.wikipedia.org/wiki/SHA-3] hash of the right-most 160-bits of the user's ECDSA public key, as specified in the Ethereum [Yellow Paper](http://gavwood.com/paper.pdf).
+
+Ethereum addresses are sometimes displayed with uppercase letters for verification purposes. When submitting addresses through the Switcheo API however, the address should always be **fully lowercased**.
 
 ## Amounts
 

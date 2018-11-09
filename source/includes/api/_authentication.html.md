@@ -6,10 +6,10 @@ digital signature with the user's private key.
 
 Currently, all supported blockchains uses the ellipitic curve digital signature algorithim (ECDSA). However, the curves and hashing algorithim used for each blockchain differ slightly per blockchain.
 
-| Blockchain | Signature Algo | Curve       | Hash Function |
-| ---------- | -------------- | -----       | ------------- |
-| NEO        | ECDSA          | NIST P-256  | SHA-256       |
-| ETH        | ECDSA          | secp256k1   | SHA-3         |
+| Blockchain | Signature Algo | Curve       | Hash Function  |
+| ---------- | -------------- | -----       | -------------- |
+| NEO        | ECDSA          | NIST P-256  | SHA-256        |
+| ETH        | ECDSA          | secp256k1   | SHA-3 (Keccak) |
 
 ## Action Authentication
 Two steps are required to perform an action.

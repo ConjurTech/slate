@@ -1,6 +1,6 @@
 # Websocket API
 
-This section documents the Switcheo Exchange websocket interface, which is used for transfer of streaming data to clients. It is recommended to use [https://socket.io/](socket.io) for connecting to this interface.
+This section documents the Switcheo Exchange websocket interface, which is used for transfer of streaming data to clients. It is recommended to use [socket.io](https://socket.io/) for connecting to this interface.
 
 Authentication is not required for these endpoints.
 
