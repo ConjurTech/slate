@@ -781,7 +781,7 @@ includes a <code>0x</code> prefix.</p>
 </tr>
 <tr>
 <td>precision</td>
-<td>Minimum amount precision (e.g. if a token has <code>8</code> <code>decimals</code> and <code>2</code> precision, <code>123000000</code> would be a valid order amount to submit, but not <code>12340000</code>)</td>
+<td>The maximum amount precision that can be submitted in orders (e.g. if a token has <code>8</code> <code>decimals</code> and <code>2</code> precision, <code>123000000</code> would be a valid order amount to submit, but not <code>12340000</code>)</td>
 </tr>
 <tr>
 <td>minimum_quantity</td>
@@ -898,15 +898,15 @@ includes a <code>0x</code> prefix.</p>
 </thead><tbody>
 <tr>
 <td>name</td>
-<td>ticker name as <code>&lt;QUOTE&gt;_&lt;BASE&gt;</code> where <code>&lt;QUOTE&gt;</code> is the trading token symbol (e.g. <code>SWTH</code>), while <code>&lt;BASE&gt;</code> is the base token symbol (e.g. <code>NEO</code>)</td>
+<td>The ticker name as <code>&lt;QUOTE&gt;_&lt;BASE&gt;</code> where <code>&lt;QUOTE&gt;</code> is the trading token symbol (e.g. <code>SWTH</code>), while <code>&lt;BASE&gt;</code> is the base token symbol (e.g. <code>NEO</code>)</td>
 </tr>
 <tr>
 <td>precision</td>
-<td>The price precision that can be submitted (e.g. if precision is <code>2</code>,</td>
+<td>The maximum price precision that can be submitted (e.g. if precision is <code>2</code>,</td>
 </tr>
 </tbody></table>
 
-<p>an order on this pair for <code>1.99</code> is valid, but <code>1.999</code> is not)</p>
+<p>an order on this pair for <code>1.99</code> or <code>1.90000000</code> price is valid, but <code>1.999</code> is not)</p>
 <h2 id='announcement-message'>Announcement Message</h2>
 <p>Retrieve the currently active Switcheo Exchange Announcement</p>
 <h3 id='http-request-5'>HTTP Request</h3>
