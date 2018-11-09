@@ -151,7 +151,7 @@ Parameter         | Description
 ----------------- | ----------
 hash              | Contract hash of the token
 decimals          | Number of decimal places to use when submitting order amounts (e.g. if a token has `8` `decimals`, then an order for `1.2` tokens should be submitted as `120000000`)
-precision         | Minimum amount precision (e.g. if a token has `8` `decimals` and `2` precision, `123000000` would be a valid order amount to submit, but not `12340000`)
+precision         | The maximum amount precision that can be submitted in orders (e.g. if a token has `8` `decimals` and `2` precision, `123000000` would be a valid order amount to submit, but not `12340000`)
 minimum_quantity  | The minimum order amount for any orders submitted involving this token. Note that this applies to both the order `want_amount` and `offer_amount` (or `quantity`, if using new format).
 trading_active    | Whether this token is currently actively trading
 active            | Whether this token is currently visible on the Switcheo Exchange UI
@@ -221,9 +221,9 @@ Array            | List of token pairings (ticker) `<QUOTE>_<BASE>` where `<QUOT
 
 Parameter        | Description
 ------------     | ----------
-name             | ticker name as `<QUOTE>_<BASE>` where `<QUOTE>` is the trading token symbol (e.g. `SWTH`), while `<BASE>` is the base token symbol (e.g. `NEO`)
-precision        | The price precision that can be submitted (e.g. if precision is `2`,
-an order on this pair for `1.99` is valid, but `1.999` is not)
+name             | The ticker name as `<QUOTE>_<BASE>` where `<QUOTE>` is the trading token symbol (e.g. `SWTH`), while `<BASE>` is the base token symbol (e.g. `NEO`)
+precision        | The maximum price precision that can be submitted (e.g. if precision is `2`,
+an order on this pair for `1.99` or `1.90000000` price is valid, but `1.999` is not)
 
 
 ## Announcement Message
