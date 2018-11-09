@@ -64,7 +64,7 @@ Parameter   | Description
 id          | Unique identifier for the trade object.
 fill_amount | Amount of tokens that is given by the trade to the [offer](#offers) that it is filling.
 take_amount | Amount of tokens that the trade takes from the [offer's](#offers) `available_amount` that it is filling.
-event_time   | Datetime that the trade occurs in Zulu Time (UDT+0)
+event_time  | Datetime that the trade occurs in Zulu Time (UDT+0)
 is_buy      | Whether the side of the trade is a buy.
 
 ### Example

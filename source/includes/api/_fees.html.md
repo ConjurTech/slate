@@ -48,10 +48,9 @@ Returns fee data for various blockchains and pairs
 
 Parameter                 | Description
 ------------------------- | ----------
-eth_address               | Address of the Ethereum  Exchange Contract owner ????.
-maker / default           | Default rate for maker orders, before discount (%)
-taker / default           | Default rate for taker orders, before discount (%)
-native_fee_discount       | Discount applied to fee for use of native token.
-native_fee_asset_id       | NEO Contract hash of the Native Token (SWTH)
-enforce_native_fee        | List of Asset tickers where fee must be paid in Native Tokens
-native_fee_exchange_rates | List of Asset:Value tuples, containing the exchange rate in Native Token 
+maker / default           | Default rate for maker orders, before discount (in %)
+taker / default           | Default rate for taker orders, before discount (in %)
+native_fee_discount       | Discount applied to fee for use of native token (as a multiplier)
+native_fee_asset_id       | NEO contract hash of the Native Token (i.e. `SWTH`)
+enforce_native_fee        | List of asset tickers where fee **must** be paid in Native Tokens
+native_fee_exchange_rates | List of token:value tuples, containing the exchange rate in Native Token

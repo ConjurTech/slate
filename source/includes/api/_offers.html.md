@@ -2,7 +2,7 @@
 
 An offer represents an open order on the [Switcheo Exchange](https://switcheo.exchange) offer book.
 
-Funds used to make an offer are frozen until the order is cancelled or filled.
+Funds used to make an offer are locked in the contract until the order is cancelled or filled.
 
 ## List Offers
 
@@ -50,7 +50,7 @@ contract_hash | **string** | no       | Only return offers for this [contract ha
 Parameter        | Description
 ---------------- | ----------
 id               | Unique identifier for the offer object.
-address          | [Address](#addresses) of the Maker
+address          | [Address](#addresses) of the offer maker
 available_amount | Remaining [amount](#amounts) of the `offer_asset` that has not been taken by other orders.
 offer_amount     | Total [amount](#amounts) of the `offer_asset`.
 want_amount      | Total [amount](#amounts) of the `want_asset`.
@@ -116,4 +116,4 @@ contract_hash | **string** | no       | Only return offers for this [contract ha
 Parameter   | Description
 ----------- | ----------
 price       | Bid or Ask price.
-quantity    | If `bids` side, returns amount of tokens being bought. If `asks` side, returns amount of tokens that is being sold. 
+quantity    | If `bids` side, returns amount of tokens being bought. If `asks` side, returns amount of tokens that is being sold.

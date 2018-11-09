@@ -70,8 +70,8 @@ open         | Opening price at the start of the interval.
 close        | Closing price at the end of the interval.
 high         | Highest price during the interval.
 low          | Lowest price during the interval.
-volume       | Volume in Base Asset traded during the interval.
-quote_volume | Volume in Quoted Asset traded during the interval.
+volume       | Volume in base token traded during the interval.
+quote_volume | Volume in quoted token traded during the interval.
 
 ## Last 24 hours
 
@@ -116,8 +116,8 @@ open         | Opening price at the start of the interval.
 close        | Closing price at the end of the interval.
 high         | Highest price during the interval.
 low          | Lowest price during the interval.
-volume       | Volume in Base Asset traded during the interval.
-quote_volume | Volume in Quoted Asset traded during the interval.
+volume       | Volume in base token traded during the interval.
+quote_volume | Volume in quoted token traded during the interval.
 
 ## Last price
 
@@ -162,5 +162,5 @@ Returns last price of the requested symbol(s) / base(s). Defaults to all symbols
 Parameter    | Description
 ------------ | ----------
 *symbol*     | JSON Object containing a list of *base:price* tuples
-*base*       | Base Symbol Name
-*price*      | Decimal Last Price of *symbol* in *base* units
+*base*       | Base token symbol
+*price*      | Price of *symbol* in *base* units with 8 decimal precision
