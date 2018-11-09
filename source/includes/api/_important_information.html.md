@@ -37,7 +37,7 @@ Please note the difference in terminology between Switcheo and neon-js. Switcheo
 
 ### Ethereum Addresses
 
-For Ethereum, an `addresses` refers to the (Keccak)[https://en.wikipedia.org/wiki/SHA-3] hash of the right-most 160-bits of the user's ECDSA public key, as specified in the Ethereum [Yellow Paper](http://gavwood.com/paper.pdf).
+For Ethereum, an `addresses` refers to the [Keccak](https://en.wikipedia.org/wiki/SHA-3) hash of the right-most 160-bits of the user's ECDSA public key, as specified in the Ethereum [Yellow Paper](http://gavwood.com/paper.pdf).
 
 Ethereum addresses are sometimes displayed with uppercase letters for verification purposes. When submitting addresses through the Switcheo API however, the address should always be **fully lowercased**.
 
