@@ -248,9 +248,6 @@
                     <a href="#addresses" class="toc-h2 toc-link" data-title="addresses">Addresses</a>
                   </li>
                   <li>
-                    <a href="#neo-addresses" class="toc-h2 toc-link" data-title="neo-addresses">NEO Addresses</a>
-                  </li>
-                  <li>
                     <a href="#amounts" class="toc-h2 toc-link" data-title="amounts">Amounts</a>
                   </li>
                   <li>
@@ -549,8 +546,9 @@ the expected inputs and outputs at each step of generating a signature.</p></li>
 </tr>
 </tbody></table>
 <h2 id='addresses'>Addresses</h2>
-<p>An <code>address</code> in Switcheo is always represented by a hex string, and should <strong>never</strong> be prefixed by <code>0x</code>.</p>
-<h2 id='neo-addresses'>NEO Addresses</h2>
+<p>An <code>address</code> in Switcheo is always represented by a hex string, and is prefixed by a <code>0x</code> only if it is
+an Ethereum address. Addresses should always be in a <strong>lowercase</strong> hex string representation.</p>
+<h3 id='neo-addresses'>NEO Addresses</h3>
 <blockquote>
 <p>Getting the user&#39;s address</p>
 </blockquote>
@@ -562,12 +560,16 @@ the expected inputs and outputs at each step of generating a signature.</p></li>
 <span class="nx">wallet</span><span class="p">.</span><span class="nx">getScriptHashFromAddress</span><span class="p">(</span><span class="s1">'AQV8FNNi2o7EtMNn4etWBYx1cqBREAifgE'</span><span class="p">)</span>
 <span class="c1">// Result: 87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f</span>
 </code></pre>
-<p>For NEO, an <code>address</code> refers to the <a href="https://en.wikipedia.org/wiki/RIPEMD">RIPEMD160</a> hash of the the user&#39;s public key.</p>
+<p>For NEO, an <code>address</code> refers to the <a href="https://en.wikipedia.org/wiki/RIPEMD">RIPEMD160</a> hash of the the user&#39;s ECDSA public key.</p>
 
 <p>An example implemention to derive an <code>address</code> from a user&#39;s public key can be found in the
 <a href="https://github.com/CityOfZion/neon-js/blob/5d61c31a5d6e5e2e29095e08c70d23449810b509/src/wallet/core.js#L92">neon-js javascript library</a>.</p>
 
 <p>Please note the difference in terminology between Switcheo and neon-js. Switcheo&#39;s <code>address</code> is equivalent to neon-js&#39;s <code>scriptHash</code>.</p>
+<h3 id='ethereum-addresses'>Ethereum Addresses</h3>
+<p>For Ethereum, an <code>addresses</code> refers to the <a href="https://en.wikipedia.org/wiki/SHA-3">Keccak</a> hash of the right-most 160-bits of the user&#39;s ECDSA public key, as specified in the Ethereum <a href="http://gavwood.com/paper.pdf">Yellow Paper</a>.</p>
+
+<p>Ethereum addresses are sometimes displayed with uppercase letters for verification purposes. When submitting addresses through the Switcheo API however, the address should always be <strong>fully lowercased</strong>.</p>
 <h2 id='amounts'>Amounts</h2>
 <p>When specifying amounts as request parameters, the amounts should first be converted by following these steps:</p>
 
@@ -958,7 +960,7 @@ digital signature with the user&#39;s private key.</p>
 <td>ETH</td>
 <td>ECDSA</td>
 <td>secp256k1</td>
-<td>SHA-3</td>
+<td>SHA-3 (Keccak)</td>
 </tr>
 </tbody></table>
 <h2 id='action-authentication'>Action Authentication</h2>
@@ -3091,7 +3093,7 @@ will be merged and summed.</p>
 <h3 id='example-12'>Example</h3>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/balances/listBalancesExample.js">Full list balances example</a></p>
 <h1 id='websocket-api'>Websocket API</h1>
-<p>This section documents the Switcheo Exchange websocket interface, which is used for transfer of streaming data to clients. It is recommended to use <a href="socket.io">https://socket.io/</a> for connecting to this interface.</p>
+<p>This section documents the Switcheo Exchange websocket interface, which is used for transfer of streaming data to clients. It is recommended to use <a href="https://socket.io/">socket.io</a> for connecting to this interface.</p>
 
 <p>Authentication is not required for these endpoints.</p>
 <h2 id='offers-2'>Offers</h2>
