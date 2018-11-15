@@ -40,6 +40,7 @@ A breakdown of attributes in an order object returned from our API is described 
     "status": "processed",
     "order_status": "completed",
     "fills": [...],
+    "fill_groups": [...],
     "makes": [...]
   }
 ]
@@ -65,6 +66,7 @@ created_at                 | Time when the order was created.
 status                     | Status of the order in the context of the blockchain. Possible values are `pending` (after creation), `processed` (after broadcast), `expired` (created but not broadcasted for a long time)
 order_status               | Status of the order in the context of the exchange. Possible values are `open` (on orderbook waiting to be filled),`cancelled` (cancelled open order), `completed` (maker order that is entirely filled or broadcasted filler order)
 fills                      | Refer to the [fills](#the-fill-object) section for more details.
+fill groups                | Refer to the [fills groups](#the-fill-group-object) section for more details.
 makes                      | Refer to the [makes](#the-make-object) section for more details.
 
 ##### Fill Object
@@ -111,6 +113,39 @@ txn                        | The transaction representing this fill.
 status                     | Status of the fill. Possible values are `pending` (after order creation), `confirming` (after order broadcast), `success` (after broadcast success), `expired` (after order creation but not broadcasted for a long while)
 created_at                 | Time when the fill was created.
 transaction_hash           | Transaction hash of the transaction representing this fill.
+
+##### Fill Group Object
+
+> Example fill group
+
+```json
+{
+  "id": "7193c1e3-c9ab-429c-881c-429169880cfc",
+  "address": "0x0f936dce97a9a5c50becc3f58a4842b4c607e722",
+  "fill_ids": [
+    "dd08787b-242c-4eb5-8c53-3e9d2f4be4cd"
+  ],
+  "txn": [Object],
+  "fee_amount": "4242000000000000",
+  "fee_asset_id": "0x0000000000000000000000000000000000000000"
+}
+```
+
+Fills are grouped into sets for ETH.
+
+This reduces the number of signature requests needed for an order, instead of signing
+multiple fills individually, a group of fills can be signed with one signature request.
+
+This feature also minimizes ETH network gas costs.
+
+Attribute                  | Description
+-------------------------- | ----------
+id                         | Unique identifier for the fill group object.
+address                    | [Address](#addresses) of the filler.
+fill_ids                   | The IDs grouped under this fill group.
+txn                        | The transaction representing this fill group.
+fee_amount                 | [Amount](#amounts) of fees paid for this fill group.
+fee_asset_id               | [Asset id](#supported-assets) of the token used for the fee.
 
 ##### Make Object
 
@@ -364,12 +399,17 @@ After using the [Create Order](#create-order) endpoint, you will receive a respo
   fills: {
     <fill_id_1>: <signature_1>,
     <fill_id_2>: <signature_2>
+  },
+  fill_groups: {
+    <fill_group_id_1>: <signature_3>,
+    <fill_group_id_2>: <signature_4>
   }
 }
 ```
 
-Every `txn` of the `fills` and `makes` in the Create Order response should be [signed](#authentication),
+Every `txn` of the `fills`, `fill_groups` and `makes` in the Create Order response should be [signed](#authentication),
 and structured in the `signatures` format shown on the right.
+Note that the `txn` of `fills` for ETH will be empty, only the `txn` of the `fill_groups` need to be signed for ETH.
 
 
 #### HTTP Request
@@ -383,7 +423,9 @@ and structured in the `signatures` format shown on the right.
 ```js
 function signArray(array, privateKey) {
   return array.reduce((map, item) => {
-    map[item.id] = signTransaction(item.txn, privateKey)
+    if (item.txn) {
+      map[item.id] = signTransaction(item.txn, privateKey)
+    }
     return map
   }, {})
 }
@@ -392,7 +434,8 @@ function broadcastOrder({ order, privateKey }) {
   const { fills, makes } = order
   const signatures = {
     fills: signArray(order.fills, privateKey),
-    makes: signArray(order.makes, privateKey)
+    makes: signArray(order.makes, privateKey),
+    fill_groups: signArray(order.fill_groups, privateKey)
   }
   const url = `${API_URL}/orders/${order.id}/broadcast`
   return api.post(url, { signatures })
@@ -410,6 +453,10 @@ function broadcastOrder({ order, privateKey }) {
     "makes": {
       "d034djb1-9sd8-5b6k-1f9g-40fd9jntk86k": "<signature_2>",
       "ufdh03kt-23jg-h6k5-45fd-56dfy7ks0g9a": "<signature_3>"
+    },
+    "fill_groups": {
+      "6f9afaeb-1866-47d5-b7d8-061eab1b5fbc": "<signature_4>",
+      "94a282ed-bf89-40e2-b0ea-7d3a0dac3c68": "<signature_5>"
     }
   }
 }
