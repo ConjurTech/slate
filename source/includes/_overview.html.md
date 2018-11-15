@@ -12,18 +12,9 @@ Before you proceed with the API documentation, be sure to explore Switcheo Excha
 
 Switcheo Exchange provides a REST API and a WebSocket API, described below.
 
-If you have technical questions, you can ask them at our [slack channel](https://join.slack.com/t/switcheonetwork/shared_invite/enQtNDAyMTQ3Mzg3NjA1LTc0ODBlMWMxMjRkNTE5ZjkzN2VkNDNhYjQ2MjFlZTUwMzQ3NGMxYzZlODM5ZTAwZTcxMWM2YjA5MTAyN2FkYmI).
-
 ## REST API
 
-Switcheo offers both public and private REST APIs.
-
-There are two types of REST API endpoints:
-
-- Public Exchange APIs - these endpoints provide exchange history, statistics and other data and do not need to be authenticated
-- Private Trading APIs - these endpoints can be used to execute trades and must be authenticated
-
-All API requests and responses use the [JSON](https://www.json.org/) format.
+Switcheo offers both public and private REST APIs. You may find out more information about it [here](#rest-api).
 
 ## WebSocket API
 

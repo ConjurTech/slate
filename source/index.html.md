@@ -3,7 +3,6 @@ title: Switcheo API Reference
 
 includes:
   - overview
-  - api/data_types
   - api/index
   - api/authentication
   - api/exchange_information
@@ -14,9 +13,10 @@ includes:
   - api/withdrawals
   - api/orders
   - api/balances
+  - api/errors
   - websocket/index
   - troubleshooting
-  - errors
+  - data_types
 
 search: true
 ---

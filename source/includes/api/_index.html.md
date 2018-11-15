@@ -2,7 +2,18 @@
 
 ## Introduction
 
-URLS:
+There are two types of REST API endpoints:
+
+Public Exchange APIs - these endpoints provide exchange history, statistics and other data and do not need to be authenticated
+Private Trading APIs - these endpoints can be used to execute trades and must be authenticated
+All API requests and responses use the JSON format.
+
+The base URLs for the REST API are:
+
+Type                  | Base URL
+--------------------- | ----------
+Sandbox / TestNet     | [https://beta.switcheo.exchange/](https://beta.switcheo.exchange/)
+Production / MainNet  | [https://api.switcheo.network](https://api.switcheo.network)
 
 ## Rate Limits
 

@@ -1,6 +1,6 @@
-# Errors
+## Errors
 
-The Switcheo API uses the following error codes:
+The Switcheo REST API uses the following error codes:
 
 Error Code | Meaning
 ---------- | -------
