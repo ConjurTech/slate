@@ -1,11 +1,11 @@
 # Switcheo API
 
 ## API Documentation
-+ Official documenation on Swithceo's APIs and Websockets' streams: **https://docs.switcheo.network**
+Official documentation on Switcheo APIs and Websockets: **https://docs.switcheo.network**
 
 ## Official Connector
 > Developed by Switcheo Network
-- [switcheo-js](https://github.com/Switcheo/switcheo-js)
++ [switcheo-js](https://github.com/Switcheo/switcheo-js)
 
 ## Unofficial Connectors
 > These libraries are developed by our dedicated community members and is part of our winners in our API development contest. You may use them if you are more familiar with the language. However we do not support these libraries officially, so use them cautiously.

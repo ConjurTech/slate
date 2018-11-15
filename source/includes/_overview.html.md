@@ -2,29 +2,31 @@
 
 ## Introduction
 
-This documentation is intended for developers who want to write applications to interact with the
-[Switcheo Exchange](https://switcheo.exchange) programatically.
+This documentation is intended for developers who want to write applications to interact with [Switcheo](https://switcheo.network) programatically.
 
-Switcheo Exchange offers both a fully featured REST API and a WebSocket API. Language bindings are provided in Javascript. [Authentications](#authentication) are not made using API keys but are done instead by signing the request payload or transaction using your private key. 
+Before you proceed with the API documentation, be sure to explore Switcheo Exchange at
+[https://switcheo.exchange](https://switcheo.exchange).
 
-You may wish to visit [Awesome Switcheo](https://github.com/Switcheo/awesome-switcheo) which contains everything awesome about Switcheo.
+Switcheo Exchange offers both a fully featured [REST API](#rest-api) for exchange information, order placement, historical and current data, as well as a [Streaming API](#streaming-api) for real-time trading data.
 
-Information on API wrappers can also be found on [Awesome Switcheo](https://github.com/Switcheo/awesome-switcheo).
+Official language bindings for Javascript (API wrapper) can be found at [switcheo-js](https://github.com/Switcheo/switcheo-js).
+
+You may wish to visit the [Awesome Switcheo](https://github.com/Switcheo/awesome-switcheo) repo which contains multiple API wrappers for other languages, and also hosts every awesome project relating to Switcheo development.
 
 ## Sandbox
 
-**TestNet URLs (Sandbox)**
+**TestNet (Sandbox) Endpoints**
 
 Type | Base URL
 ---- | ----------
-UI   | [https://beta.switcheo.exchange/](https://beta.switcheo.exchange/)
+UI   | [https://beta.switcheo.exchange](https://beta.switcheo.exchange)
 API  | [https://test-api.switcheo.network](https://test-api.switcheo.network)
 WS   | [wss://test-ws.switcheo.io](wss://test-ws.switcheo.io)
 
-**MainNet URLs (Actual Exchange)**
+**MainNet (Production Exchange) Endpoints**
 
 Type | Base URL
 ---- | ----------
-UI   | [https://switcheo.exchange/](https://switcheo.exchange/)
+UI   | [https://switcheo.exchange](https://switcheo.exchange)
 API  | [https://api.switcheo.network](https://api.switcheo.network)
 WS   | [wss://ws.switcheo.io](wss://ws.switcheo.io)

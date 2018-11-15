@@ -1,6 +1,6 @@
 ## Authentication
 
-As a non-custodian exchange, Switcheo does not use passwords or API keys as we do not have custody of user funds.
+As a non-custodian exchange, Switcheo does not use passwords as we do not have custody of user funds.
 Instead, authentication is done by signing the **request payload** _or_ **blockchain transaction** using the **blockchain-specific** digital signature with the user's private key.
 
 ### Overview
@@ -9,8 +9,9 @@ Currently, all supported blockchains uses the ellipitic curve digital signature 
 
 | Blockchain | Signature Algo | Curve       | Hash Function  |
 | ---------- | -------------- | -----       | -------------- |
-| NEO        | ECDSA          | NIST P-256  | SHA-256        |
 | ETH        | ECDSA          | secp256k1   | SHA-3 (Keccak) |
+| EOS        | ECDSA          | secp256k1   | SHA-256        |
+| NEO        | ECDSA          | NIST P-256  | SHA-256        |
 
 <aside class="notice">
   IMPORTANT: Two steps are required to perform an authenticated action.
@@ -40,14 +41,11 @@ signMessage('Hello', '<private key>')
 
 ```
 
-To sign a message for ETH, the message should be hex encoded, and enveloped as
-`"\x19Ethereum Signed Message:\n" + message.length + message` before being signed.
+When signing messages for ETH, the message should first be hex encoded, and the prefixed as
+`"\x19Ethereum Signed Message:\n" + message.length + message` before being signed. This is the canonical way of ensuring an arbitrary message is not also a valid Ethereum transaction.
 
-[web3.js](https://github.com/ethereum/web3.js/) can be used to sign messages for ETH.
-
-[View documentation](https://web3js.readthedocs.io/en/1.0/web3-eth-accounts.html#sign)
-
-[View implementation details](https://github.com/ethereum/web3.js/blob/1.0/packages/web3-eth-accounts/src/index.js#L255)
+The [web3.js](https://github.com/ethereum/web3.js/) library [\[docs\]](https://web3js.readthedocs.io/en/1.0/web3-eth-accounts.html#sign) can be used to sign messages for ETH.
+Refer to the library's [implementation details](https://github.com/ethereum/web3.js/blob/1.0/packages/web3-eth-accounts/src/index.js#L255) should you wish to sign messages directly.
 
 #### Signing Request Parameters
 
@@ -56,7 +54,7 @@ To sign a message for ETH, the message should be hex encoded, and enveloped as
 ```js
 // 1. Serialize parameters into a string
 // Note that parameters must be ordered alphanumerically
-const rawParams = { blockchain: 'neo', timestamp: 1529380859, apple: 'Z', }
+const rawParams = { blockchain: 'eth', timestamp: 1529380859, apple: 'Z', }
 const stableStringify = require('json-stable-stringify')
 const parameterString = stableStringify(rawParams)
 // parameterString: '{"apple":"Z","blockchain":"neo","timestamp":1529380859}'
@@ -121,7 +119,142 @@ The second step of an action usually requires the returned transaction to be sig
 2. Signing the `message` in the transaction with the user's private key
 3. An exception to this is the deposit endpoint, which requires the client to sign and broadcast the transaction, this is covered in more detail in the [Deposits](#deposits) section.
 
+### Signing Messages for EOS
+
+> Signing a message for EOS
+
+```js
+const ecc = require('eosjs-ecc')
+function signMessage(message, privateKey) {
+  ecc.sign(message, privateKey)
+}
+signMessage('Hello', '<private key>')
+```
+
+EOS messages can be signed directly without additional formatting as long as each word in the string is less than twelve characters long.
+
+The [eosjs-ecc](https://github.com/EOSIO/eosjs-ecc) library can be used to sign messages for EOS.
+Refer to the library's [implementation details](https://github.com/EOSIO/eosjs-ecc/blob/904225d9147edbbb9ac5be3e70537a208509d729/src/api_common.js#L107) should you wish to sign messages directly.
+
+#### Signing Request Parameters
+
+> Signing parameters for API requests
+
+```js
+const ecc = require('eosjs-ecc')
+
+// 1. Acquire a short-lived API key
+
+const now = new Date()
+
+// The message text must be exactly followed, while the time in square brackets `[]`
+// should be a parseable datetime format (e.g. ISO8601) that does not contain words
+// longer than 12 characters.
+const message = `Issue me a 30min Switcheo API key [${now.toUTCString()}]`
+const signature = signMessage(message, '5JN...privatekey')
+const apiKeyParams = {
+  blockchain: 'eos',
+  address: 'accountname1'
+  public_key: 'EOS5...',
+  message,
+  signature,
+}
+const response = await axios.post('/api_keys', JSON.stringify(apiKeyParams),
+  { headers: { 'Content-Type': 'application/json' } })
+
+// Note that `expiresAt` is the time the `apiKey` will expire in unix **seconds**
+const { key: apiKey, expires_at: expiresAt } = response
+
+// 2. You can now use the API key for all authenticated requests for 30 minutes
+
+// Ensure the API key is still valid
+const timestamp = new Date().getTime()
+if (expiresAt <= timestamp / 1000 + 5000) { // 5 second request time buffer
+  // app should handle getting a new API key
+  throw new Error('New API key required!')
+}
+
+// Make your request by including the API key in the `Authorization` HTTP header
+const actualRequestParams = { blockchain: 'eos', address: 'switcheotest', apple: 'Z', timestamp }
+const response = await axios.post('/api_keys', JSON.stringify(actualRequestParams),
+  {
+    headers: {
+      Authorization: `Token ${apiKey}`,
+      'Content-Type': 'application/json'
+    }
+  }
+)
+```
+
+Because fully arbitrary messages are conventionally not allowed for the safety of normal users, and there is no canonical way to form a message that cannot be an EOS transaction, we issue short-lived API keys for authenticating EOS API requests.
+
+The API key lasts for 30 minutes and should be passed in the `Authorization` HTTP header in the requests that require authentication. See the example for full details.
+
+*Note: This API key authentication strategy is supported when signing on other blockchains as well.*
+
+### Signing Transactions for EOS
+
+```js
+const { JsSignatureProvider } = require('eosjs/dist/eosjs-jssig')
+const signatureProvider = new JsSignatureProvider([privateKey])
+
+// 1. Verify transaction
+
+const { Api, JsonRpc } = require('eosjs')
+const { TextEncoder, TextDecoder } = require('util')
+const fetch = require('node-fetch')
+
+const chainId = production ?
+  'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906' : // mainnet
+  'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473' // jungle
+const host = production ?
+  'nodes.get-scatter.com' : // mainnet
+  'jungle.obolus.com' // jungle
+
+const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() })
+
+// Send the parameters for the first step of an action
+// and retrieve the response
+const response = ...
+const { transaction } = response
+
+// Verify the transaction data to ensure that it matches the user's intention
+const txnObj = api.deserializeTransactionWithActions(transaction)
+...
+
+
+// 2. Sign transaction
+
+function signTransaction(transaction, privateKey, production = false): Promise<string>  {
+    const serializedTransaction = new Uint8Array(new Buffer(transaction, 'hex'))
+    const availableKeys = await signatureProvider.getAvailableKeys()
+    const txn = await signatureProvider.sign({
+      abis: [],
+      requiredKeys: availableKeys,
+      chainId,
+      serializedTransaction,
+    })
+
+    // Note that multi-signature accounts are not supported at this time
+    // (as implied by the return value below).
+    return txn.signatures[0]
+  }
+}
+
+// Send the result to the second API endpoint/ bob
+const signatureToSend = signTransaction(transaction)
+```
+
+The second step of an action usually requires the returned transaction to be signed, this is done by:
+
+1. Deserializing the returned transaction data to ensure it matches the user's intention,
+this can be done using the [eosjs](https://github.com/EOSIO/eosjs) library and referring to the contract's ABI
+3. Signing the serialized transaction with the user's private key
+
+
 ### Signing Messages for NEO
+
+When signing messages for NEO, the message should first be hex encoded and enveloped in an invalid transaction via: `'010001f0' + message + '0000'` before being signed. This is the canonical way of ensuring an arbitrary message is not also a valid NEO transaction.
 
 > Signing a message for NEO
 
@@ -133,9 +266,7 @@ function signMessage(message, privateKey) {
 signMessage('Hello', '<private key>')
 
 ```
-[neon-js](https://github.com/CityOfZion/neon-js) can be used to sign messages for NEO.
-
-[View implementation details](https://github.com/CityOfZion/neon-js/blob/cf5f92e4124c45a154449bf5852bcab28ddc1b32/src/wallet/core.js#L126)
+The [neon-js](https://github.com/CityOfZion/neon-js) library can be used to sign messages for NEO. Refer to the library's [implementation details](https://github.com/CityOfZion/neon-js/blob/cf5f92e4124c45a154449bf5852bcab28ddc1b32/src/wallet/core.js#L126) should you wish to sign messages directly.
 
 #### Signing Request Parameters
 
