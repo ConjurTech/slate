@@ -23,6 +23,102 @@ Two steps are required to perform an authenticated action.
   - Sign the returned message or transaction with the user's private key
   - Send the signed message or transaction to the second API endpoint
 
+### Signing Messages for ETH
+
+> Signing a message for ETH
+
+```js
+const Web3 = require('web3')
+const web3 = new Web3()
+
+function signMessage(message, privateKey) {
+  return web3.eth.accounts.sign(message, privateKey).signature
+}
+signMessage('Hello', '<private key>')
+
+```
+
+To sign a message for ETH, the message should be hex encoded, and enveloped as
+`"\x19Ethereum Signed Message:\n" + message.length + message` before being signed.
+
+[web3.js](https://github.com/ethereum/web3.js/) can be used to sign messages for ETH.
+
+[View documentation](https://web3js.readthedocs.io/en/1.0/web3-eth-accounts.html#sign)
+
+[View implementation details](https://github.com/ethereum/web3.js/blob/1.0/packages/web3-eth-accounts/src/index.js#L255)
+
+#### Signing Request Parameters
+
+> Signing parameters for API requests
+
+```js
+// 1. Serialize parameters into a string
+// Note that parameters must be ordered alphanumerically
+const rawParams = { blockchain: 'neo', timestamp: 1529380859, apple: 'Z', }
+const stableStringify = require('json-stable-stringify')
+const parameterString = stableStringify(rawParams)
+// parameterString: '{"apple":"Z","blockchain":"neo","timestamp":1529380859}'
+
+// 2. Sign the parameterString with the user's privateKey
+const signature = signMessage(parameterString, '<private key>')
+
+// 3. Combine the raw parameters with the signature
+// to get the final parameters to send
+const parametersToSend = { ...rawParams, signature }
+```
+
+To perform an action, request parameters have to be signed to generate a signature
+parameter. This signature parameter should then be sent together with the other parameters in the request.
+
+1. Convert the API parameters into a string, with parameters **ordered alphanumerically**
+2. Sign the result of (1) with the user's private key
+3. Send the result of (2) together with the raw parameters to the API endpoint
+
+#### Example
+
+Using the following parameters as an example:
+
+`{ blockchain: 'eth', timestamp: 1529380859, apple: 'Z' }`
+
+1. Convert the parameters into a string with parameters ordered alphanumerically:
+`{"apple":"Z","blockchain":"eth","timestamp":1529380859}`
+2. Let the user's private key be
+<code style=" hyphens: none;">0x98c193239bff9eb53a83e708b63b9c08d6e47900b775402aca2acc3daad06f24</code>
+3. Sign the result from (1) with the private key in (2) to get
+<code style=" hyphens: none;">
+0xbcff177dba964027085b5653a5732a68677a66c581f9c85a18e1dc23892c72d86c0b65336e8a17637fd1fe1def7fa8cbac43bf9a8b98ad9c1e21d00e304e32911c
+</code>
+
+### Signing Transactions for ETH
+
+> Signing a transaction for ETH
+
+```js
+// Send the parameters for the first step of an action
+// and retrieve the response
+const response = ...
+const { transaction } = response
+
+// verify the transaction data to ensure that it matches the user's intention
+...
+
+const Web3 = require('web3')
+const web3 = new Web3()
+
+function signTransaction(transaction, privateKey) {
+  return web3.eth.accounts.signMessage(transaction.message, user.privateKey)
+}
+
+// send the result to the second API endpoint
+const signatureToSend = signTransaction(transaction, '<private key>')
+```
+
+The second step of an action usually requires the returned transaction to be signed, this is done by:
+
+1. Checking the returned transaction data to ensure it matches the user's intention
+2. Signing the `message` in the transaction with the user's private key
+3. An exception to this is the deposit endpoint, which requires the client to sign and broadcast the transaction, this is covered in more detail in the [Deposits](#deposits) section.
+
 ### Signing Messages for NEO
 
 > Signing a message for NEO
