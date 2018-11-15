@@ -220,206 +220,313 @@
             <a href="#overview" class="toc-h1 toc-link" data-title="overview">Overview</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#introduction" class="toc-h2 toc-link" data-title="introduction">Introduction</a>
+                    <a href="#introduction" class="toc-h2 toc-link" data-title="introduction">
+                      Introduction
+                    </a>
                   </li>
                   <li>
-                    <a href="#api-requests" class="toc-h2 toc-link" data-title="api-requests">API Requests</a>
+                    <a href="#rest-api" class="toc-h2 toc-link" data-title="rest-api">
+                      REST API
+                    </a>
                   </li>
                   <li>
-                    <a href="#base-urls" class="toc-h2 toc-link" data-title="base-urls">Base URLs</a>
+                    <a href="#streaming-api" class="toc-h2 toc-link" data-title="streaming-api">
+                      Streaming API
+                    </a>
                   </li>
                   <li>
-                    <a href="#rate-limits" class="toc-h2 toc-link" data-title="rate-limits">Rate Limits</a>
+                    <a href="#sandbox" class="toc-h2 toc-link" data-title="sandbox">
+                      Sandbox
+                    </a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#rest-api-2" class="toc-h1 toc-link" data-title="rest-api">REST API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#introduction-2" class="toc-h2 toc-link" data-title="introduction">
+                      Introduction
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#rate-limits" class="toc-h2 toc-link" data-title="rate-limits">
+                      Rate Limits
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#authentication" class="toc-h2 toc-link" data-title="authentication">
+                      Authentication
+                        <ul class="toc-list-h3">
+                            <li>
+                              <a href="#overview-2" class="toc-h3 toc-link" data-title="Overview">Overview</a>
+                            </li>
+                            <li>
+                              <a href="#signing-messages-for-neo" class="toc-h3 toc-link" data-title="Signing Messages for NEO">Signing Messages for NEO</a>
+                            </li>
+                            <li>
+                              <a href="#signing-transactions-for-neo" class="toc-h3 toc-link" data-title="Signing Transactions for NEO">Signing Transactions for NEO</a>
+                            </li>
+                        </ul>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#exchange-information" class="toc-h2 toc-link" data-title="exchange-information">
+                      Exchange Information
+                        <ul class="toc-list-h3">
+                            <li>
+                              <a href="#get-timestamp" class="toc-h3 toc-link" data-title="Get Timestamp">Get Timestamp</a>
+                            </li>
+                            <li>
+                              <a href="#get-contract-hashes" class="toc-h3 toc-link" data-title="Get Contract Hashes">Get Contract Hashes</a>
+                            </li>
+                            <li>
+                              <a href="#get-pairs" class="toc-h3 toc-link" data-title="Get Pairs">Get Pairs</a>
+                            </li>
+                            <li>
+                              <a href="#get-tokens-information" class="toc-h3 toc-link" data-title="Get Tokens Information">Get Tokens Information</a>
+                            </li>
+                            <li>
+                              <a href="#get-fee-information" class="toc-h3 toc-link" data-title="Get Fee Information">Get Fee Information</a>
+                            </li>
+                            <li>
+                              <a href="#get-announcement-message" class="toc-h3 toc-link" data-title="Get Announcement Message">Get Announcement Message</a>
+                            </li>
+                        </ul>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#tickers" class="toc-h2 toc-link" data-title="tickers">
+                      Tickers
+                        <ul class="toc-list-h3">
+                            <li>
+                              <a href="#get-candlesticks" class="toc-h3 toc-link" data-title="Get Candlesticks">Get Candlesticks</a>
+                            </li>
+                            <li>
+                              <a href="#get-last-24-hour-data" class="toc-h3 toc-link" data-title="Get Last 24 Hour Data">Get Last 24 Hour Data</a>
+                            </li>
+                            <li>
+                              <a href="#get-last-price" class="toc-h3 toc-link" data-title="Get Last Price">Get Last Price</a>
+                            </li>
+                        </ul>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#offers" class="toc-h2 toc-link" data-title="offers">
+                      Offers
+                        <ul class="toc-list-h3">
+                            <li>
+                              <a href="#list-offers" class="toc-h3 toc-link" data-title="List Offers">List Offers</a>
+                            </li>
+                            <li>
+                              <a href="#get-offer-book" class="toc-h3 toc-link" data-title="Get Offer Book">Get Offer Book</a>
+                            </li>
+                        </ul>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#trades" class="toc-h2 toc-link" data-title="trades">
+                      Trades
+                        <ul class="toc-list-h3">
+                            <li>
+                              <a href="#list-trades" class="toc-h3 toc-link" data-title="List Trades">List Trades</a>
+                            </li>
+                            <li>
+                              <a href="#get-recent-trades" class="toc-h3 toc-link" data-title="Get Recent Trades">Get Recent Trades</a>
+                            </li>
+                        </ul>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#deposits" class="toc-h2 toc-link" data-title="deposits">
+                      Deposits
+                        <ul class="toc-list-h3">
+                            <li>
+                              <a href="#overview-3" class="toc-h3 toc-link" data-title="Overview">Overview</a>
+                            </li>
+                            <li>
+                              <a href="#testing-with-testnet-faucet" class="toc-h3 toc-link" data-title="Testing with TestNet Faucet">Testing with TestNet Faucet</a>
+                            </li>
+                            <li>
+                              <a href="#create-deposit" class="toc-h3 toc-link" data-title="Create Deposit">Create Deposit</a>
+                            </li>
+                            <li>
+                              <a href="#execute-deposit" class="toc-h3 toc-link" data-title="Execute Deposit">Execute Deposit</a>
+                            </li>
+                        </ul>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#withdrawals" class="toc-h2 toc-link" data-title="withdrawals">
+                      Withdrawals
+                        <ul class="toc-list-h3">
+                            <li>
+                              <a href="#overview-4" class="toc-h3 toc-link" data-title="Overview">Overview</a>
+                            </li>
+                            <li>
+                              <a href="#create-withdrawal" class="toc-h3 toc-link" data-title="Create Withdrawal">Create Withdrawal</a>
+                            </li>
+                            <li>
+                              <a href="#execute-withdrawal" class="toc-h3 toc-link" data-title="Execute Withdrawal">Execute Withdrawal</a>
+                            </li>
+                        </ul>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#orders" class="toc-h2 toc-link" data-title="orders">
+                      Orders
+                        <ul class="toc-list-h3">
+                            <li>
+                              <a href="#overview-5" class="toc-h3 toc-link" data-title="Overview">Overview</a>
+                            </li>
+                            <li>
+                              <a href="#the-order-model" class="toc-h3 toc-link" data-title="The Order Model">The Order Model</a>
+                            </li>
+                            <li>
+                              <a href="#list-orders" class="toc-h3 toc-link" data-title="List Orders">List Orders</a>
+                            </li>
+                            <li>
+                              <a href="#create-order" class="toc-h3 toc-link" data-title="Create Order">Create Order</a>
+                            </li>
+                            <li>
+                              <a href="#execute-order" class="toc-h3 toc-link" data-title="Execute Order">Execute Order</a>
+                            </li>
+                            <li>
+                              <a href="#create-cancellation" class="toc-h3 toc-link" data-title="Create Cancellation">Create Cancellation</a>
+                            </li>
+                            <li>
+                              <a href="#execute-cancellation" class="toc-h3 toc-link" data-title="Execute Cancellation">Execute Cancellation</a>
+                            </li>
+                            <li>
+                              <a href="#computing-offer-hash-neo" class="toc-h3 toc-link" data-title="Computing Offer Hash (NEO)">Computing Offer Hash (NEO)</a>
+                            </li>
+                        </ul>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#balances" class="toc-h2 toc-link" data-title="balances">
+                      Balances
+                        <ul class="toc-list-h3">
+                            <li>
+                              <a href="#list-contract-balance" class="toc-h3 toc-link" data-title="List Contract Balance">List Contract Balance</a>
+                            </li>
+                        </ul>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#errors" class="toc-h2 toc-link" data-title="errors">
+                      Errors
+                    </a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#streaming-api-2" class="toc-h1 toc-link" data-title="streaming-api">Streaming API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#introduction-3" class="toc-h2 toc-link" data-title="introduction">
+                      Introduction
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#connection-endpoints" class="toc-h2 toc-link" data-title="connection-endpoints">
+                      Connection Endpoints
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#event-types" class="toc-h2 toc-link" data-title="event-types">
+                      Event Types
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#rooms" class="toc-h2 toc-link" data-title="rooms">
+                      Rooms
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#offer-book" class="toc-h2 toc-link" data-title="offer-book">
+                      Offer Book
+                        <ul class="toc-list-h3">
+                            <li>
+                              <a href="#socket-connection" class="toc-h3 toc-link" data-title="Socket Connection">Socket Connection</a>
+                            </li>
+                            <li>
+                              <a href="#all-event" class="toc-h3 toc-link" data-title="All Event">All Event</a>
+                            </li>
+                            <li>
+                              <a href="#updates-event" class="toc-h3 toc-link" data-title="Updates Event">Updates Event</a>
+                            </li>
+                        </ul>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#trade-events" class="toc-h2 toc-link" data-title="trade-events">
+                      Trade Events
+                        <ul class="toc-list-h3">
+                            <li>
+                              <a href="#socket-connection-2" class="toc-h3 toc-link" data-title="Socket Connection">Socket Connection</a>
+                            </li>
+                            <li>
+                              <a href="#all-event-2" class="toc-h3 toc-link" data-title="All Event">All Event</a>
+                            </li>
+                            <li>
+                              <a href="#updates-event-2" class="toc-h3 toc-link" data-title="Updates Event">Updates Event</a>
+                            </li>
+                        </ul>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#order-events" class="toc-h2 toc-link" data-title="order-events">
+                      Order Events
+                    </a>
                   </li>
               </ul>
           </li>
           <li>
             <a href="#troubleshooting" class="toc-h1 toc-link" data-title="troubleshooting">Troubleshooting</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#cors" class="toc-h2 toc-link" data-title="cors">CORS</a>
-                  </li>
-              </ul>
           </li>
           <li>
-            <a href="#important-information" class="toc-h1 toc-link" data-title="important-information">Important Information</a>
+            <a href="#data-types" class="toc-h1 toc-link" data-title="data-types">Data Types</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#addresses" class="toc-h2 toc-link" data-title="addresses">Addresses</a>
+                    <a href="#addresses" class="toc-h2 toc-link" data-title="addresses">
+                      Addresses
+                        <ul class="toc-list-h3">
+                            <li>
+                              <a href="#neo-addresses" class="toc-h3 toc-link" data-title="NEO Addresses">NEO Addresses</a>
+                            </li>
+                            <li>
+                              <a href="#ethereum-addresses" class="toc-h3 toc-link" data-title="Ethereum Addresses">Ethereum Addresses</a>
+                            </li>
+                        </ul>
+                    </a>
                   </li>
                   <li>
-                    <a href="#amounts" class="toc-h2 toc-link" data-title="amounts">Amounts</a>
+                    <a href="#amounts" class="toc-h2 toc-link" data-title="amounts">
+                      Amounts
+                    </a>
                   </li>
                   <li>
-                    <a href="#parameter-casing" class="toc-h2 toc-link" data-title="parameter-casing">Parameter Casing</a>
+                    <a href="#private-keys" class="toc-h2 toc-link" data-title="private-keys">
+                      Private Keys
+                    </a>
                   </li>
                   <li>
-                    <a href="#private-keys" class="toc-h2 toc-link" data-title="private-keys">Private Keys</a>
+                    <a href="#contract-hashes" class="toc-h2 toc-link" data-title="contract-hashes">
+                      Contract Hashes
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#signatures" class="toc-h2 toc-link" data-title="signatures">
+                      Signatures
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#timestamps" class="toc-h2 toc-link" data-title="timestamps">
+                      Timestamps
+                    </a>
                   </li>
               </ul>
-          </li>
-          <li>
-            <a href="#exchange-information" class="toc-h1 toc-link" data-title="exchange-information">Exchange Information</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#timestamp" class="toc-h2 toc-link" data-title="timestamp">Timestamp</a>
-                  </li>
-                  <li>
-                    <a href="#contracts" class="toc-h2 toc-link" data-title="contracts">Contracts</a>
-                  </li>
-                  <li>
-                    <a href="#tokens" class="toc-h2 toc-link" data-title="tokens">Tokens</a>
-                  </li>
-                  <li>
-                    <a href="#pairs" class="toc-h2 toc-link" data-title="pairs">Pairs</a>
-                  </li>
-                  <li>
-                    <a href="#announcement-message" class="toc-h2 toc-link" data-title="announcement-message">Announcement Message</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#action-authentication" class="toc-h2 toc-link" data-title="action-authentication">Action Authentication</a>
-                  </li>
-                  <li>
-                    <a href="#signing-messages-for-neo" class="toc-h2 toc-link" data-title="signing-messages-for-neo">Signing Messages for NEO</a>
-                  </li>
-                  <li>
-                    <a href="#signing-request-parameters" class="toc-h2 toc-link" data-title="signing-request-parameters">Signing Request Parameters</a>
-                  </li>
-                  <li>
-                    <a href="#signing-transactions" class="toc-h2 toc-link" data-title="signing-transactions">Signing Transactions</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#tickers" class="toc-h1 toc-link" data-title="tickers">Tickers</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#candlesticks" class="toc-h2 toc-link" data-title="candlesticks">Candlesticks</a>
-                  </li>
-                  <li>
-                    <a href="#last-24-hours" class="toc-h2 toc-link" data-title="last-24-hours">Last 24 hours</a>
-                  </li>
-                  <li>
-                    <a href="#last-price" class="toc-h2 toc-link" data-title="last-price">Last price</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#offers" class="toc-h1 toc-link" data-title="offers">Offers</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#list-offers" class="toc-h2 toc-link" data-title="list-offers">List Offers</a>
-                  </li>
-                  <li>
-                    <a href="#offer-book" class="toc-h2 toc-link" data-title="offer-book">Offer book</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#trades" class="toc-h1 toc-link" data-title="trades">Trades</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#list-trades" class="toc-h2 toc-link" data-title="list-trades">List Trades</a>
-                  </li>
-                  <li>
-                    <a href="#recent-trades" class="toc-h2 toc-link" data-title="recent-trades">Recent Trades</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#fees" class="toc-h1 toc-link" data-title="fees">Fees</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#fees-2" class="toc-h2 toc-link" data-title="fees">Fees</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#deposits" class="toc-h1 toc-link" data-title="deposits">Deposits</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#testnet-faucet" class="toc-h2 toc-link" data-title="testnet-faucet">TestNet Faucet</a>
-                  </li>
-                  <li>
-                    <a href="#create-deposit" class="toc-h2 toc-link" data-title="create-deposit">Create Deposit</a>
-                  </li>
-                  <li>
-                    <a href="#execute-deposit" class="toc-h2 toc-link" data-title="execute-deposit">Execute Deposit</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#withdrawals" class="toc-h1 toc-link" data-title="withdrawals">Withdrawals</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#create-withdrawal" class="toc-h2 toc-link" data-title="create-withdrawal">Create Withdrawal</a>
-                  </li>
-                  <li>
-                    <a href="#execute-withdrawal" class="toc-h2 toc-link" data-title="execute-withdrawal">Execute Withdrawal</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#orders" class="toc-h1 toc-link" data-title="orders">Orders</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#the-order-object" class="toc-h2 toc-link" data-title="the-order-object">The Order Object</a>
-                  </li>
-                  <li>
-                    <a href="#the-fill-object" class="toc-h2 toc-link" data-title="the-fill-object">The Fill Object</a>
-                  </li>
-                  <li>
-                    <a href="#the-make-object" class="toc-h2 toc-link" data-title="the-make-object">The Make Object</a>
-                  </li>
-                  <li>
-                    <a href="#list-orders" class="toc-h2 toc-link" data-title="list-orders">List Orders</a>
-                  </li>
-                  <li>
-                    <a href="#create-order" class="toc-h2 toc-link" data-title="create-order">Create Order</a>
-                  </li>
-                  <li>
-                    <a href="#execute-order" class="toc-h2 toc-link" data-title="execute-order">Execute Order</a>
-                  </li>
-                  <li>
-                    <a href="#create-cancellation" class="toc-h2 toc-link" data-title="create-cancellation">Create Cancellation</a>
-                  </li>
-                  <li>
-                    <a href="#execute-cancellation" class="toc-h2 toc-link" data-title="execute-cancellation">Execute Cancellation</a>
-                  </li>
-                  <li>
-                    <a href="#computing-the-offer-hash" class="toc-h2 toc-link" data-title="computing-the-offer-hash">Computing the Offer Hash</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#balances" class="toc-h1 toc-link" data-title="balances">Balances</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#list-balances" class="toc-h2 toc-link" data-title="list-balances">List balances</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#websocket-api" class="toc-h1 toc-link" data-title="websocket-api">Websocket API</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#offers-2" class="toc-h2 toc-link" data-title="offers">Offers</a>
-                  </li>
-                  <li>
-                    <a href="#trades-2" class="toc-h2 toc-link" data-title="trades">Trades</a>
-                  </li>
-                  <li>
-                    <a href="#orders-2" class="toc-h2 toc-link" data-title="orders">Orders</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
           </li>
       </div>
     </div>
@@ -435,20 +542,13 @@ Switcheo Exchange programatically.</p>
 <p>Before you proceed with the API documentation, be sure to explore Switcheo Exchange at
 <a href="https://switcheo.exchange">https://switcheo.exchange</a>.</p>
 
-<p>If you have technical questions, you can ask them at our <a href="https://join.slack.com/t/switcheonetwork/shared_invite/enQtNDAyMTQ3Mzg3NjA1LTc0ODBlMWMxMjRkNTE5ZjkzN2VkNDNhYjQ2MjFlZTUwMzQ3NGMxYzZlODM5ZTAwZTcxMWM2YjA5MTAyN2FkYmI">slack channel</a>.</p>
-<h2 id='api-requests'>API Requests</h2>
-<p>The Switcheo API uses <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> architecture.
-API requests and responses use the <a href="https://www.json.org/">JSON</a> format.</p>
-
-<p>There are three types of API endpoints.</p>
-
-<ul>
-<li>Exchange APIs - these endpoints provide exchange history, statistics and other data and do not need to be authenticated</li>
-<li>Websocket APIs - these endpoints provide real-time trading data and do not need to be authenticated</li>
-<li>Trading APIs - these endpoints can be used to execute trades and must be authenticated</li>
-</ul>
-<h2 id='base-urls'>Base URLs</h2>
-<p>Use the following TestNet URLs when developing your application:</p>
+<p>Switcheo Exchange provides a REST API and a WebSocket API, described below.</p>
+<h2 id='rest-api'>REST API</h2>
+<p>Switcheo offers both public and private REST APIs. You may find out more information about it <a href="#rest-api">here</a>.</p>
+<h2 id='streaming-api'>Streaming API</h2>
+<p>A Streaming API that can provide real-time trading data is also available. You may find out more information about it <a href="#streaming-api">here</a>.</p>
+<h2 id='sandbox'>Sandbox</h2>
+<p>Use the following TestNet (sandbox) URLs when developing your application:</p>
 
 <table><thead>
 <tr>
@@ -491,133 +591,199 @@ API requests and responses use the <a href="https://www.json.org/">JSON</a> form
 <td><a href="wss://ws.switcheo.io">wss://ws.switcheo.io</a></td>
 </tr>
 </tbody></table>
-<h2 id='rate-limits'>Rate Limits</h2>
-<p>All endpoints are rate-limited. We use a dynamic algorithm for determining these limits. The HTTP error code <code>429</code> will
-be returned if this limit is exceeded. You should implement an exponential backoff strategy when encountering this error code.</p>
-<h1 id='troubleshooting'>Troubleshooting</h1>
-<p>The following steps can be used to troubleshoot potential issues:</p>
+<h1 id='rest-api-2'>REST API</h1><h2 id='introduction-2'>Introduction</h2>
+<p>There are two types of REST API endpoints:</p>
 
-<ol>
-<li><p>Check the <a href="#important-information">Important Information</a> section.
-Possible issues include the address format, amount format, parameter casing, private key format,
-wrong parameters included to be signed, wrong timestamp.</p></li>
-<li><p>Trace each step of signing parameters using the example in
-<a href="#signing-request-parameters"> Signing Request Parameters</a>, this example has
-the expected inputs and outputs at each step of generating a signature.</p></li>
-</ol>
-<h2 id='cors'>CORS</h2>
-<p>When developing on a localhost server, you might encounter a CORS error.</p>
+<p>Public Exchange APIs - these endpoints provide exchange history, statistics and other data and do not need to be authenticated
+Private Trading APIs - these endpoints can be used to execute trades and must be authenticated
+All API requests and responses use the JSON format.</p>
 
-<p>To avoid this, please run your localhost server on port 8080.</p>
-<h1 id='important-information'>Important Information</h1>
+<p>The base URLs for the REST API are:</p>
+
 <table><thead>
 <tr>
-<th>Subject</th>
-<th>Things to note</th>
+<th>Type</th>
+<th>Base URL</th>
 </tr>
 </thead><tbody>
 <tr>
-<td><a href="#addresses">Addresses</a></td>
-<td>Addresses must be in the correct format.</td>
+<td>Sandbox / TestNet</td>
+<td><a href="https://test-api.switcheo.exchange/">https://test-api.switcheo.network/</a></td>
 </tr>
 <tr>
-<td><a href="#amounts">Amounts</a></td>
-<td>Amounts must be converted to the correct format.</td>
-</tr>
-<tr>
-<td><a href="#contracts">Contract Hash</a></td>
-<td>The correct contract hash must be used depending on whether you are using the TestNet or MainNet endpoints.</td>
-</tr>
-<tr>
-<td><a href="#parameter-casing">Parameter casing</a></td>
-<td>Parameters must be snake cased: e.g. <code>contract_hash</code> and not <code>contractHash</code></td>
-</tr>
-<tr>
-<td><a href="#private-keys">Private keys</a></td>
-<td>Private keys must be in the correct format.</td>
-</tr>
-<tr>
-<td><a href="#signing-request-parameters">Signature</a></td>
-<td>Not all parameters should be included to generate the signature, excluded parameters are specified in their respective endpoint&#39;s documentation.</td>
-</tr>
-<tr>
-<td><a href="#timestamp">Timestamp</a></td>
-<td>If a timestamp parameter is required, then it should first be fetched from the server. If the timestamp is not within an acceptable range of the exchange&#39;s timestamp then an invalid signature error will be returned.</td>
+<td>Production / MainNet</td>
+<td><a href="https://api.switcheo.network">https://api.switcheo.network</a></td>
 </tr>
 </tbody></table>
-<h2 id='addresses'>Addresses</h2>
-<p>An <code>address</code> in Switcheo is always represented by a hex string, and is prefixed by a <code>0x</code> only if it is
-an Ethereum address. Addresses should always be in a <strong>lowercase</strong> hex string representation.</p>
-<h3 id='neo-addresses'>NEO Addresses</h3>
+<h2 id='rate-limits'>Rate Limits</h2>
+<p>All endpoints are rate-limited. We use a dynamic algorithm for determining these limits. The HTTP error code <code>429</code> will be returned if this limit is exceeded. You should implement an exponential backoff strategy when encountering this error code.</p>
+<h2 id='authentication'>Authentication</h2>
+<p>As a non-custodian exchange, Switcheo does not use passwords or API keys as we do not have custody of user funds.
+Instead, authentication is done by signing the <strong>request payload</strong> <em>or</em> <strong>blockchain transaction</strong> using the <strong>blockchain-specific</strong> digital signature with the user&#39;s private key.</p>
+<h3 id='overview-2'>Overview</h3>
+<p>Currently, all supported blockchains uses the ellipitic curve digital signature algorithim (ECDSA). However, the curves and hashing algorithim used for each blockchain differ slightly per blockchain.</p>
+
+<table><thead>
+<tr>
+<th>Blockchain</th>
+<th>Signature Algo</th>
+<th>Curve</th>
+<th>Hash Function</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>NEO</td>
+<td>ECDSA</td>
+<td>NIST P-256</td>
+<td>SHA-256</td>
+</tr>
+<tr>
+<td>ETH</td>
+<td>ECDSA</td>
+<td>secp256k1</td>
+<td>SHA-3 (Keccak)</td>
+</tr>
+</tbody></table>
+
+<p>Two steps are required to perform an authenticated action.</p>
+
+<ol>
+<li><p>In the first step:</p>
+
+<ul>
+<li>Sign the parameters of the request using the user&#39;s private key</li>
+<li>Send both the raw parameters and the result of signing the parameters to the first API endpoint</li>
+<li>A response with either a message or transaction will be returned</li>
+</ul></li>
+<li><p>In the second step:</p>
+
+<ul>
+<li>Sign the returned message or transaction with the user&#39;s private key</li>
+<li>Send the signed message or transaction to the second API endpoint</li>
+</ul></li>
+</ol>
+<h3 id='signing-messages-for-neo'>Signing Messages for NEO</h3>
 <blockquote>
-<p>Getting the user&#39;s address</p>
+<p>Signing a message for NEO</p>
 </blockquote>
 <pre class="highlight javascript"><code><span class="kr">const</span> <span class="p">{</span> <span class="nx">wallet</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@cityofzion/neon-js'</span><span class="p">)</span>
-<span class="nx">wallet</span><span class="p">.</span><span class="nx">getScriptHashFromPublicKey</span><span class="p">(</span><span class="s1">'031c37f6cce9627dc635d026deddd1200013c1b78dac767cdb507339a831183fd9'</span><span class="p">)</span>
-<span class="c1">// Result: 87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f</span>
+<span class="kd">function</span> <span class="nx">signMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">wallet</span><span class="p">.</span><span class="nx">generateSignature</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">signMessage</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">,</span> <span class="s1">'&lt;private key&gt;'</span><span class="p">)</span>
 
-<span class="c1">// you can also retrieve the script hash from a wallet address directly with:</span>
-<span class="nx">wallet</span><span class="p">.</span><span class="nx">getScriptHashFromAddress</span><span class="p">(</span><span class="s1">'AQV8FNNi2o7EtMNn4etWBYx1cqBREAifgE'</span><span class="p">)</span>
-<span class="c1">// Result: 87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f</span>
 </code></pre>
-<p>For NEO, an <code>address</code> refers to the <a href="https://en.wikipedia.org/wiki/RIPEMD">RIPEMD160</a> hash of the the user&#39;s ECDSA public key.</p>
+<p><a href="https://github.com/CityOfZion/neon-js">neon-js</a> can be used to sign messages for NEO.</p>
 
-<p>An example implemention to derive an <code>address</code> from a user&#39;s public key can be found in the
-<a href="https://github.com/CityOfZion/neon-js/blob/5d61c31a5d6e5e2e29095e08c70d23449810b509/src/wallet/core.js#L92">neon-js javascript library</a>.</p>
+<p><a href="https://github.com/CityOfZion/neon-js/blob/cf5f92e4124c45a154449bf5852bcab28ddc1b32/src/wallet/core.js#L126">View implementation details</a></p>
+<h4 id='signing-request-parameters'>Signing Request Parameters</h4>
+<blockquote>
+<p>Signing parameters for API requests</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="c1">// 1. Serialize parameters into a string</span>
+<span class="c1">// Note that parameters must be ordered alphanumerically</span>
+<span class="kr">const</span> <span class="nx">rawParams</span> <span class="o">=</span> <span class="p">{</span> <span class="na">blockchain</span><span class="p">:</span> <span class="s1">'neo'</span><span class="p">,</span> <span class="na">timestamp</span><span class="p">:</span> <span class="mi">1529380859</span><span class="p">,</span> <span class="na">apple</span><span class="p">:</span> <span class="s1">'Z'</span><span class="p">,</span> <span class="p">}</span>
+<span class="kr">const</span> <span class="nx">stableStringify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'json-stable-stringify'</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">parameterString</span> <span class="o">=</span> <span class="nx">stableStringify</span><span class="p">(</span><span class="nx">rawParams</span><span class="p">)</span>
+<span class="c1">// parameterString: '{"apple":"Z","blockchain":"neo","timestamp":1529380859}'</span>
 
-<p>Please note the difference in terminology between Switcheo and neon-js. Switcheo&#39;s <code>address</code> is equivalent to neon-js&#39;s <code>scriptHash</code>.</p>
-<h3 id='ethereum-addresses'>Ethereum Addresses</h3>
-<p>For Ethereum, an <code>addresses</code> refers to the <a href="https://en.wikipedia.org/wiki/SHA-3">Keccak</a> hash of the right-most 160-bits of the user&#39;s ECDSA public key, as specified in the Ethereum <a href="http://gavwood.com/paper.pdf">Yellow Paper</a>.</p>
+<span class="c1">// 2. Serialize the parameter string into a hex string</span>
+<span class="kr">const</span> <span class="nx">Neon</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@cityofzion/neon-js'</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">parameterHexString</span> <span class="o">=</span> <span class="nx">Neon</span><span class="p">.</span><span class="nx">u</span><span class="p">.</span><span class="nx">str2hexstring</span><span class="p">(</span><span class="nx">parameterString</span><span class="p">)</span>
 
-<p>Ethereum addresses are sometimes displayed with uppercase letters for verification purposes. When submitting addresses through the Switcheo API however, the address should always be <strong>fully lowercased</strong>.</p>
-<h2 id='amounts'>Amounts</h2>
-<p>When specifying amounts as request parameters, the amounts should first be converted by following these steps:</p>
+<span class="c1">// 3. Zero pad (parameterHexString.length / 2) into a two digit hex string</span>
+<span class="kr">const</span> <span class="nx">lengthHex</span> <span class="o">=</span> <span class="p">(</span><span class="nx">parameterHexString</span><span class="p">.</span><span class="nx">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">).</span><span class="nx">padStart</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'0'</span><span class="p">)</span>
+<span class="c1">// lengthHex: 37</span>
+
+<span class="c1">// 4. Concat lengthHex and parameterHexString</span>
+<span class="kr">const</span> <span class="nx">concatenatedString</span> <span class="o">=</span> <span class="nx">lengthHex</span> <span class="o">+</span> <span class="nx">parameterHexString</span>
+
+<span class="c1">// 5. Wrap concatenatedString in an empty neo transaction and serialize it</span>
+<span class="kr">const</span> <span class="nx">serializedTransaction</span> <span class="o">=</span> <span class="s1">'010001f0'</span> <span class="o">+</span> <span class="nx">concatenatedString</span> <span class="o">+</span> <span class="s1">'0000'</span>
+
+<span class="c1">// 6. Sign serializedTransaction with the user's privateKey</span>
+<span class="kr">const</span> <span class="nx">signature</span> <span class="o">=</span> <span class="nx">signMessage</span><span class="p">(</span><span class="nx">serializedTransaction</span><span class="p">,</span> <span class="s1">'&lt;private key&gt;'</span><span class="p">)</span>
+
+<span class="c1">// 7. Combine the raw parameters with the signature</span>
+<span class="c1">// to get the final parameters to send</span>
+<span class="kr">const</span> <span class="nx">parametersToSend</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="nx">rawParams</span><span class="p">,</span> <span class="nx">signature</span> <span class="p">}</span>
+</code></pre>
+<p>To perform an action, request parameters have to be signed to generate a signature
+parameter. This signature parameter should then be sent together with the other parameters in the request.</p>
 
 <ol>
-<li>Multiply the original amount by 10 to the power of the precision allowed by the given token.</li>
-<li>Drop any decimals, and convert the resulting integer to a string</li>
+<li>Convert the API parameters into a string, with parameters <strong>ordered alphanumerically</strong></li>
+<li>Serialize the parameter string into a hex string</li>
+<li>Zero pad the <strong>length / 2</strong> of the result from (2) into a two digit hex string</li>
+<li>Concat the result of (3) and (2)</li>
+<li>Wrap the result of (4) in a neo transaction</li>
+<li>Sign the result of (5) with the user&#39;s private key</li>
+<li>Send the result of (6) together with the raw parameters to the API endpoint</li>
 </ol>
+<h4 id='example'>Example</h4>
+<p>Using the following parameters as an example:</p>
 
-<p>For example, if the token&#39;s precision is <code>8</code>, and the original amount is <code>9.12345678</code>:</p>
+<p><code>{ blockchain: &#39;neo&#39;, timestamp: 1529380859, apple: &#39;Z&#39; }</code></p>
 
 <ol>
-<li>Following the above steps: <code>9.12345678 * (10 ^ 8)</code> = <code>912345678.00</code></li>
-<li>Drop any decimals to get: <code>912345678</code></li>
-<li>Convert the result to a string to get <code>&quot;912345678&quot;</code></li>
+<li>Convert the parameters into a string with parameters ordered alphanumerically:
+<code>{&quot;apple&quot;:&quot;Z&quot;,&quot;blockchain&quot;:&quot;neo&quot;,&quot;timestamp&quot;:1529380859}</code></li>
+<li>Serialize the parameter into a hex string to get:
+<code>7b226170706c65223a225a222c22626c6f636b636861696e223a226e656f222c2274696d657374616d70223a313532393338303835397d</code></li>
+<li>The length of this string is <code>110</code>, divide this by 2 to get <code>55</code></li>
+<li>Convert <code>55</code> to hexadecimal to get <code>37</code></li>
+<li>Zero pad <code>37</code> into a two digit string if needed. In this case <code>37</code> is already two digits so
+no padding is needed, but if the value was something like <code>8</code> then it should be padded to become <code>08</code></li>
+<li>Form a string by concatenating <code>37</code>, and the result of (2) to get:
+<code>377b226170706c65223a225a222c22626c6f636b636861696e223a226e656f222c2274696d657374616d70223a313532393338303835397d</code></li>
+<li>Prepend <code>010001f0</code> and append <code>0000</code> to (6) to get:
+<code>010001f0377b226170706c65223a225a222c22626c6f636b636861696e223a226e656f222c2274696d657374616d70223a313532393338303835397d0000</code></li>
+<li>Let the user&#39;s private key be
+<code style=" hyphens: none;">cd7b887c29a110e0ce53e81d6dd02805fc7b912718ff8b6659d8da42887342bd</code></li>
+<li>Sign the result from (7) with the private key in (8) to get
+<code style=" hyphens: none;">
+f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cbf71498b81e1e9478f06bef02d32da5d8f8bb7fdfc449879a
+</code></li>
 </ol>
 
-<p>The list of supported assets and their corresponding precisions can be found in the <a href="#tokens">Tokens</a> section.</p>
-<h2 id='parameter-casing'>Parameter Casing</h2>
-<p>Parameters used to generate a signature or sent in API requests should always be snake cased.</p>
+<p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/7f0097ffdab7ce6149d8512d26afc0a0b0a142d6/src/utils.js#L48">View a full example implementation</a></p>
+<h3 id='signing-transactions-for-neo'>Signing Transactions for NEO</h3>
+<blockquote>
+<p>Signing a transaction for NEO</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="c1">// Send the parameters for the first step of an action</span>
+<span class="c1">// and retrieve the response</span>
+<span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="p">...</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">transaction</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">response</span>
 
-<p>Parameters are camel cased in the examples because the examples are in JavaScript and it is
-JavaScript&#39;s convention to use camel case.</p>
+<span class="c1">// verify the transaction data to ensure that it matches the user's intention</span>
+<span class="p">...</span>
 
-<p>The code in the examples make use of helper methods to automatically convert camel cased keys into
-snake cased keys.</p>
-<h2 id='private-keys'>Private Keys</h2>
-<p>Please check the documentation of the respective blockchains for signing with private keys.</p>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">tx</span><span class="p">,</span> <span class="nx">wallet</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@cityofzion/neon-js'</span><span class="p">)</span>
 
-<p>For NEO, there is both a WIF and a private key.</p>
+<span class="kd">function</span> <span class="nx">signTransaction</span><span class="p">(</span><span class="nx">transaction</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">serializedTxn</span> <span class="o">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">serializeTransaction</span><span class="p">(</span><span class="nx">transaction</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">wallet</span><span class="p">.</span><span class="nx">generateSignature</span><span class="p">(</span><span class="nx">serializedTxn</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span>
+<span class="p">}</span>
 
-<p>Example WIF:
-<code style=" hyphens: none;">
-L479CJz4ZyxHiumy2viAjBFk8nixKeMY45DCQa5p4n4AT6M6WsWq
-</code></p>
+<span class="c1">// send the result to the second API endpoint</span>
+<span class="kr">const</span> <span class="nx">signatureToSend</span> <span class="o">=</span> <span class="nx">signTransaction</span><span class="p">(</span><span class="nx">transaction</span><span class="p">,</span> <span class="s1">'&lt;private key&gt;'</span><span class="p">)</span>
+</code></pre>
+<p>The second step of an action usually requires the returned transaction to be signed, this is done by:</p>
 
-<p>Example private key:
-<code style=" hyphens: none;">
-cd7b887c29a110e0ce53e81d6dd02805fc7b912718ff8b6659d8da42887342bd
-</code></p>
-
-<p>The private key should be used for signing, not the WIF.</p>
-<h1 id='exchange-information'>Exchange Information</h1>
+<ol>
+<li>Checking the returned transaction data to ensure it matches the user&#39;s intention</li>
+<li>Serializing the transaction, this can be done with <a href="https://github.com/CityOfZion/neon-js">neon-js</a>
+(<a href="https://github.com/CityOfZion/neon-js/blob/c6a169a82a4d037e00dccd424f53cdc818d6b3ae/src/transactions/core.js#L79">View implementation details</a>)</li>
+<li>Signing the serialized transaction with the user&#39;s private key</li>
+</ol>
+<h2 id='exchange-information'>Exchange Information</h2>
 <p>This section consists of endpoints that allow retrieval of Switcheo Exchange information.</p>
 
 <p>Authentication is not required for these endpoints.</p>
-<h2 id='timestamp'>Timestamp</h2>
-<p>Retrieve the current epoch timestamp in the exchange.</p>
-<h3 id='http-request'>HTTP Request</h3>
+<h3 id='get-timestamp'>Get Timestamp</h3>
+<p>Retrieve the current epoch <a href="#timestamp">timestamp</a> in the exchange.</p>
+<h4 id='http-request'>HTTP Request</h4>
 <p><code>GET /v2/exchange/timestamp</code></p>
 
 <blockquote>
@@ -630,7 +796,7 @@ cd7b887c29a110e0ce53e81d6dd02805fc7b912718ff8b6659d8da42887342bd
 <p>This value should be fetched and used when a timestamp parameter is required for API requests.</p>
 
 <p>If the timestamp used for your API request is not within an acceptable range of the exchange&#39;s timestamp then an invalid signature error will be returned. The acceptable range might vary, but it should be less than one minute.</p>
-<h2 id='contracts'>Contracts</h2><h3 id='http-request-2'>HTTP Request</h3>
+<h3 id='get-contract-hashes'>Get Contract Hashes</h3><h4 id='http-request-2'>HTTP Request</h4>
 <p><code>GET /v2/exchange/contracts</code></p>
 
 <blockquote>
@@ -670,9 +836,104 @@ depending on the Network you intend to work with (TestNet vs the MainNet).</p>
 
 <p>Note also that, ETH contract hashes always include a <code>0x</code> prefix, while NEO never
 includes a <code>0x</code> prefix.</p>
-<h2 id='tokens'>Tokens</h2>
+<h3 id='get-pairs'>Get Pairs</h3>
+<p>Retrieve available trading pairs on Switcheo Exchange filtered by the <code>base</code> parameter. Defaults to all pairs.</p>
+
+<p>The valid <code>base</code> currencies are currently: <code>NEO</code>, <code>GAS</code>, <code>SWTH</code>, <code>USD</code>.</p>
+<h4 id='http-request-3'>HTTP Request</h4>
+<p><code>GET /v2/exchange/pairs</code></p>
+
+<blockquote>
+<p>Example response without details</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="c1">// GET /v2/exchange/pairs?bases=["NEO"]&amp;show_details=0</span>
+<span class="p">[</span>
+  <span class="s2">"GAS_NEO"</span><span class="p">,</span>
+  <span class="s2">"SWTH_NEO"</span><span class="p">,</span>
+  <span class="p">...</span>
+<span class="p">]</span>
+
+</code></pre>
+<blockquote>
+<p>Example response with details
+// GET /v2/exchange/pairs?bases=[&quot;NEO&quot;]&amp;show_details=1
+<code>js
+[
+    {
+        &quot;name&quot;: &quot;GAS_NEO&quot;,
+        &quot;price_precision&quot;: 3
+        &quot;quantity_precision&quot;: 3
+    },
+    {
+        &quot;name&quot;: &quot;SWTH_NEO&quot;,
+        &quot;price_precision&quot;: 6,
+        &quot;quantity_precision&quot;: 2
+    },
+...
+]
+</code></p>
+</blockquote>
+<h4 id='request-parameters'>Request parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>bases</td>
+<td>Array&lt;string&gt;</td>
+<td>no</td>
+<td>Provides pairs for these base symbols. Possible values are <code>NEO, GAS, SWTH, USD</code>.</td>
+</tr>
+<tr>
+<td>show_details</td>
+<td>Boolean</td>
+<td>no</td>
+<td>Show further details for token</td>
+</tr>
+<tr>
+<td>show_inactive</td>
+<td>Boolean</td>
+<td>no</td>
+<td>Show inactive tokens (default is to not return inactive tokens)</td>
+</tr>
+</tbody></table>
+<h4 id='response-parameters-for-code-show_details-0-code'>Response parameters for <code>show_details=0</code></h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Array</td>
+<td>List of token pairings (ticker) <code>&lt;QUOTE&gt;_&lt;BASE&gt;</code> where <code>&lt;QUOTE&gt;</code> is the trading token symbol (e.g. <code>SWTH</code>), while <code>&lt;BASE&gt;</code> is the base token symbol (e.g. <code>NEO</code>)</td>
+</tr>
+</tbody></table>
+<h4 id='response-parameters-for-code-show_details-1-code'>Response parameters for <code>show_details=1</code></h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>The ticker name as <code>&lt;QUOTE&gt;_&lt;BASE&gt;</code> where <code>&lt;QUOTE&gt;</code> is the trading token symbol (e.g. <code>SWTH</code>), while <code>&lt;BASE&gt;</code> is the base token symbol (e.g. <code>NEO</code>)</td>
+</tr>
+<tr>
+<td>precision</td>
+<td>The maximum price precision that can be submitted (e.g. if precision is <code>2</code>,</td>
+</tr>
+</tbody></table>
+
+<p>an order on this pair for <code>1.99</code> or <code>1.90000000</code> price is valid, but <code>1.999</code> is not)</p>
+<h3 id='get-tokens-information'>Get Tokens Information</h3>
 <p>Retrieve a list of supported tokens on Switcheo.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
+<h4 id='http-request-4'>HTTP Request</h4>
 <p><code>GET /v2/exchange/tokens</code></p>
 
 <blockquote>
@@ -742,7 +1003,7 @@ includes a <code>0x</code> prefix.</p>
    <span class="p">}</span>
   <span class="p">...</span>
 <span class="p">}</span>
-</code></pre><h3 id='request-parameters'>Request parameters</h3>
+</code></pre><h4 id='request-parameters-2'>Request parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -764,7 +1025,7 @@ includes a <code>0x</code> prefix.</p>
 <td>Show inactive tokens (default is <code>false</code>)</td>
 </tr>
 </tbody></table>
-<h3 id='response-parameters'>Response parameters</h3>
+<h4 id='response-parameters'>Response parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -812,72 +1073,41 @@ includes a <code>0x</code> prefix.</p>
 <td>Whether the trading of the token is temporarily paused</td>
 </tr>
 </tbody></table>
-<h2 id='pairs'>Pairs</h2>
-<p>Retrieve available currency pairs on Switcheo Exchange filtered by the <code>base</code> parameter. Defaults to all pairs.</p>
-
-<p>The valid <code>base</code> currencies are currently: <code>NEO</code>, <code>GAS</code>, <code>SWTH</code>, <code>USD</code>.</p>
-<h3 id='http-request-4'>HTTP Request</h3>
-<p><code>GET /v2/exchange/pairs</code></p>
-
+<h3 id='get-fee-information'>Get Fee Information</h3>
 <blockquote>
-<p>Example response without details</p>
+<p>Example response</p>
 </blockquote>
-<pre class="highlight javascript"><code><span class="c1">// GET /v2/exchange/pairs?bases=["NEO"]&amp;show_details=0</span>
-<span class="p">[</span>
-  <span class="s2">"GAS_NEO"</span><span class="p">,</span>
-  <span class="s2">"SWTH_NEO"</span><span class="p">,</span>
-  <span class="p">...</span>
+<pre class="highlight javascript"><code><span class="p">[</span>
+<span class="p">{</span>
+    <span class="s2">"eth_address"</span><span class="p">:</span> <span class="s2">"0x3be1f07cdb14d7a19a150dba525b09a6caefde97"</span><span class="p">,</span>
+    <span class="s2">"maker"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"default"</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">},</span>
+    <span class="s2">"taker"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"default"</span><span class="p">:</span> <span class="mf">0.0015</span>
+    <span class="p">},</span>
+    <span class="s2">"native_fee_discount"</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="s2">"native_fee_asset_id"</span><span class="p">:</span> <span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span>
+    <span class="s2">"enforce_native_fees"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"RHT"</span><span class="p">,</span>
+        <span class="s2">"RHTC"</span>
+    <span class="p">],</span>
+    <span class="s2">"native_fee_exchange_rates"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"NEO"</span><span class="p">:</span> <span class="s2">"952.38095238"</span><span class="p">,</span>
+        <span class="s2">"GAS"</span><span class="p">:</span> <span class="s2">"297.14285714"</span><span class="p">,</span>
+        <span class="p">...</span>
+        <span class="s2">"ETH"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
+        <span class="s2">"JRC"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
+        <span class="s2">"SWC"</span><span class="p">:</span> <span class="s2">"0"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 <span class="p">]</span>
 
 </code></pre>
-<blockquote>
-<p>Example response with details
-// GET /v2/exchange/pairs?bases=[&quot;NEO&quot;]&amp;show_details=1
-<code>js
-[
-    {
-        &quot;name&quot;: &quot;GAS_NEO&quot;,
-        &quot;price_precision&quot;: 3
-        &quot;quantity_precision&quot;: 3
-    },
-    {
-        &quot;name&quot;: &quot;SWTH_NEO&quot;,
-        &quot;price_precision&quot;: 6,
-        &quot;quantity_precision&quot;: 2
-    },
-...
-]
-</code></p>
-</blockquote>
-<h3 id='request-parameters-2'>Request parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>bases</td>
-<td>Array&lt;string&gt;</td>
-<td>no</td>
-<td>Provides pairs for these base symbols. Possible values are <code>NEO, GAS, SWTH, USD</code>.</td>
-</tr>
-<tr>
-<td>show_details</td>
-<td>Boolean</td>
-<td>no</td>
-<td>Show further details for token</td>
-</tr>
-<tr>
-<td>show_inactive</td>
-<td>Boolean</td>
-<td>no</td>
-<td>Show inactive tokens (default is to not return inactive tokens)</td>
-</tr>
-</tbody></table>
-<h3 id='response-parameters-for-code-show_details-0-code'>Response parameters for <code>show_details=0</code></h3>
+<p>Returns fee data for various blockchains and pairs</p>
+<h4 id='http-request-5'>HTTP Request</h4>
+<p><code>GET /v2/fees</code></p>
+<h4 id='response-parameters-2'>Response parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -885,31 +1115,33 @@ includes a <code>0x</code> prefix.</p>
 </tr>
 </thead><tbody>
 <tr>
-<td>Array</td>
-<td>List of token pairings (ticker) <code>&lt;QUOTE&gt;_&lt;BASE&gt;</code> where <code>&lt;QUOTE&gt;</code> is the trading token symbol (e.g. <code>SWTH</code>), while <code>&lt;BASE&gt;</code> is the base token symbol (e.g. <code>NEO</code>)</td>
+<td>maker / default</td>
+<td>Default rate for maker orders, before discount (in %)</td>
+</tr>
+<tr>
+<td>taker / default</td>
+<td>Default rate for taker orders, before discount (in %)</td>
+</tr>
+<tr>
+<td>native_fee_discount</td>
+<td>Discount applied to fee for use of native token (as a multiplier)</td>
+</tr>
+<tr>
+<td>native_fee_asset_id</td>
+<td>NEO contract hash of the Native Token (i.e. <code>SWTH</code>)</td>
+</tr>
+<tr>
+<td>enforce_native_fee</td>
+<td>List of asset tickers where fee <strong>must</strong> be paid in Native Tokens</td>
+</tr>
+<tr>
+<td>native_fee_exchange_rates</td>
+<td>List of token:value tuples, containing the exchange rate in Native Token</td>
 </tr>
 </tbody></table>
-<h3 id='response-parameters-for-code-show_details-1-code'>Response parameters for <code>show_details=1</code></h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>name</td>
-<td>The ticker name as <code>&lt;QUOTE&gt;_&lt;BASE&gt;</code> where <code>&lt;QUOTE&gt;</code> is the trading token symbol (e.g. <code>SWTH</code>), while <code>&lt;BASE&gt;</code> is the base token symbol (e.g. <code>NEO</code>)</td>
-</tr>
-<tr>
-<td>precision</td>
-<td>The maximum price precision that can be submitted (e.g. if precision is <code>2</code>,</td>
-</tr>
-</tbody></table>
-
-<p>an order on this pair for <code>1.99</code> or <code>1.90000000</code> price is valid, but <code>1.999</code> is not)</p>
-<h2 id='announcement-message'>Announcement Message</h2>
+<h3 id='get-announcement-message'>Get Announcement Message</h3>
 <p>Retrieve the currently active Switcheo Exchange Announcement</p>
-<h3 id='http-request-5'>HTTP Request</h3>
+<h4 id='http-request-6'>HTTP Request</h4>
 <p><code>GET /v2/exchange/announcement_message</code></p>
 
 <blockquote>
@@ -919,7 +1151,7 @@ includes a <code>0x</code> prefix.</p>
     <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Welcome to Switcheo Exchange!!"</span><span class="p">,</span>
     <span class="s2">"message_type"</span><span class="p">:</span> <span class="s2">"info"</span>
 <span class="p">}</span>
-</code></pre><h3 id='response-parameters-2'>Response parameters</h3>
+</code></pre><h4 id='response-parameters-3'>Response parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -935,174 +1167,13 @@ includes a <code>0x</code> prefix.</p>
 <td>Importance of Message - Possible Values: &quot;alert&quot; \</td>
 </tr>
 </tbody></table>
-<h1 id='authentication'>Authentication</h1>
-<p>As a decentralised exchange, Switcheo does not use passwords or API keys.
-Instead, authentication is done by signing the <strong>request payload</strong> <em>or</em> <strong>blockchain transaction</strong> using the <strong>blockchain-specific</strong>
-digital signature with the user&#39;s private key.</p>
-
-<p>Currently, all supported blockchains uses the ellipitic curve digital signature algorithim (ECDSA). However, the curves and hashing algorithim used for each blockchain differ slightly per blockchain.</p>
-
-<table><thead>
-<tr>
-<th>Blockchain</th>
-<th>Signature Algo</th>
-<th>Curve</th>
-<th>Hash Function</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>NEO</td>
-<td>ECDSA</td>
-<td>NIST P-256</td>
-<td>SHA-256</td>
-</tr>
-<tr>
-<td>ETH</td>
-<td>ECDSA</td>
-<td>secp256k1</td>
-<td>SHA-3 (Keccak)</td>
-</tr>
-</tbody></table>
-<h2 id='action-authentication'>Action Authentication</h2>
-<p>Two steps are required to perform an action.</p>
-
-<ol>
-<li>In the first step:
-
-<ul>
-<li>Sign the parameters of the request using the user&#39;s private key</li>
-<li>Send both the raw parameters and the result of signing the parameters to the first API endpoint</li>
-<li>A response with either a message or transaction will be returned</li>
-</ul></li>
-<li>In the second step:
-
-<ul>
-<li>Sign the returned message or transaction with the user&#39;s private key</li>
-<li>Send the signed message or transaction to the second API endpoint</li>
-</ul></li>
-</ol>
-<h2 id='signing-messages-for-neo'>Signing Messages for NEO</h2>
-<blockquote>
-<p>Signing a message for NEO</p>
-</blockquote>
-<pre class="highlight javascript"><code><span class="kr">const</span> <span class="p">{</span> <span class="nx">wallet</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@cityofzion/neon-js'</span><span class="p">)</span>
-<span class="kd">function</span> <span class="nx">signMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">wallet</span><span class="p">.</span><span class="nx">generateSignature</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="nx">signMessage</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">,</span> <span class="s1">'&lt;private key&gt;'</span><span class="p">)</span>
-
-</code></pre>
-<p><a href="https://github.com/CityOfZion/neon-js">neon-js</a> can be used to sign messages for NEO.</p>
-
-<p><a href="https://github.com/CityOfZion/neon-js/blob/cf5f92e4124c45a154449bf5852bcab28ddc1b32/src/wallet/core.js#L126">View implementation details</a></p>
-<h2 id='signing-request-parameters'>Signing Request Parameters</h2>
-<blockquote>
-<p>Signing parameters for API requests</p>
-</blockquote>
-<pre class="highlight javascript"><code><span class="c1">// 1. Serialize parameters into a string</span>
-<span class="c1">// Note that parameters must be ordered alphanumerically</span>
-<span class="kr">const</span> <span class="nx">rawParams</span> <span class="o">=</span> <span class="p">{</span> <span class="na">blockchain</span><span class="p">:</span> <span class="s1">'neo'</span><span class="p">,</span> <span class="na">timestamp</span><span class="p">:</span> <span class="mi">1529380859</span><span class="p">,</span> <span class="na">apple</span><span class="p">:</span> <span class="s1">'Z'</span><span class="p">,</span> <span class="p">}</span>
-<span class="kr">const</span> <span class="nx">stableStringify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'json-stable-stringify'</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">parameterString</span> <span class="o">=</span> <span class="nx">stableStringify</span><span class="p">(</span><span class="nx">rawParams</span><span class="p">)</span>
-<span class="c1">// parameterString: '{"apple":"Z","blockchain":"neo","timestamp":1529380859}'</span>
-
-<span class="c1">// 2. Serialize the parameter string into a hex string</span>
-<span class="kr">const</span> <span class="nx">Neon</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@cityofzion/neon-js'</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">parameterHexString</span> <span class="o">=</span> <span class="nx">Neon</span><span class="p">.</span><span class="nx">u</span><span class="p">.</span><span class="nx">str2hexstring</span><span class="p">(</span><span class="nx">parameterString</span><span class="p">)</span>
-
-<span class="c1">// 3. Zero pad (parameterHexString.length / 2) into a two digit hex string</span>
-<span class="kr">const</span> <span class="nx">lengthHex</span> <span class="o">=</span> <span class="p">(</span><span class="nx">parameterHexString</span><span class="p">.</span><span class="nx">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">).</span><span class="nx">padStart</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'0'</span><span class="p">)</span>
-<span class="c1">// lengthHex: 37</span>
-
-<span class="c1">// 4. Concat lengthHex and parameterHexString</span>
-<span class="kr">const</span> <span class="nx">concatenatedString</span> <span class="o">=</span> <span class="nx">lengthHex</span> <span class="o">+</span> <span class="nx">parameterHexString</span>
-
-<span class="c1">// 5. Wrap concatenatedString in an empty neo transaction and serialize it</span>
-<span class="kr">const</span> <span class="nx">serializedTransaction</span> <span class="o">=</span> <span class="s1">'010001f0'</span> <span class="o">+</span> <span class="nx">concatenatedString</span> <span class="o">+</span> <span class="s1">'0000'</span>
-
-<span class="c1">// 6. Sign serializedTransaction with the user's privateKey</span>
-<span class="kr">const</span> <span class="nx">signature</span> <span class="o">=</span> <span class="nx">signMessage</span><span class="p">(</span><span class="nx">serializedTransaction</span><span class="p">,</span> <span class="s1">'&lt;private key&gt;'</span><span class="p">)</span>
-
-<span class="c1">// 7. Combine the raw parameters with the signature</span>
-<span class="c1">// to get the final parameters to send</span>
-<span class="kr">const</span> <span class="nx">parametersToSend</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="nx">rawParams</span><span class="p">,</span> <span class="nx">signature</span> <span class="p">}</span>
-</code></pre>
-<p>To perform an action, request parameters have to be signed to generate a signature
-parameter. This signature parameter should then be sent together with the other parameters in the request.</p>
-
-<ol>
-<li>Convert the API parameters into a string, with parameters <strong>ordered alphanumerically</strong></li>
-<li>Serialize the parameter string into a hex string</li>
-<li>Zero pad the <strong>length / 2</strong> of the result from (2) into a two digit hex string</li>
-<li>Concat the result of (3) and (2)</li>
-<li>Wrap the result of (4) in a neo transaction</li>
-<li>Sign the result of (5) with the user&#39;s private key</li>
-<li>Send the result of (6) together with the raw parameters to the API endpoint</li>
-</ol>
-<h3 id='example'>Example</h3>
-<p>Using the following parameters as an example:</p>
-
-<p><code>{ blockchain: &#39;neo&#39;, timestamp: 1529380859, apple: &#39;Z&#39; }</code></p>
-
-<ol>
-<li>Convert the parameters into a string with parameters ordered alphanumerically:
-<code>{&quot;apple&quot;:&quot;Z&quot;,&quot;blockchain&quot;:&quot;neo&quot;,&quot;timestamp&quot;:1529380859}</code></li>
-<li>Serialize the parameter into a hex string to get:
-<code>7b226170706c65223a225a222c22626c6f636b636861696e223a226e656f222c2274696d657374616d70223a313532393338303835397d</code></li>
-<li>The length of this string is <code>110</code>, divide this by 2 to get <code>55</code></li>
-<li>Convert <code>55</code> to hexadecimal to get <code>37</code></li>
-<li>Zero pad <code>37</code> into a two digit string if needed. In this case <code>37</code> is already two digits so
-no padding is needed, but if the value was something like <code>8</code> then it should be padded to become <code>08</code></li>
-<li>Form a string by concatenating <code>37</code>, and the result of (2) to get:
-<code>377b226170706c65223a225a222c22626c6f636b636861696e223a226e656f222c2274696d657374616d70223a313532393338303835397d</code></li>
-<li>Prepend <code>010001f0</code> and append <code>0000</code> to (6) to get:
-<code>010001f0377b226170706c65223a225a222c22626c6f636b636861696e223a226e656f222c2274696d657374616d70223a313532393338303835397d0000</code></li>
-<li>Let the user&#39;s private key be
-<code style=" hyphens: none;">cd7b887c29a110e0ce53e81d6dd02805fc7b912718ff8b6659d8da42887342bd</code></li>
-<li>Sign the result from (7) with the private key in (8) to get
-<code style=" hyphens: none;">
-f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cbf71498b81e1e9478f06bef02d32da5d8f8bb7fdfc449879a
-</code></li>
-</ol>
-
-<p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/7f0097ffdab7ce6149d8512d26afc0a0b0a142d6/src/utils.js#L48">View a full example implementation</a></p>
-<h2 id='signing-transactions'>Signing Transactions</h2>
-<blockquote>
-<p>Signing a transaction for NEO</p>
-</blockquote>
-<pre class="highlight javascript"><code><span class="c1">// Send the parameters for the first step of an action</span>
-<span class="c1">// and retrieve the response</span>
-<span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="p">...</span>
-<span class="kr">const</span> <span class="p">{</span> <span class="nx">transaction</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">response</span>
-
-<span class="c1">// verify the transaction data to ensure that it matches the user's intention</span>
-<span class="p">...</span>
-
-<span class="kr">const</span> <span class="p">{</span> <span class="nx">tx</span><span class="p">,</span> <span class="nx">wallet</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@cityofzion/neon-js'</span><span class="p">)</span>
-
-<span class="kd">function</span> <span class="nx">signTransaction</span><span class="p">(</span><span class="nx">transaction</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">serializedTxn</span> <span class="o">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">serializeTransaction</span><span class="p">(</span><span class="nx">transaction</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
-  <span class="k">return</span> <span class="nx">wallet</span><span class="p">.</span><span class="nx">generateSignature</span><span class="p">(</span><span class="nx">serializedTxn</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="c1">// send the result to the second API endpoint</span>
-<span class="kr">const</span> <span class="nx">signatureToSend</span> <span class="o">=</span> <span class="nx">signTransaction</span><span class="p">(</span><span class="nx">transaction</span><span class="p">,</span> <span class="s1">'&lt;private key&gt;'</span><span class="p">)</span>
-</code></pre>
-<p>The second step of an action usually requires the returned transaction to be signed, this is done by:</p>
-
-<ol>
-<li>Checking the returned transaction data to ensure it matches the user&#39;s intention</li>
-<li>Serializing the transaction, this can be done with <a href="https://github.com/CityOfZion/neon-js">neon-js</a>
-(<a href="https://github.com/CityOfZion/neon-js/blob/c6a169a82a4d037e00dccd424f53cdc818d6b3ae/src/transactions/core.js#L79">View implementation details</a>)</li>
-<li>Signing the serialized transaction with the user&#39;s private key</li>
-</ol>
-<h1 id='tickers'>Tickers</h1>
-<p>This tickers section consists of endpoints that allow retrieval of market data on Switcheo Exchange.</p>
+<h2 id='tickers'>Tickers</h2>
+<p>Ticker endpoints allow retrieval of aggregated market data on Switcheo Exchange.</p>
 
 <p>Authentication is not required for these endpoints.</p>
-<h2 id='candlesticks'>Candlesticks</h2>
+<h3 id='get-candlesticks'>Get Candlesticks</h3>
 <p>Returns candlestick chart data filtered by url parameters.</p>
-<h3 id='http-request-6'>HTTP Request</h3>
+<h4 id='http-request-7'>HTTP Request</h4>
 <p><code>GET /v2/tickers/candlesticks</code></p>
 
 <blockquote>
@@ -1140,7 +1211,7 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
   <span class="p">...</span>
 <span class="p">]</span>
 
-</code></pre><h3 id='request-parameters-3'>Request parameters</h3>
+</code></pre><h4 id='request-parameters-3'>Request parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1174,7 +1245,7 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <td>Candlestick period in minutes Possible values are: 1, 5, 30, 60, 360, 1440</td>
 </tr>
 </tbody></table>
-<h3 id='response-parameters-3'>Response parameters</h3>
+<h4 id='response-parameters-4'>Response parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1210,9 +1281,9 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <td>Volume in quoted token traded during the interval.</td>
 </tr>
 </tbody></table>
-<h2 id='last-24-hours'>Last 24 hours</h2>
+<h3 id='get-last-24-hour-data'>Get Last 24 Hour Data</h3>
 <p>Returns 24-hour data for all pairs and markets.</p>
-<h3 id='http-request-7'>HTTP Request</h3>
+<h4 id='http-request-8'>HTTP Request</h4>
 <p><code>GET /v2/tickers/last_24_hours</code></p>
 
 <blockquote>
@@ -1239,7 +1310,7 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
   <span class="p">}</span>
 <span class="p">]</span>
 
-</code></pre><h3 id='response-parameters-4'>Response parameters</h3>
+</code></pre><h4 id='response-parameters-5'>Response parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1275,9 +1346,9 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <td>Volume in quoted token traded during the interval.</td>
 </tr>
 </tbody></table>
-<h2 id='last-price'>Last price</h2>
+<h3 id='get-last-price'>Get Last Price</h3>
 <p>Returns last price of the requested symbol(s) / base(s). Defaults to all symbols &amp; bases.</p>
-<h3 id='http-request-8'>HTTP Request</h3>
+<h4 id='http-request-9'>HTTP Request</h4>
 <p><code>GET v2/tickers/last_price</code></p>
 
 <blockquote>
@@ -1300,7 +1371,7 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
     <span class="p">}</span>
 <span class="p">}</span>
 
-</code></pre><h3 id='request-parameters-4'>Request parameters</h3>
+</code></pre><h4 id='request-parameters-4'>Request parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1322,7 +1393,7 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <td>Return the price for only these bases.</td>
 </tr>
 </tbody></table>
-<h3 id='response-parameters-5'>Response parameters</h3>
+<h4 id='response-parameters-6'>Response parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1342,11 +1413,11 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <td>Price of <em>symbol</em> in <em>base</em> units with 8 decimal precision</td>
 </tr>
 </tbody></table>
-<h1 id='offers'>Offers</h1>
+<h2 id='offers'>Offers</h2>
 <p>An offer represents an open order on the <a href="https://switcheo.exchange">Switcheo Exchange</a> offer book.</p>
 
 <p>Funds used to make an offer are locked in the contract until the order is cancelled or filled.</p>
-<h2 id='list-offers'>List Offers</h2>
+<h3 id='list-offers'>List Offers</h3>
 <blockquote>
 <p>Example request - ETH Pair</p>
 </blockquote>
@@ -1371,10 +1442,10 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
     <span class="p">....</span>
 <span class="p">]</span>
 </code></pre>
-<p>Retrieves the 70 best offers (per side) on the offer book.</p>
-<h3 id='http-request-9'>HTTP Request</h3>
+<p>Retrieves the raw data for 70 best offers (per side) on the top of the offer book.</p>
+<h4 id='http-request-10'>HTTP Request</h4>
 <p><code>GET /v2/offers</code></p>
-<h3 id='request-parameters-5'>Request Parameters</h3>
+<h4 id='request-parameters-5'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1396,7 +1467,7 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <td>Only return offers for this <a href="#contracts">contract hash</a>.</td>
 </tr>
 </tbody></table>
-<h3 id='response-parameters-6'>Response parameters</h3>
+<h4 id='response-parameters-7'>Response parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1432,9 +1503,9 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <td><a href="#supported-assets">Symbol</a> of the token that the offer maker wants .</td>
 </tr>
 </tbody></table>
-<h3 id='example-2'>Example</h3>
+<h4 id='example-2'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/offers/listOffersExample.js">Full list offers example</a></p>
-<h2 id='offer-book'>Offer book</h2>
+<h3 id='get-offer-book'>Get Offer Book</h3>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -1469,10 +1540,10 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
   <span class="p">]</span>
 <span class="p">}</span>
 </code></pre>
-<p>Retrieves the offer book.</p>
-<h3 id='http-request-10'>HTTP Request</h3>
+<p>Retrieves the offer book with formatted price and quantity.</p>
+<h4 id='http-request-11'>HTTP Request</h4>
 <p><code>GET /v2/offers/book</code></p>
-<h3 id='request-parameters-6'>Request Parameters</h3>
+<h4 id='request-parameters-6'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1494,7 +1565,7 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <td>Only return offers for this <a href="#contracts">contract hash</a>.</td>
 </tr>
 </tbody></table>
-<h3 id='response-parameters-7'>Response parameters</h3>
+<h4 id='response-parameters-8'>Response parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1510,13 +1581,13 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <td>If <code>bids</code> side, returns amount of tokens being bought. If <code>asks</code> side, returns amount of tokens that is being sold.</td>
 </tr>
 </tbody></table>
-<h1 id='trades'>Trades</h1>
+<h2 id='trades'>Trades</h2>
 <p>A trade represents a fill of an offer.</p>
 
 <p>This happens when an incoming order matches an offer on the opposite side of the order book in price.</p>
 
 <p>Trades can be seen on the Trade History column on <a href="https://switcheo.exchange">Switcheo Exchange</a>.</p>
-<h2 id='list-trades'>List Trades</h2>
+<h3 id='list-trades'>List Trades</h3>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -1548,10 +1619,10 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
   <span class="p">...</span>
 <span class="p">]</span>
 </code></pre>
-<p>Retrieves trades that have already occurred on Switcheo Exchange filtered by the request parameters.</p>
-<h3 id='http-request-11'>HTTP Request</h3>
+<p>Retrieves raw trades that occurred on Switcheo Exchange, filtered by the request parameters.</p>
+<h4 id='http-request-12'>HTTP Request</h4>
 <p><code>GET /v2/trades</code></p>
-<h3 id='request-parameters-7'>Request Parameters</h3>
+<h4 id='request-parameters-7'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1591,7 +1662,7 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <td>Only return this number of trades (min: <code>1</code>, max: <code>10000</code>, default: <code>5000</code>).</td>
 </tr>
 </tbody></table>
-<h3 id='response-parameters-8'>Response parameters</h3>
+<h4 id='response-parameters-9'>Response parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1619,9 +1690,29 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <td>Whether the side of the trade is a buy.</td>
 </tr>
 </tbody></table>
-<h3 id='example-3'>Example</h3>
+<h4 id='example-3'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/trades/listTradesExample.js">Full list trades example</a></p>
-<h2 id='recent-trades'>Recent Trades</h2>
+<h3 id='get-recent-trades'>Get Recent Trades</h3>
+<p>Returns <code>20</code> most recent formatted trades on the selected pair sorted by executed time in descending order (most recent first).</p>
+<h4 id='http-request-13'>HTTP Request</h4>
+<p><code>GET /v2/trades/recent</code></p>
+<h4 id='request-parameters-8'>Request Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pair</td>
+<td><strong>string</strong></td>
+<td>yes</td>
+<td>Only return trades for this <a href="#pairs">pair</a>.</td>
+</tr>
+</tbody></table>
+<h4 id='response-parameters-10'>Response parameters</h4>
 <blockquote>
 <p>Example response</p>
 </blockquote>
@@ -1638,26 +1729,6 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
   <span class="p">...</span>
 <span class="p">]</span>
 </code></pre>
-<p>Returns <code>20</code> most recent trades on the selected pair sorted by executed time in descending order (most recent first).</p>
-<h3 id='http-request-12'>HTTP Request</h3>
-<p><code>GET /v2/trades/recent</code></p>
-<h3 id='request-parameters-8'>Request Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>pair</td>
-<td><strong>string</strong></td>
-<td>yes</td>
-<td>Only return trades for this <a href="#pairs">pair</a>.</td>
-</tr>
-</tbody></table>
-<h3 id='response-parameters-9'>Response parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1693,99 +1764,28 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <td>Time that trade was broadcasted in epoch <strong>seconds</strong></td>
 </tr>
 </tbody></table>
-<h1 id='fees'>Fees</h1>
-<p>This section consists of endpoints which allow the retrieval of fee data on Switcheo Exchange.</p>
-
-<p>Authentication is not required for these endpoints.</p>
-<h2 id='fees-2'>Fees</h2>
-<blockquote>
-<p>Example response</p>
-</blockquote>
-<pre class="highlight javascript"><code><span class="p">[</span>
-<span class="p">{</span>
-    <span class="s2">"eth_address"</span><span class="p">:</span> <span class="s2">"0x3be1f07cdb14d7a19a150dba525b09a6caefde97"</span><span class="p">,</span>
-    <span class="s2">"maker"</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">"default"</span><span class="p">:</span> <span class="mi">0</span>
-    <span class="p">},</span>
-    <span class="s2">"taker"</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">"default"</span><span class="p">:</span> <span class="mf">0.0015</span>
-    <span class="p">},</span>
-    <span class="s2">"native_fee_discount"</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
-    <span class="s2">"native_fee_asset_id"</span><span class="p">:</span> <span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span>
-    <span class="s2">"enforce_native_fees"</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">"RHT"</span><span class="p">,</span>
-        <span class="s2">"RHTC"</span>
-    <span class="p">],</span>
-    <span class="s2">"native_fee_exchange_rates"</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">"NEO"</span><span class="p">:</span> <span class="s2">"952.38095238"</span><span class="p">,</span>
-        <span class="s2">"GAS"</span><span class="p">:</span> <span class="s2">"297.14285714"</span><span class="p">,</span>
-        <span class="p">...</span>
-        <span class="s2">"ETH"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
-        <span class="s2">"JRC"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
-        <span class="s2">"SWC"</span><span class="p">:</span> <span class="s2">"0"</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="p">]</span>
-
-</code></pre>
-<p>Returns fee data for various blockchains and pairs</p>
-<h3 id='http-request-13'>HTTP Request</h3>
-<p><code>GET /v2/fees</code></p>
-<h3 id='response-parameters-10'>Response parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>maker / default</td>
-<td>Default rate for maker orders, before discount (in %)</td>
-</tr>
-<tr>
-<td>taker / default</td>
-<td>Default rate for taker orders, before discount (in %)</td>
-</tr>
-<tr>
-<td>native_fee_discount</td>
-<td>Discount applied to fee for use of native token (as a multiplier)</td>
-</tr>
-<tr>
-<td>native_fee_asset_id</td>
-<td>NEO contract hash of the Native Token (i.e. <code>SWTH</code>)</td>
-</tr>
-<tr>
-<td>enforce_native_fee</td>
-<td>List of asset tickers where fee <strong>must</strong> be paid in Native Tokens</td>
-</tr>
-<tr>
-<td>native_fee_exchange_rates</td>
-<td>List of token:value tuples, containing the exchange rate in Native Token</td>
-</tr>
-</tbody></table>
-<h1 id='deposits'>Deposits</h1>
-<p><strong>Description</strong></p>
-
-<p>Deposits allows movement of funds from your wallet into the Switcheo smart contract.
-This movement of funds is free of charge.
-Trading on Switcheo Exchange can only be done using funds that have been successfully deposited into the smart contract.</p>
+<h2 id='deposits'>Deposits</h2>
+<p>Deposits are a transfer of tokens from your wallet into the Switcheo smart contract.</p>
+<h3 id='overview-3'>Overview</h3>
+<p>Trading on Switcheo Exchange can only be done using funds that have been successfully deposited into the smart contract.</p>
 
 <p>Deposits are not instantaneous.
-Once a deposit has been executed, funds in your wallet balance would be deducted by the amount of tokens you chose to deposit.
-Funds deducted from your wallet balance will be added to your contract balance but put on hold until
+Once a deposit has been executed, funds in your wallet balance would be deducted by the amount of tokens you chose to deposit.</p>
+
+<p>Funds deducted from your wallet balance will be added to your contract balance but put on hold until
 Switcheo has determined that it has been successfully broadcasted to the blockchain.</p>
-<h2 id='testnet-faucet'>TestNet Faucet</h2>
+<h3 id='testing-with-testnet-faucet'>Testing with TestNet Faucet</h3>
 <p>For the convenience of testing API endpoints, tokens can be received through our TestNet faucet.
 To use the faucet:</p>
 
 <ol>
-<li>Go to <a href="https://beta.switcheo.exchange/">https://beta.switcheo.exchange/</a></li>
+<li>Go to <a href="https://legacy.switcheo.exchange/">https://legacy.switcheo.exchange/</a></li>
 <li>Click on the TestNet/MainNet selector at the bottom of the page</li>
 <li>Select TestNet V2</li>
 <li>Click on <strong>WALLET LOGIN</strong> to login</li>
 <li>Click on the <strong>FAUCET</strong> button to receive tokens for testing</li>
 </ol>
-<h2 id='create-deposit'>Create Deposit</h2>
+<h3 id='create-deposit'>Create Deposit</h3>
 <blockquote>
 <p>Create a deposit</p>
 </blockquote>
@@ -1867,9 +1867,9 @@ To be able to make a deposit, sufficient funds are required in the depositing wa
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Deposit endpoint has to be called for the deposit to be executed.
 </aside>
-<h3 id='http-request-14'>HTTP Request</h3>
+<h4 id='http-request-14'>HTTP Request</h4>
 <p><code>POST /v2/deposits</code></p>
-<h3 id='request-parameters-9'>Request Parameters</h3>
+<h4 id='request-parameters-9'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1921,9 +1921,9 @@ To be able to make a deposit, sufficient funds are required in the depositing wa
 <td>The depositer&#39;s <a href="#addresses">address</a>. <strong>Do not include this in the parameters to be signed.</strong></td>
 </tr>
 </tbody></table>
-<h3 id='example-4'>Example</h3>
+<h4 id='example-4'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/deposits/createDepositExample.js">Full create deposit example</a></p>
-<h2 id='execute-deposit'>Execute Deposit</h2>
+<h3 id='execute-deposit'>Execute Deposit</h3>
 <blockquote>
 <p>Execute a deposit</p>
 </blockquote>
@@ -1948,9 +1948,9 @@ you will receive a response which requires additional signing.</p>
 
 <p>Note that a <code>sha256</code> parameter is provided for convenience to be used directly as part of the ECDSA signature process.
  <em>In production mode, this should be recalculated for additional security.</em></p>
-<h3 id='http-request-15'>HTTP Request</h3>
+<h4 id='http-request-15'>HTTP Request</h4>
 <p><code>POST /v2/deposits/:id/broadcast</code></p>
-<h3 id='request-parameters-10'>Request Parameters</h3>
+<h4 id='request-parameters-10'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1966,19 +1966,16 @@ you will receive a response which requires additional signing.</p>
 </tbody></table>
 
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/deposits/executeDepositExample.js">Full execute deposit example</a></p>
-<h1 id='withdrawals'>Withdrawals</h1>
-<p><strong>Description</strong></p>
-
-<p>Withdrawals allow free movement of tokens from the Switcheo smart contract into your wallet.
-This movement of tokens is free of charge.</p>
-
+<h2 id='withdrawals'>Withdrawals</h2>
+<p>Withdrawals are a transfer of tokens from the Switcheo smart contract into your wallet.</p>
+<h3 id='overview-4'>Overview</h3>
 <p>Once a withdrawal has been executed, tokens in your contract balance would be deducted.
 Tokens that are put on hold by orders cannot be withdrawn.</p>
 
 <p>Withdrawals are not instantaneous.
 Tokens deducted from your contract balance will be added to your wallet balance but put on hold until
 the withdrawal has been fully executed.</p>
-<h2 id='create-withdrawal'>Create Withdrawal</h2>
+<h3 id='create-withdrawal'>Create Withdrawal</h3>
 <blockquote>
 <p>Create a withdrawal</p>
 </blockquote>
@@ -2029,9 +2026,9 @@ To be able to make a withdrawal, sufficient funds are required in the contract b
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Withdrawal endpoint has to be called for the withdrawal to be executed.
 </aside>
-<h3 id='http-request-16'>HTTP Request</h3>
+<h4 id='http-request-16'>HTTP Request</h4>
 <p><code>POST /v2/withdrawals</code></p>
-<h3 id='request-parameters-11'>Request Parameters</h3>
+<h4 id='request-parameters-11'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2083,9 +2080,9 @@ To be able to make a withdrawal, sufficient funds are required in the contract b
 <td>The withdrawer&#39;s <a href="#addresses">address</a>. <strong>Do not include this in the parameters to be signed.</strong></td>
 </tr>
 </tbody></table>
-<h3 id='example-5'>Example</h3>
+<h4 id='example-5'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/withdrawals/createWithdrawalExample.js">Full create withdrawal example</a></p>
-<h2 id='execute-withdrawal'>Execute Withdrawal</h2>
+<h3 id='execute-withdrawal'>Execute Withdrawal</h3>
 <blockquote>
 <p>Executing a withdrawal</p>
 </blockquote>
@@ -2126,9 +2123,9 @@ To be able to make a withdrawal, sufficient funds are required in the contract b
 <p>This is the second endpoint required to execute a withdrawal.
 After using the <a href="#create-withdrawal">Create Withdrawal</a> endpoint,
 you will receive a response which requires additional signing.</p>
-<h3 id='http-request-17'>HTTP Request</h3>
+<h4 id='http-request-17'>HTTP Request</h4>
 <p><code>POST /v2/withdrawals/:id/broadcast</code></p>
-<h3 id='request-parameters-12'>Request Parameters</h3>
+<h4 id='request-parameters-12'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2156,20 +2153,20 @@ you will receive a response which requires additional signing.</p>
 <td>Signature of the request payload. See <a href="#authentication">Authentication</a> for more details.</td>
 </tr>
 </tbody></table>
-<h3 id='example-6'>Example</h3>
+<h4 id='example-6'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/withdrawals/executeWithdrawalExample.js">Full execute withdrawal example</a></p>
-<h1 id='orders'>Orders</h1>
-<p><strong>Description</strong></p>
-
-<p>Orders are instructions to buy or sell assets on Switcheo Exchange.</p>
-
+<h2 id='orders'>Orders</h2>
+<p>Orders are instructions to buy or sell tokens on Switcheo Exchange.</p>
+<h3 id='overview-5'>Overview</h3>
 <p>At the moment, only Limit orders are available. Market, Fill-Or-Cancel, Make-Or-Cancel, etc. strategies are not available yet.</p>
 
 <p>As such, orders will contain a combination of zero or one <strong>make</strong> and/or zero or more <strong>fills</strong>.</p>
 
 <p>Once an order is placed, the funds required for the order is removed from the user&#39;s balance
  and placed on hold until the order is filled or the order is cancelled.</p>
-<h2 id='the-order-object'>The Order Object</h2>
+<h3 id='the-order-model'>The Order Model</h3>
+<p>A breakdown of attributes in an order object returned from our API is described below.</p>
+<h4 id='order-object'>Order Object</h4>
 <blockquote>
 <p>Example order</p>
 </blockquote>
@@ -2280,7 +2277,7 @@ you will receive a response which requires additional signing.</p>
 <td>Refer to the <a href="#the-make-object">makes</a> section for more details.</td>
 </tr>
 </tbody></table>
-<h2 id='the-fill-object'>The Fill Object</h2>
+<h5 id='fill-object'>Fill Object</h5>
 <blockquote>
 <p>Example fill</p>
 </blockquote>
@@ -2369,7 +2366,7 @@ These <code>fills</code> represent the filling of the order by the matching offe
 <td>Transaction hash of the transaction representing this fill.</td>
 </tr>
 </tbody></table>
-<h2 id='the-make-object'>The Make Object</h2>
+<h5 id='make-object'>Make Object</h5>
 <blockquote>
 <p>Example make</p>
 </blockquote>
@@ -2458,7 +2455,7 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 <td>Transaction hash of the transaction representing this make.</td>
 </tr>
 </tbody></table>
-<h2 id='list-orders'>List Orders</h2>
+<h3 id='list-orders'>List Orders</h3>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -2495,9 +2492,9 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>Retrieves orders from a specific address filtered by the given parameters.</p>
-<h3 id='http-request-18'>HTTP Request</h3>
+<h4 id='http-request-18'>HTTP Request</h4>
 <p><code>GET /v2/orders</code></p>
-<h3 id='request-parameters-13'>Request Parameters</h3>
+<h4 id='request-parameters-13'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2549,9 +2546,9 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 <td>Only return up to this number of orders (min: <code>1</code>, max: <code>200</code>, default: <code>50</code>).</td>
 </tr>
 </tbody></table>
-<h3 id='example-7'>Example</h3>
+<h4 id='example-7'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/listOrdersExample.js">Full list orders example</a></p>
-<h2 id='create-order'>Create Order</h2>
+<h3 id='create-order'>Create Order</h3>
 <p>This endpoint creates an order which can be executed through <a href="#execute-order">Broadcast Order</a>.
 Orders can only be created after sufficient funds have been <a href="#deposits">deposited</a> into the user&#39;s contract balance.
 A successful order will have zero or one <strong>make</strong> and/or zero or more <strong>fills</strong>.</p>
@@ -2559,9 +2556,9 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Broadcast Order endpoint has to be called for the order to be executed.
 </aside>
-<h3 id='http-request-19'>HTTP Request</h3>
+<h4 id='http-request-19'>HTTP Request</h4>
 <p><code>POST /v2/orders</code></p>
-<h3 id='request-parameters-14'>Request Parameters</h3>
+<h4 id='request-parameters-14'>Request Parameters</h4>
 <p>For the below descriptions, the <code>order maker</code> refers to your API user.</p>
 
 <blockquote>
@@ -2736,9 +2733,9 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 <td><a href="#addresses">Address</a> of the order maker. <strong>Do not include this in the parameters to be signed.</strong></td>
 </tr>
 </tbody></table>
-<h3 id='example-8'>Example</h3>
+<h4 id='example-8'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createOrderExample.js">Full create order example</a></p>
-<h2 id='execute-order'>Execute Order</h2>
+<h3 id='execute-order'>Execute Order</h3>
 <p>This is the second endpoint required to execute an order.
 After using the <a href="#create-order">Create Order</a> endpoint, you will receive a response which needs to be signed.</p>
 
@@ -2757,9 +2754,9 @@ After using the <a href="#create-order">Create Order</a> endpoint, you will rece
 </code></pre>
 <p>Every <code>txn</code> of the <code>fills</code> and <code>makes</code> in the Create Order response should be <a href="#authentication">signed</a>,
 and structured in the <code>signatures</code> format shown on the right.</p>
-<h3 id='http-request-20'>HTTP Request</h3>
+<h4 id='http-request-20'>HTTP Request</h4>
 <p><code>POST /v2/orders/:id/broadcast</code></p>
-<h3 id='request-parameters-15'>Request Parameters</h3>
+<h4 id='request-parameters-15'>Request Parameters</h4>
 <blockquote>
 <p>Broadcast an order</p>
 </blockquote>
@@ -2810,9 +2807,9 @@ and structured in the <code>signatures</code> format shown on the right.</p>
 <td>See the section description and example for the format.</td>
 </tr>
 </tbody></table>
-<h3 id='example-9'>Example</h3>
+<h4 id='example-9'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/broadcastOrderExample.js">Full broadcast order example</a></p>
-<h2 id='create-cancellation'>Create Cancellation</h2>
+<h3 id='create-cancellation'>Create Cancellation</h3>
 <blockquote>
 <p>Create a cancellation</p>
 </blockquote>
@@ -2829,9 +2826,9 @@ Only orders <strong>with makes</strong> and with an <code>available_amount</code
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Cancellation endpoint has to be called for the cancellation to be executed.
 </aside>
-<h3 id='http-request-21'>HTTP Request</h3>
+<h4 id='http-request-21'>HTTP Request</h4>
 <p><code>POST /v2/cancellations</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<h4 id='url-parameters'>URL Parameters</h4>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -2914,9 +2911,9 @@ Only orders <strong>with makes</strong> and with an <code>available_amount</code
 <td><a href="#addresses">Address</a> of the order maker. <strong>Do not include this in the parameters to be signed.</strong></td>
 </tr>
 </tbody></table>
-<h3 id='example-10'>Example</h3>
+<h4 id='example-10'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createCancellationExample.js">Full create cancellation example</a></p>
-<h2 id='execute-cancellation'>Execute Cancellation</h2>
+<h3 id='execute-cancellation'>Execute Cancellation</h3>
 <blockquote>
 <p>Execute a cancellation</p>
 </blockquote>
@@ -2940,9 +2937,9 @@ a transaction in the response which must be signed.</p>
 <pre class="highlight javascript"><code><span class="p">{</span>
   <span class="s2">"signature"</span><span class="p">:</span> <span class="s2">"&lt;signature&gt;"</span>
 <span class="p">}</span>
-</code></pre><h3 id='http-request-22'>HTTP Request</h3>
+</code></pre><h4 id='http-request-22'>HTTP Request</h4>
 <p><code>POST /v2/cancellations/:id/broadcast</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
+<h4 id='url-parameters-2'>URL Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2958,9 +2955,9 @@ a transaction in the response which must be signed.</p>
 <td>Signature of the transaction. See <a href="#authentication">Authentication</a> for more details.</td>
 </tr>
 </tbody></table>
-<h3 id='example-11'>Example</h3>
+<h4 id='example-11'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/executeCancellationExample.js">Full execute cancellation example</a></p>
-<h2 id='computing-the-offer-hash'>Computing the Offer Hash</h2>
+<h3 id='computing-offer-hash-neo'>Computing Offer Hash (NEO)</h3>
 <blockquote>
 <p>Computing the offer_hash</p>
 </blockquote>
@@ -2994,7 +2991,7 @@ a transaction in the response which must be signed.</p>
 
 <p>To compute the offer_hash yourself, you can take reference from the example code snippet that is shown on the right.
   You can find the <code>u</code> library from <a href="https://github.com/CityOfZion/neon-js/tree/31600a3cb9c38b9a0d961e98475e4cc81c908cd8/packages/neon-core/src/u">neon-js</a>.</p>
-<h1 id='balances'>Balances</h1>
+<h2 id='balances'>Balances</h2>
 <p><strong>Description</strong></p>
 
 <p>There are two types of balances.</p>
@@ -3016,7 +3013,15 @@ a transaction in the response which must be signed.</p>
 </tbody></table>
 
 <p>Trading on Switcheo Exchange can only be done using your contract balance.</p>
-<h2 id='list-balances'>List balances</h2>
+<h3 id='list-contract-balance'>List Contract Balance</h3>
+<p>List contract balances of the given address and contract.</p>
+
+<p>The purpose of this endpoint is to allow convenient querying of a user&#39;s balance across
+multiple blockchains, for example, if you want to retrieve a user&#39;s NEO and ethereum balances.</p>
+
+<p>As such, when using this endpoint, balances for the specified addresses and contract hashes
+will be merged and summed.</p>
+<h4 id='http-request-23'>HTTP Request</h4>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -3033,6 +3038,30 @@ a transaction in the response which must be signed.</p>
 <span class="c1">// The URL should be:</span>
 <span class="c1">// /v2/balances?addresses[]=address_1&amp;contract_hashes[]=contract_hash_1&amp;contract_hashes[]=contract_hash_2</span>
 </code></pre>
+<p><code>/v2/balances</code></p>
+<h4 id='url-parameters-3'>URL parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>addresses</td>
+<td><strong>array</strong></td>
+<td>yes</td>
+<td>Only return balances for these <a href="#addresses">addresses</a></td>
+</tr>
+<tr>
+<td>contract_hashes</td>
+<td><strong>array</strong></td>
+<td>yes</td>
+<td>Only return balances from these <a href="#contracts">contract hashes</a>.</td>
+</tr>
+</tbody></table>
+<h4 id='example-12'>Example</h4>
 <blockquote>
 <p>Example response:</p>
 </blockquote>
@@ -3059,87 +3088,9 @@ a transaction in the response which must be signed.</p>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<p>List contract balances of the given address and contract.</p>
-
-<p>The purpose of this endpoint is to allow convenient querying of a user&#39;s balance across
-multiple blockchains, for example, if you want to retrieve a user&#39;s NEO and ethereum balances.</p>
-
-<p>As such, when using this endpoint, balances for the specified addresses and contract hashes
-will be merged and summed.</p>
-<h3 id='http-request-23'>HTTP Request</h3>
-<p><code>/v2/balances</code></p>
-<h3 id='url-parameters-3'>URL parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>addresses</td>
-<td><strong>array</strong></td>
-<td>yes</td>
-<td>Only return balances for these <a href="#addresses">addresses</a></td>
-</tr>
-<tr>
-<td>contract_hashes</td>
-<td><strong>array</strong></td>
-<td>yes</td>
-<td>Only return balances from these <a href="#contracts">contract hashes</a>.</td>
-</tr>
-</tbody></table>
-<h3 id='example-12'>Example</h3>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/balances/listBalancesExample.js">Full list balances example</a></p>
-<h1 id='websocket-api'>Websocket API</h1>
-<p>This section documents the Switcheo Exchange websocket interface, which is used for transfer of streaming data to clients. It is recommended to use <a href="https://socket.io/">socket.io</a> for connecting to this interface.</p>
-
-<p>Authentication is not required for these endpoints.</p>
-<h2 id='offers-2'>Offers</h2>
-<blockquote>
-<p>Example response</p>
-</blockquote>
-<pre class="highlight javascript"><code><span class="p">[</span>
-  <span class="s2">"join"</span><span class="p">,</span>
-  <span class="p">{</span>
-    <span class="na">contractHash</span><span class="p">:</span> <span class="s2">"91b83e96f2a7c4fdf0c1688441ec61986c7cae26"</span><span class="p">,</span>
-    <span class="na">pair</span><span class="p">:</span> <span class="s2">"FTWX_NEO"</span>
-   <span class="p">}</span>
-<span class="p">]</span>
-</code></pre><h3 id='join-room'>Join Room</h3><h3 id='request-parameters-16'>Request parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>contractHash</td>
-<td>Address of the exchange contract to subscribe to.</td>
-</tr>
-<tr>
-<td>pair</td>
-<td>Asset pair to subscribe to.</td>
-</tr>
-</tbody></table>
-<h3 id='response-parameters-11'>Response parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-</tbody></table>
-
-<p>Coming soon..</p>
-<h2 id='trades-2'>Trades</h2>
-<p>Coming soon..</p>
-<h2 id='orders-2'>Orders</h2>
-<p>Coming soon..</p>
-<h1 id='errors'>Errors</h1>
-<p>The Switcheo API uses the following error codes:</p>
+<h2 id='errors'>Errors</h2>
+<p>The Switcheo REST API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -3180,6 +3131,519 @@ will be merged and summed.</p>
 <td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
 </tr>
 </tbody></table>
+<h1 id='streaming-api-2'>Streaming API</h1><h2 id='introduction-3'>Introduction</h2>
+<p>Switcheo offers 3 APIs for streaming data:</p>
+
+<ol>
+<li>a public Offer Book API</li>
+<li>a public Trade Events API</li>
+<li>a private Order Events API</li>
+</ol>
+
+<p>Advantages include:</p>
+
+<ul>
+<li>receive notifications in real time</li>
+<li>reduce the amount of data you have to transfer over the network</li>
+<li>reduce latency introduced by polling interval</li>
+</ul>
+
+<p>For example, to maintain an order book on your client and react to changes on it, you may be polling the <a href="#get-offer-book">Get Offer Book</a> endpoint every three seconds:</p>
+
+<ol>
+<li>request <code>/v2/offers</code></li>
+<li>bring back HTTP header data and a response body</li>
+<li>parse the JSON in the response body</li>
+<li>compare the latest response against the previous response to see what has changed</li>
+</ol>
+
+<p>Using the public Offer Book API, you can instead subscribe once and receive real time notifications of all
+offer book changes.</p>
+
+<p>The Switcheo Streaming API uses the <a href="https://socket.io/">Socket.IO</a> protocol. It is recommended to use a Socket.IO <a href="https://github.com/socketio/socket.io#features">client</a> for connecting the API.</p>
+
+<p>For more information on how the Socket.IO protocol works in general, refer to:</p>
+
+<ul>
+<li><a href="https://socket.io/docs/#What-Socket-IO-is">What Socket.IO is</a></li>
+<li><a href="https://github.com/socketio/socket.io-protocol">Socket.IO Protocol</a></li>
+</ul>
+<h2 id='connection-endpoints'>Connection Endpoints</h2>
+<blockquote>
+<p>Example</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">io</span><span class="p">(</span><span class="s1">'wss://test-ws.switcheo.io/&lt;namespace&gt;'</span><span class="p">);</span>
+</code></pre>
+<p>The connection endpoints are:</p>
+
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Base URL</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Sandbox / TestNet</td>
+<td><a href="wss://test-ws.switcheo.io">wss://test-ws.switcheo.io/</a></td>
+</tr>
+<tr>
+<td>Production / MainNet</td>
+<td><a href="wss://ws.switcheo.io">wss://ws.switcheo.io</a></td>
+</tr>
+</tbody></table>
+<h2 id='event-types'>Event Types</h2>
+<p>Below are the event types that may be emitted by WebSocket server. In addition,
+all standard Socket.IO events are also emitted.</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>all</code></td>
+<td>Server</td>
+<td>Emitted when initially joining a room</td>
+</tr>
+<tr>
+<td><code>more</code></td>
+<td>Server</td>
+<td>Emitted in response to additional data requested by client</td>
+</tr>
+<tr>
+<td><code>updates</code></td>
+<td>Server</td>
+<td>Emitted when a new event occurs</td>
+</tr>
+</tbody></table>
+
+<p>Below are the event types that can be emitted by the client and are processed by the WebSocket server.</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>join</code></td>
+<td>Client</td>
+<td>Emit to join a room (i.e. subscribe to a channel)</td>
+</tr>
+<tr>
+<td><code>leave</code></td>
+<td>Client</td>
+<td>Emit to leave a room (i.e. unsubscribe from a channel)</td>
+</tr>
+<tr>
+<td><code>more</code></td>
+<td>Client</td>
+<td>Emit to fetch more data</td>
+</tr>
+</tbody></table>
+<h2 id='rooms'>Rooms</h2>
+<blockquote>
+<p>Example</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="nx">io</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'connection'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">socket</span><span class="p">){</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">join</span><span class="p">({</span> <span class="p">...</span> <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+<p>After connecting to the Switcheo API, clients need to join the appropriate room in order to send or receive data.</p>
+
+<p>Note that the room to join is always an object. The namespace and room parameters are described in each API section below. To learn more about Room and Namespaces, see the <a href="https://socket.io/docs/rooms-and-namespaces/">Socket.io docs</a>.</p>
+<h2 id='offer-book'>Offer Book</h2>
+<p>The Offer Book API allows clients to maintain an offer book, with diff-ing support to ensure data integrity.</p>
+<h3 id='socket-connection'>Socket Connection</h3>
+<blockquote>
+<p>Example</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">io</span><span class="p">(</span><span class="s1">'wss://test-ws.switcheo.io/books'</span><span class="p">);</span>
+<span class="nx">io</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'connection'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">socket</span><span class="p">){</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">join</span><span class="p">({</span>
+    <span class="na">contractHash</span><span class="p">:</span> <span class="s2">"91b83e96f2a7c4fdf0c1688441ec61986c7cae26"</span><span class="p">,</span>
+    <span class="na">pair</span><span class="p">:</span> <span class="s2">"SWTH_NEO"</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+<p>To subscribe to the offer book API, connect to the <code>offers</code> namespace and join the room with the following parameters:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>contractHash</td>
+<td><a href="#contract-hashes">Contract hash</a> of the exchange</td>
+</tr>
+<tr>
+<td>pair</td>
+<td><a href="#get-pairs">Pair</a> of the offer book to subscribe</td>
+</tr>
+</tbody></table>
+<h3 id='all-event'>All Event</h3>
+<blockquote>
+<p>Example Event</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span>
+  <span class="nl">book</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">buys</span><span class="p">:</span> <span class="p">[</span> <span class="c1">// i.e. bids</span>
+      <span class="p">{</span> <span class="na">price</span><span class="p">:</span> <span class="s1">'0.01000000'</span><span class="p">,</span> <span class="na">amount</span><span class="p">:</span> <span class="s1">'100'</span> <span class="p">},</span> <span class="c1">// amount refers to the quote quantity</span>
+      <span class="p">{</span> <span class="na">price</span><span class="p">:</span> <span class="s1">'0.09000000'</span><span class="p">,</span> <span class="na">amount</span><span class="p">:</span> <span class="s1">'50'</span> <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">],</span>
+    <span class="nx">sells</span><span class="p">:</span> <span class="p">[</span> <span class="c1">// i.e. asks</span>
+      <span class="p">...</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+  <span class="nl">digest</span><span class="p">:</span> <span class="s1">'2fd4e1c67a2d28fced849ee1bb76e7391b93eb12'</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre>
+<p>Upon joining the appropriate room, you will receieve an <code>all</code> event on your socket, which will contain the full data of the offer book for the subscribed pair, as well as a SHA-1 digest.</p>
+
+<p>The SHA-1 digest can be used to maintain offer book integrity after future updates are applied.</p>
+<h4 id='response-fields'>Response Fields</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>book</td>
+<td>The offer book data</td>
+</tr>
+<tr>
+<td>digest</td>
+<td>A SHA-1 digest of the stringified JSON <code>book</code></td>
+</tr>
+</tbody></table>
+<h3 id='updates-event'>Updates Event</h3>
+<blockquote>
+<p>Example Event</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span>
+  <span class="nl">events</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="na">price</span><span class="p">:</span> <span class="s1">'0.01000000'</span><span class="p">,</span> <span class="na">side</span><span class="p">:</span> <span class="s1">'buy'</span><span class="p">,</span> <span class="na">delta</span><span class="p">:</span> <span class="s1">'-1'</span> <span class="p">},</span>
+    <span class="p">...</span>
+  <span class="p">],</span>
+  <span class="nx">digest</span><span class="p">:</span> <span class="s1">'62d7beb325a49df2c323c45fd27e119d524468e0'</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Example Handling</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'all'</span><span class="p">,</span> <span class="p">({</span> <span class="nx">events</span><span class="p">,</span> <span class="nx">digest</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">events</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">event</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">book</span><span class="p">[</span><span class="nx">event</span><span class="p">.</span><span class="nx">side</span><span class="p">].</span><span class="nx">findIndex</span><span class="p">(</span><span class="nx">o</span> <span class="o">=&gt;</span> <span class="nx">o</span><span class="p">.</span><span class="nx">price</span> <span class="o">===</span> <span class="nx">event</span><span class="p">.</span><span class="nx">price</span><span class="p">)</span>
+    <span class="nx">oldBook</span><span class="p">[</span><span class="nx">event</span><span class="p">.</span><span class="nx">side</span><span class="p">].</span><span class="nx">amount</span> <span class="o">+=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">delta</span>
+  <span class="p">})</span>
+  <span class="kr">const</span> <span class="nx">computedDigest</span> <span class="o">=</span> <span class="nx">computeDigest</span><span class="p">(</span><span class="nx">book</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">computedDigest</span> <span class="o">!==</span> <span class="nx">digest</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">'offer book desynchronized!'</span><span class="p">)</span> <span class="c1">// handle by rejoining room</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+<p>Whenever there is a change to the offer book, an <code>updates</code> event will be emitted, containing the update events and a SHA-1 digest.</p>
+<h4 id='response-fields-2'>Response Fields</h4>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>events</td>
+<td>An array of <code>event</code>s to apply against the existing offer book.</td>
+</tr>
+<tr>
+<td>digest</td>
+<td>A SHA-1 digest of the stringified JSON <code>book</code> after <code>events</code> have been applied.</td>
+</tr>
+</tbody></table>
+<h4 id='code-event-code-fields'><code>event</code> Fields</h4>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>delta</td>
+<td>The difference in quantity, which may be negative.</td>
+</tr>
+<tr>
+<td>price</td>
+<td>The offer book price point that is being updated.</td>
+</tr>
+<tr>
+<td>side</td>
+<td>The side of the offer book that has changed, either <code>buy</code> or <code>sell</code>.</td>
+</tr>
+</tbody></table>
+
+<p>If the SHA-1 digest of the offer book does not match after applying updates, the room should be rejoined in order to refetch the full offer book.</p>
+
+<p>The digest should be computed by constructing a sorted JSON string and applying the SHA-1 hash algorithm.</p>
+
+<p>Keys in any JSON object should be sorted alphanumerically. Arrays should be sorted from highest price to lowest price.</p>
+
+<p>Take note that when changing numeric values, and recomputing the offer book digest, amounts should be stringified, and exponentiated when the exponent is less than <code>-6</code> or more than <code>19</code>.</p>
+<h4 id='number-to-string-formatting'>Number to string formatting</h4>
+<table><thead>
+<tr>
+<th>Number</th>
+<th>String</th>
+<th>Info</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>12345678</code></td>
+<td><code>&#39;12345678&#39;</code></td>
+<td>// e is only 8</td>
+</tr>
+<tr>
+<td><code>0.000000123</code></td>
+<td><code>&#39;1.23e-7&#39;</code></td>
+<td>// e is &lt; -6</td>
+</tr>
+</tbody></table>
+<h2 id='trade-events'>Trade Events</h2>
+<p>The Trade Events API allows clients to subscribe and listen to trade events that happen on Switcheo Exchange. There is diff-ing support to ensure that no trade events are missed.</p>
+<h3 id='socket-connection-2'>Socket Connection</h3>
+<blockquote>
+<p>Example</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">io</span><span class="p">(</span><span class="s1">'wss://test-ws.switcheo.io/trades'</span><span class="p">);</span>
+<span class="nx">io</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'connection'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">socket</span><span class="p">){</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">join</span><span class="p">({</span>
+    <span class="na">contractHash</span><span class="p">:</span> <span class="s2">"91b83e96f2a7c4fdf0c1688441ec61986c7cae26"</span><span class="p">,</span>
+    <span class="na">pair</span><span class="p">:</span> <span class="s2">"SWTH_NEO"</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+<p>To subscribe to the trade events API, connect to the <code>trades</code> namespace and join the room with the following parameters:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>contractHash</td>
+<td><a href="#contract-hashes">Contract hash</a> of the exchange</td>
+</tr>
+<tr>
+<td>pair</td>
+<td><a href="#get-pairs">Pair</a> to listen to trade events for</td>
+</tr>
+</tbody></table>
+<h3 id='all-event-2'>All Event</h3>
+<blockquote>
+<p>Example Event</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span>
+  <span class="nl">trades</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="na">price</span><span class="p">:</span> <span class="s1">'0.01000000'</span><span class="p">,</span> <span class="na">side</span><span class="p">:</span> <span class="s1">'buy'</span><span class="p">,</span> <span class="na">timestamp</span><span class="p">:</span> <span class="s1">'-1'</span><span class="p">,</span> <span class="na">amount</span><span class="p">:</span> <span class="s1">'100'</span> <span class="p">},</span>
+    <span class="p">...</span>
+  <span class="p">]</span>
+  <span class="nl">digest</span><span class="p">:</span> <span class="s1">'2fd4e1c67a2d28fced849ee1bb76e7391b93eb12'</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre>
+<p>Upon joining the appropriate room, you will receieve an <code>all</code> event on your socket, which will contain the last 50 trade events for the subscribed pair, as well as a SHA-1 digest.</p>
+
+<p>The SHA-1 digest can be used to ensure that trade events were not missed.</p>
+<h4 id='response-fields-3'>Response Fields</h4>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>trades</td>
+<td>The <code>trade</code> events</td>
+</tr>
+<tr>
+<td>digest</td>
+<td>A SHA-1 digest of the stringified JSON <code>trades</code></td>
+</tr>
+</tbody></table>
+<h4 id='code-trade-code-fields'><code>trade</code> Fields</h4>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>amount</td>
+<td>The amount of tokens traded (in quote quantity)</td>
+</tr>
+<tr>
+<td>price</td>
+<td>The price of the trade</td>
+</tr>
+<tr>
+<td>side</td>
+<td>The taker side of the trade, either <code>buy</code> or <code>sell</code></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>The trade execution time</td>
+</tr>
+</tbody></table>
+<h3 id='updates-event-2'>Updates Event</h3>
+<blockquote>
+<p>Example Event</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span>
+  <span class="nl">events</span><span class="p">:</span> <span class="p">[...],</span>
+  <span class="nx">digest</span><span class="p">:</span> <span class="s1">'62d7beb325a49df2c323c45fd27e119d524468e0'</span><span class="p">,</span>
+  <span class="nx">limit</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre>
+<p>Whenever there is a new trade event, an <code>updates</code> event will be emitted.</p>
+
+<p>The digest should be computed by stringifying the last <code>limit</code> trades of JSON data, and applying the SHA-1 hash algorithm.</p>
+
+<p>The data array should be sorted from the largest to smallest <code>timestamp</code>. Keys in each object should be sorted alphanumerically.</p>
+
+<p>Take note that to compute the digest, only the last <code>limit</code> trades should be used. Earlier trades events should be trimmed, before stringifying and hashing the data.</p>
+<h4 id='event-fields'>Event Fields</h4>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>events</td>
+<td>An array of <code>event</code>s, in the same format as <code>trade</code></td>
+</tr>
+<tr>
+<td>digest</td>
+<td>A SHA-1 digest of the stringified JSON <code>trades</code> after <code>events</code> have been applied.</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>The number of trades to hash in order to compute the SHA-1 digest. If this is less than the number of trades given in the <code>all</code> event and <code>updates</code> event, all trades should be used.</td>
+</tr>
+</tbody></table>
+<h2 id='order-events'>Order Events</h2>
+<p>Coming soon..</p>
+<h1 id='troubleshooting'>Troubleshooting</h1>
+<p>The following steps can be used to troubleshoot potential issues:</p>
+
+<ol>
+<li><p>Check the <a href="#data-type">Data Types</a> section and ensure your parameters have the correct formatting.
+Possible issues include the address format, amount format, parameter casing, private key format,
+wrong parameters included to be signed, wrong timestamp.</p></li>
+<li><p>Trace each step of signing parameters using the example in
+<a href="#signing-request-parameters">Signing Request Parameters</a>, this example has
+the expected inputs and outputs at each step of generating a signature.</p></li>
+</ol>
+
+<p>If you have further technical questions, please join our <a href="https://join.slack.com/t/switcheonetwork/shared_invite/enQtNDAyMTQ3Mzg3NjA1LTc0ODBlMWMxMjRkNTE5ZjkzN2VkNDNhYjQ2MjFlZTUwMzQ3NGMxYzZlODM5ZTAwZTcxMWM2YjA5MTAyN2FkYmI">slack channel</a> where you can field your questions to Switcheo developers or the Switcheo dev community.</p>
+<h1 id='data-types'>Data Types</h1>
+<p>There are some data types and attributes which Switcheo Exchange uses that have specific meanings and formats.</p>
+
+<p>Here is a list of important data types:</p>
+
+<table><thead>
+<tr>
+<th>Data Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="#addresses">Addresses</a></td>
+</tr>
+<tr>
+<td><a href="#amounts">Amounts</a></td>
+</tr>
+<tr>
+<td><a href="#contract-hashes">Contract Hashes</a></td>
+</tr>
+<tr>
+<td><a href="#private-keys">Private Keys</a></td>
+</tr>
+<tr>
+<td><a href="#signatures">Signature</a></td>
+</tr>
+<tr>
+<td><a href="#timestamp">Timestamp</a></td>
+</tr>
+</tbody></table>
+<h2 id='addresses'>Addresses</h2>
+<p>An <code>address</code> in Switcheo is always represented by a hex string, and is prefixed by a <code>0x</code> only if it is
+an Ethereum address. Addresses should always be in a <strong>lowercase</strong> hex string representation.</p>
+<h3 id='neo-addresses'>NEO Addresses</h3>
+<blockquote>
+<p>Getting the user&#39;s address</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="p">{</span> <span class="nx">wallet</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@cityofzion/neon-js'</span><span class="p">)</span>
+<span class="nx">wallet</span><span class="p">.</span><span class="nx">getScriptHashFromPublicKey</span><span class="p">(</span><span class="s1">'031c37f6cce9627dc635d026deddd1200013c1b78dac767cdb507339a831183fd9'</span><span class="p">)</span>
+<span class="c1">// Result: 87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f</span>
+
+<span class="c1">// you can also retrieve the script hash from a wallet address directly with:</span>
+<span class="nx">wallet</span><span class="p">.</span><span class="nx">getScriptHashFromAddress</span><span class="p">(</span><span class="s1">'AQV8FNNi2o7EtMNn4etWBYx1cqBREAifgE'</span><span class="p">)</span>
+<span class="c1">// Result: 87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f</span>
+</code></pre>
+<p>For NEO, an <code>address</code> refers to the <a href="https://en.wikipedia.org/wiki/RIPEMD">RIPEMD160</a> hash of the the user&#39;s ECDSA public key.</p>
+
+<p>An example implemention to derive an <code>address</code> from a user&#39;s public key can be found in the
+<a href="https://github.com/CityOfZion/neon-js/blob/5d61c31a5d6e5e2e29095e08c70d23449810b509/src/wallet/core.js#L92">neon-js javascript library</a>.</p>
+
+<p>Please note the difference in terminology between Switcheo and neon-js. Switcheo&#39;s <code>address</code> is equivalent to neon-js&#39;s <code>scriptHash</code>.</p>
+<h3 id='ethereum-addresses'>Ethereum Addresses</h3>
+<p>For Ethereum, an <code>addresses</code> refers to the <a href="https://en.wikipedia.org/wiki/SHA-3">Keccak</a> hash of the right-most 160-bits of the user&#39;s ECDSA public key, as specified in the Ethereum <a href="http://gavwood.com/paper.pdf">Yellow Paper</a>.</p>
+
+<p>Ethereum addresses are sometimes displayed with uppercase letters for verification purposes. When submitting addresses through the Switcheo API however, the address should always be <strong>fully lowercased</strong>.</p>
+<h2 id='amounts'>Amounts</h2>
+<p>When specifying amounts as request parameters, the amounts should first be converted by following these steps:</p>
+
+<ol>
+<li>Multiply the original amount by 10 to the power of the precision allowed by the given token.</li>
+<li>Drop any decimals, and convert the resulting integer to a string</li>
+</ol>
+
+<p>For example, if the token&#39;s precision is <code>8</code>, and the original amount is <code>9.12345678</code>:</p>
+
+<ol>
+<li>Following the above steps: <code>9.12345678 * (10 ^ 8)</code> = <code>912345678.00</code></li>
+<li>Drop any decimals to get: <code>912345678</code></li>
+<li>Convert the result to a string to get <code>&quot;912345678&quot;</code></li>
+</ol>
+
+<p>The list of supported assets and their corresponding precisions can be found in the <a href="#tokens">Tokens</a> section.</p>
+<h2 id='private-keys'>Private Keys</h2>
+<p>Please check the documentation of the respective blockchains for signing with private keys.</p>
+
+<p>For NEO, there is both a WIF and a private key.</p>
+
+<p>Example WIF:
+<code style=" hyphens: none;">
+L479CJz4ZyxHiumy2viAjBFk8nixKeMY45DCQa5p4n4AT6M6WsWq
+</code></p>
+
+<p>Example private key:
+<code style=" hyphens: none;">
+cd7b887c29a110e0ce53e81d6dd02805fc7b912718ff8b6659d8da42887342bd
+</code></p>
+
+<p>The private key should be used for signing, not the WIF.</p>
+<h2 id='contract-hashes'>Contract Hashes</h2>
+<p>Use <a href="#get-contract-hashes">Get Contract Hashes</a> to get the correct blockchain smart contract you are referring to. There may be more than one version for a given blockchain, due to upgrades, as smart contracts are immutable.  The correct contract hash must be used depending on whether you are using the TestNet or MainNet endpoints.</p>
+<h2 id='signatures'>Signatures</h2>
+<p>Take note that not all parameters should be included to generate the signature, excluded parameters are specified in their respective endpoint&#39;s documentation. See <a href="#signing-request-parameters">signing request parameters</a> for more information on how to sign each request based on the required blcokchain.</p>
+<h2 id='timestamps'>Timestamps</h2>
+<p>If a timestamp parameter is required, then it should first be fetched from the server using <a href="#get-timstamp">Get Timestamp</a>. If the timestamp is not within an acceptable range of the exchange&#39;s timestamp then an invalid signature error will be returned.</p>
 
       </div>
       <div class="dark-box">
