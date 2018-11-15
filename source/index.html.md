@@ -3,18 +3,18 @@ title: Switcheo API Reference
 
 includes:
   - overview
-  - api/index
-  - api/authentication
-  - api/exchange_information
-  - api/tickers
-  - api/offers
-  - api/trades
-  - api/deposits
-  - api/withdrawals
-  - api/orders
-  - api/balances
-  - api/errors
-  - websocket/index
+  - rest/index
+  - rest/authentication
+  - rest/exchange_information
+  - rest/tickers
+  - rest/offers
+  - rest/trades
+  - rest/deposits
+  - rest/withdrawals
+  - rest/orders
+  - rest/balances
+  - rest/errors
+  - streaming/index
   - troubleshooting
   - data_types
 

@@ -12,7 +12,7 @@ The base URLs for the REST API are:
 
 Type                  | Base URL
 --------------------- | ----------
-Sandbox / TestNet     | [https://beta.switcheo.exchange/](https://beta.switcheo.exchange/)
+Sandbox / TestNet     | [https://test-api.switcheo.network/](https://test-api.switcheo.exchange/)
 Production / MainNet  | [https://api.switcheo.network](https://api.switcheo.network)
 
 ## Rate Limits

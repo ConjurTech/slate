@@ -16,9 +16,9 @@ Switcheo Exchange provides a REST API and a WebSocket API, described below.
 
 Switcheo offers both public and private REST APIs. You may find out more information about it [here](#rest-api).
 
-## WebSocket API
+## Streaming API
 
-A WebSocket API that can provide real-time trading data is also available. You may find out more information about it [here](#websocket-api).
+A Streaming API that can provide real-time trading data is also available. You may find out more information about it [here](#streaming-api).
 
 ## Sandbox
 
