@@ -1,8 +1,9 @@
-# Authentication
+## Authentication
 
-As a decentralised exchange, Switcheo does not use passwords or API keys.
-Instead, authentication is done by signing the **request payload** _or_ **blockchain transaction** using the **blockchain-specific**
-digital signature with the user's private key.
+As a non-custodian exchange, Switcheo does not use passwords or API keys as we do not have custody of user funds.
+Instead, authentication is done by signing the **request payload** _or_ **blockchain transaction** using the **blockchain-specific** digital signature with the user's private key.
+
+### Overview
 
 Currently, all supported blockchains uses the ellipitic curve digital signature algorithim (ECDSA). However, the curves and hashing algorithim used for each blockchain differ slightly per blockchain.
 
@@ -11,18 +12,18 @@ Currently, all supported blockchains uses the ellipitic curve digital signature 
 | NEO        | ECDSA          | NIST P-256  | SHA-256        |
 | ETH        | ECDSA          | secp256k1   | SHA-3 (Keccak) |
 
-## Action Authentication
-Two steps are required to perform an action.
+Two steps are required to perform an authenticated action.
 
 1. In the first step:
   - Sign the parameters of the request using the user's private key
   - Send both the raw parameters and the result of signing the parameters to the first API endpoint
   - A response with either a message or transaction will be returned
+
 2. In the second step:
   - Sign the returned message or transaction with the user's private key
   - Send the signed message or transaction to the second API endpoint
 
-## Signing Messages for NEO
+### Signing Messages for NEO
 
 > Signing a message for NEO
 
@@ -38,7 +39,7 @@ signMessage('Hello', '<private key>')
 
 [View implementation details](https://github.com/CityOfZion/neon-js/blob/cf5f92e4124c45a154449bf5852bcab28ddc1b32/src/wallet/core.js#L126)
 
-## Signing Request Parameters
+#### Signing Request Parameters
 
 > Signing parameters for API requests
 
@@ -83,7 +84,7 @@ parameter. This signature parameter should then be sent together with the other 
 6. Sign the result of (5) with the user's private key
 7. Send the result of (6) together with the raw parameters to the API endpoint
 
-### Example
+#### Example
 
 Using the following parameters as an example:
 
@@ -110,7 +111,7 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 
 [View a full example implementation](https://github.com/ConjurTech/switcheo-api-examples/blob/7f0097ffdab7ce6149d8512d26afc0a0b0a142d6/src/utils.js#L48)
 
-## Signing Transactions
+### Signing Transactions for NEO
 
 > Signing a transaction for NEO
 

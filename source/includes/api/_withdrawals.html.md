@@ -1,9 +1,8 @@
-# Withdrawals
+## Withdrawals
 
-**Description**
+Withdrawals are a transfer of tokens from the Switcheo smart contract into your wallet.
 
-Withdrawals allow free movement of tokens from the Switcheo smart contract into your wallet.
-This movement of tokens is free of charge.
+### Overview
 
 Once a withdrawal has been executed, tokens in your contract balance would be deducted.
 Tokens that are put on hold by orders cannot be withdrawn.
@@ -12,7 +11,7 @@ Withdrawals are not instantaneous.
 Tokens deducted from your contract balance will be added to your wallet balance but put on hold until
 the withdrawal has been fully executed.
 
-## Create Withdrawal
+### Create Withdrawal
 
 > Create a withdrawal
 
@@ -68,11 +67,11 @@ A [signature](#authentication) of the request payload has to be provided for thi
   IMPORTANT: After calling this endpoint, the Execute Withdrawal endpoint has to be called for the withdrawal to be executed.
 </aside>
 
-### HTTP Request
+#### HTTP Request
 
 `POST /v2/withdrawals`
 
-### Request Parameters
+#### Request Parameters
 
  Parameter         | Type       | Required | Description
 ------------------ | ---------- | -------- | ------------
@@ -84,11 +83,11 @@ A [signature](#authentication) of the request payload has to be provided for thi
  signature         | **string** | yes       | Signature of the request payload. See [Authentication](#authentication) for more details.
  address           | [address](#addresses) | yes       | The withdrawer's [address](#addresses). **Do not include this in the parameters to be signed.**
 
-### Example
+#### Example
 
 [Full create withdrawal example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/withdrawals/createWithdrawalExample.js)
 
-## Execute Withdrawal
+### Execute Withdrawal
 
 > Executing a withdrawal
 
@@ -134,11 +133,11 @@ This is the second endpoint required to execute a withdrawal.
 After using the [Create Withdrawal](#create-withdrawal) endpoint,
 you will receive a response which requires additional signing.
 
-### HTTP Request
+#### HTTP Request
 
 `POST /v2/withdrawals/:id/broadcast`
 
-### Request Parameters
+#### Request Parameters
 
  Parameter  | Type       | Required | Description
  ---------- | ---------- | -------- | -----------
@@ -146,6 +145,6 @@ you will receive a response which requires additional signing.
  timestamp  | [timestamp](#timestamp)    | yes       | The exchange's timestamp to be used as a nonce.
  signature  | **string** | yes       | Signature of the request payload. See [Authentication](#authentication) for more details.
 
-### Example
+#### Example
 
 [Full execute withdrawal example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/withdrawals/executeWithdrawalExample.js)

@@ -1,47 +1,22 @@
-# Overview
+# REST API
 
 ## Introduction
 
-Welcome to the Switcheo Exchange API documentation.
 
-This documentation is intended for developers who want to write applications to interact with the
-Switcheo Exchange programatically.
+### URLs
 
-Before you proceed with the API documentation, be sure to explore Switcheo Exchange at
-[https://switcheo.exchange](https://switcheo.exchange).
+Please check our sandbox API here:
 
-If you have technical questions, you can ask them at our [slack channel](https://join.slack.com/t/switcheonetwork/shared_invite/enQtNDAyMTQ3Mzg3NjA1LTc0ODBlMWMxMjRkNTE5ZjkzN2VkNDNhYjQ2MjFlZTUwMzQ3NGMxYzZlODM5ZTAwZTcxMWM2YjA5MTAyN2FkYmI).
+### Parameter Casing
 
-## API Requests
+Parameters used to generate a signature or sent in API requests should always be snake cased.
 
-The Switcheo API uses [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) architecture.
-API requests and responses use the [JSON](https://www.json.org/) format.
+Parameters are camel cased in the examples because the examples are in JavaScript and it is
+JavaScript's convention to use camel case.
 
-There are three types of API endpoints.
-
-- Exchange APIs - these endpoints provide exchange history, statistics and other data and do not need to be authenticated
-- Websocket APIs - these endpoints provide real-time trading data and do not need to be authenticated
-- Trading APIs - these endpoints can be used to execute trades and must be authenticated
-
-## Base URLs
-
-Use the following TestNet URLs when developing your application:
-
-Type | Base URL
----- | ----------
-UI   | [https://beta.switcheo.exchange/](https://beta.switcheo.exchange/)
-API  | [https://test-api.switcheo.network](https://test-api.switcheo.network)
-WS   | [wss://test-ws.switcheo.io](wss://test-ws.switcheo.io)
-
-Use the MainNet URLs for actual trading and market data:
-
-Type | Base URL
----- | ----------
-UI   | [https://switcheo.exchange/](https://switcheo.exchange/)
-API  | [https://api.switcheo.network](https://api.switcheo.network)
-WS   | [wss://ws.switcheo.io](wss://ws.switcheo.io)
+The code in the examples make use of helper methods to automatically convert camel cased keys into
+snake cased keys.
 
 ## Rate Limits
 
-All endpoints are rate-limited. We use a dynamic algorithm for determining these limits. The HTTP error code `429` will
-be returned if this limit is exceeded. You should implement an exponential backoff strategy when encountering this error code.
+All endpoints are rate-limited. We use a dynamic algorithm for determining these limits. The HTTP error code `429` will be returned if this limit is exceeded. You should implement an exponential backoff strategy when encountering this error code.

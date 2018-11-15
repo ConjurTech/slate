@@ -1,10 +1,10 @@
-# Offers
+## Offers
 
 An offer represents an open order on the [Switcheo Exchange](https://switcheo.exchange) offer book.
 
 Funds used to make an offer are locked in the contract until the order is cancelled or filled.
 
-## List Offers
+### List Offers
 
 > Example request - ETH Pair
 
@@ -32,20 +32,20 @@ Funds used to make an offer are locked in the contract until the order is cancel
 ]
  ```
 
-Retrieves the 70 best offers (per side) on the offer book.
+Retrieves the raw data for 70 best offers (per side) on the top of the offer book.
 
-### HTTP Request
+#### HTTP Request
 
 `GET /v2/offers`
 
-### Request Parameters
+#### Request Parameters
 
 Parameter     | Type       | Required | Description
 ------------- | ---------- | -------- | -----------
 pair          | **string** | yes      | Only return offers from this [pair](#pairs).
 contract_hash | **string** | no       | Only return offers for this [contract hash](#contracts).
 
-### Response parameters
+#### Response parameters
 
 Parameter        | Description
 ---------------- | ----------
@@ -57,10 +57,10 @@ want_amount      | Total [amount](#amounts) of the `want_asset`.
 offer_asset      | [Symbol](#supported-assets) of the token that the offer maker is offering.
 want_asset       | [Symbol](#supported-assets) of the token that the offer maker wants .
 
-### Example
+#### Example
 [Full list offers example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/offers/listOffersExample.js)
 
-## Offer book
+### Get Offer Book
 
 > Example request
 
@@ -98,20 +98,20 @@ want_asset       | [Symbol](#supported-assets) of the token that the offer maker
 }
  ```
 
-Retrieves the offer book.
+Retrieves the offer book with formatted price and quantity.
 
-### HTTP Request
+#### HTTP Request
 
 `GET /v2/offers/book`
 
-### Request Parameters
+#### Request Parameters
 
 Parameter     | Type       | Required | Description
 ------------- | ---------- | -------- | -----------
 pair          | **string** | yes      | Only return offers from this [pair](#pairs).
 contract_hash | **string** | no       | Only return offers for this [contract hash](#contracts).
 
-### Response parameters
+#### Response parameters
 
 Parameter   | Description
 ----------- | ----------

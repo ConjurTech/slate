@@ -1,13 +1,13 @@
-# Exchange Information
+## Exchange Information
 
 This section consists of endpoints that allow retrieval of Switcheo Exchange information.
 
 Authentication is not required for these endpoints.
 
-## Timestamp
-Retrieve the current epoch timestamp in the exchange.
+### Get Timestamp
+Retrieve the current epoch [timestamp](#timestamp) in the exchange.
 
-### HTTP Request
+#### HTTP Request
 
 `GET /v2/exchange/timestamp`
 
@@ -26,9 +26,9 @@ This value should be fetched and used when a timestamp parameter is required for
 If the timestamp used for your API request is not within an acceptable range of the exchange's timestamp then an invalid signature error will be returned. The acceptable range might vary, but it should be less than one minute.
 
 
-## Contracts
+### Get Contract Hashes
 
-### HTTP Request
+#### HTTP Request
 
 `GET /v2/exchange/contracts`
 
@@ -61,11 +61,75 @@ Note also that, ETH contract hashes always include a `0x` prefix, while NEO neve
 includes a `0x` prefix.
 
 
-## Tokens
+### Get Pairs
+
+Retrieve available trading pairs on Switcheo Exchange filtered by the `base` parameter. Defaults to all pairs.
+
+The valid `base` currencies are currently: `NEO`, `GAS`, `SWTH`, `USD`.
+
+#### HTTP Request
+
+`GET /v2/exchange/pairs`
+
+> Example response without details
+
+```js
+// GET /v2/exchange/pairs?bases=["NEO"]&show_details=0
+[
+  "GAS_NEO",
+  "SWTH_NEO",
+  ...
+]
+
+```
+> Example response with details
+// GET /v2/exchange/pairs?bases=["NEO"]&show_details=1
+```js
+[
+    {
+        "name": "GAS_NEO",
+        "price_precision": 3
+        "quantity_precision": 3
+    },
+    {
+        "name": "SWTH_NEO",
+        "price_precision": 6,
+        "quantity_precision": 2
+    },
+...
+]
+```
+
+
+#### Request parameters
+
+ Parameter              | Type            | Required  | Description
+---------------         | -----------     | --------- | -----------
+ bases                  | Array\<string\> | no        | Provides pairs for these base symbols. Possible values are `NEO, GAS, SWTH, USD`.
+ show_details           | Boolean         | no        | Show further details for token
+ show_inactive          | Boolean         | no        | Show inactive tokens (default is to not return inactive tokens)
+
+
+#### Response parameters for `show_details=0`
+
+Parameter        | Description
+------------     | ----------
+Array            | List of token pairings (ticker) `<QUOTE>_<BASE>` where `<QUOTE>` is the trading token symbol (e.g. `SWTH`), while `<BASE>` is the base token symbol (e.g. `NEO`)
+
+#### Response parameters for `show_details=1`
+
+Parameter        | Description
+------------     | ----------
+name             | The ticker name as `<QUOTE>_<BASE>` where `<QUOTE>` is the trading token symbol (e.g. `SWTH`), while `<BASE>` is the base token symbol (e.g. `NEO`)
+precision        | The maximum price precision that can be submitted (e.g. if precision is `2`,
+an order on this pair for `1.99` or `1.90000000` price is valid, but `1.999` is not)
+
+
+### Get Tokens Information
 
 Retrieve a list of supported tokens on Switcheo.
 
-### HTTP Request
+#### HTTP Request
 
 `GET /v2/exchange/tokens`
 
@@ -138,14 +202,14 @@ Retrieve a list of supported tokens on Switcheo.
 }
 ```
 
-### Request parameters
+#### Request parameters
 
  Parameter              | Type      | Required  | Description
 ---------------         | --------- | --------- | -----------
  show_listing_details   | Boolean   | no        | Show all details for each token (default is `false`). If `false`, only `hash` & `decimals` are returned, otherwise all parameters below are returned.
  show_inactive          | Boolean   | no        | Show inactive tokens (default is `false`)
 
-### Response parameters
+#### Response parameters
 
 Parameter         | Description
 ----------------- | ----------
@@ -160,77 +224,61 @@ start             | Starting time for the activity (in epoch seconds)
 end               | Ending time for the activity (in epoch seconds)
 paused            | Whether the trading of the token is temporarily paused
 
+### Get Fee Information
 
-## Pairs
-
-Retrieve available currency pairs on Switcheo Exchange filtered by the `base` parameter. Defaults to all pairs.
-
-The valid `base` currencies are currently: `NEO`, `GAS`, `SWTH`, `USD`.
-
-
-### HTTP Request
-
-`GET /v2/exchange/pairs`
-
-> Example response without details
+> Example response
 
 ```js
-// GET /v2/exchange/pairs?bases=["NEO"]&show_details=0
 [
-  "GAS_NEO",
-  "SWTH_NEO",
-  ...
+{
+    "eth_address": "0x3be1f07cdb14d7a19a150dba525b09a6caefde97",
+    "maker": {
+        "default": 0
+    },
+    "taker": {
+        "default": 0.0015
+    },
+    "native_fee_discount": 0.5,
+    "native_fee_asset_id": "ab38352559b8b203bde5fddfa0b07d8b2525e132",
+    "enforce_native_fees": [
+        "RHT",
+        "RHTC"
+    ],
+    "native_fee_exchange_rates": {
+        "NEO": "952.38095238",
+        "GAS": "297.14285714",
+        ...
+        "ETH": "0",
+        "JRC": "0",
+        "SWC": "0"
+    }
+}
 ]
 
 ```
-> Example response with details
-// GET /v2/exchange/pairs?bases=["NEO"]&show_details=1
-```js
-[
-    {
-        "name": "GAS_NEO",
-        "price_precision": 3
-        "quantity_precision": 3
-    },
-    {
-        "name": "SWTH_NEO",
-        "price_precision": 6,
-        "quantity_precision": 2
-    },
-...
-]
-```
 
+Returns fee data for various blockchains and pairs
 
-### Request parameters
+#### HTTP Request
 
- Parameter              | Type            | Required  | Description
----------------         | -----------     | --------- | -----------
- bases                  | Array\<string\> | no        | Provides pairs for these base symbols. Possible values are `NEO, GAS, SWTH, USD`.
- show_details           | Boolean         | no        | Show further details for token
- show_inactive          | Boolean         | no        | Show inactive tokens (default is to not return inactive tokens)
+`GET /v2/fees`
 
+#### Response parameters
 
-### Response parameters for `show_details=0`
+Parameter                 | Description
+------------------------- | ----------
+maker / default           | Default rate for maker orders, before discount (in %)
+taker / default           | Default rate for taker orders, before discount (in %)
+native_fee_discount       | Discount applied to fee for use of native token (as a multiplier)
+native_fee_asset_id       | NEO contract hash of the Native Token (i.e. `SWTH`)
+enforce_native_fee        | List of asset tickers where fee **must** be paid in Native Tokens
+native_fee_exchange_rates | List of token:value tuples, containing the exchange rate in Native Token
 
-Parameter        | Description
-------------     | ----------
-Array            | List of token pairings (ticker) `<QUOTE>_<BASE>` where `<QUOTE>` is the trading token symbol (e.g. `SWTH`), while `<BASE>` is the base token symbol (e.g. `NEO`)
-
-### Response parameters for `show_details=1`
-
-Parameter        | Description
-------------     | ----------
-name             | The ticker name as `<QUOTE>_<BASE>` where `<QUOTE>` is the trading token symbol (e.g. `SWTH`), while `<BASE>` is the base token symbol (e.g. `NEO`)
-precision        | The maximum price precision that can be submitted (e.g. if precision is `2`,
-an order on this pair for `1.99` or `1.90000000` price is valid, but `1.999` is not)
-
-
-## Announcement Message
+### Get Announcement Message
 
 Retrieve the currently active Switcheo Exchange Announcement
 
-### HTTP Request
+#### HTTP Request
 
 `GET /v2/exchange/announcement_message`
 
@@ -243,7 +291,7 @@ Retrieve the currently active Switcheo Exchange Announcement
 }
 ```
 
-### Response parameters
+#### Response parameters
 
 Parameter    | Description
 ------------ | ----------

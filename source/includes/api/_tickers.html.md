@@ -1,15 +1,14 @@
-# Tickers
+## Tickers
 
-This tickers section consists of endpoints that allow retrieval of market data on Switcheo Exchange.
+Ticker endpoints allow retrieval of aggregated market data on Switcheo Exchange.
 
 Authentication is not required for these endpoints.
 
-
-## Candlesticks
+### Get Candlesticks
 
 Returns candlestick chart data filtered by url parameters.
 
-### HTTP Request
+#### HTTP Request
 
 `GET /v2/tickers/candlesticks`
 
@@ -52,7 +51,7 @@ Returns candlestick chart data filtered by url parameters.
 ```
 
 
-### Request parameters
+#### Request parameters
 
  Parameter      | Type        | Required  | Description
 --------------- | ----------- | --------- | ------------------------------------
@@ -61,7 +60,7 @@ Returns candlestick chart data filtered by url parameters.
  end_time       | **integer** | yes       | End of time range for data in epoch **seconds**
  interval       | **integer** | yes       | Candlestick period in minutes Possible values are: 1, 5, 30, 60, 360, 1440
 
-### Response parameters
+#### Response parameters
 
 Parameter    | Description
 ------------ | ----------
@@ -73,11 +72,11 @@ low          | Lowest price during the interval.
 volume       | Volume in base token traded during the interval.
 quote_volume | Volume in quoted token traded during the interval.
 
-## Last 24 hours
+### Get Last 24 Hour Data
 
 Returns 24-hour data for all pairs and markets.
 
-### HTTP Request
+#### HTTP Request
 
 `GET /v2/tickers/last_24_hours`
 
@@ -107,7 +106,7 @@ Returns 24-hour data for all pairs and markets.
 
 ```
 
-### Response parameters
+#### Response parameters
 
 Parameter    | Description
 ------------ | ----------
@@ -119,11 +118,11 @@ low          | Lowest price during the interval.
 volume       | Volume in base token traded during the interval.
 quote_volume | Volume in quoted token traded during the interval.
 
-## Last price
+### Get Last Price
 
 Returns last price of the requested symbol(s) / base(s). Defaults to all symbols & bases.
 
-### HTTP Request
+#### HTTP Request
 
 `GET v2/tickers/last_price`
 
@@ -150,14 +149,14 @@ Returns last price of the requested symbol(s) / base(s). Defaults to all symbols
 
 ```
 
-### Request parameters
+#### Request parameters
 
  Parameter      | Type      | Required  | Description
 --------------- | --------- | --------- | -----------
  symbols        | **array** | no        | Return the price for only these symbols.
  bases          | **array** | no        | Return the price for only these bases.
 
-### Response parameters
+#### Response parameters
 
 Parameter    | Description
 ------------ | ----------

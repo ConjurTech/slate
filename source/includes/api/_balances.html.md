@@ -1,4 +1,4 @@
-# Balances
+## Balances
 
 **Description**
 
@@ -11,7 +11,17 @@ Contract balance | Number of tokens present in the Switcheo smart contract.
 
 Trading on Switcheo Exchange can only be done using your contract balance.
 
-## List balances
+### List Contract Balance
+
+List contract balances of the given address and contract.
+
+The purpose of this endpoint is to allow convenient querying of a user's balance across
+multiple blockchains, for example, if you want to retrieve a user's NEO and ethereum balances.
+
+As such, when using this endpoint, balances for the specified addresses and contract hashes
+will be merged and summed.
+
+#### HTTP Request
 
 > Example request:
 
@@ -29,6 +39,17 @@ Trading on Switcheo Exchange can only be done using your contract balance.
 // The URL should be:
 // /v2/balances?addresses[]=address_1&contract_hashes[]=contract_hash_1&contract_hashes[]=contract_hash_2
 ```
+
+`/v2/balances`
+
+#### URL parameters
+
+ Parameter      | Type       | Required | Description
+--------------- | ---------- | -------- | -----------
+addresses       | **array** | yes       | Only return balances for these [addresses](#addresses)
+contract_hashes | **array**  | yes       | Only return balances from these [contract hashes](#contracts).
+
+#### Example
 
 > Example response:
 
@@ -56,26 +77,5 @@ Trading on Switcheo Exchange can only be done using your contract balance.
   }
 }
 ```
-
-
-List contract balances of the given address and contract.
-
-The purpose of this endpoint is to allow convenient querying of a user's balance across
-multiple blockchains, for example, if you want to retrieve a user's NEO and ethereum balances.
-
-As such, when using this endpoint, balances for the specified addresses and contract hashes
-will be merged and summed.
-
-### HTTP Request
-`/v2/balances`
-
-### URL parameters
-
- Parameter      | Type       | Required | Description
---------------- | ---------- | -------- | -----------
-addresses       | **array** | yes       | Only return balances for these [addresses](#addresses)
-contract_hashes | **array**  | yes       | Only return balances from these [contract hashes](#contracts).
-
-### Example
 
 [Full list balances example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/balances/listBalancesExample.js)

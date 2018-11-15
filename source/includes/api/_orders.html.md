@@ -1,8 +1,8 @@
-# Orders
+## Orders
 
-**Description**
+Orders are instructions to buy or sell tokens on Switcheo Exchange.
 
-Orders are instructions to buy or sell assets on Switcheo Exchange.
+### Overview
 
 At the moment, only Limit orders are available. Market, Fill-Or-Cancel, Make-Or-Cancel, etc. strategies are not available yet.
 
@@ -11,7 +11,11 @@ As such, orders will contain a combination of zero or one **make** and/or zero o
 Once an order is placed, the funds required for the order is removed from the user's balance
  and placed on hold until the order is filled or the order is cancelled.
 
-## The Order Object
+### The Order Model
+
+A breakdown of attributes in an order object returned from our API is described below.
+
+#### Order Object
 
 > Example order
 
@@ -63,7 +67,7 @@ order_status               | Status of the order in the context of the exchange.
 fills                      | Refer to the [fills](#the-fill-object) section for more details.
 makes                      | Refer to the [makes](#the-make-object) section for more details.
 
-## The Fill Object
+##### Fill Object
 
 > Example fill
 
@@ -108,7 +112,7 @@ status                     | Status of the fill. Possible values are `pending` (
 created_at                 | Time when the fill was created.
 transaction_hash           | Transaction hash of the transaction representing this fill.
 
-## The Make Object
+##### Make Object
 
 > Example make
 
@@ -153,7 +157,7 @@ status                     | Status of the make. Possible values are `pending` (
 created_at                 | Time when the make was created.
 transaction_hash           | Transaction hash of the transaction representing this make.
 
-## List Orders
+### List Orders
 
 > Example request
 
@@ -194,11 +198,11 @@ transaction_hash           | Transaction hash of the transaction representing th
 
 Retrieves orders from a specific address filtered by the given parameters.
 
-### HTTP Request
+#### HTTP Request
 
 `GET /v2/orders`
 
-### Request Parameters
+#### Request Parameters
 
  Parameter      | Type                  | Required | Description
 --------------- | --------------------- | -------- | -------------
@@ -210,12 +214,12 @@ Retrieves orders from a specific address filtered by the given parameters.
  before_id      | **string**            | no       | Only return orders that are created before the order with this id
  limit          | **integer**           | no       | Only return up to this number of orders (min: `1`, max: `200`, default: `50`).
 
-### Example
+#### Example
 
 [Full list orders example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/listOrdersExample.js)
 
 
-## Create Order
+### Create Order
 
 This endpoint creates an order which can be executed through [Broadcast Order](#execute-order).
 Orders can only be created after sufficient funds have been [deposited](#deposits) into the user's contract balance.
@@ -225,11 +229,11 @@ A successful order will have zero or one **make** and/or zero or more **fills**.
   IMPORTANT: After calling this endpoint, the Broadcast Order endpoint has to be called for the order to be executed.
 </aside>
 
-### HTTP Request
+#### HTTP Request
 
 `POST /v2/orders`
 
-### Request Parameters
+#### Request Parameters
 
 For the below descriptions, the `order maker` refers to your API user.
 
@@ -342,10 +346,10 @@ createOrder({
  signature         | **string**              | yes | Signature of the request payload. See [Authentication](#authentication) for more details.
  address           | [address](#addresses)   | yes | [Address](#addresses) of the order maker. **Do not include this in the parameters to be signed.**
 
-### Example
+#### Example
 [Full create order example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createOrderExample.js)
 
-## Execute Order
+### Execute Order
 
 This is the second endpoint required to execute an order.
 After using the [Create Order](#create-order) endpoint, you will receive a response which needs to be signed.
@@ -368,11 +372,11 @@ Every `txn` of the `fills` and `makes` in the Create Order response should be [s
 and structured in the `signatures` format shown on the right.
 
 
-### HTTP Request
+#### HTTP Request
 
 `POST /v2/orders/:id/broadcast`
 
-### Request Parameters
+#### Request Parameters
 
 > Broadcast an order
 
@@ -415,10 +419,10 @@ function broadcastOrder({ order, privateKey }) {
  ---------- | ---------- | -------- | -----------
  signatures | **hash**   | yes       | See the section description and example for the format.
 
-### Example
+#### Example
 [Full broadcast order example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/broadcastOrderExample.js)
 
-## Create Cancellation
+### Create Cancellation
 
 > Create a cancellation
 
@@ -438,11 +442,11 @@ Only orders **with makes** and with an `available_amount` of **more than 0** can
   IMPORTANT: After calling this endpoint, the Execute Cancellation endpoint has to be called for the cancellation to be executed.
 </aside>
 
-### HTTP Request
+#### HTTP Request
 
 `POST /v2/cancellations`
 
-### URL Parameters
+#### URL Parameters
 
 > Example request
 
@@ -502,11 +506,11 @@ Only orders **with makes** and with an `available_amount` of **more than 0** can
  signature  | **string** | yes       | Signature of the request payload. See [Authentication](#authentication) for more details.
  address    | [address](#addresses) | yes       | [Address](#addresses) of the order maker. **Do not include this in the parameters to be signed.**
 
-### Example
+#### Example
 
 [Full create cancellation example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createCancellationExample.js)
 
-## Execute Cancellation
+### Execute Cancellation
 
 > Execute a cancellation
 
@@ -534,21 +538,21 @@ Note that a `sha256` parameter is provided for convenience to be used directly a
 }
 ```
 
-### HTTP Request
+#### HTTP Request
 
 `POST /v2/cancellations/:id/broadcast`
 
-### URL Parameters
+#### URL Parameters
 
  Parameter | Type       | Required | Description
 ---------- | ---------- | -------- | ------------
  signature | **string** | yes       | Signature of the transaction. See [Authentication](#authentication) for more details.
 
-### Example
+#### Example
 
 [Full execute cancellation example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/executeCancellationExample.js)
 
-## Computing the Offer Hash
+### Computing Offer Hash (NEO)
 
 
 > Computing the offer_hash

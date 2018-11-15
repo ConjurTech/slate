@@ -1,14 +1,17 @@
-# Important Information
+# Data Types
 
-Subject                   | Things to note
-------------------------- | ----------
-[Addresses](#addresses)   | Addresses must be in the correct format.
-[Amounts](#amounts)       | Amounts must be converted to the correct format.
-[Contract Hash](#contracts) | The correct contract hash must be used depending on whether you are using the TestNet or MainNet endpoints.
-[Parameter casing](#parameter-casing)          | Parameters must be snake cased: e.g. `contract_hash` and not `contractHash`
-[Private keys](#private-keys)          | Private keys must be in the correct format.
-[Signature](#signing-request-parameters) | Not all parameters should be included to generate the signature, excluded parameters are specified in their respective endpoint's documentation.
-[Timestamp](#timestamp)   | If a timestamp parameter is required, then it should first be fetched from the server. If the timestamp is not within an acceptable range of the exchange's timestamp then an invalid signature error will be returned.
+There are some data types and attributes which Switcheo Exchange uses that have specific meanings and formats.
+
+Here is a list of important data types:
+
+Data Type                           |
+------------------------------------|
+[Addresses](#addresses)             |
+[Amounts](#amounts)                 |
+[Contract Hashes](#contract-hashes) |
+[Private Keys](#private-keys)       |
+[Signature](#signatures)            |
+[Timestamp](#timestamp)             |
 
 ## Addresses
 An `address` in Switcheo is always represented by a hex string, and is prefixed by a `0x` only if it is
@@ -56,16 +59,6 @@ For example, if the token's precision is `8`, and the original amount is `9.1234
 
 The list of supported assets and their corresponding precisions can be found in the [Tokens](#tokens) section.
 
-## Parameter Casing
-
-Parameters used to generate a signature or sent in API requests should always be snake cased.
-
-Parameters are camel cased in the examples because the examples are in JavaScript and it is
-JavaScript's convention to use camel case.
-
-The code in the examples make use of helper methods to automatically convert camel cased keys into
-snake cased keys.
-
 
 ## Private Keys
 
@@ -84,3 +77,16 @@ cd7b887c29a110e0ce53e81d6dd02805fc7b912718ff8b6659d8da42887342bd
 </code>
 
 The private key should be used for signing, not the WIF.
+
+
+## Contract Hashes
+
+Use [Get Contract Hashes](#get-contract-hashes) to get the correct blockchain smart contract you are referring to. There may be more than one version for a given blockchain, due to upgrades, as smart contracts are immutable.  The correct contract hash must be used depending on whether you are using the TestNet or MainNet endpoints.
+
+## Signatures
+
+Take note that not all parameters should be included to generate the signature, excluded parameters are specified in their respective endpoint's documentation. See [signing request parameters](#signing-request-parameters) for more information on how to sign each request based on the required blcokchain.
+
+## Timestamps
+
+If a timestamp parameter is required, then it should first be fetched from the server using [Get Timestamp](#get-timstamp). If the timestamp is not within an acceptable range of the exchange's timestamp then an invalid signature error will be returned.

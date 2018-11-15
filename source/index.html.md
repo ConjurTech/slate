@@ -2,20 +2,20 @@
 title: Switcheo API Reference
 
 includes:
-  - api/introduction
-  - api/troubleshooting
-  - api/important_information
-  - api/exchange_information
+  - overview
+  - api/data_types
+  - api/index
   - api/authentication
+  - api/exchange_information
   - api/tickers
   - api/offers
   - api/trades
-  - api/fees
   - api/deposits
   - api/withdrawals
   - api/orders
   - api/balances
-  - api/ws
+  - websocket/index
+  - troubleshooting
   - errors
 
 search: true
