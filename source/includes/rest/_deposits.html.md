@@ -131,7 +131,54 @@ To be able to make a deposit, sufficient funds are required in the depositing wa
 
 [Full create deposit example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/deposits/createDepositExample.js)
 
-### Execute Deposit
+### Execute Deposit for ETH
+
+> Execute a deposit
+
+```js
+const Web3 = require('web3')
+const provider = new Web3.providers.HttpProvider('https://mainnet.infura.io')
+const web3 = new Web3(provider)
+
+function executeDeposit ({ deposit, privateKey }) {
+  const { rawTransaction } = await web3.eth.accounts.signTransaction(deposit.transaction, privateKey)
+  const transactionHash = web3.utils.keccak256(rawTransaction)
+
+  web3.eth.sendSignedTransaction(rawTransaction)
+
+  const url = `${API_URL}/deposits/${deposit.id}/broadcast`
+  return api.post(url, { transactionHash })
+}
+```
+
+> Example request
+
+```js
+{
+  "transaction_hash": "<transaction_hash>"
+}
+```
+
+This is the second endpoint required to execute a deposit.
+After using the [Create Deposit](#create-deposit) endpoint,
+you will receive a response which contains a `transaction`.
+
+The `transaction` in the response should be signed and directly broadcasted by the client,
+the transaction hash of the broadcasted transaction should then be sent to the broadcast endpoint.
+
+#### HTTP Request
+
+`POST /v2/deposits/:id/broadcast`
+
+#### Request Parameters
+
+ Parameter  | Type       | Description
+ ---------- | ---------- | -----------
+ transaction_hash | **string** | The transaction hash of the broadcasted transaction
+
+ [Full execute deposit example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/deposits/executeDepositExample.js)
+
+### Execute Deposit for NEO
 
 > Execute a deposit
 
