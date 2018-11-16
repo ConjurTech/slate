@@ -225,6 +225,16 @@
                     </a>
                   </li>
                   <li>
+                    <a href="#rest-api" class="toc-h2 toc-link" data-title="rest-api">
+                      REST API
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#streaming-api" class="toc-h2 toc-link" data-title="streaming-api">
+                      Streaming API
+                    </a>
+                  </li>
+                  <li>
                     <a href="#sandbox" class="toc-h2 toc-link" data-title="sandbox">
                       Sandbox
                     </a>
@@ -232,7 +242,7 @@
               </ul>
           </li>
           <li>
-            <a href="#rest-api" class="toc-h1 toc-link" data-title="rest-api">REST API</a>
+            <a href="#rest-api-2" class="toc-h1 toc-link" data-title="rest-api">REST API</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#introduction-2" class="toc-h2 toc-link" data-title="introduction">
@@ -250,6 +260,12 @@
                         <ul class="toc-list-h3">
                             <li>
                               <a href="#overview-2" class="toc-h3 toc-link" data-title="Overview">Overview</a>
+                            </li>
+                            <li>
+                              <a href="#signing-messages-for-eth" class="toc-h3 toc-link" data-title="Signing Messages for ETH">Signing Messages for ETH</a>
+                            </li>
+                            <li>
+                              <a href="#signing-transactions-for-eth" class="toc-h3 toc-link" data-title="Signing Transactions for ETH">Signing Transactions for ETH</a>
                             </li>
                             <li>
                               <a href="#signing-messages-for-neo" class="toc-h3 toc-link" data-title="Signing Messages for NEO">Signing Messages for NEO</a>
@@ -341,7 +357,10 @@
                               <a href="#create-deposit" class="toc-h3 toc-link" data-title="Create Deposit">Create Deposit</a>
                             </li>
                             <li>
-                              <a href="#execute-deposit" class="toc-h3 toc-link" data-title="Execute Deposit">Execute Deposit</a>
+                              <a href="#execute-deposit-for-eth" class="toc-h3 toc-link" data-title="Execute Deposit for ETH">Execute Deposit for ETH</a>
+                            </li>
+                            <li>
+                              <a href="#execute-deposit-for-neo" class="toc-h3 toc-link" data-title="Execute Deposit for NEO">Execute Deposit for NEO</a>
                             </li>
                         </ul>
                     </a>
@@ -411,7 +430,7 @@
               </ul>
           </li>
           <li>
-            <a href="#streaming-api" class="toc-h1 toc-link" data-title="streaming-api">Streaming API</a>
+            <a href="#streaming-api-2" class="toc-h1 toc-link" data-title="streaming-api">Streaming API</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#introduction-3" class="toc-h2 toc-link" data-title="introduction">
@@ -532,7 +551,11 @@ Switcheo Exchange programatically.</p>
 <p>Before you proceed with the API documentation, be sure to explore Switcheo Exchange at
 <a href="https://switcheo.exchange">https://switcheo.exchange</a>.</p>
 
-<p>Switcheo Exchange provides both a <a href="#rest-api">REST API</a> and a <a href="#streaming-api">Streaming API</a> for real-time trading data.</p>
+<p>Switcheo Exchange provides a REST API and a WebSocket API, described below.</p>
+<h2 id='rest-api'>REST API</h2>
+<p>Switcheo offers both public and private REST APIs. You may find out more information about it <a href="#rest-api">here</a>.</p>
+<h2 id='streaming-api'>Streaming API</h2>
+<p>A Streaming API that can provide real-time trading data is also available. You may find out more information about it <a href="#streaming-api">here</a>.</p>
 <h2 id='sandbox'>Sandbox</h2>
 <p>Use the following TestNet (sandbox) URLs when developing your application:</p>
 
@@ -577,7 +600,7 @@ Switcheo Exchange programatically.</p>
 <td><a href="wss://ws.switcheo.io">wss://ws.switcheo.io</a></td>
 </tr>
 </tbody></table>
-<h1 id='rest-api'>REST API</h1><h2 id='introduction-2'>Introduction</h2>
+<h1 id='rest-api-2'>REST API</h1><h2 id='introduction-2'>Introduction</h2>
 <p>There are two types of REST API endpoints:</p>
 
 <p>Public Exchange APIs - these endpoints provide exchange history, statistics and other data and do not need to be authenticated
@@ -648,6 +671,97 @@ Instead, authentication is done by signing the <strong>request payload</strong> 
 <li>Send the signed message or transaction to the second API endpoint</li>
 </ul></li>
 </ol>
+<h3 id='signing-messages-for-eth'>Signing Messages for ETH</h3>
+<blockquote>
+<p>Signing a message for ETH</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">Web3</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'web3'</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">web3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Web3</span><span class="p">()</span>
+
+<span class="kd">function</span> <span class="nx">signMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">accounts</span><span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">).</span><span class="nx">signature</span>
+<span class="p">}</span>
+<span class="nx">signMessage</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">,</span> <span class="s1">'&lt;private key&gt;'</span><span class="p">)</span>
+
+</code></pre>
+<p>To sign a message for ETH, the message should be hex encoded, and enveloped as
+<code>&quot;\x19Ethereum Signed Message:\n&quot; + message.length + message</code> before being signed.</p>
+
+<p><a href="https://github.com/ethereum/web3.js/">web3.js</a> can be used to sign messages for ETH.</p>
+
+<p><a href="https://web3js.readthedocs.io/en/1.0/web3-eth-accounts.html#sign">View documentation</a></p>
+
+<p><a href="https://github.com/ethereum/web3.js/blob/1.0/packages/web3-eth-accounts/src/index.js#L255">View implementation details</a></p>
+<h4 id='signing-request-parameters'>Signing Request Parameters</h4>
+<blockquote>
+<p>Signing parameters for API requests</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="c1">// 1. Serialize parameters into a string</span>
+<span class="c1">// Note that parameters must be ordered alphanumerically</span>
+<span class="kr">const</span> <span class="nx">rawParams</span> <span class="o">=</span> <span class="p">{</span> <span class="na">blockchain</span><span class="p">:</span> <span class="s1">'neo'</span><span class="p">,</span> <span class="na">timestamp</span><span class="p">:</span> <span class="mi">1529380859</span><span class="p">,</span> <span class="na">apple</span><span class="p">:</span> <span class="s1">'Z'</span><span class="p">,</span> <span class="p">}</span>
+<span class="kr">const</span> <span class="nx">stableStringify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'json-stable-stringify'</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">parameterString</span> <span class="o">=</span> <span class="nx">stableStringify</span><span class="p">(</span><span class="nx">rawParams</span><span class="p">)</span>
+<span class="c1">// parameterString: '{"apple":"Z","blockchain":"neo","timestamp":1529380859}'</span>
+
+<span class="c1">// 2. Sign the parameterString with the user's privateKey</span>
+<span class="kr">const</span> <span class="nx">signature</span> <span class="o">=</span> <span class="nx">signMessage</span><span class="p">(</span><span class="nx">parameterString</span><span class="p">,</span> <span class="s1">'&lt;private key&gt;'</span><span class="p">)</span>
+
+<span class="c1">// 3. Combine the raw parameters with the signature</span>
+<span class="c1">// to get the final parameters to send</span>
+<span class="kr">const</span> <span class="nx">parametersToSend</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="nx">rawParams</span><span class="p">,</span> <span class="nx">signature</span> <span class="p">}</span>
+</code></pre>
+<p>To perform an action, request parameters have to be signed to generate a signature
+parameter. This signature parameter should then be sent together with the other parameters in the request.</p>
+
+<ol>
+<li>Convert the API parameters into a string, with parameters <strong>ordered alphanumerically</strong></li>
+<li>Sign the result of (1) with the user&#39;s private key</li>
+<li>Send the result of (2) together with the raw parameters to the API endpoint</li>
+</ol>
+<h4 id='example'>Example</h4>
+<p>Using the following parameters as an example:</p>
+
+<p><code>{ blockchain: &#39;eth&#39;, timestamp: 1529380859, apple: &#39;Z&#39; }</code></p>
+
+<ol>
+<li>Convert the parameters into a string with parameters ordered alphanumerically:
+<code>{&quot;apple&quot;:&quot;Z&quot;,&quot;blockchain&quot;:&quot;eth&quot;,&quot;timestamp&quot;:1529380859}</code></li>
+<li>Let the user&#39;s private key be
+<code style=" hyphens: none;">0x98c193239bff9eb53a83e708b63b9c08d6e47900b775402aca2acc3daad06f24</code></li>
+<li>Sign the result from (1) with the private key in (2) to get
+<code style=" hyphens: none;">
+0xbcff177dba964027085b5653a5732a68677a66c581f9c85a18e1dc23892c72d86c0b65336e8a17637fd1fe1def7fa8cbac43bf9a8b98ad9c1e21d00e304e32911c
+</code></li>
+</ol>
+<h3 id='signing-transactions-for-eth'>Signing Transactions for ETH</h3>
+<blockquote>
+<p>Signing a transaction for ETH</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="c1">// Send the parameters for the first step of an action</span>
+<span class="c1">// and retrieve the response</span>
+<span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="p">...</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">transaction</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">response</span>
+
+<span class="c1">// verify the transaction data to ensure that it matches the user's intention</span>
+<span class="p">...</span>
+
+<span class="kr">const</span> <span class="nx">Web3</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'web3'</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">web3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Web3</span><span class="p">()</span>
+
+<span class="kd">function</span> <span class="nx">signTransaction</span><span class="p">(</span><span class="nx">transaction</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">accounts</span><span class="p">.</span><span class="nx">signMessage</span><span class="p">(</span><span class="nx">transaction</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span> <span class="nx">user</span><span class="p">.</span><span class="nx">privateKey</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// send the result to the second API endpoint</span>
+<span class="kr">const</span> <span class="nx">signatureToSend</span> <span class="o">=</span> <span class="nx">signTransaction</span><span class="p">(</span><span class="nx">transaction</span><span class="p">,</span> <span class="s1">'&lt;private key&gt;'</span><span class="p">)</span>
+</code></pre>
+<p>The second step of an action usually requires the returned transaction to be signed, this is done by:</p>
+
+<ol>
+<li>Checking the returned transaction data to ensure it matches the user&#39;s intention</li>
+<li>Signing the <code>message</code> in the transaction with the user&#39;s private key</li>
+<li>An exception to this is the deposit endpoint, which requires the client to sign and broadcast the transaction, this is covered in more detail in the <a href="#deposits">Deposits</a> section.</li>
+</ol>
 <h3 id='signing-messages-for-neo'>Signing Messages for NEO</h3>
 <blockquote>
 <p>Signing a message for NEO</p>
@@ -662,7 +776,7 @@ Instead, authentication is done by signing the <strong>request payload</strong> 
 <p><a href="https://github.com/CityOfZion/neon-js">neon-js</a> can be used to sign messages for NEO.</p>
 
 <p><a href="https://github.com/CityOfZion/neon-js/blob/cf5f92e4124c45a154449bf5852bcab28ddc1b32/src/wallet/core.js#L126">View implementation details</a></p>
-<h4 id='signing-request-parameters'>Signing Request Parameters</h4>
+<h4 id='signing-request-parameters-2'>Signing Request Parameters</h4>
 <blockquote>
 <p>Signing parameters for API requests</p>
 </blockquote>
@@ -706,7 +820,7 @@ parameter. This signature parameter should then be sent together with the other 
 <li>Sign the result of (5) with the user&#39;s private key</li>
 <li>Send the result of (6) together with the raw parameters to the API endpoint</li>
 </ol>
-<h4 id='example'>Example</h4>
+<h4 id='example-2'>Example</h4>
 <p>Using the following parameters as an example:</p>
 
 <p><code>{ blockchain: &#39;neo&#39;, timestamp: 1529380859, apple: &#39;Z&#39; }</code></p>
@@ -1489,7 +1603,7 @@ includes a <code>0x</code> prefix.</p>
 <td><a href="#supported-assets">Symbol</a> of the token that the offer maker wants .</td>
 </tr>
 </tbody></table>
-<h4 id='example-2'>Example</h4>
+<h4 id='example-3'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/offers/listOffersExample.js">Full list offers example</a></p>
 <h3 id='get-offer-book'>Get Offer Book</h3>
 <blockquote>
@@ -1676,7 +1790,7 @@ includes a <code>0x</code> prefix.</p>
 <td>Whether the side of the trade is a buy.</td>
 </tr>
 </tbody></table>
-<h4 id='example-3'>Example</h4>
+<h4 id='example-4'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/trades/listTradesExample.js">Full list trades example</a></p>
 <h3 id='get-recent-trades'>Get Recent Trades</h3>
 <p>Returns <code>20</code> most recent formatted trades on the selected pair sorted by executed time in descending order (most recent first).</p>
@@ -1907,9 +2021,58 @@ To be able to make a deposit, sufficient funds are required in the depositing wa
 <td>The depositer&#39;s <a href="#addresses">address</a>. <strong>Do not include this in the parameters to be signed.</strong></td>
 </tr>
 </tbody></table>
-<h4 id='example-4'>Example</h4>
+<h4 id='example-5'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/deposits/createDepositExample.js">Full create deposit example</a></p>
-<h3 id='execute-deposit'>Execute Deposit</h3>
+<h3 id='execute-deposit-for-eth'>Execute Deposit for ETH</h3>
+<blockquote>
+<p>Execute a deposit</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">Web3</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'web3'</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">provider</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Web3</span><span class="p">.</span><span class="nx">providers</span><span class="p">.</span><span class="nx">HttpProvider</span><span class="p">(</span><span class="s1">'https://mainnet.infura.io'</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">web3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Web3</span><span class="p">(</span><span class="nx">provider</span><span class="p">)</span>
+
+<span class="kd">function</span> <span class="nx">executeDeposit</span> <span class="p">({</span> <span class="nx">deposit</span><span class="p">,</span> <span class="nx">privateKey</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="p">{</span> <span class="nx">rawTransaction</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">accounts</span><span class="p">.</span><span class="nx">signTransaction</span><span class="p">(</span><span class="nx">deposit</span><span class="p">.</span><span class="nx">transaction</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span>
+  <span class="kr">const</span> <span class="nx">transactionHash</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">keccak256</span><span class="p">(</span><span class="nx">rawTransaction</span><span class="p">)</span>
+
+  <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">sendSignedTransaction</span><span class="p">(</span><span class="nx">rawTransaction</span><span class="p">)</span>
+
+  <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">`</span><span class="p">${</span><span class="nx">API_URL</span><span class="p">}</span><span class="s2">/deposits/</span><span class="p">${</span><span class="nx">deposit</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="s2">/broadcast`</span>
+  <span class="k">return</span> <span class="nx">api</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span> <span class="nx">transactionHash</span> <span class="p">})</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span>
+  <span class="s2">"transaction_hash"</span><span class="p">:</span> <span class="s2">"&lt;transaction_hash&gt;"</span>
+<span class="p">}</span>
+</code></pre>
+<p>This is the second endpoint required to execute a deposit.
+After using the <a href="#create-deposit">Create Deposit</a> endpoint,
+you will receive a response which contains a <code>transaction</code>.</p>
+
+<p>The <code>transaction</code> in the response should be signed and directly broadcasted by the client,
+the transaction hash of the broadcasted transaction should then be sent to the broadcast endpoint.</p>
+<h4 id='http-request-15'>HTTP Request</h4>
+<p><code>POST /v2/deposits/:id/broadcast</code></p>
+<h4 id='request-parameters-10'>Request Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>transaction_hash</td>
+<td><strong>string</strong></td>
+<td>The transaction hash of the broadcasted transaction</td>
+</tr>
+</tbody></table>
+
+<p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/deposits/executeDepositExample.js">Full execute deposit example</a></p>
+<h3 id='execute-deposit-for-neo'>Execute Deposit for NEO</h3>
 <blockquote>
 <p>Execute a deposit</p>
 </blockquote>
@@ -1934,9 +2097,9 @@ you will receive a response which requires additional signing.</p>
 
 <p>Note that a <code>sha256</code> parameter is provided for convenience to be used directly as part of the ECDSA signature process.
  <em>In production mode, this should be recalculated for additional security.</em></p>
-<h4 id='http-request-15'>HTTP Request</h4>
+<h4 id='http-request-16'>HTTP Request</h4>
 <p><code>POST /v2/deposits/:id/broadcast</code></p>
-<h4 id='request-parameters-10'>Request Parameters</h4>
+<h4 id='request-parameters-11'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2012,9 +2175,9 @@ To be able to make a withdrawal, sufficient funds are required in the contract b
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Withdrawal endpoint has to be called for the withdrawal to be executed.
 </aside>
-<h4 id='http-request-16'>HTTP Request</h4>
+<h4 id='http-request-17'>HTTP Request</h4>
 <p><code>POST /v2/withdrawals</code></p>
-<h4 id='request-parameters-11'>Request Parameters</h4>
+<h4 id='request-parameters-12'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2066,7 +2229,7 @@ To be able to make a withdrawal, sufficient funds are required in the contract b
 <td>The withdrawer&#39;s <a href="#addresses">address</a>. <strong>Do not include this in the parameters to be signed.</strong></td>
 </tr>
 </tbody></table>
-<h4 id='example-5'>Example</h4>
+<h4 id='example-6'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/withdrawals/createWithdrawalExample.js">Full create withdrawal example</a></p>
 <h3 id='execute-withdrawal'>Execute Withdrawal</h3>
 <blockquote>
@@ -2109,9 +2272,9 @@ To be able to make a withdrawal, sufficient funds are required in the contract b
 <p>This is the second endpoint required to execute a withdrawal.
 After using the <a href="#create-withdrawal">Create Withdrawal</a> endpoint,
 you will receive a response which requires additional signing.</p>
-<h4 id='http-request-17'>HTTP Request</h4>
+<h4 id='http-request-18'>HTTP Request</h4>
 <p><code>POST /v2/withdrawals/:id/broadcast</code></p>
-<h4 id='request-parameters-12'>Request Parameters</h4>
+<h4 id='request-parameters-13'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2139,7 +2302,7 @@ you will receive a response which requires additional signing.</p>
 <td>Signature of the request payload. See <a href="#authentication">Authentication</a> for more details.</td>
 </tr>
 </tbody></table>
-<h4 id='example-6'>Example</h4>
+<h4 id='example-7'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/withdrawals/executeWithdrawalExample.js">Full execute withdrawal example</a></p>
 <h2 id='orders'>Orders</h2>
 <p>Orders are instructions to buy or sell tokens on Switcheo Exchange.</p>
@@ -2176,6 +2339,7 @@ you will receive a response which requires additional signing.</p>
     </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processed"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"order_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"fills"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span><span class="w">
+    </span><span class="s2">"fill_groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span><span class="w">
     </span><span class="s2">"makes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
@@ -2257,6 +2421,10 @@ you will receive a response which requires additional signing.</p>
 <tr>
 <td>fills</td>
 <td>Refer to the <a href="#the-fill-object">fills</a> section for more details.</td>
+</tr>
+<tr>
+<td>fill groups</td>
+<td>Refer to the <a href="#the-fill-group-object">fills groups</a> section for more details.</td>
 </tr>
 <tr>
 <td>makes</td>
@@ -2350,6 +2518,59 @@ These <code>fills</code> represent the filling of the order by the matching offe
 <tr>
 <td>transaction_hash</td>
 <td>Transaction hash of the transaction representing this fill.</td>
+</tr>
+</tbody></table>
+<h5 id='fill-group-object'>Fill Group Object</h5>
+<blockquote>
+<p>Example fill group</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7193c1e3-c9ab-429c-881c-429169880cfc"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x0f936dce97a9a5c50becc3f58a4842b4c607e722"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"fill_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"dd08787b-242c-4eb5-8c53-3e9d2f4be4cd"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"txn"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">Object</span><span class="p">],</span><span class="w">
+  </span><span class="s2">"fee_amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4242000000000000"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"fee_asset_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0x0000000000000000000000000000000000000000"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Fills are grouped into sets for ETH.</p>
+
+<p>This reduces the number of signature requests needed for an order, instead of signing
+multiple fills individually, a group of fills can be signed with one signature request.</p>
+
+<p>This feature also minimizes ETH network gas costs.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Unique identifier for the fill group object.</td>
+</tr>
+<tr>
+<td>address</td>
+<td><a href="#addresses">Address</a> of the filler.</td>
+</tr>
+<tr>
+<td>fill_ids</td>
+<td>The IDs grouped under this fill group.</td>
+</tr>
+<tr>
+<td>txn</td>
+<td>The transaction representing this fill group.</td>
+</tr>
+<tr>
+<td>fee_amount</td>
+<td><a href="#amounts">Amount</a> of fees paid for this fill group.</td>
+</tr>
+<tr>
+<td>fee_asset_id</td>
+<td><a href="#supported-assets">Asset id</a> of the token used for the fee.</td>
 </tr>
 </tbody></table>
 <h5 id='make-object'>Make Object</h5>
@@ -2478,9 +2699,9 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>Retrieves orders from a specific address filtered by the given parameters.</p>
-<h4 id='http-request-18'>HTTP Request</h4>
+<h4 id='http-request-19'>HTTP Request</h4>
 <p><code>GET /v2/orders</code></p>
-<h4 id='request-parameters-13'>Request Parameters</h4>
+<h4 id='request-parameters-14'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2532,7 +2753,7 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 <td>Only return up to this number of orders (min: <code>1</code>, max: <code>200</code>, default: <code>50</code>).</td>
 </tr>
 </tbody></table>
-<h4 id='example-7'>Example</h4>
+<h4 id='example-8'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/listOrdersExample.js">Full list orders example</a></p>
 <h3 id='create-order'>Create Order</h3>
 <p>This endpoint creates an order which can be executed through <a href="#execute-order">Broadcast Order</a>.
@@ -2542,9 +2763,9 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Broadcast Order endpoint has to be called for the order to be executed.
 </aside>
-<h4 id='http-request-19'>HTTP Request</h4>
+<h4 id='http-request-20'>HTTP Request</h4>
 <p><code>POST /v2/orders</code></p>
-<h4 id='request-parameters-14'>Request Parameters</h4>
+<h4 id='request-parameters-15'>Request Parameters</h4>
 <p>For the below descriptions, the <code>order maker</code> refers to your API user.</p>
 
 <blockquote>
@@ -2719,7 +2940,7 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 <td><a href="#addresses">Address</a> of the order maker. <strong>Do not include this in the parameters to be signed.</strong></td>
 </tr>
 </tbody></table>
-<h4 id='example-8'>Example</h4>
+<h4 id='example-9'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createOrderExample.js">Full create order example</a></p>
 <h3 id='execute-order'>Execute Order</h3>
 <p>This is the second endpoint required to execute an order.
@@ -2735,20 +2956,27 @@ After using the <a href="#create-order">Create Order</a> endpoint, you will rece
   <span class="nx">fills</span><span class="p">:</span> <span class="p">{</span>
     <span class="o">&lt;</span><span class="nx">fill_id_1</span><span class="o">&gt;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">signature_1</span><span class="o">&gt;</span><span class="p">,</span>
     <span class="o">&lt;</span><span class="nx">fill_id_2</span><span class="o">&gt;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">signature_2</span><span class="o">&gt;</span>
+  <span class="p">},</span>
+  <span class="nx">fill_groups</span><span class="p">:</span> <span class="p">{</span>
+    <span class="o">&lt;</span><span class="nx">fill_group_id_1</span><span class="o">&gt;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">signature_3</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="o">&lt;</span><span class="nx">fill_group_id_2</span><span class="o">&gt;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">signature_4</span><span class="o">&gt;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<p>Every <code>txn</code> of the <code>fills</code> and <code>makes</code> in the Create Order response should be <a href="#authentication">signed</a>,
-and structured in the <code>signatures</code> format shown on the right.</p>
-<h4 id='http-request-20'>HTTP Request</h4>
+<p>Every <code>txn</code> of the <code>fills</code>, <code>fill_groups</code> and <code>makes</code> in the Create Order response should be <a href="#authentication">signed</a>,
+and structured in the <code>signatures</code> format shown on the right.
+Note that the <code>txn</code> of <code>fills</code> for ETH will be empty, only the <code>txn</code> of the <code>fill_groups</code> need to be signed for ETH.</p>
+<h4 id='http-request-21'>HTTP Request</h4>
 <p><code>POST /v2/orders/:id/broadcast</code></p>
-<h4 id='request-parameters-15'>Request Parameters</h4>
+<h4 id='request-parameters-16'>Request Parameters</h4>
 <blockquote>
 <p>Broadcast an order</p>
 </blockquote>
 <pre class="highlight javascript"><code><span class="kd">function</span> <span class="nx">signArray</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">map</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">map</span><span class="p">[</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">signTransaction</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">txn</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">txn</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">map</span><span class="p">[</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">signTransaction</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">txn</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span>
+    <span class="p">}</span>
     <span class="k">return</span> <span class="nx">map</span>
   <span class="p">},</span> <span class="p">{})</span>
 <span class="p">}</span>
@@ -2757,7 +2985,8 @@ and structured in the <code>signatures</code> format shown on the right.</p>
   <span class="kr">const</span> <span class="p">{</span> <span class="nx">fills</span><span class="p">,</span> <span class="nx">makes</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">order</span>
   <span class="kr">const</span> <span class="nx">signatures</span> <span class="o">=</span> <span class="p">{</span>
     <span class="na">fills</span><span class="p">:</span> <span class="nx">signArray</span><span class="p">(</span><span class="nx">order</span><span class="p">.</span><span class="nx">fills</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">),</span>
-    <span class="na">makes</span><span class="p">:</span> <span class="nx">signArray</span><span class="p">(</span><span class="nx">order</span><span class="p">.</span><span class="nx">makes</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span>
+    <span class="na">makes</span><span class="p">:</span> <span class="nx">signArray</span><span class="p">(</span><span class="nx">order</span><span class="p">.</span><span class="nx">makes</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">),</span>
+    <span class="na">fill_groups</span><span class="p">:</span> <span class="nx">signArray</span><span class="p">(</span><span class="nx">order</span><span class="p">.</span><span class="nx">fill_groups</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span>
   <span class="p">}</span>
   <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">`</span><span class="p">${</span><span class="nx">API_URL</span><span class="p">}</span><span class="s2">/orders/</span><span class="p">${</span><span class="nx">order</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="s2">/broadcast`</span>
   <span class="k">return</span> <span class="nx">api</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span> <span class="nx">signatures</span> <span class="p">})</span>
@@ -2774,6 +3003,10 @@ and structured in the <code>signatures</code> format shown on the right.</p>
     <span class="s2">"makes"</span><span class="p">:</span> <span class="p">{</span>
       <span class="s2">"d034djb1-9sd8-5b6k-1f9g-40fd9jntk86k"</span><span class="p">:</span> <span class="s2">"&lt;signature_2&gt;"</span><span class="p">,</span>
       <span class="s2">"ufdh03kt-23jg-h6k5-45fd-56dfy7ks0g9a"</span><span class="p">:</span> <span class="s2">"&lt;signature_3&gt;"</span>
+    <span class="p">},</span>
+    <span class="s2">"fill_groups"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"6f9afaeb-1866-47d5-b7d8-061eab1b5fbc"</span><span class="p">:</span> <span class="s2">"&lt;signature_4&gt;"</span><span class="p">,</span>
+      <span class="s2">"94a282ed-bf89-40e2-b0ea-7d3a0dac3c68"</span><span class="p">:</span> <span class="s2">"&lt;signature_5&gt;"</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -2793,7 +3026,7 @@ and structured in the <code>signatures</code> format shown on the right.</p>
 <td>See the section description and example for the format.</td>
 </tr>
 </tbody></table>
-<h4 id='example-9'>Example</h4>
+<h4 id='example-10'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/broadcastOrderExample.js">Full broadcast order example</a></p>
 <h3 id='create-cancellation'>Create Cancellation</h3>
 <blockquote>
@@ -2812,7 +3045,7 @@ Only orders <strong>with makes</strong> and with an <code>available_amount</code
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Cancellation endpoint has to be called for the cancellation to be executed.
 </aside>
-<h4 id='http-request-21'>HTTP Request</h4>
+<h4 id='http-request-22'>HTTP Request</h4>
 <p><code>POST /v2/cancellations</code></p>
 <h4 id='url-parameters'>URL Parameters</h4>
 <blockquote>
@@ -2897,7 +3130,7 @@ Only orders <strong>with makes</strong> and with an <code>available_amount</code
 <td><a href="#addresses">Address</a> of the order maker. <strong>Do not include this in the parameters to be signed.</strong></td>
 </tr>
 </tbody></table>
-<h4 id='example-10'>Example</h4>
+<h4 id='example-11'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createCancellationExample.js">Full create cancellation example</a></p>
 <h3 id='execute-cancellation'>Execute Cancellation</h3>
 <blockquote>
@@ -2923,7 +3156,7 @@ a transaction in the response which must be signed.</p>
 <pre class="highlight javascript"><code><span class="p">{</span>
   <span class="s2">"signature"</span><span class="p">:</span> <span class="s2">"&lt;signature&gt;"</span>
 <span class="p">}</span>
-</code></pre><h4 id='http-request-22'>HTTP Request</h4>
+</code></pre><h4 id='http-request-23'>HTTP Request</h4>
 <p><code>POST /v2/cancellations/:id/broadcast</code></p>
 <h4 id='url-parameters-2'>URL Parameters</h4>
 <table><thead>
@@ -2941,7 +3174,7 @@ a transaction in the response which must be signed.</p>
 <td>Signature of the transaction. See <a href="#authentication">Authentication</a> for more details.</td>
 </tr>
 </tbody></table>
-<h4 id='example-11'>Example</h4>
+<h4 id='example-12'>Example</h4>
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/executeCancellationExample.js">Full execute cancellation example</a></p>
 <h3 id='computing-offer-hash-neo'>Computing Offer Hash (NEO)</h3>
 <blockquote>
@@ -3007,7 +3240,7 @@ multiple blockchains, for example, if you want to retrieve a user&#39;s NEO and 
 
 <p>As such, when using this endpoint, balances for the specified addresses and contract hashes
 will be merged and summed.</p>
-<h4 id='http-request-23'>HTTP Request</h4>
+<h4 id='http-request-24'>HTTP Request</h4>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -3047,7 +3280,7 @@ will be merged and summed.</p>
 <td>Only return balances from these <a href="#contracts">contract hashes</a>.</td>
 </tr>
 </tbody></table>
-<h4 id='example-12'>Example</h4>
+<h4 id='example-13'>Example</h4>
 <blockquote>
 <p>Example response:</p>
 </blockquote>
@@ -3117,7 +3350,7 @@ will be merged and summed.</p>
 <td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
 </tr>
 </tbody></table>
-<h1 id='streaming-api'>Streaming API</h1><h2 id='introduction-3'>Introduction</h2>
+<h1 id='streaming-api-2'>Streaming API</h1><h2 id='introduction-3'>Introduction</h2>
 <p>Switcheo offers 3 APIs for streaming data:</p>
 
 <ol>
