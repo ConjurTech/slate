@@ -287,4 +287,152 @@ limit     | The number of trades to hash in order to compute the SHA-1 digest. I
 
 ## Order Events
 
-Coming soon..
+The Order Events API allows clients to subscribe and listen to order events that happen on Switcheo Exchange.
+
+### Socket Connection
+
+> Example
+
+```js
+const client = io('wss://test-ws.switcheo.io/orders');
+io.on('connection', function(socket){
+  socket.join({
+    contractHash: "91b83e96f2a7c4fdf0c1688441ec61986c7cae26",
+    pair: "SWTH_NEO",
+    address: "20abeefe84e4059f6681bf96d5dcb5ddeffcc377"
+  });
+});
+```
+
+To subscribe to the order events API, connect to the `orders` namespace and join the room with the following parameters:
+
+Parameter                 | Description
+------------------------- | ----------
+address                   | Address to listen to order events for
+contractHash              | [Contract hash](#contract-hashes) of the exchange
+
+### All Event
+
+> Example Event
+
+```js
+{
+  orders: [
+    {
+      baseAmount: "6147810",
+      baseAsset: "NEO",
+      blockchain: "neo",
+      fee: "0",
+      feeAsset: "NEO",
+      filledAmount: "12345000000",
+      fills: [
+        {
+          amount: "2345000000",
+          fee: "1758750",
+          id: "353e8e0e-581c-4207-9cdb-718144d0ce0e",
+          price: "0.000498",
+          timestamp: 1541582687
+        },
+        ...
+      ],
+      id: "06105c4c-9ed1-43fb-be79-d65c9e40c7fa",
+      makeFills: [
+        amount: "12345000000",
+        fee: "78791",
+        id: "2e8da960-10f6-439f-9ec2-36f5eeb1f179",
+        price: "0.00034",
+        timestamp: 1540528856,
+        ...
+      ],
+      price: "0.000498",
+      side: "sell",
+      status: "completed",
+      timestamp: 1541582603,
+      tradeAmount: "12345000000",
+      tradeAsset: "SWTH",
+      type: "limit"
+    },
+    ...
+  ]
+}
+```
+
+Clients can emit an `all` event to receive the last 50 orders. To receive more orders, emit a [`more`](#more-event) event.
+
+#### Request Fields
+
+Field        | Type                | Required | Description
+------------ | ------------------- | -------- | -----------
+address      | Array\<**string**\> | yes      | Addresses to listen to order events for
+contractHash | Array\<**string**\> | yes      | [Contract hashes](#contract-hashes) of the exchange
+pair         | **string**          | no       | [Pair](#get-pairs) to listen to order events for
+status       | **string**          | no       | The status of the order, either `cancelled`, `completed`, or `open`
+
+#### Response Fields
+
+Field     | Description
+--------- | ----------
+orders    | The `order` events
+
+#### `order` Fields
+
+Field        | Description
+------------ | -----------
+baseAmount   | The quoted quantity of base asset
+baseAsset    | The base asset
+blockchain   | The blockchain, either `neo` or `eth`
+fee          | The fee incurred
+feeAsset     | The fee asset
+filledAmount | The filled amount of the order
+fills        | The orders `fill`ed by this order
+id           | The order id
+makeFills    | The orders that `fill`s this order
+price        | The quoted price if it's a limit order or `null` if it's a market order
+side         | The side of the order, either `buy` or `sell`
+status       | The status of the order, either `cancelled`, `completed`, or `open`
+timestamp    | The order time
+tradeAmount  | The quoted quantity of trade asset
+tradeAsset:  | The trade asset
+type         | The type of order, either `limit` or `market`
+
+#### `fill` Fields
+
+Field     | Description
+--------- | -----------
+amount    | The filled amount
+fee       | The fee incurred by the taker
+id        | The fill id
+price     | The executed price
+timestamp | The executed time
+
+### More Event
+
+The more event is exactly the same as the [`all`](#all-event) event with the exception of an additional request parameter, `beforeId`.
+
+#### Request Fields
+
+Field        | Type                | Required | Description
+------------ | ------------------- | -------- | -----------
+address      | Array\<**string**\> | yes      | Addresses to listen to order events for
+contractHash | Array\<**string**\> | yes      | [Contract hashes](#contract-hashes) of the exchange
+pair         | **string**          | no       | [Pair](#get-pairs) to listen to order events for
+status       | **string**          | no       | The status of the order, either `cancelled`, `completed`, or `open`
+beforeId     | **string**          | no       | The id of the last order in the order history
+
+### Updates Event
+
+> Example Event
+
+```js
+{
+  events: [...],
+}
+````
+
+Whenever there is a new order event, an `updates` event will be emitted.
+
+#### Event Fields
+
+Field     | Description
+--------- | -----------
+events    | An array of `event`s, in the same format as `order`
