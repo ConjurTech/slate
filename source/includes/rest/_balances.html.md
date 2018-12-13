@@ -11,7 +11,7 @@ Contract balance | Number of tokens present in the Switcheo smart contract.
 
 Trading on Switcheo Exchange can only be done using your contract balance.
 
-### List Contract Balance
+### GET Contract Balances
 
 List contract balances of the given address and contract.
 

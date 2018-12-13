@@ -23,7 +23,7 @@ To use the faucet:
 4. Click on **WALLET LOGIN** to login
 5. Click on the **FAUCET** button to receive tokens for testing
 
-### Create Deposit
+### POST Create Deposit
 
 > Create a deposit
 
@@ -131,7 +131,7 @@ To be able to make a deposit, sufficient funds are required in the depositing wa
 
 [Full create deposit example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/deposits/createDepositExample.js)
 
-### Execute Deposit for ETH
+### POST Execute ETH Deposit
 
 > Execute a deposit
 
@@ -178,7 +178,7 @@ the transaction hash of the broadcasted transaction should then be sent to the b
 
  [Full execute deposit example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/deposits/executeDepositExample.js)
 
-### Execute Deposit for NEO
+### POST Execute NEO Deposit
 
 > Execute a deposit
 

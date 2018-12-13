@@ -11,7 +11,7 @@ Withdrawals are not instantaneous.
 Tokens deducted from your contract balance will be added to your wallet balance but put on hold until
 the withdrawal has been fully executed.
 
-### Create Withdrawal
+### POST Create Withdrawal
 
 > Create a withdrawal
 
@@ -87,7 +87,7 @@ A [signature](#authentication) of the request payload has to be provided for thi
 
 [Full create withdrawal example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/withdrawals/createWithdrawalExample.js)
 
-### Execute Withdrawal
+### POST Execute Withdrawal
 
 > Executing a withdrawal
 

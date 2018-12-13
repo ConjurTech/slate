@@ -1,15 +1,15 @@
 ## Orders
 
-Orders are instructions to buy or sell tokens on Switcheo Exchange.
+Orders are instructions to trade tokens on Switcheo Exchange.
 
 ### Overview
 
-At the moment, only Limit orders are available. Market, Fill-Or-Cancel, Make-Or-Cancel, etc. strategies are not available yet.
+`limit`, `market` and `otc` type orders are available. Market, Fill-Or-Cancel, Make-Or-Cancel, etc. strategies are not available yet.
 
 As such, orders will contain a combination of zero or one **make** and/or zero or more **fills**.
 
-Once an order is placed, the funds required for the order is removed from the user's balance
- and placed on hold until the order is filled or the order is cancelled.
+Once an order is placed, the funds required to fulfill the order is debited from the user's contract balance
+ and locked up until the order is filled or cancelled.
 
 ### The Order Model
 
@@ -192,7 +192,59 @@ status                     | Status of the make. Possible values are `pending` (
 created_at                 | Time when the make was created.
 transaction_hash           | Transaction hash of the transaction representing this make.
 
-### List Orders
+### GET Order
+
+> Example request
+
+```js
+{
+  "order": "995cfc34-8fb8-41e6-bccd-1695086267d1",
+}
+```
+
+> Example Response
+
+```json
+{
+  "id": "995cfc34-8fb8-41e6-bccd-1695086267d1",
+  "blockchain": "eth",
+  "contract_hash": "0xba3ed686cc32ffa8664628b1e96d8022e40543de",
+  "address": "0x7c819b61b3a35ab718f66508d31e2cf3c25eb624",
+  "pair": "DAI_ETH",
+  "side": "buy",
+  "price": "0.00662",
+  "quantity": "62000000000000000000",
+  "use_native_token": false,
+  "created_at": "2018-11-20T03:43:48.035Z",
+  "order_status": "cancelled",
+  "offer_asset_id": "0x0000000000000000000000000000000000000000",
+  "want_asset_id": "0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359",
+  "offer_amount": "410440000000000000",
+  "want_amount": "62000000000000000000",
+  "status": "processed",
+  "deposit_txn": null,
+  "transfer_amount": "0",
+  "priority_gas_amount": "0",
+  "native_fee_transfer_amount": 0,
+  "fill_groups": [...],
+  "fills": [...],
+  "makes": [...]
+}
+```
+
+Retrieves a specific order
+
+#### HTTP Request
+
+`GET /v2/order/:order_id`
+
+#### Request Parameters
+
+ Parameter      | Type                  | Required | Description
+--------------- | --------------------- | -------- | -------------
+ order_id       | **string**            | yes      | Return order details for a specific order id
+
+### GET Orders
 
 > Example request
 
@@ -254,7 +306,7 @@ Retrieves orders from a specific address filtered by the given parameters.
 [Full list orders example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/listOrdersExample.js)
 
 
-### Create Order
+### POST Create Order
 
 This endpoint creates an order which can be executed through [Broadcast Order](#execute-order).
 Orders can only be created after sufficient funds have been [deposited](#deposits) into the user's contract balance.
@@ -276,9 +328,9 @@ For the below descriptions, the `order maker` refers to your API user.
 
 ```js
 function createOrder({ pair, blockchain, side, price,
-                       wantAmount, useNativeTokens, orderType,
+                       quantity, useNativeTokens, orderType,
                        privateKey, address }) {
-  const signableParams = { pair, blockchain, side, price, wantAmount,
+  const signableParams = { pair, blockchain, side, price, quantity,
                            useNativeTokens, orderType, timestamp: getTimestamp(),
                            contractHash: CONTRACT_HASH }
 
@@ -296,9 +348,7 @@ createOrder({
   address: user.address,
   side: 'buy',
   price: (0.001).toFixed(8),
-  // if the side is 'buy', then this is the amount of SWTH you want
-  // if the side is 'sell' then this is the amount of NEO you want
-  wantAmount: toAssetAmount(20.5, 'SWTH'),
+  quantity: toAssetAmount(1000, 'SWTH'),
   useNativeTokens: true,
   orderType: 'limit',
   privateKey: user.privateKey
@@ -313,7 +363,7 @@ createOrder({
   "blockchain": "neo",
   "side": "buy",
   "price": "0.00100000",
-  "want_amount": "2050000000",
+  "want_amount": "100000000000",
   "use_native_tokens": true,
   "order_type": "limit",
   "timestamp": 1531541888559,
@@ -334,8 +384,8 @@ createOrder({
   "side": "buy",
   "offer_asset_id": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
   "want_asset_id": "ab38352559b8b203bde5fddfa0b07d8b2525e132",
-  "offer_amount": "2050000",
-  "want_amount": "2050000000",
+  "offer_amount": "100000000",
+  "want_amount": "100000000000",
   "transfer_amount": "0",
   "priority_gas_amount": "0",
   "use_native_token": true,
@@ -368,14 +418,14 @@ createOrder({
 
  Parameter         | Type                    | Required   | Description
 ------------------ | ----------------------- | ---------- | -----------
- blockchain        | **string**              | yes | Blockchain that the `pair` is on. Possible values are: `neo`.
- contract_hash     | **string**              | yes | Switcheo Exchange [contract hash](#contracts) to execute the order on.
+ blockchain        | **string**              | yes | Blockchain that the `pair` is on. Possible values are: `neo`, `eth`.
+ contract_hash     | **string**              | yes | Switcheo Exchange [contract hash](#get-contracts) to execute the order on.
  pair              | **string**              | yes | Pair to trade, e.g. `SWTH_NEO`.
  side              | **string**              | yes | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`. If the pair is `SWTH_NEO` and the side is `buy` then the order is to buy `SWTH` using `NEO`. If the side is `sell` then the order is to sell `SWTH` for `NEO`.
- price             | **string**              | yes | Buy or sell price to 8 decimal places precision.
- want_amount       | [amount](#amounts)      | yes | If the pair is `SWTH_NEO` and the side is `buy` then this is the [amount](#amounts) of `SWTH` you want. If the side is `sell` then this is the [amount](#amounts) of `NEO` you want.
- use_native_tokens | **boolean**             | yes | Whether to use SWTH as fees or not. Possible values are: `true` or `false`.
- order_type        | **string**              | yes | Order type, possible values are: `limit`, `otc`.
+ price             | **string**              | yes | Buy or sell price rounded to the pair's price precision, found on [Get Pairs](#get-pairs). Set value to `null` for market type order.
+ quantity       | [amount](#amounts)      | yes | The [amount](#amounts) of tokens you wish to trade.
+ use_native_tokens | **boolean**             | yes | `true` if you wish to pay fees in SWTH. Use only `false` for orders on the Ethereum network. 
+ order_type        | **string**              | yes | Order type, possible values are: `limit`, `market`, `otc`
  otc_address       | [address](#addresses)   | no  | Address of the counterparty in OTC trades. Must be provided if and only if `order_type` is `otc`.
  timestamp         | [timestamp](#timestamp) | yes | The exchange's timestamp to be used as a nonce.
  signature         | **string**              | yes | Signature of the request payload. See [Authentication](#authentication) for more details.
@@ -384,7 +434,7 @@ createOrder({
 #### Example
 [Full create order example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createOrderExample.js)
 
-### Execute Order
+### POST Execute Order
 
 This is the second endpoint required to execute an order.
 After using the [Create Order](#create-order) endpoint, you will receive a response which needs to be signed.
@@ -469,7 +519,7 @@ function broadcastOrder({ order, privateKey }) {
 #### Example
 [Full broadcast order example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/broadcastOrderExample.js)
 
-### Create Cancellation
+### POST Create Cancellation
 
 > Create a cancellation
 
@@ -557,7 +607,7 @@ Only orders **with makes** and with an `available_amount` of **more than 0** can
 
 [Full create cancellation example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createCancellationExample.js)
 
-### Execute Cancellation
+### POST Execute Cancellation
 
 > Execute a cancellation
 
@@ -634,5 +684,5 @@ const numToHex = (num) => {
 In the previous sections,
   you may have noticed that offer_hashes are generated for fills and makes right after creation.
 
-To compute the offer_hash yourself, you can take reference from the example code snippet that is shown on the right.
+To compute the offer_hash, please take reference from the sample code snippet that is shown on the right.
   You can find the `u` library from [neon-js](https://github.com/CityOfZion/neon-js/tree/31600a3cb9c38b9a0d961e98475e4cc81c908cd8/packages/neon-core/src/u).

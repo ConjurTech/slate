@@ -6,7 +6,7 @@ This happens when an incoming order matches an offer on the opposite side of the
 
 Trades can be seen on the Trade History column on [Switcheo Exchange](https://switcheo.exchange).
 
-### List Trades
+### GET Trades
 
 > Example request
 
@@ -71,7 +71,7 @@ is_buy      | Whether the side of the trade is a buy.
 [Full list trades example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/trades/listTradesExample.js)
 
 
-### Get Recent Trades
+### GET Recent Trades
 
 Returns `20` most recent formatted trades on the selected pair sorted by executed time in descending order (most recent first).
 

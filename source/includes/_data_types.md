@@ -57,7 +57,7 @@ For example, if the token's precision is `8`, and the original amount is `9.1234
 2. Drop any decimals to get: `912345678`
 3. Convert the result to a string to get `"912345678"`
 
-The list of supported assets and their corresponding precisions can be found in the [Tokens](#tokens) section.
+The list of supported assets and their corresponding precisions can be found in the [Tokens](#get-tokens) section.
 
 
 ## Private Keys
@@ -81,7 +81,7 @@ The private key should be used for signing, not the WIF.
 
 ## Contract Hashes
 
-Use [Get Contract Hashes](#get-contract-hashes) to get the correct blockchain smart contract you are referring to. There may be more than one version for a given blockchain, due to upgrades, as smart contracts are immutable.  The correct contract hash must be used depending on whether you are using the TestNet or MainNet endpoints.
+Use [Get Contracts](#get-contracts) to get the correct blockchain smart contract you are referring to. There may be more than one version for a given blockchain, due to upgrades, as smart contracts are immutable.  The correct contract hash must be used depending on whether you are using the TestNet or MainNet endpoints.
 
 ## Signatures
 

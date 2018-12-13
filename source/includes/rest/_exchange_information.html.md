@@ -1,10 +1,10 @@
 ## Exchange Information
 
-This section consists of endpoints that allow retrieval of Switcheo Exchange information.
+This section consists of endpoints that allows retrieval of Switcheo Exchange information.
 
 Authentication is not required for these endpoints.
 
-### Get Timestamp
+### GET Timestamp
 Retrieve the current epoch [timestamp](#timestamp) in the exchange.
 
 #### HTTP Request
@@ -26,7 +26,7 @@ This value should be fetched and used when a timestamp parameter is required for
 If the timestamp used for your API request is not within an acceptable range of the exchange's timestamp then an invalid signature error will be returned. The acceptable range might vary, but it should be less than one minute.
 
 
-### Get Contract Hashes
+### GET Contracts
 
 #### HTTP Request
 
@@ -47,25 +47,22 @@ If the timestamp used for your API request is not within an acceptable range of 
 }
 ```
 
-Retrieve the currently deployed contract hashes by Switcheo.
+Returns the current deployed contract hashes by Switcheo Exchange.
 
 Please note that a different set of contract hashes should be used
-depending on the Network you intend to work with (TestNet vs the MainNet).
+depending on the network you intend to interact with.
 
 Network  | URL
 -------- | ----------
 TestNet  | Retrieve contract hashes from [TestNet_URL]/v2/exchange/contracts
 MainNet  | Retrieve contract hashes from [MainNet_URL]/v2/exchange/contracts
 
-Note also that, ETH contract hashes always include a `0x` prefix, while NEO never
+ETH contract hashes should always include a `0x` prefix, while NEO contract hashes should never
 includes a `0x` prefix.
 
-
-### Get Pairs
+### GET Pairs
 
 Retrieve available trading pairs on Switcheo Exchange filtered by the `base` parameter. Defaults to all pairs.
-
-The valid `base` currencies are currently: `NEO`, `GAS`, `SWTH`, `USD`.
 
 #### HTTP Request
 
@@ -82,22 +79,23 @@ The valid `base` currencies are currently: `NEO`, `GAS`, `SWTH`, `USD`.
 ]
 
 ```
+
 > Example response with details
-// GET /v2/exchange/pairs?bases=["NEO"]&show_details=1
+
 ```js
+// GET /v2/exchange/pairs?bases=["NEO"]&show_details=1
 [
     {
         "name": "GAS_NEO",
         "price_precision": 3
-        "quantity_precision": 3
     },
     {
         "name": "SWTH_NEO",
         "price_precision": 6,
-        "quantity_precision": 2
     },
-...
+    ...
 ]
+
 ```
 
 
@@ -105,9 +103,8 @@ The valid `base` currencies are currently: `NEO`, `GAS`, `SWTH`, `USD`.
 
  Parameter              | Type            | Required  | Description
 ---------------         | -----------     | --------- | -----------
- bases                  | Array\<string\> | no        | Provides pairs for these base symbols. Possible values are `NEO, GAS, SWTH, USD`.
- show_details           | Boolean         | no        | Show further details for token
- show_inactive          | Boolean         | no        | Show inactive tokens (default is to not return inactive tokens)
+ bases                  | Array\<string\> | no        | Provides pairs for these base symbols. 
+ show_details           | Boolean         | no        | Show further details for token. Defaults to `0`
 
 
 #### Response parameters for `show_details=0`
@@ -121,11 +118,10 @@ Array            | List of token pairings (ticker) `<QUOTE>_<BASE>` where `<QUOT
 Parameter        | Description
 ------------     | ----------
 name             | The ticker name as `<QUOTE>_<BASE>` where `<QUOTE>` is the trading token symbol (e.g. `SWTH`), while `<BASE>` is the base token symbol (e.g. `NEO`)
-precision        | The maximum price precision that can be submitted (e.g. if precision is `2`,
-an order on this pair for `1.99` or `1.90000000` price is valid, but `1.999` is not)
+precision        | The maximum price precision that can be submitted (e.g. if precision is `2`, an order on this pair for `1.99` or `1.90000000` price is valid, but `1.999` is not)
 
 
-### Get Tokens Information
+### GET Tokens
 
 Retrieve a list of supported tokens on Switcheo.
 
@@ -206,8 +202,8 @@ Retrieve a list of supported tokens on Switcheo.
 
  Parameter              | Type      | Required  | Description
 ---------------         | --------- | --------- | -----------
- show_listing_details   | Boolean   | no        | Show all details for each token (default is `false`). If `false`, only `hash` & `decimals` are returned, otherwise all parameters below are returned.
- show_inactive          | Boolean   | no        | Show inactive tokens (default is `false`)
+ show_listing_details   | Boolean   | no        | Show all details for each token. If `false`, only `hash` & `decimals` are returned, otherwise all parameters below are returned. Defaults to `false`
+ show_inactive          | Boolean   | no        | Show inactive tokens. Default to `false`)
 
 #### Response parameters
 
@@ -224,25 +220,32 @@ start             | Starting time for the activity (in epoch seconds)
 end               | Ending time for the activity (in epoch seconds)
 paused            | Whether the trading of the token is temporarily paused
 
-### Get Fee Information
+### GET Fees
 
 > Example response
 
 ```js
 [
-{
-    "eth_address": "0x3be1f07cdb14d7a19a150dba525b09a6caefde97",
+  {
     "maker": {
-        "default": 0
+      "default": 0
     },
     "taker": {
-        "default": 0.0015
+      "default": 0.002
     },
-    "native_fee_discount": 0.5,
+    "network_fee_subsidy_threshold": {
+      "neo": 0.1,
+      "eth": 0.1
+    },
+    "max_taker_fee_ratio": {
+      "neo": 0.005,
+      "eth": 0.1
+    },
+    "native_fee_discount": 0.75,
     "native_fee_asset_id": "ab38352559b8b203bde5fddfa0b07d8b2525e132",
     "enforce_native_fees": [
-        "RHT",
-        "RHTC"
+      "RHT",
+      "RHTC"
     ],
     "native_fee_exchange_rates": {
         "NEO": "952.38095238",
@@ -251,8 +254,16 @@ paused            | Whether the trading of the token is temporarily paused
         "ETH": "0",
         "JRC": "0",
         "SWC": "0"
+    },
+    "network_fees": {
+      "eth": "2466000000000000",
+      "neo": "200000"
+    },
+    "network_fees_for_wdl": {
+      "eth": "873000000000000",
+      "neo": "0"
     }
-}
+  }
 ]
 
 ```
@@ -267,14 +278,17 @@ Returns fee data for various blockchains and pairs
 
 Parameter                 | Description
 ------------------------- | ----------
-maker / default           | Default rate for maker orders, before discount (in %)
-taker / default           | Default rate for taker orders, before discount (in %)
-native_fee_discount       | Discount applied to fee for use of native token (as a multiplier)
+maker / default           | Default trading fee rate for maker orders, before any discount and network fees
+taker / default           | Default trading rate for taker orders, before any discount and network fees
+network_fee_subsidy_threshold | The rate used against your trade proceeds at which network fees will be capped at. (E.g. Assuming `network_fee_subsidy_threshold` is 0.1 and the your total trade proceeds is 0.2 ETH, the payable network fee will not exceed 0.02 ETH.)
+native_fee_discount       | Discount applied to fee for use of native token (as a multiplier). Discount Rate is 1 - `native_fee_discount`
 native_fee_asset_id       | NEO contract hash of the Native Token (i.e. `SWTH`)
 enforce_native_fee        | List of asset tickers where fee **must** be paid in Native Tokens
 native_fee_exchange_rates | List of token:value tuples, containing the exchange rate in Native Token
+network_fees              | Network Trading fee in the smallest denomination of the native network token
+network_fees_for_wdl      | Network Withdrawal fee in the smallest denomination of the native network token
 
-### Get Announcement Message
+### GET Announcements
 
 Retrieve the currently active Switcheo Exchange Announcement
 
@@ -286,8 +300,17 @@ Retrieve the currently active Switcheo Exchange Announcement
 
 ```js
 {
-    "message": "Welcome to Switcheo Exchange!!",
-    "message_type": "info"
+  "messages": [
+    {
+      "message": "<span>Welcome onboard to <a href=\"https://medium.com/switcheo/callisto-is-now-live-de940a62f1a4\" target=\\\"blank\\\">Switcheo</a>, the first decentralized exchange on Ethereum and NEO.</span>",
+      "message_type": "alert"
+    },
+    {
+      "message": "<span>To access the legacy UI, please visit: <a href=\"https://legacy.switcheo.exchange\" target=\\\"blank\\\">https://legacy.switcheo.exchange/</a></span>",
+      "message_type": "info"
+    }
+  ],
+  "updated_at": "20181203"
 }
 ```
 
@@ -295,5 +318,5 @@ Retrieve the currently active Switcheo Exchange Announcement
 
 Parameter    | Description
 ------------ | ----------
-message      | HTML formatted message
-message_type | Importance of Message - Possible Values: "alert" \| "warning" \| "info"
+messages     | A list of messages
+updated_at   | Last updated date in `YYYYMMDD` format

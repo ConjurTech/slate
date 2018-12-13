@@ -5,14 +5,16 @@ Instead, authentication is done by signing the **request payload** _or_ **blockc
 
 ### Overview
 
-Currently, all supported blockchains uses the ellipitic curve digital signature algorithim (ECDSA). However, the curves and hashing algorithim used for each blockchain differ slightly per blockchain.
+Currently, all supported blockchains uses the ellipitic curve digital signature algorithim (ECDSA). However, the curves and hashing algorithim used for each blockchain differs slightly.
 
 | Blockchain | Signature Algo | Curve       | Hash Function  |
 | ---------- | -------------- | -----       | -------------- |
 | NEO        | ECDSA          | NIST P-256  | SHA-256        |
 | ETH        | ECDSA          | secp256k1   | SHA-3 (Keccak) |
 
-Two steps are required to perform an authenticated action.
+<aside class="notice">
+  IMPORTANT: Two steps are required to perform an authenticated action.
+</aside>
 
 1. In the first step:
   - Sign the parameters of the request using the user's private key

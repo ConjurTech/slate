@@ -1,10 +1,10 @@
 ## Tickers
 
-Ticker endpoints allow retrieval of aggregated market data on Switcheo Exchange.
+Ticker endpoints allow retrieval of aggregated market data.
 
 Authentication is not required for these endpoints.
 
-### Get Candlesticks
+### GET Candlesticks
 
 Returns candlestick chart data filtered by url parameters.
 
@@ -72,7 +72,7 @@ low          | Lowest price during the interval.
 volume       | Volume in base token traded during the interval.
 quote_volume | Volume in quoted token traded during the interval.
 
-### Get Last 24 Hour Data
+### GET Last 24 Hours
 
 Returns 24-hour data for all pairs and markets.
 
@@ -118,7 +118,7 @@ low          | Lowest price during the interval.
 volume       | Volume in base token traded during the interval.
 quote_volume | Volume in quoted token traded during the interval.
 
-### Get Last Price
+### GET Last Price
 
 Returns last price of the requested symbol(s) / base(s). Defaults to all symbols & bases.
 

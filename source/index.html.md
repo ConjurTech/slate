@@ -4,9 +4,9 @@ title: Switcheo API Reference
 includes:
   - overview
   - rest/index
-  - rest/authentication
   - rest/exchange_information
   - rest/tickers
+  - rest/authentication
   - rest/offers
   - rest/trades
   - rest/deposits

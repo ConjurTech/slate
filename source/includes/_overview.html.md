@@ -2,27 +2,18 @@
 
 ## Introduction
 
-Welcome to the Switcheo Exchange API documentation.
-
 This documentation is intended for developers who want to write applications to interact with the
-Switcheo Exchange programatically.
+[Switcheo Exchange](https://switcheo.exchange) programatically.
 
-Before you proceed with the API documentation, be sure to explore Switcheo Exchange at
-[https://switcheo.exchange](https://switcheo.exchange).
+Switcheo Exchange offers both a fully featured REST API and a WebSocket API. Language bindings are provided in Javascript. [Authentications](#authentication) are not made using API keys but are done instead by signing the request payload or transaction using your private key. 
 
-Switcheo Exchange provides a REST API and a WebSocket API, described below.
+You may wish to visit [Awesome Switcheo](https://github.com/Switcheo/awesome-switcheo) which contains everything awesome about Switcheo.
 
-## REST API
-
-Switcheo offers both public and private REST APIs. You may find out more information about it [here](#rest-api).
-
-## Streaming API
-
-A Streaming API that can provide real-time trading data is also available. You may find out more information about it [here](#streaming-api).
+Information on API wrappers can also be found on [Awesome Switcheo](https://github.com/Switcheo/awesome-switcheo).
 
 ## Sandbox
 
-Use the following TestNet (sandbox) URLs when developing your application:
+**TestNet URLs (Sandbox)**
 
 Type | Base URL
 ---- | ----------
@@ -30,7 +21,7 @@ UI   | [https://beta.switcheo.exchange/](https://beta.switcheo.exchange/)
 API  | [https://test-api.switcheo.network](https://test-api.switcheo.network)
 WS   | [wss://test-ws.switcheo.io](wss://test-ws.switcheo.io)
 
-Use the MainNet URLs for actual trading and market data:
+**MainNet URLs (Actual Exchange)**
 
 Type | Base URL
 ---- | ----------
