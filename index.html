@@ -636,7 +636,7 @@
 
 <p>All private endpoints must be authenticated.  </p>
 
-<p>These public endpoints include:</p>
+<p>These private endpoints include:</p>
 
 <ul>
 <li>POST <a href="#post-create-cancellation">Create Cancellation</a></li>
@@ -1459,7 +1459,7 @@ parameter. This signature parameter should then be sent together with the other 
 <span class="c1">// send the result to the second API endpoint</span>
 <span class="kr">const</span> <span class="nx">signatureToSend</span> <span class="o">=</span> <span class="nx">signTransaction</span><span class="p">(</span><span class="nx">transaction</span><span class="p">,</span> <span class="s1">'&lt;private key&gt;'</span><span class="p">)</span>
 </code></pre>
-<p>The second step of an action usually requires the returned transaction to be signed, this is done by:</p>
+<p>The second step of an action usually requires the returned transaction to be signed. This is done by:</p>
 
 <ol>
 <li>Checking the returned transaction data to ensure it matches the user&#39;s intention</li>
