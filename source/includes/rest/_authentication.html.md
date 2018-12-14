@@ -115,7 +115,7 @@ function signTransaction(transaction, privateKey) {
 const signatureToSend = signTransaction(transaction, '<private key>')
 ```
 
-The second step of an action usually requires the returned transaction to be signed, this is done by:
+The second step of an action usually requires the returned transaction to be signed. This is done by:
 
 1. Checking the returned transaction data to ensure it matches the user's intention
 2. Signing the `message` in the transaction with the user's private key

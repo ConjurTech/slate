@@ -33,7 +33,7 @@ These public endpoints include:
 
 All private endpoints must be authenticated.  
 
-These public endpoints include:
+These private endpoints include:
 
 + POST [Create Cancellation](#post-create-cancellation)
 + POST [Create Deposit](#post-create-deposit)
