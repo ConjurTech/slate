@@ -2377,7 +2377,7 @@ you will receive a response which requires additional signing.</p>
 <h2 id='orders'>Orders</h2>
 <p>Orders are instructions to trade tokens on Switcheo Exchange.</p>
 <h3 id='overview-5'>Overview</h3>
-<p><code>limit</code>, <code>market</code> and <code>otc</code> type orders are available. Market, Fill-Or-Cancel, Make-Or-Cancel, etc. strategies are not available yet.</p>
+<p><code>limit</code>, <code>market</code> and <code>otc</code> type orders are available. Fill-Or-Cancel, Make-Or-Cancel, etc. strategies are not yet available.</p>
 
 <p>As such, orders will contain a combination of zero or one <strong>make</strong> and/or zero or more <strong>fills</strong>.</p>
 
@@ -2858,7 +2858,7 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 <td>from</td>
 <td><strong>integer</strong></td>
 <td>no</td>
-<td>Only return orders that are last updated at or after this time</td>
+<td>Only return orders that are last updated at or after this time in UNIX timestamp format</td>
 </tr>
 <tr>
 <td>order_status</td>
@@ -2932,7 +2932,7 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
   <span class="s2">"blockchain"</span><span class="p">:</span> <span class="s2">"neo"</span><span class="p">,</span>
   <span class="s2">"side"</span><span class="p">:</span> <span class="s2">"buy"</span><span class="p">,</span>
   <span class="s2">"price"</span><span class="p">:</span> <span class="s2">"0.00100000"</span><span class="p">,</span>
-  <span class="s2">"want_amount"</span><span class="p">:</span> <span class="s2">"100000000000"</span><span class="p">,</span>
+  <span class="s2">"quantity"</span><span class="p">:</span> <span class="s2">"100000000000"</span><span class="p">,</span>
   <span class="s2">"use_native_tokens"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="s2">"order_type"</span><span class="p">:</span> <span class="s2">"limit"</span><span class="p">,</span>
   <span class="s2">"timestamp"</span><span class="p">:</span> <span class="mi">1531541888559</span><span class="p">,</span>
@@ -2950,6 +2950,8 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
   <span class="s2">"contract_hash"</span><span class="p">:</span> <span class="s2">"eed0d2e14b0027f5f30ade45f2b23dc57dd54ad2"</span><span class="p">,</span>
   <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f"</span><span class="p">,</span>
   <span class="s2">"side"</span><span class="p">:</span> <span class="s2">"buy"</span><span class="p">,</span>
+  <span class="s2">"price"</span><span class="p">:</span> <span class="s2">"0.00100000"</span><span class="p">,</span>
+  <span class="s2">"quantity"</span><span class="p">:</span> <span class="s2">"100000000000"</span><span class="p">,</span>
   <span class="s2">"offer_asset_id"</span><span class="p">:</span> <span class="s2">"c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b"</span><span class="p">,</span>
   <span class="s2">"want_asset_id"</span><span class="p">:</span> <span class="s2">"ab38352559b8b203bde5fddfa0b07d8b2525e132"</span><span class="p">,</span>
   <span class="s2">"offer_amount"</span><span class="p">:</span> <span class="s2">"100000000"</span><span class="p">,</span>
