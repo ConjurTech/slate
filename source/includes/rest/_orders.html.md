@@ -296,7 +296,7 @@ Retrieves orders from a specific address filtered by the given parameters.
  address        | [address](#addresses) | yes      | Only return orders made by this [address](#addresses).
  pair           | **string**            | no       | Only return orders from this [pair](#pair).
  contract_hash  | **string**            | yes      | Only return orders from this [contract hash](#contracts).
- from           | **integer**           | no       | Only return orders that are last updated at or after this time
+ from           | **integer**           | no       | Only return orders that are last updated at or after this time in UNIX timestamp format
  order_status   | **string**            | no       | Only return orders have this status. Possible values are `open`, `cancelled`, `completed`
  before_id      | **string**            | no       | Only return orders that are created before the order with this id
  limit          | **integer**           | no       | Only return up to this number of orders (min: `1`, max: `200`, default: `50`).
