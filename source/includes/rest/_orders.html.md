@@ -4,7 +4,7 @@ Orders are instructions to trade tokens on Switcheo Exchange.
 
 ### Overview
 
-`limit`, `market` and `otc` type orders are available. Market, Fill-Or-Cancel, Make-Or-Cancel, etc. strategies are not available yet.
+`limit`, `market` and `otc` type orders are available. Fill-Or-Cancel, Make-Or-Cancel, etc. strategies are not yet available.
 
 As such, orders will contain a combination of zero or one **make** and/or zero or more **fills**.
 
@@ -363,7 +363,7 @@ createOrder({
   "blockchain": "neo",
   "side": "buy",
   "price": "0.00100000",
-  "want_amount": "100000000000",
+  "quantity": "100000000000",
   "use_native_tokens": true,
   "order_type": "limit",
   "timestamp": 1531541888559,
@@ -382,6 +382,8 @@ createOrder({
   "contract_hash": "eed0d2e14b0027f5f30ade45f2b23dc57dd54ad2",
   "address": "87cf67daa0c1e9b6caa1443cf5555b09cb3f8e5f",
   "side": "buy",
+  "price": "0.00100000",
+  "quantity": "100000000000",
   "offer_asset_id": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
   "want_asset_id": "ab38352559b8b203bde5fddfa0b07d8b2525e132",
   "offer_amount": "100000000",
