@@ -236,7 +236,7 @@ Retrieves a specific order
 
 #### HTTP Request
 
-`GET /v2/order/:order_id`
+`GET /v2/orders/:order_id`
 
 #### Request Parameters
 
