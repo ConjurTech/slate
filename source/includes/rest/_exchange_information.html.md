@@ -363,14 +363,14 @@ Retrieve the currently active Switcheo Exchange Lockup statistics
 --------------- | ---------- | -------- | -----------
 asset_id        | **string** | yes      | Only return lockups for this [asset ID](#supported-assets).
 contract_hash   | **string** | yes      | Only return lockups for this [contract hash](#contracts).
-lockup_type     | **string** | yes      | Only return lockups for this type of lockup.
+lockup_type     | **string** | yes      | Only return lockup information for this lockup campaign (0 = Bolt, 1 = SWTH Lite, 2 = SWTH Premium).
 
 #### Response parameters
 
 Parameter        | Description
 ------------     | ----------
 name             | Lockup chest campaign name
-lockup_type      | Indicator if the asset is unlockable (0 = locked)
+lockup_type      | Indicator for the campaign being run (0 = Bolt, 1 = SWTH Lite, 2 = SWTH Premium).
 blockchain       | Blockchain that the lockup chest campaign is running on.
 asset_id         | Asset hash for the token the lockup chest campaign is running for.
 max_distribution | The maximum amount of tokens to be shared amount lockup chest participants.
@@ -428,27 +428,27 @@ Retrieve the currently active Switcheo Exchange Lockup statistics for a specific
 
  Parameter      | Type       | Required | Description
 --------------- | ---------- | -------- | -----------
-address         | **string** | yes       | The lockup campaigns address [address](#addresses).
+address         | **string** | yes      | The lockup campaigns address [address](#addresses).
 asset_id        | **string** | yes      | Only return lockups for this [asset ID](#supported-assets).
 blockchain      | **string** | yes      | Blockchain that the lockup campaign is on. Possible values are: `neo` and `eth`.
 contract_hash   | **string** | yes      | Only return lockups for this [contract hash](#contracts).
-lockup_type     | **string** | yes      | Only return lockups for this type of lockup.
+lockup_type     | **string** | yes      | Only return lockup information for this lockup campaign (0 = Bolt, 1 = SWTH Lite, 2 = SWTH Premium).
 
 #### Response parameters
 
-Parameter        | Description
-------------     | ----------
-id               | Lockup transaction ID.
-lockup_type      | Indicator if the asset is unlockable (0 = locked).
-address          | The wallet address for the lockup events.
-asset_id         | Asset hash for the token the lockup chest campaign is running for.
-contract_hash    | The contract hash for the Switcheo smart contract on the requested blockchain.
-blockchain       | Blockchain that the lockup chest campaign is running on.
-lock_balance_id  | The transaction identifier for the balance lockup event.
+Parameter         | Description
+------------      | ----------
+id                | Lockup transaction ID.
+lockup_type       | Indicator for the campaign being run (0 = Bolt, 1 = SWTH Lite, 2 = SWTH Premium).
+address           | The wallet address for the lockup events.
+asset_id          | Asset hash for the token the lockup chest campaign is running for.
+contract_hash     | The contract hash for the Switcheo smart contract on the requested blockchain.
+blockchain        | Blockchain that the lockup chest campaign is running on.
+lock_balance_id   | The transaction identifier for the balance lockup event.
 unlock_balance_id | The transaction identifier for the balance unlock event.
-status           | The current lockup status of the balance.
-amount           | Total amount of tokens locked up on this request.
+status            | The current lockup status of the balance.
+amount            | Total amount of tokens locked up on this request.
 remaining_seconds | The amount of time left until the lockup period ends.
-created_at       | The time the lockup was created.
-updated_at       | The time the lockup was updated.
-can_withdraw     | Indicator for the ability to withdraw from the lockup campaign.
+created_at        | The time the lockup was created.
+updated_at        | The time the lockup was updated.
+can_withdraw      | Indicator for the ability to withdraw from the lockup campaign.
