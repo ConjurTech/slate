@@ -75,7 +75,7 @@ A [signature](#authentication) of the request payload has to be provided for thi
 
  Parameter         | Type       | Required | Description
 ------------------ | ---------- | -------- | ------------
- blockchain        | **string** | yes       | Blockchain that the token to withdraw is on. Possible values are: `neo`.
+ blockchain        | **string** | yes       | Blockchain that the token to withdraw is on. Possible values are: `neo` and `eth`.
  asset_id          | **string** | yes       | The [asset symbol or ID](#supported-assets) to withdraw.
  amount            | [amount](#amounts) | yes       | [Amount](#amounts) of tokens to withdraw.
  timestamp         | [timestamp](#timestamp)    | yes       | The exchange's timestamp to be used as a nonce.
