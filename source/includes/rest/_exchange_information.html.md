@@ -103,7 +103,7 @@ Retrieve available trading pairs on Switcheo Exchange filtered by the `base` par
 
  Parameter              | Type            | Required  | Description
 ---------------         | -----------     | --------- | -----------
- bases                  | Array\<string\> | no        | Provides pairs for these base symbols. 
+ bases                  | Array\<string\> | no        | Provides pairs for these base symbols.
  show_details           | Boolean         | no        | Show further details for token. Defaults to `0`
 
 
@@ -320,3 +320,135 @@ Parameter    | Description
 ------------ | ----------
 messages     | A list of messages
 updated_at   | Last updated date in `YYYYMMDD` format
+
+### GET Lockups Stats
+
+Retrieve the currently active Switcheo Exchange Lockup statistics
+
+#### HTTP Request
+
+`GET /v2/lockups/stats`
+
+> Example request
+
+```js
+// GET /v2/lockups/stats?asset_id=<Token Hash>&contract_hash=<Smart Contract Hash>&lockup_type=0
+{
+  "asset_id": "0x9f235d23354857efe6c541db92a9ef1877689bcb",
+  "contract_hash": "0xba3ed686cc32ffa8664628b1e96d8022e40543de",
+  "lockup_type": 0
+}
+```
+
+> Example response
+
+```js
+{
+  "name": "Bolt HODL Campaign",
+  "lockup_type": 0,
+  "blockchain": "eth",
+  "asset_id": "0x9f235d23354857efe6c541db92a9ef1877689bcb",
+  "max_distribution": "10000000000000000000000000",
+  "start_time": 1554120000,
+  "end_time": 1559217600,
+  "minimum_lockup": "20000000000000000000000",
+  "total_amount": "11499118670000000000000000",
+  "total_commitment": "58034155069021810000000000000000"
+}
+```
+
+#### Request parameters
+
+ Parameter      | Type       | Required | Description
+--------------- | ---------- | -------- | -----------
+asset_id        | **string** | yes      | Only return lockups for this [asset ID](#supported-assets).
+contract_hash   | **string** | yes      | Only return lockups for this [contract hash](#contracts).
+lockup_type     | **string** | yes      | Only return lockups for this type of lockup.
+
+#### Response parameters
+
+Parameter        | Description
+------------     | ----------
+name             | Lockup chest campaign name
+lockup_type      | Indicator if the asset is unlockable (0 = locked)
+blockchain       | Blockchain that the lockup chest campaign is running on.
+asset_id         | Asset hash for the token the lockup chest campaign is running for.
+max_distribution | The maximum amount of tokens to be shared amount lockup chest participants.
+start_time       | Start time of the lockup chest campaign.
+end_time         | End time of the lockup chest campaign.
+minimum_lockup   | The minimum amount of tokens required to participate in the lockup chest campaign.
+total_amount     | The total amount of tokens locked up by all participants during the lockup chest campaign.
+total_commitment | TO DO
+
+### GET Lockups by Account
+
+Retrieve the currently active Switcheo Exchange Lockup statistics for a specific wallet address.
+
+#### HTTP Request
+
+`GET /v2/lockups/history`
+
+> Example request
+
+```js
+// GET /v2/lockups/history?address=<Wallet Hash>&asset_id=<Token Hash>&blockchain=<Network Name>&contract_hash=<Smart Contract Hash>&lockup_type=0
+{
+  "address": "0x0",
+  "asset_id": "0x9f235d23354857efe6c541db92a9ef1877689bcb",
+  "blockchain": "eth",
+  "contract_hash": "0xba3ed686cc32ffa8664628b1e96d8022e40543de",
+  "lockup_type": 0
+}
+```
+
+> Example response
+
+```js
+[
+  {
+    "id": "38202e02-727f-1953-4c8e-47ac66c0d06e",
+    "lockup_type": 0,
+    "address": "0xba3Ed686cC32FfA8664628b1E96D8022e40543dE",
+    "asset_id": "0x9f235d23354857efe6c541db92a9ef1877689bcb",
+    "contract_hash": "0xba3ed686cc32ffa8664628b1e96d8022e40543de",
+    "blockchain": "eth",
+    "lock_balance_id": "fce7660e-b323-4e12-a6fa-3e2b2353c411",
+    "unlock_balance_id": null,
+    "status": "locked",
+    "amount": "20000000000000000000000",
+    "remaining_seconds": 4812231,
+    "created_at": "2019-04-04T19:16:09.246Z",
+    "updated_at": "2019-04-04T19:16:09.246Z",
+    "can_withdraw": false
+  }
+]
+```
+
+#### Request parameters
+
+ Parameter      | Type       | Required | Description
+--------------- | ---------- | -------- | -----------
+address         | **string** | yes       | The lockup campaigns address [address](#addresses).
+asset_id        | **string** | yes      | Only return lockups for this [asset ID](#supported-assets).
+blockchain      | **string** | yes      | Blockchain that the lockup campaign is on. Possible values are: `neo` and `eth`.
+contract_hash   | **string** | yes      | Only return lockups for this [contract hash](#contracts).
+lockup_type     | **string** | yes      | Only return lockups for this type of lockup.
+
+#### Response parameters
+
+Parameter        | Description
+------------     | ----------
+id               | Lockup transaction ID.
+lockup_type      | Indicator if the asset is unlockable (0 = locked).
+address          | The wallet address for the lockup events.
+asset_id         | Asset hash for the token the lockup chest campaign is running for.
+contract_hash    | The contract hash for the Switcheo smart contract on the requested blockchain.
+blockchain       | Blockchain that the lockup chest campaign is running on.
+lock_balance_id  | The transaction identifier for the balance lockup event.
+unlock_balance_id | The transaction identifier for the balance unlock event.
+status           | The current lockup status of the balance.
+amount           | Total amount of tokens locked up on this request.
+remaining_seconds | The amount of time left until the lockup period ends.
+created_at       | The time the lockup was created.
+updated_at       | The time the lockup was updated.
+can_withdraw     | Indicator for the ability to withdraw from the lockup campaign.

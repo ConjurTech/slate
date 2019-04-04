@@ -118,7 +118,7 @@ To be able to make a deposit, sufficient funds are required in the depositing wa
 
  Parameter         | Type       | Required | Description
 ------------------ | ---------- | -------- | ------------
- blockchain        | **string** | yes       | Blockchain that the token to deposit is on. Possible values are: `neo`.
+ blockchain        | **string** | yes       | Blockchain that the token to deposit is on. Possible values are: `neo` and `eth`.
  asset_id          | **string** | yes       | The [asset symbol or ID](#supported-assets) to deposit.
  amount            | [amount](#amounts) | yes       | [Amount](#amounts) of tokens to deposit.
  contract_hash     | **string** | yes       | Switcheo Exchange [contract hash](#contracts) to execute the deposit on.
