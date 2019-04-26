@@ -316,6 +316,12 @@ A successful order will have zero or one **make** and/or zero or more **fills**.
   IMPORTANT: After calling this endpoint, the Broadcast Order endpoint has to be called for the order to be executed.
 </aside>
 
+#### Atomic Swap Orders
+
+Atomic Swap orders can be created through this endpoint,
+the Atomic Swap contract needs to be approved if the offer_asset is on the ETH blockchain.
+Refer to the [Approved Spenders](#approved-spenders) section for more information.
+
 #### HTTP Request
 
 `POST /v2/orders`
@@ -418,20 +424,23 @@ createOrder({
 }
 ```
 
- Parameter         | Type                    | Required   | Description
------------------- | ----------------------- | ---------- | -----------
- blockchain        | **string**              | yes | Blockchain that the `pair` is on. Possible values are: `neo`, `eth`.
- contract_hash     | **string**              | yes | Switcheo Exchange [contract hash](#get-contracts) to execute the order on.
- pair              | **string**              | yes | Pair to trade, e.g. `SWTH_NEO`.
- side              | **string**              | yes | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`. If the pair is `SWTH_NEO` and the side is `buy` then the order is to buy `SWTH` using `NEO`. If the side is `sell` then the order is to sell `SWTH` for `NEO`.
- price             | **string**              | yes | Buy or sell price rounded to the pair's price precision, found on [Get Pairs](#get-pairs). Set value to `null` for market type order.
- quantity       | [amount](#amounts)      | yes | The [amount](#amounts) of tokens you wish to trade.
- use_native_tokens | **boolean**             | yes | `true` if you wish to pay fees in SWTH. Use only `false` for orders on the Ethereum network. 
- order_type        | **string**              | yes | Order type, possible values are: `limit`, `market`, `otc`
- otc_address       | [address](#addresses)   | no  | Address of the counterparty in OTC trades. Must be provided if and only if `order_type` is `otc`.
- timestamp         | [timestamp](#timestamp) | yes | The exchange's timestamp to be used as a nonce.
- signature         | **string**              | yes | Signature of the request payload. See [Authentication](#authentication) for more details.
- address           | [address](#addresses)   | yes | [Address](#addresses) of the order maker. **Do not include this in the parameters to be signed.**
+ Parameter              | Type                    | Required   | Description
+----------------------- | ----------------------- | ---------- | -----------
+ blockchain             | **string**              | yes | Blockchain that the `pair` is on. Possible values are: `neo`, `eth`. This should be the blockchain of the offer_asset for Atomic Swap orders.
+ contract_hash          | **string**              | yes | Switcheo Exchange [contract hash](#get-contracts) to execute the order on. For Atomic Swap orders, this should be the contract_hash for the blockchain of the `offer_asset`.
+ pair                   | **string**              | yes | Pair to trade, e.g. `SWTH_NEO`.
+ side                   | **string**              | yes | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`. If the pair is `SWTH_NEO` and the side is `buy` then the order is to buy `SWTH` using `NEO`. If the side is `sell` then the order is to sell `SWTH` for `NEO`.
+ price                  | **string**              | yes | Buy or sell price rounded to the pair's price precision, found on [Get Pairs](#get-pairs). Set value to `null` for market type and Atomic Swap orders.
+ quantity               | [amount](#amounts)      | yes | The [amount](#amounts) of tokens you wish to trade. Set value to `null` for Atomic Swap orders.
+ offer_amount           | [amount](#amounts)      | no  | The [amount](#amounts) of tokens to offer for an Atomic Swap. Must be provided if and only if the order pair is an Atomic Swap pair.
+ use_native_tokens      | **boolean**             | yes | `true` if you wish to pay fees in SWTH. Use only `false` for orders on the Ethereum network.
+ order_type             | **string**              | yes | Order type, possible values are: `limit`, `market`, `otc`. This type must be set as `market` for Atomic Swap orders.
+ otc_address            | [address](#addresses)   | no  | Address of the counterparty in OTC trades. Must be provided if and only if `order_type` is `otc`.
+ timestamp              | [timestamp](#timestamp) | yes | The exchange's timestamp to be used as a nonce.
+ signature              | **string**              | yes | Signature of the request payload. See [Authentication](#authentication) for more details.
+ address                | [address](#addresses)   | yes | [Address](#addresses) of the order maker. **Do not include this in the parameters to be signed.**
+ receiving_address      | [address](#addresses)   | no | Address to receive the `want_asset`. Must be provided if and only if the order pair is an Atomic Swap pair.
+ worst_acceptable_price | **string**              | no | The worst acceptable price of an Atomic Swap. If the [Atomic Swap pricing](#get-swap-pricing) changes to be worse than this, then the order will not be created. Must be provided if and only if the order pair is an Atomic Swap pair.
 
 #### Example
 [Full create order example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createOrderExample.js)

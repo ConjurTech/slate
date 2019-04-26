@@ -12,6 +12,7 @@ includes:
   - rest/deposits
   - rest/withdrawals
   - rest/orders
+  - rest/approved_spenders
   - rest/balances
   - rest/errors
   - streaming/index

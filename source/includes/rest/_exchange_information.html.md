@@ -103,7 +103,7 @@ Retrieve available trading pairs on Switcheo Exchange filtered by the `base` par
 
  Parameter              | Type            | Required  | Description
 ---------------         | -----------     | --------- | -----------
- bases                  | Array\<string\> | no        | Provides pairs for these base symbols. 
+ bases                  | Array\<string\> | no        | Provides pairs for these base symbols.
  show_details           | Boolean         | no        | Show further details for token. Defaults to `0`
 
 
@@ -320,3 +320,97 @@ Parameter    | Description
 ------------ | ----------
 messages     | A list of messages
 updated_at   | Last updated date in `YYYYMMDD` format
+
+
+### GET Swap Pairs
+
+Retrieve available swap pairs on Switcheo Exchange.
+
+#### HTTP Request
+
+`GET /v2/exchange/swap_pairs`
+
+> Example response
+
+```js
+// GET /v2/exchange/swap_pairs
+[
+  "SWTH_ETH",
+  ...
+]
+
+```
+
+### GET Swap Pricing
+
+Atomic Swap orders can be submitted using the [create order](#post-create-order) endpoint.
+The amount that will be received for an offer amount is calculated by the Constant Product formula:
+
+`x_receive = x - k / (y + y_give)`
+
++ x is the amount of asset X in the liquidity pool
++ y is the amount of asset Y in the liquidity pool
++ x_receive is the amount of asset X that the order submitter will receive
++ y_give is the amount of asset Y that the order submitter wants to give
++ k is x * y
+
+For example, if the pair is SWTH / ETH, and the amount of SWTH in the liquidity pool is 3.6 million SWTH,
+and the amount of ETH in the liquidity pool is 100 ETH, then for buying SWTH with 1 ETH, the order submitter would receive 35643.56436 SWTH:
+
+`3.6 million - 360 million / (100 + 1) = 35643.56436 SWTH`
+
+The values of x and y can be fetched from the swap pricing endpoint.
+
+#### HTTP Request
+
+`GET /v2/exchange/swap_pricing`
+
+> Example response
+
+```js
+// GET /v2/exchange/swap_pricing?pair=SWTH_ETH
+{
+    "buy": {
+        "x": "449293223000000",
+        "y": "122561935387988990000",
+        "k": "55066246967587328805614770000000000"
+    },
+    "sell": {
+        "x": "122561935387988990000",
+        "y": "449293223000000",
+        "k": "55066246967587328805614770000000000"
+    }
+}
+```
+
+#### Request parameters
+
+ Parameter   | Type      | Required  | Description
+------------ | --------- | --------- | -----------
+ pair        | String    | yes       | The [swap pair](#get-swap-pairs) to get the swap pricing of
+
+### GET Atomic Swap Contracts
+
+#### HTTP Request
+
+`GET /v2/exchange/atomic_swap_contracts`
+
+> Example response
+
+```js
+{
+    "ETH": {
+        "V1": "<contract hash>"
+    }
+}
+```
+
+Returns the current atomic swap contract hashes.
+
+Please note that a different set of contract hashes should be used
+depending on the network you intend to interact with.
+
+Network  | URL
+-------- | ----------
+TestNet  | Retrieve contract hashes from [TestNet_URL]/v2/exchange/atomic_swap_contracts
+MainNet  | Retrieve contract hashes from [MainNet_URL]/v2/exchange/atomic_swap_contracts
