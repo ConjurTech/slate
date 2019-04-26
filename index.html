@@ -266,6 +266,15 @@
                             <li>
                               <a href="#get-announcements" class="toc-h3 toc-link" data-title="GET Announcements">GET Announcements</a>
                             </li>
+                            <li>
+                              <a href="#get-swap-pairs" class="toc-h3 toc-link" data-title="GET Swap Pairs">GET Swap Pairs</a>
+                            </li>
+                            <li>
+                              <a href="#get-swap-pricing" class="toc-h3 toc-link" data-title="GET Swap Pricing">GET Swap Pricing</a>
+                            </li>
+                            <li>
+                              <a href="#get-atomic-swap-contracts" class="toc-h3 toc-link" data-title="GET Atomic Swap Contracts">GET Atomic Swap Contracts</a>
+                            </li>
                         </ul>
                     </a>
                   </li>
@@ -401,6 +410,19 @@
                             </li>
                             <li>
                               <a href="#computing-offer-hash-neo" class="toc-h3 toc-link" data-title="Computing Offer Hash (NEO)">Computing Offer Hash (NEO)</a>
+                            </li>
+                        </ul>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#approved-spenders" class="toc-h2 toc-link" data-title="approved-spenders">
+                      Approved Spenders
+                        <ul class="toc-list-h3">
+                            <li>
+                              <a href="#post-create-approval" class="toc-h3 toc-link" data-title="POST Create Approval">POST Create Approval</a>
+                            </li>
+                            <li>
+                              <a href="#post-execute-approval" class="toc-h3 toc-link" data-title="POST Execute Approval">POST Execute Approval</a>
                             </li>
                         </ul>
                     </a>
@@ -1082,13 +1104,114 @@ includes a <code>0x</code> prefix.</p>
 <td>Last updated date in <code>YYYYMMDD</code> format</td>
 </tr>
 </tbody></table>
+<h3 id='get-swap-pairs'>GET Swap Pairs</h3>
+<p>Retrieve available swap pairs on Switcheo Exchange.</p>
+<h4 id='http-request-7'>HTTP Request</h4>
+<p><code>GET /v2/exchange/swap_pairs</code></p>
+
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="c1">// GET /v2/exchange/swap_pairs</span>
+<span class="p">[</span>
+  <span class="s2">"SWTH_ETH"</span><span class="p">,</span>
+  <span class="p">...</span>
+<span class="p">]</span>
+
+</code></pre><h3 id='get-swap-pricing'>GET Swap Pricing</h3>
+<p>Atomic Swap orders can be submitted using the <a href="#post-create-order">create order</a> endpoint.
+The amount that will be received for an offer amount is calculated by the Constant Product formula:</p>
+
+<p><code>x_receive = x - k / (y + y_give)</code></p>
+
+<ul>
+<li>x is the amount of asset X in the liquidity pool</li>
+<li>y is the amount of asset Y in the liquidity pool</li>
+<li>x_receive is the amount of asset X that the order submitter will receive</li>
+<li>y_give is the amount of asset Y that the order submitter wants to give</li>
+<li>k is x * y</li>
+</ul>
+
+<p>For example, if the pair is SWTH / ETH, and the amount of SWTH in the liquidity pool is 3.6 million SWTH,
+and the amount of ETH in the liquidity pool is 100 ETH, then for buying SWTH with 1 ETH, the order submitter would receive 35643.56436 SWTH:</p>
+
+<p><code>3.6 million - 360 million / (100 + 1) = 35643.56436 SWTH</code></p>
+
+<p>The values of x and y can be fetched from the swap pricing endpoint.</p>
+<h4 id='http-request-8'>HTTP Request</h4>
+<p><code>GET /v2/exchange/swap_pricing</code></p>
+
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="c1">// GET /v2/exchange/swap_pricing?pair=SWTH_ETH</span>
+<span class="p">{</span>
+    <span class="s2">"buy"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"x"</span><span class="p">:</span> <span class="s2">"449293223000000"</span><span class="p">,</span>
+        <span class="s2">"y"</span><span class="p">:</span> <span class="s2">"122561935387988990000"</span><span class="p">,</span>
+        <span class="s2">"k"</span><span class="p">:</span> <span class="s2">"55066246967587328805614770000000000"</span>
+    <span class="p">},</span>
+    <span class="s2">"sell"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"x"</span><span class="p">:</span> <span class="s2">"122561935387988990000"</span><span class="p">,</span>
+        <span class="s2">"y"</span><span class="p">:</span> <span class="s2">"449293223000000"</span><span class="p">,</span>
+        <span class="s2">"k"</span><span class="p">:</span> <span class="s2">"55066246967587328805614770000000000"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><h4 id='request-parameters-3'>Request parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pair</td>
+<td>String</td>
+<td>yes</td>
+<td>The <a href="#get-swap-pairs">swap pair</a> to get the swap pricing of</td>
+</tr>
+</tbody></table>
+<h3 id='get-atomic-swap-contracts'>GET Atomic Swap Contracts</h3><h4 id='http-request-9'>HTTP Request</h4>
+<p><code>GET /v2/exchange/atomic_swap_contracts</code></p>
+
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"ETH"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"V1"</span><span class="p">:</span> <span class="s2">"&lt;contract hash&gt;"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<p>Returns the current atomic swap contract hashes.</p>
+
+<p>Please note that a different set of contract hashes should be used
+depending on the network you intend to interact with.</p>
+
+<table><thead>
+<tr>
+<th>Network</th>
+<th>URL</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>TestNet</td>
+<td>Retrieve contract hashes from [TestNet_URL]/v2/exchange/atomic_swap_contracts</td>
+</tr>
+<tr>
+<td>MainNet</td>
+<td>Retrieve contract hashes from [MainNet_URL]/v2/exchange/atomic_swap_contracts</td>
+</tr>
+</tbody></table>
 <h2 id='tickers'>Tickers</h2>
 <p>Ticker endpoints allow retrieval of aggregated market data.</p>
 
 <p>Authentication is not required for these endpoints.</p>
 <h3 id='get-candlesticks'>GET Candlesticks</h3>
 <p>Returns candlestick chart data filtered by url parameters.</p>
-<h4 id='http-request-7'>HTTP Request</h4>
+<h4 id='http-request-10'>HTTP Request</h4>
 <p><code>GET /v2/tickers/candlesticks</code></p>
 
 <blockquote>
@@ -1126,7 +1249,7 @@ includes a <code>0x</code> prefix.</p>
   <span class="p">...</span>
 <span class="p">]</span>
 
-</code></pre><h4 id='request-parameters-3'>Request parameters</h4>
+</code></pre><h4 id='request-parameters-4'>Request parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1198,7 +1321,7 @@ includes a <code>0x</code> prefix.</p>
 </tbody></table>
 <h3 id='get-last-24-hours'>GET Last 24 Hours</h3>
 <p>Returns 24-hour data for all pairs and markets.</p>
-<h4 id='http-request-8'>HTTP Request</h4>
+<h4 id='http-request-11'>HTTP Request</h4>
 <p><code>GET /v2/tickers/last_24_hours</code></p>
 
 <blockquote>
@@ -1263,7 +1386,7 @@ includes a <code>0x</code> prefix.</p>
 </tbody></table>
 <h3 id='get-last-price'>GET Last Price</h3>
 <p>Returns last price of the requested symbol(s) / base(s). Defaults to all symbols &amp; bases.</p>
-<h4 id='http-request-9'>HTTP Request</h4>
+<h4 id='http-request-12'>HTTP Request</h4>
 <p><code>GET v2/tickers/last_price</code></p>
 
 <blockquote>
@@ -1286,7 +1409,7 @@ includes a <code>0x</code> prefix.</p>
     <span class="p">}</span>
 <span class="p">}</span>
 
-</code></pre><h4 id='request-parameters-4'>Request parameters</h4>
+</code></pre><h4 id='request-parameters-5'>Request parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1621,9 +1744,9 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <span class="p">}</span>
 </code></pre>
 <p>Retrieves the order book with formatted price and quantity.</p>
-<h4 id='http-request-10'>HTTP Request</h4>
+<h4 id='http-request-13'>HTTP Request</h4>
 <p><code>GET /v2/offers/book</code></p>
-<h4 id='request-parameters-5'>Request Parameters</h4>
+<h4 id='request-parameters-6'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1689,9 +1812,9 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <p>Retrieves the raw data for 70 best offers (per side) of the offer book.</p>
 
 <aside class="notice">It is recommended to use /v2/offers/book whenever possible as it returns a formatted version that is easier to consume.</aside>
-<h4 id='http-request-11'>HTTP Request</h4>
+<h4 id='http-request-14'>HTTP Request</h4>
 <p><code>GET /v2/offers</code></p>
-<h4 id='request-parameters-6'>Request Parameters</h4>
+<h4 id='request-parameters-7'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1790,9 +1913,9 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <span class="p">]</span>
 </code></pre>
 <p>Retrieves raw trades that occurred on Switcheo Exchange, filtered by the request parameters.</p>
-<h4 id='http-request-12'>HTTP Request</h4>
+<h4 id='http-request-15'>HTTP Request</h4>
 <p><code>GET /v2/trades</code></p>
-<h4 id='request-parameters-7'>Request Parameters</h4>
+<h4 id='request-parameters-8'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1864,9 +1987,9 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/trades/listTradesExample.js">Full list trades example</a></p>
 <h3 id='get-recent-trades'>GET Recent Trades</h3>
 <p>Returns <code>20</code> most recent formatted trades on the selected pair sorted by executed time in descending order (most recent first).</p>
-<h4 id='http-request-13'>HTTP Request</h4>
+<h4 id='http-request-16'>HTTP Request</h4>
 <p><code>GET /v2/trades/recent</code></p>
-<h4 id='request-parameters-8'>Request Parameters</h4>
+<h4 id='request-parameters-9'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2037,9 +2160,9 @@ To be able to make a deposit, sufficient funds are required in the depositing wa
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Deposit endpoint has to be called for the deposit to be executed.
 </aside>
-<h4 id='http-request-14'>HTTP Request</h4>
+<h4 id='http-request-17'>HTTP Request</h4>
 <p><code>POST /v2/deposits</code></p>
-<h4 id='request-parameters-9'>Request Parameters</h4>
+<h4 id='request-parameters-10'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2124,9 +2247,9 @@ you will receive a response which contains a <code>transaction</code>.</p>
 
 <p>The <code>transaction</code> in the response should be signed and directly broadcasted by the client,
 the transaction hash of the broadcasted transaction should then be sent to the broadcast endpoint.</p>
-<h4 id='http-request-15'>HTTP Request</h4>
+<h4 id='http-request-18'>HTTP Request</h4>
 <p><code>POST /v2/deposits/:id/broadcast</code></p>
-<h4 id='request-parameters-10'>Request Parameters</h4>
+<h4 id='request-parameters-11'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2167,9 +2290,9 @@ you will receive a response which requires additional signing.</p>
 
 <p>Note that a <code>sha256</code> parameter is provided for convenience to be used directly as part of the ECDSA signature process.
  <em>In production mode, this should be recalculated for additional security.</em></p>
-<h4 id='http-request-16'>HTTP Request</h4>
+<h4 id='http-request-19'>HTTP Request</h4>
 <p><code>POST /v2/deposits/:id/broadcast</code></p>
-<h4 id='request-parameters-11'>Request Parameters</h4>
+<h4 id='request-parameters-12'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2245,9 +2368,9 @@ To be able to make a withdrawal, sufficient funds are required in the contract b
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Withdrawal endpoint has to be called for the withdrawal to be executed.
 </aside>
-<h4 id='http-request-17'>HTTP Request</h4>
+<h4 id='http-request-20'>HTTP Request</h4>
 <p><code>POST /v2/withdrawals</code></p>
-<h4 id='request-parameters-12'>Request Parameters</h4>
+<h4 id='request-parameters-13'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2342,9 +2465,9 @@ To be able to make a withdrawal, sufficient funds are required in the contract b
 <p>This is the second endpoint required to execute a withdrawal.
 After using the <a href="#create-withdrawal">Create Withdrawal</a> endpoint,
 you will receive a response which requires additional signing.</p>
-<h4 id='http-request-18'>HTTP Request</h4>
+<h4 id='http-request-21'>HTTP Request</h4>
 <p><code>POST /v2/withdrawals/:id/broadcast</code></p>
-<h4 id='request-parameters-13'>Request Parameters</h4>
+<h4 id='request-parameters-14'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2770,9 +2893,9 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Retrieves a specific order</p>
-<h4 id='http-request-19'>HTTP Request</h4>
+<h4 id='http-request-22'>HTTP Request</h4>
 <p><code>GET /v2/orders/:order_id</code></p>
-<h4 id='request-parameters-14'>Request Parameters</h4>
+<h4 id='request-parameters-15'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2825,9 +2948,9 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>Retrieves orders from a specific address filtered by the given parameters.</p>
-<h4 id='http-request-20'>HTTP Request</h4>
+<h4 id='http-request-23'>HTTP Request</h4>
 <p><code>GET /v2/orders</code></p>
-<h4 id='request-parameters-15'>Request Parameters</h4>
+<h4 id='request-parameters-16'>Request Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2889,9 +3012,13 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Broadcast Order endpoint has to be called for the order to be executed.
 </aside>
-<h4 id='http-request-21'>HTTP Request</h4>
+<h4 id='atomic-swap-orders'>Atomic Swap Orders</h4>
+<p>Atomic Swap orders can be created through this endpoint,
+the Atomic Swap contract needs to be approved if the offer_asset is on the ETH blockchain.
+Refer to the <a href="#approved-spenders">Approved Spenders</a> section for more information.</p>
+<h4 id='http-request-24'>HTTP Request</h4>
 <p><code>POST /v2/orders</code></p>
-<h4 id='request-parameters-16'>Request Parameters</h4>
+<h4 id='request-parameters-17'>Request Parameters</h4>
 <p>For the below descriptions, the <code>order maker</code> refers to your API user.</p>
 
 <blockquote>
@@ -2997,13 +3124,13 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 <td>blockchain</td>
 <td><strong>string</strong></td>
 <td>yes</td>
-<td>Blockchain that the <code>pair</code> is on. Possible values are: <code>neo</code>, <code>eth</code>.</td>
+<td>Blockchain that the <code>pair</code> is on. Possible values are: <code>neo</code>, <code>eth</code>. This should be the blockchain of the offer_asset for Atomic Swap orders.</td>
 </tr>
 <tr>
 <td>contract_hash</td>
 <td><strong>string</strong></td>
 <td>yes</td>
-<td>Switcheo Exchange <a href="#get-contracts">contract hash</a> to execute the order on.</td>
+<td>Switcheo Exchange <a href="#get-contracts">contract hash</a> to execute the order on. For Atomic Swap orders, this should be the contract_hash for the blockchain of the <code>offer_asset</code>.</td>
 </tr>
 <tr>
 <td>pair</td>
@@ -3021,13 +3148,19 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 <td>price</td>
 <td><strong>string</strong></td>
 <td>yes</td>
-<td>Buy or sell price rounded to the pair&#39;s price precision, found on <a href="#get-pairs">Get Pairs</a>. Set value to <code>null</code> for market type order.</td>
+<td>Buy or sell price rounded to the pair&#39;s price precision, found on <a href="#get-pairs">Get Pairs</a>. Set value to <code>null</code> for market type and Atomic Swap orders.</td>
 </tr>
 <tr>
 <td>quantity</td>
 <td><a href="#amounts">amount</a></td>
 <td>yes</td>
-<td>The <a href="#amounts">amount</a> of tokens you wish to trade.</td>
+<td>The <a href="#amounts">amount</a> of tokens you wish to trade. Set value to <code>null</code> for Atomic Swap orders.</td>
+</tr>
+<tr>
+<td>offer_amount</td>
+<td><a href="#amounts">amount</a></td>
+<td>no</td>
+<td>The <a href="#amounts">amount</a> of tokens to offer for an Atomic Swap. Must be provided if and only if the order pair is an Atomic Swap pair.</td>
 </tr>
 <tr>
 <td>use_native_tokens</td>
@@ -3039,7 +3172,7 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 <td>order_type</td>
 <td><strong>string</strong></td>
 <td>yes</td>
-<td>Order type, possible values are: <code>limit</code>, <code>market</code>, <code>otc</code></td>
+<td>Order type, possible values are: <code>limit</code>, <code>market</code>, <code>otc</code>. This type must be set as <code>market</code> for Atomic Swap orders.</td>
 </tr>
 <tr>
 <td>otc_address</td>
@@ -3064,6 +3197,18 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 <td><a href="#addresses">address</a></td>
 <td>yes</td>
 <td><a href="#addresses">Address</a> of the order maker. <strong>Do not include this in the parameters to be signed.</strong></td>
+</tr>
+<tr>
+<td>receiving_address</td>
+<td><a href="#addresses">address</a></td>
+<td>no</td>
+<td>Address to receive the <code>want_asset</code>. Must be provided if and only if the order pair is an Atomic Swap pair.</td>
+</tr>
+<tr>
+<td>worst_acceptable_price</td>
+<td><strong>string</strong></td>
+<td>no</td>
+<td>The worst acceptable price of an Atomic Swap. If the <a href="#get-swap-pricing">Atomic Swap pricing</a> changes to be worse than this, then the order will not be created. Must be provided if and only if the order pair is an Atomic Swap pair.</td>
 </tr>
 </tbody></table>
 <h4 id='example-9'>Example</h4>
@@ -3092,9 +3237,9 @@ After using the <a href="#create-order">Create Order</a> endpoint, you will rece
 <p>Every <code>txn</code> of the <code>fills</code>, <code>fill_groups</code> and <code>makes</code> in the Create Order response should be <a href="#authentication">signed</a>,
 and structured in the <code>signatures</code> format shown on the right.
 Note that the <code>txn</code> of <code>fills</code> for ETH will be empty, only the <code>txn</code> of the <code>fill_groups</code> need to be signed for ETH.</p>
-<h4 id='http-request-22'>HTTP Request</h4>
+<h4 id='http-request-25'>HTTP Request</h4>
 <p><code>POST /v2/orders/:id/broadcast</code></p>
-<h4 id='request-parameters-17'>Request Parameters</h4>
+<h4 id='request-parameters-18'>Request Parameters</h4>
 <blockquote>
 <p>Broadcast an order</p>
 </blockquote>
@@ -3171,7 +3316,7 @@ Only orders <strong>with makes</strong> and with an <code>available_amount</code
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Cancellation endpoint has to be called for the cancellation to be executed.
 </aside>
-<h4 id='http-request-23'>HTTP Request</h4>
+<h4 id='http-request-26'>HTTP Request</h4>
 <p><code>POST /v2/cancellations</code></p>
 <h4 id='url-parameters'>URL Parameters</h4>
 <blockquote>
@@ -3282,7 +3427,7 @@ a transaction in the response which must be signed.</p>
 <pre class="highlight javascript"><code><span class="p">{</span>
   <span class="s2">"signature"</span><span class="p">:</span> <span class="s2">"&lt;signature&gt;"</span>
 <span class="p">}</span>
-</code></pre><h4 id='http-request-24'>HTTP Request</h4>
+</code></pre><h4 id='http-request-27'>HTTP Request</h4>
 <p><code>POST /v2/cancellations/:id/broadcast</code></p>
 <h4 id='url-parameters-2'>URL Parameters</h4>
 <table><thead>
@@ -3336,6 +3481,71 @@ a transaction in the response which must be signed.</p>
 
 <p>To compute the offer_hash, please take reference from the sample code snippet that is shown on the right.
   You can find the <code>u</code> library from <a href="https://github.com/CityOfZion/neon-js/tree/31600a3cb9c38b9a0d961e98475e4cc81c908cd8/packages/neon-core/src/u">neon-js</a>.</p>
+<h2 id='approved-spenders'>Approved Spenders</h2>
+<p>Switcheo Exchange is made up of a group of contracts.
+There is a main Broker contract that users deposits funds to,
+and there are sub-contracts that perform different functions to update user funds within the main Broker contract.</p>
+
+<p>For security, users have to send a transaction to approve a sub-contract before
+that sub-contract is allowed to update the user&#39;s funds within the main contract.</p>
+
+<p>The Atomic Swap contract is an example of such a sub-contract.
+To perform Atomic Swaps, users will have to first approve the Atomic Swap contract.</p>
+<h3 id='post-create-approval'>POST Create Approval</h3>
+<p>This is the first API call required to approve a spender.</p>
+<h4 id='http-request-28'>HTTP Request</h4>
+<p><code>POST /v2/approved_spenders</code></p>
+<h4 id='request-parameters-19'>Request Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>contract_hash</td>
+<td><strong>string</strong></td>
+<td>yes</td>
+<td>The contract hash of the <a href="#get-contracts">main contract</a>.</td>
+</tr>
+<tr>
+<td>address</td>
+<td><a href="#addresses">address</a></td>
+<td>yes</td>
+<td><a href="#addresses">Address</a> of the approver. <strong>Do not include this in the parameters to be signed.</strong></td>
+</tr>
+<tr>
+<td>spender_address</td>
+<td><strong>string</strong></td>
+<td>yes</td>
+<td>The address of the <a href="#get-atomic-swap-contracts">sub-contract</a> to be approved.</td>
+</tr>
+</tbody></table>
+<h3 id='post-execute-approval'>POST Execute Approval</h3>
+<p>This is the second endpoint required to execute an approval.
+After using the <a href="#post-create-approval">Create Approval</a> endpoint,
+you will receive a response which contains a <code>transaction</code>.</p>
+
+<p>The <code>transaction</code> in the response should be signed and directly broadcasted by the client,
+the transaction hash of the broadcasted transaction should then be sent to the broadcast endpoint.</p>
+<h4 id='http-request-29'>HTTP Request</h4>
+<p><code>POST /v2/approved_spenders/:id/broadcast</code></p>
+<h4 id='request-parameters-20'>Request Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>transaction_hash</td>
+<td><strong>string</strong></td>
+<td>The transaction hash of the broadcasted transaction</td>
+</tr>
+</tbody></table>
 <h2 id='balances'>Balances</h2>
 <p><strong>Description</strong></p>
 
@@ -3366,7 +3576,7 @@ multiple blockchains, for example, if you want to retrieve a user&#39;s NEO and 
 
 <p>As such, when using this endpoint, balances for the specified addresses and contract hashes
 will be merged and summed.</p>
-<h4 id='http-request-25'>HTTP Request</h4>
+<h4 id='http-request-30'>HTTP Request</h4>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
