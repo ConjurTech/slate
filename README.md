@@ -1,13 +1,14 @@
 # Switcheo API
+
 ## API Documentation
 + Official documenation on Swithceo's APIs and Websockets' streams: **https://docs.switcheo.network**
 
 ## Official Connector
 > Developed by Switcheo Network
-+ Coming soon
+- [switcheo-js](https://github.com/Switcheo/switcheo-js)
 
 ## Unofficial Connectors
-> Developed by dedicated community members. Use them at your own risk
+> These libraries are developed by our dedicated community members and is part of our winners in our API development contest. You may use them if you are more familiar with the language. However we do not support these libraries officially, so use them cautiously.
 + [Python](https://github.com/KeithSSmith/switcheo-python)
 + [.NET](https://github.com/Zaliro/Switcheo.Net)
 + [Go](https://github.com/O3Labs/switcheo-go)

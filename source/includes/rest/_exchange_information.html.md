@@ -25,7 +25,6 @@ This value should be fetched and used when a timestamp parameter is required for
 
 If the timestamp used for your API request is not within an acceptable range of the exchange's timestamp then an invalid signature error will be returned. The acceptable range might vary, but it should be less than one minute.
 
-
 ### GET Contracts
 
 #### HTTP Request
@@ -56,6 +55,36 @@ Network  | URL
 -------- | ----------
 TestNet  | Retrieve contract hashes from [TestNet_URL]/v2/exchange/contracts
 MainNet  | Retrieve contract hashes from [MainNet_URL]/v2/exchange/contracts
+
+ETH contract hashes should always include a `0x` prefix, while NEO contract hashes should never
+includes a `0x` prefix.
+
+### GET Latest Contracts
+
+#### HTTP Request
+
+`GET /v2/exchange/latest_contracts`
+
+> Example response
+
+```js
+{
+    "NEO": "d524fbb2f83f396368bc0183f5e543cae54ef532",
+    "ETH": "0x6ee18298fd6bc2979df9d27569842435a7d55e65",
+    "EOS": "oboluswitch4",
+    "QTUM": "0x2b25406b0000c3661e9c88890690fd4b5c7b4234"
+}
+```
+
+Returns the latest deployed contract hashes by Switcheo Exchange.
+
+Please note that a different set of contract hashes should be used
+depending on the network you intend to interact with.
+
+Network  | URL
+-------- | ----------
+TestNet  | Retrieve contract hashes from [TestNet_URL]/v2/exchange/latest_contracts
+MainNet  | Retrieve contract hashes from [MainNet_URL]/v2/exchange/latest_contracts
 
 ETH contract hashes should always include a `0x` prefix, while NEO contract hashes should never
 includes a `0x` prefix.
@@ -98,7 +127,6 @@ Retrieve available trading pairs on Switcheo Exchange filtered by the `base` par
 
 ```
 
-
 #### Request parameters
 
  Parameter              | Type            | Required  | Description
@@ -119,7 +147,6 @@ Parameter        | Description
 ------------     | ----------
 name             | The ticker name as `<QUOTE>_<BASE>` where `<QUOTE>` is the trading token symbol (e.g. `SWTH`), while `<BASE>` is the base token symbol (e.g. `NEO`)
 precision        | The maximum price precision that can be submitted (e.g. if precision is `2`, an order on this pair for `1.99` or `1.90000000` price is valid, but `1.999` is not)
-
 
 ### GET Tokens
 
