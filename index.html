@@ -255,6 +255,9 @@
                               <a href="#get-contracts" class="toc-h3 toc-link" data-title="GET Contracts">GET Contracts</a>
                             </li>
                             <li>
+                              <a href="#get-latest-contracts" class="toc-h3 toc-link" data-title="GET Latest Contracts">GET Latest Contracts</a>
+                            </li>
+                            <li>
                               <a href="#get-pairs" class="toc-h3 toc-link" data-title="GET Pairs">GET Pairs</a>
                             </li>
                             <li>
@@ -306,6 +309,12 @@
                             </li>
                             <li>
                               <a href="#signing-transactions-for-eth" class="toc-h3 toc-link" data-title="Signing Transactions for ETH">Signing Transactions for ETH</a>
+                            </li>
+                            <li>
+                              <a href="#signing-messages-for-eos" class="toc-h3 toc-link" data-title="Signing Messages for EOS">Signing Messages for EOS</a>
+                            </li>
+                            <li>
+                              <a href="#signing-transactions-for-eos" class="toc-h3 toc-link" data-title="Signing Transactions for EOS">Signing Transactions for EOS</a>
                             </li>
                             <li>
                               <a href="#signing-messages-for-neo" class="toc-h3 toc-link" data-title="Signing Messages for NEO">Signing Messages for NEO</a>
@@ -572,16 +581,18 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='overview'>Overview</h1><h2 id='introduction'>Introduction</h2>
-<p>This documentation is intended for developers who want to write applications to interact with the
-<a href="https://switcheo.exchange">Switcheo Exchange</a> programatically.</p>
+<p>This documentation is intended for developers who want to write applications to interact with <a href="https://switcheo.network">Switcheo</a> programatically.</p>
 
-<p>Switcheo Exchange offers both a fully featured REST API and a WebSocket API. Language bindings are provided in Javascript. <a href="#authentication">Authentications</a> are not made using API keys but are done instead by signing the request payload or transaction using your private key. </p>
+<p>Before you proceed with the API documentation, be sure to explore Switcheo Exchange at
+<a href="https://switcheo.exchange">https://switcheo.exchange</a>.</p>
 
-<p>You may wish to visit <a href="https://github.com/Switcheo/awesome-switcheo">Awesome Switcheo</a> which contains everything awesome about Switcheo.</p>
+<p>Switcheo Exchange offers both a fully featured <a href="#rest-api">REST API</a> for exchange information, order placement, historical and current data, as well as a <a href="#streaming-api">Streaming API</a> for real-time trading data.</p>
 
-<p>Information on API wrappers can also be found on <a href="https://github.com/Switcheo/awesome-switcheo">Awesome Switcheo</a>.</p>
+<p>Official language bindings for Javascript (API wrapper) can be found at <a href="https://github.com/Switcheo/switcheo-js">switcheo-js</a>.</p>
+
+<p>You may wish to visit the <a href="https://github.com/Switcheo/awesome-switcheo">Awesome Switcheo</a> repo which contains multiple API wrappers for other languages, and also hosts every awesome project relating to Switcheo development.</p>
 <h2 id='sandbox'>Sandbox</h2>
-<p><strong>TestNet URLs (Sandbox)</strong></p>
+<p><strong>TestNet (Sandbox) Endpoints</strong></p>
 
 <table><thead>
 <tr>
@@ -591,7 +602,7 @@
 </thead><tbody>
 <tr>
 <td>UI</td>
-<td><a href="https://beta.switcheo.exchange/">https://beta.switcheo.exchange/</a></td>
+<td><a href="https://beta.switcheo.exchange">https://beta.switcheo.exchange</a></td>
 </tr>
 <tr>
 <td>API</td>
@@ -603,7 +614,7 @@
 </tr>
 </tbody></table>
 
-<p><strong>MainNet URLs (Actual Exchange)</strong></p>
+<p><strong>MainNet (Production Exchange) Endpoints</strong></p>
 
 <table><thead>
 <tr>
@@ -613,7 +624,7 @@
 </thead><tbody>
 <tr>
 <td>UI</td>
-<td><a href="https://switcheo.exchange/">https://switcheo.exchange/</a></td>
+<td><a href="https://switcheo.exchange">https://switcheo.exchange</a></td>
 </tr>
 <tr>
 <td>API</td>
@@ -750,9 +761,45 @@ depending on the network you intend to interact with.</p>
 
 <p>ETH contract hashes should always include a <code>0x</code> prefix, while NEO contract hashes should never
 includes a <code>0x</code> prefix.</p>
+<h3 id='get-latest-contracts'>GET Latest Contracts</h3><h4 id='http-request-3'>HTTP Request</h4>
+<p><code>GET /v2/exchange/latest_contracts</code></p>
+
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"NEO"</span><span class="p">:</span> <span class="s2">"d524fbb2f83f396368bc0183f5e543cae54ef532"</span><span class="p">,</span>
+    <span class="s2">"ETH"</span><span class="p">:</span> <span class="s2">"0x6ee18298fd6bc2979df9d27569842435a7d55e65"</span><span class="p">,</span>
+    <span class="s2">"EOS"</span><span class="p">:</span> <span class="s2">"oboluswitch4"</span><span class="p">,</span>
+    <span class="s2">"QTUM"</span><span class="p">:</span> <span class="s2">"0x2b25406b0000c3661e9c88890690fd4b5c7b4234"</span>
+<span class="p">}</span>
+</code></pre>
+<p>Returns the latest deployed contract hashes by Switcheo Exchange.</p>
+
+<p>Please note that a different set of contract hashes should be used
+depending on the network you intend to interact with.</p>
+
+<table><thead>
+<tr>
+<th>Network</th>
+<th>URL</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>TestNet</td>
+<td>Retrieve contract hashes from [TestNet_URL]/v2/exchange/latest_contracts</td>
+</tr>
+<tr>
+<td>MainNet</td>
+<td>Retrieve contract hashes from [MainNet_URL]/v2/exchange/latest_contracts</td>
+</tr>
+</tbody></table>
+
+<p>ETH contract hashes should always include a <code>0x</code> prefix, while NEO contract hashes should never
+includes a <code>0x</code> prefix.</p>
 <h3 id='get-pairs'>GET Pairs</h3>
 <p>Retrieve available trading pairs on Switcheo Exchange filtered by the <code>base</code> parameter. Defaults to all pairs.</p>
-<h4 id='http-request-3'>HTTP Request</h4>
+<h4 id='http-request-4'>HTTP Request</h4>
 <p><code>GET /v2/exchange/pairs</code></p>
 
 <blockquote>
@@ -834,7 +881,7 @@ includes a <code>0x</code> prefix.</p>
 </tbody></table>
 <h3 id='get-tokens'>GET Tokens</h3>
 <p>Retrieve a list of supported tokens on Switcheo.</p>
-<h4 id='http-request-4'>HTTP Request</h4>
+<h4 id='http-request-5'>HTTP Request</h4>
 <p><code>GET /v2/exchange/tokens</code></p>
 
 <blockquote>
@@ -1021,7 +1068,7 @@ includes a <code>0x</code> prefix.</p>
 
 </code></pre>
 <p>Returns fee data for various blockchains and pairs</p>
-<h4 id='http-request-5'>HTTP Request</h4>
+<h4 id='http-request-6'>HTTP Request</h4>
 <p><code>GET /v2/fees</code></p>
 <h4 id='response-parameters-2'>Response parameters</h4>
 <table><thead>
@@ -1069,7 +1116,7 @@ includes a <code>0x</code> prefix.</p>
 </tbody></table>
 <h3 id='get-announcements'>GET Announcements</h3>
 <p>Retrieve the currently active Switcheo Exchange Announcement</p>
-<h4 id='http-request-6'>HTTP Request</h4>
+<h4 id='http-request-7'>HTTP Request</h4>
 <p><code>GET /v2/exchange/announcement_message</code></p>
 
 <blockquote>
@@ -1106,7 +1153,7 @@ includes a <code>0x</code> prefix.</p>
 </tbody></table>
 <h3 id='get-swap-pairs'>GET Swap Pairs</h3>
 <p>Retrieve available swap pairs on Switcheo Exchange.</p>
-<h4 id='http-request-7'>HTTP Request</h4>
+<h4 id='http-request-8'>HTTP Request</h4>
 <p><code>GET /v2/exchange/swap_pairs</code></p>
 
 <blockquote>
@@ -1138,7 +1185,7 @@ and the amount of ETH in the liquidity pool is 100 ETH, then for buying SWTH wit
 <p><code>3.6 million - 360 million / (100 + 1) = 35643.56436 SWTH</code></p>
 
 <p>The values of x and y can be fetched from the swap pricing endpoint.</p>
-<h4 id='http-request-8'>HTTP Request</h4>
+<h4 id='http-request-9'>HTTP Request</h4>
 <p><code>GET /v2/exchange/swap_pricing</code></p>
 
 <blockquote>
@@ -1173,7 +1220,7 @@ and the amount of ETH in the liquidity pool is 100 ETH, then for buying SWTH wit
 <td>The <a href="#get-swap-pairs">swap pair</a> to get the swap pricing of</td>
 </tr>
 </tbody></table>
-<h3 id='get-atomic-swap-contracts'>GET Atomic Swap Contracts</h3><h4 id='http-request-9'>HTTP Request</h4>
+<h3 id='get-atomic-swap-contracts'>GET Atomic Swap Contracts</h3><h4 id='http-request-10'>HTTP Request</h4>
 <p><code>GET /v2/exchange/atomic_swap_contracts</code></p>
 
 <blockquote>
@@ -1211,7 +1258,7 @@ depending on the network you intend to interact with.</p>
 <p>Authentication is not required for these endpoints.</p>
 <h3 id='get-candlesticks'>GET Candlesticks</h3>
 <p>Returns candlestick chart data filtered by url parameters.</p>
-<h4 id='http-request-10'>HTTP Request</h4>
+<h4 id='http-request-11'>HTTP Request</h4>
 <p><code>GET /v2/tickers/candlesticks</code></p>
 
 <blockquote>
@@ -1321,7 +1368,7 @@ depending on the network you intend to interact with.</p>
 </tbody></table>
 <h3 id='get-last-24-hours'>GET Last 24 Hours</h3>
 <p>Returns 24-hour data for all pairs and markets.</p>
-<h4 id='http-request-11'>HTTP Request</h4>
+<h4 id='http-request-12'>HTTP Request</h4>
 <p><code>GET /v2/tickers/last_24_hours</code></p>
 
 <blockquote>
@@ -1386,7 +1433,7 @@ depending on the network you intend to interact with.</p>
 </tbody></table>
 <h3 id='get-last-price'>GET Last Price</h3>
 <p>Returns last price of the requested symbol(s) / base(s). Defaults to all symbols &amp; bases.</p>
-<h4 id='http-request-12'>HTTP Request</h4>
+<h4 id='http-request-13'>HTTP Request</h4>
 <p><code>GET v2/tickers/last_price</code></p>
 
 <blockquote>
@@ -1452,7 +1499,7 @@ depending on the network you intend to interact with.</p>
 </tr>
 </tbody></table>
 <h2 id='authentication'>Authentication</h2>
-<p>As a non-custodian exchange, Switcheo does not use passwords or API keys as we do not have custody of user funds.
+<p>As a non-custodian exchange, Switcheo does not use passwords as we do not have custody of user funds.
 Instead, authentication is done by signing the <strong>request payload</strong> <em>or</em> <strong>blockchain transaction</strong> using the <strong>blockchain-specific</strong> digital signature with the user&#39;s private key.</p>
 <h3 id='overview-2'>Overview</h3>
 <p>Currently, all supported blockchains uses the ellipitic curve digital signature algorithim (ECDSA). However, the curves and hashing algorithim used for each blockchain differs slightly.</p>
@@ -1466,16 +1513,22 @@ Instead, authentication is done by signing the <strong>request payload</strong> 
 </tr>
 </thead><tbody>
 <tr>
-<td>NEO</td>
-<td>ECDSA</td>
-<td>NIST P-256</td>
-<td>SHA-256</td>
-</tr>
-<tr>
 <td>ETH</td>
 <td>ECDSA</td>
 <td>secp256k1</td>
 <td>SHA-3 (Keccak)</td>
+</tr>
+<tr>
+<td>EOS</td>
+<td>ECDSA</td>
+<td>secp256k1</td>
+<td>SHA-256</td>
+</tr>
+<tr>
+<td>NEO</td>
+<td>ECDSA</td>
+<td>NIST P-256</td>
+<td>SHA-256</td>
 </tr>
 </tbody></table>
 
@@ -1511,21 +1564,18 @@ Instead, authentication is done by signing the <strong>request payload</strong> 
 <span class="nx">signMessage</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">,</span> <span class="s1">'&lt;private key&gt;'</span><span class="p">)</span>
 
 </code></pre>
-<p>To sign a message for ETH, the message should be hex encoded, and enveloped as
-<code>&quot;\x19Ethereum Signed Message:\n&quot; + message.length + message</code> before being signed.</p>
+<p>When signing messages for ETH, the message should first be hex encoded, and the prefixed as
+<code>&quot;\x19Ethereum Signed Message:\n&quot; + message.length + message</code> before being signed. This is the canonical way of ensuring an arbitrary message is not also a valid Ethereum transaction.</p>
 
-<p><a href="https://github.com/ethereum/web3.js/">web3.js</a> can be used to sign messages for ETH.</p>
-
-<p><a href="https://web3js.readthedocs.io/en/1.0/web3-eth-accounts.html#sign">View documentation</a></p>
-
-<p><a href="https://github.com/ethereum/web3.js/blob/1.0/packages/web3-eth-accounts/src/index.js#L255">View implementation details</a></p>
+<p>The <a href="https://github.com/ethereum/web3.js/">web3.js</a> library <a href="https://web3js.readthedocs.io/en/1.0/web3-eth-accounts.html#sign">[docs]</a> can be used to sign messages for ETH.
+Refer to the library&#39;s <a href="https://github.com/ethereum/web3.js/blob/1.0/packages/web3-eth-accounts/src/index.js#L255">implementation details</a> should you wish to sign messages directly.</p>
 <h4 id='signing-request-parameters'>Signing Request Parameters</h4>
 <blockquote>
 <p>Signing parameters for API requests</p>
 </blockquote>
 <pre class="highlight javascript"><code><span class="c1">// 1. Serialize parameters into a string</span>
 <span class="c1">// Note that parameters must be ordered alphanumerically</span>
-<span class="kr">const</span> <span class="nx">rawParams</span> <span class="o">=</span> <span class="p">{</span> <span class="na">blockchain</span><span class="p">:</span> <span class="s1">'neo'</span><span class="p">,</span> <span class="na">timestamp</span><span class="p">:</span> <span class="mi">1529380859</span><span class="p">,</span> <span class="na">apple</span><span class="p">:</span> <span class="s1">'Z'</span><span class="p">,</span> <span class="p">}</span>
+<span class="kr">const</span> <span class="nx">rawParams</span> <span class="o">=</span> <span class="p">{</span> <span class="na">blockchain</span><span class="p">:</span> <span class="s1">'eth'</span><span class="p">,</span> <span class="na">timestamp</span><span class="p">:</span> <span class="mi">1529380859</span><span class="p">,</span> <span class="na">apple</span><span class="p">:</span> <span class="s1">'Z'</span><span class="p">,</span> <span class="p">}</span>
 <span class="kr">const</span> <span class="nx">stableStringify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'json-stable-stringify'</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">parameterString</span> <span class="o">=</span> <span class="nx">stableStringify</span><span class="p">(</span><span class="nx">rawParams</span><span class="p">)</span>
 <span class="c1">// parameterString: '{"apple":"Z","blockchain":"neo","timestamp":1529380859}'</span>
@@ -1589,7 +1639,132 @@ parameter. This signature parameter should then be sent together with the other 
 <li>Signing the <code>message</code> in the transaction with the user&#39;s private key</li>
 <li>An exception to this is the deposit endpoint, which requires the client to sign and broadcast the transaction, this is covered in more detail in the <a href="#deposits">Deposits</a> section.</li>
 </ol>
+<h3 id='signing-messages-for-eos'>Signing Messages for EOS</h3>
+<blockquote>
+<p>Signing a message for EOS</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">ecc</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'eosjs-ecc'</span><span class="p">)</span>
+<span class="kd">function</span> <span class="nx">signMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">ecc</span><span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">signMessage</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">,</span> <span class="s1">'&lt;private key&gt;'</span><span class="p">)</span>
+</code></pre>
+<p>EOS messages can be signed directly without additional formatting as long as each word in the string is less than twelve characters long.</p>
+
+<p>The <a href="https://github.com/EOSIO/eosjs-ecc">eosjs-ecc</a> library can be used to sign messages for EOS.
+Refer to the library&#39;s <a href="https://github.com/EOSIO/eosjs-ecc/blob/904225d9147edbbb9ac5be3e70537a208509d729/src/api_common.js#L107">implementation details</a> should you wish to sign messages directly.</p>
+<h4 id='signing-request-parameters-2'>Signing Request Parameters</h4>
+<blockquote>
+<p>Signing parameters for API requests</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">ecc</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'eosjs-ecc'</span><span class="p">)</span>
+
+<span class="c1">// 1. Acquire a short-lived API key</span>
+
+<span class="kr">const</span> <span class="nx">now</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+
+<span class="c1">// The message text must be exactly followed, while the time in square brackets `[]`</span>
+<span class="c1">// should be a parseable datetime format (e.g. ISO8601) that does not contain words</span>
+<span class="c1">// longer than 12 characters.</span>
+<span class="kr">const</span> <span class="nx">message</span> <span class="o">=</span> <span class="s2">`Issue me a 30min Switcheo API key [</span><span class="p">${</span><span class="nx">now</span><span class="p">.</span><span class="nx">toUTCString</span><span class="p">()}</span><span class="s2">]`</span>
+<span class="kr">const</span> <span class="nx">signature</span> <span class="o">=</span> <span class="nx">signMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="s1">'5JN...privatekey'</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">apiKeyParams</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">blockchain</span><span class="p">:</span> <span class="s1">'eos'</span><span class="p">,</span>
+  <span class="na">address</span><span class="p">:</span> <span class="s1">'accountname1'</span>
+  <span class="na">public_key</span><span class="p">:</span> <span class="s1">'EOS5...'</span><span class="p">,</span>
+  <span class="nx">message</span><span class="p">,</span>
+  <span class="nx">signature</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'/api_keys'</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">apiKeyParams</span><span class="p">),</span>
+  <span class="p">{</span> <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="s1">'Content-Type'</span><span class="p">:</span> <span class="s1">'application/json'</span> <span class="p">}</span> <span class="p">})</span>
+
+<span class="c1">// Note that `expiresAt` is the time the `apiKey` will expire in unix **seconds**</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="na">key</span><span class="p">:</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="na">expires_at</span><span class="p">:</span> <span class="nx">expiresAt</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">response</span>
+
+<span class="c1">// 2. You can now use the API key for all authenticated requests for 30 minutes</span>
+
+<span class="c1">// Ensure the API key is still valid</span>
+<span class="kr">const</span> <span class="nx">timestamp</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">expiresAt</span> <span class="o">&lt;=</span> <span class="nx">timestamp</span> <span class="o">/</span> <span class="mi">1000</span> <span class="o">+</span> <span class="mi">5000</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 5 second request time buffer</span>
+  <span class="c1">// app should handle getting a new API key</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">'New API key required!'</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Make your request by including the API key in the `Authorization` HTTP header</span>
+<span class="kr">const</span> <span class="nx">actualRequestParams</span> <span class="o">=</span> <span class="p">{</span> <span class="na">blockchain</span><span class="p">:</span> <span class="s1">'eos'</span><span class="p">,</span> <span class="na">address</span><span class="p">:</span> <span class="s1">'switcheotest'</span><span class="p">,</span> <span class="na">apple</span><span class="p">:</span> <span class="s1">'Z'</span><span class="p">,</span> <span class="nx">timestamp</span> <span class="p">}</span>
+<span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'/api_keys'</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">actualRequestParams</span><span class="p">),</span>
+  <span class="p">{</span>
+    <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">Authorization</span><span class="p">:</span> <span class="s2">`Token </span><span class="p">${</span><span class="nx">apiKey</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+      <span class="s1">'Content-Type'</span><span class="p">:</span> <span class="s1">'application/json'</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+</code></pre>
+<p>Because fully arbitrary messages are conventionally not allowed for the safety of normal users, and there is no canonical way to form a message that cannot be an EOS transaction, we issue short-lived API keys for authenticating EOS API requests.</p>
+
+<p>The API key lasts for 30 minutes and should be passed in the <code>Authorization</code> HTTP header in the requests that require authentication. See the example for full details.</p>
+
+<p><em>Note: This API key authentication strategy is supported when signing on other blockchains as well.</em></p>
+<h3 id='signing-transactions-for-eos'>Signing Transactions for EOS</h3><pre class="highlight javascript"><code><span class="kr">const</span> <span class="p">{</span> <span class="nx">JsSignatureProvider</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'eosjs/dist/eosjs-jssig'</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">signatureProvider</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JsSignatureProvider</span><span class="p">([</span><span class="nx">privateKey</span><span class="p">])</span>
+
+<span class="c1">// 1. Verify transaction</span>
+
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">Api</span><span class="p">,</span> <span class="nx">JsonRpc</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'eosjs'</span><span class="p">)</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">TextEncoder</span><span class="p">,</span> <span class="nx">TextDecoder</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'util'</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">fetch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">)</span>
+
+<span class="kr">const</span> <span class="nx">chainId</span> <span class="o">=</span> <span class="nx">production</span> <span class="p">?</span>
+  <span class="s1">'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'</span> <span class="p">:</span> <span class="c1">// mainnet</span>
+  <span class="s1">'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473'</span> <span class="c1">// jungle</span>
+<span class="kr">const</span> <span class="nx">host</span> <span class="o">=</span> <span class="nx">production</span> <span class="p">?</span>
+  <span class="s1">'nodes.get-scatter.com'</span> <span class="p">:</span> <span class="c1">// mainnet</span>
+  <span class="s1">'jungle.obolus.com'</span> <span class="c1">// jungle</span>
+
+<span class="kr">const</span> <span class="nx">api</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Api</span><span class="p">({</span> <span class="nx">rpc</span><span class="p">,</span> <span class="nx">signatureProvider</span><span class="p">,</span> <span class="na">textDecoder</span><span class="p">:</span> <span class="k">new</span> <span class="nx">TextDecoder</span><span class="p">(),</span> <span class="na">textEncoder</span><span class="p">:</span> <span class="k">new</span> <span class="nx">TextEncoder</span><span class="p">()</span> <span class="p">})</span>
+
+<span class="c1">// Send the parameters for the first step of an action</span>
+<span class="c1">// and retrieve the response</span>
+<span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="p">...</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">transaction</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">response</span>
+
+<span class="c1">// Verify the transaction data to ensure that it matches the user's intention</span>
+<span class="kr">const</span> <span class="nx">txnObj</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">deserializeTransactionWithActions</span><span class="p">(</span><span class="nx">transaction</span><span class="p">)</span>
+<span class="p">...</span>
+
+
+<span class="c1">// 2. Sign transaction</span>
+
+<span class="kd">function</span> <span class="nx">signTransaction</span><span class="p">(</span><span class="nx">transaction</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">,</span> <span class="nx">production</span> <span class="o">=</span> <span class="kc">false</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span>  <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">serializedTransaction</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Uint8Array</span><span class="p">(</span><span class="k">new</span> <span class="nx">Buffer</span><span class="p">(</span><span class="nx">transaction</span><span class="p">,</span> <span class="s1">'hex'</span><span class="p">))</span>
+    <span class="kr">const</span> <span class="nx">availableKeys</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">signatureProvider</span><span class="p">.</span><span class="nx">getAvailableKeys</span><span class="p">()</span>
+    <span class="kr">const</span> <span class="nx">txn</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">signatureProvider</span><span class="p">.</span><span class="nx">sign</span><span class="p">({</span>
+      <span class="na">abis</span><span class="p">:</span> <span class="p">[],</span>
+      <span class="na">requiredKeys</span><span class="p">:</span> <span class="nx">availableKeys</span><span class="p">,</span>
+      <span class="nx">chainId</span><span class="p">,</span>
+      <span class="nx">serializedTransaction</span><span class="p">,</span>
+    <span class="p">})</span>
+
+    <span class="c1">// Note that multi-signature accounts are not supported at this time</span>
+    <span class="c1">// (as implied by the return value below).</span>
+    <span class="k">return</span> <span class="nx">txn</span><span class="p">.</span><span class="nx">signatures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Send the result to the second API endpoint/ bob</span>
+<span class="kr">const</span> <span class="nx">signatureToSend</span> <span class="o">=</span> <span class="nx">signTransaction</span><span class="p">(</span><span class="nx">transaction</span><span class="p">)</span>
+</code></pre>
+<p>The second step of an action usually requires the returned transaction to be signed, this is done by:</p>
+
+<ol>
+<li>Deserializing the returned transaction data to ensure it matches the user&#39;s intention,
+this can be done using the <a href="https://github.com/EOSIO/eosjs">eosjs</a> library and referring to the contract&#39;s ABI</li>
+<li>Signing the serialized transaction with the user&#39;s private key</li>
+</ol>
 <h3 id='signing-messages-for-neo'>Signing Messages for NEO</h3>
+<p>When signing messages for NEO, the message should first be hex encoded and enveloped in an invalid transaction via: <code>&#39;010001f0&#39; + message + &#39;0000&#39;</code> before being signed. This is the canonical way of ensuring an arbitrary message is not also a valid NEO transaction.</p>
+
 <blockquote>
 <p>Signing a message for NEO</p>
 </blockquote>
@@ -1600,10 +1775,8 @@ parameter. This signature parameter should then be sent together with the other 
 <span class="nx">signMessage</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">,</span> <span class="s1">'&lt;private key&gt;'</span><span class="p">)</span>
 
 </code></pre>
-<p><a href="https://github.com/CityOfZion/neon-js">neon-js</a> can be used to sign messages for NEO.</p>
-
-<p><a href="https://github.com/CityOfZion/neon-js/blob/cf5f92e4124c45a154449bf5852bcab28ddc1b32/src/wallet/core.js#L126">View implementation details</a></p>
-<h4 id='signing-request-parameters-2'>Signing Request Parameters</h4>
+<p>The <a href="https://github.com/CityOfZion/neon-js">neon-js</a> library can be used to sign messages for NEO. Refer to the library&#39;s <a href="https://github.com/CityOfZion/neon-js/blob/cf5f92e4124c45a154449bf5852bcab28ddc1b32/src/wallet/core.js#L126">implementation details</a> should you wish to sign messages directly.</p>
+<h4 id='signing-request-parameters-3'>Signing Request Parameters</h4>
 <blockquote>
 <p>Signing parameters for API requests</p>
 </blockquote>
@@ -1744,7 +1917,7 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <span class="p">}</span>
 </code></pre>
 <p>Retrieves the order book with formatted price and quantity.</p>
-<h4 id='http-request-13'>HTTP Request</h4>
+<h4 id='http-request-14'>HTTP Request</h4>
 <p><code>GET /v2/offers/book</code></p>
 <h4 id='request-parameters-6'>Request Parameters</h4>
 <table><thead>
@@ -1812,7 +1985,7 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <p>Retrieves the raw data for 70 best offers (per side) of the offer book.</p>
 
 <aside class="notice">It is recommended to use /v2/offers/book whenever possible as it returns a formatted version that is easier to consume.</aside>
-<h4 id='http-request-14'>HTTP Request</h4>
+<h4 id='http-request-15'>HTTP Request</h4>
 <p><code>GET /v2/offers</code></p>
 <h4 id='request-parameters-7'>Request Parameters</h4>
 <table><thead>
@@ -1913,7 +2086,7 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <span class="p">]</span>
 </code></pre>
 <p>Retrieves raw trades that occurred on Switcheo Exchange, filtered by the request parameters.</p>
-<h4 id='http-request-15'>HTTP Request</h4>
+<h4 id='http-request-16'>HTTP Request</h4>
 <p><code>GET /v2/trades</code></p>
 <h4 id='request-parameters-8'>Request Parameters</h4>
 <table><thead>
@@ -1987,7 +2160,7 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/trades/listTradesExample.js">Full list trades example</a></p>
 <h3 id='get-recent-trades'>GET Recent Trades</h3>
 <p>Returns <code>20</code> most recent formatted trades on the selected pair sorted by executed time in descending order (most recent first).</p>
-<h4 id='http-request-16'>HTTP Request</h4>
+<h4 id='http-request-17'>HTTP Request</h4>
 <p><code>GET /v2/trades/recent</code></p>
 <h4 id='request-parameters-9'>Request Parameters</h4>
 <table><thead>
@@ -2160,7 +2333,7 @@ To be able to make a deposit, sufficient funds are required in the depositing wa
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Deposit endpoint has to be called for the deposit to be executed.
 </aside>
-<h4 id='http-request-17'>HTTP Request</h4>
+<h4 id='http-request-18'>HTTP Request</h4>
 <p><code>POST /v2/deposits</code></p>
 <h4 id='request-parameters-10'>Request Parameters</h4>
 <table><thead>
@@ -2247,7 +2420,7 @@ you will receive a response which contains a <code>transaction</code>.</p>
 
 <p>The <code>transaction</code> in the response should be signed and directly broadcasted by the client,
 the transaction hash of the broadcasted transaction should then be sent to the broadcast endpoint.</p>
-<h4 id='http-request-18'>HTTP Request</h4>
+<h4 id='http-request-19'>HTTP Request</h4>
 <p><code>POST /v2/deposits/:id/broadcast</code></p>
 <h4 id='request-parameters-11'>Request Parameters</h4>
 <table><thead>
@@ -2290,7 +2463,7 @@ you will receive a response which requires additional signing.</p>
 
 <p>Note that a <code>sha256</code> parameter is provided for convenience to be used directly as part of the ECDSA signature process.
  <em>In production mode, this should be recalculated for additional security.</em></p>
-<h4 id='http-request-19'>HTTP Request</h4>
+<h4 id='http-request-20'>HTTP Request</h4>
 <p><code>POST /v2/deposits/:id/broadcast</code></p>
 <h4 id='request-parameters-12'>Request Parameters</h4>
 <table><thead>
@@ -2368,7 +2541,7 @@ To be able to make a withdrawal, sufficient funds are required in the contract b
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Withdrawal endpoint has to be called for the withdrawal to be executed.
 </aside>
-<h4 id='http-request-20'>HTTP Request</h4>
+<h4 id='http-request-21'>HTTP Request</h4>
 <p><code>POST /v2/withdrawals</code></p>
 <h4 id='request-parameters-13'>Request Parameters</h4>
 <table><thead>
@@ -2465,7 +2638,7 @@ To be able to make a withdrawal, sufficient funds are required in the contract b
 <p>This is the second endpoint required to execute a withdrawal.
 After using the <a href="#create-withdrawal">Create Withdrawal</a> endpoint,
 you will receive a response which requires additional signing.</p>
-<h4 id='http-request-21'>HTTP Request</h4>
+<h4 id='http-request-22'>HTTP Request</h4>
 <p><code>POST /v2/withdrawals/:id/broadcast</code></p>
 <h4 id='request-parameters-14'>Request Parameters</h4>
 <table><thead>
@@ -2893,7 +3066,7 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Retrieves a specific order</p>
-<h4 id='http-request-22'>HTTP Request</h4>
+<h4 id='http-request-23'>HTTP Request</h4>
 <p><code>GET /v2/orders/:order_id</code></p>
 <h4 id='request-parameters-15'>Request Parameters</h4>
 <table><thead>
@@ -2948,7 +3121,7 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>Retrieves orders from a specific address filtered by the given parameters.</p>
-<h4 id='http-request-23'>HTTP Request</h4>
+<h4 id='http-request-24'>HTTP Request</h4>
 <p><code>GET /v2/orders</code></p>
 <h4 id='request-parameters-16'>Request Parameters</h4>
 <table><thead>
@@ -3016,7 +3189,7 @@ A successful order will have zero or one <strong>make</strong> and/or zero or mo
 <p>Atomic Swap orders can be created through this endpoint,
 the Atomic Swap contract needs to be approved if the offer_asset is on the ETH blockchain.
 Refer to the <a href="#approved-spenders">Approved Spenders</a> section for more information.</p>
-<h4 id='http-request-24'>HTTP Request</h4>
+<h4 id='http-request-25'>HTTP Request</h4>
 <p><code>POST /v2/orders</code></p>
 <h4 id='request-parameters-17'>Request Parameters</h4>
 <p>For the below descriptions, the <code>order maker</code> refers to your API user.</p>
@@ -3237,7 +3410,7 @@ After using the <a href="#create-order">Create Order</a> endpoint, you will rece
 <p>Every <code>txn</code> of the <code>fills</code>, <code>fill_groups</code> and <code>makes</code> in the Create Order response should be <a href="#authentication">signed</a>,
 and structured in the <code>signatures</code> format shown on the right.
 Note that the <code>txn</code> of <code>fills</code> for ETH will be empty, only the <code>txn</code> of the <code>fill_groups</code> need to be signed for ETH.</p>
-<h4 id='http-request-25'>HTTP Request</h4>
+<h4 id='http-request-26'>HTTP Request</h4>
 <p><code>POST /v2/orders/:id/broadcast</code></p>
 <h4 id='request-parameters-18'>Request Parameters</h4>
 <blockquote>
@@ -3316,7 +3489,7 @@ Only orders <strong>with makes</strong> and with an <code>available_amount</code
 <aside class="notice">
   IMPORTANT: After calling this endpoint, the Execute Cancellation endpoint has to be called for the cancellation to be executed.
 </aside>
-<h4 id='http-request-26'>HTTP Request</h4>
+<h4 id='http-request-27'>HTTP Request</h4>
 <p><code>POST /v2/cancellations</code></p>
 <h4 id='url-parameters'>URL Parameters</h4>
 <blockquote>
@@ -3427,7 +3600,7 @@ a transaction in the response which must be signed.</p>
 <pre class="highlight javascript"><code><span class="p">{</span>
   <span class="s2">"signature"</span><span class="p">:</span> <span class="s2">"&lt;signature&gt;"</span>
 <span class="p">}</span>
-</code></pre><h4 id='http-request-27'>HTTP Request</h4>
+</code></pre><h4 id='http-request-28'>HTTP Request</h4>
 <p><code>POST /v2/cancellations/:id/broadcast</code></p>
 <h4 id='url-parameters-2'>URL Parameters</h4>
 <table><thead>
@@ -3493,7 +3666,7 @@ that sub-contract is allowed to update the user&#39;s funds within the main cont
 To perform Atomic Swaps, users will have to first approve the Atomic Swap contract.</p>
 <h3 id='post-create-approval'>POST Create Approval</h3>
 <p>This is the first API call required to approve a spender.</p>
-<h4 id='http-request-28'>HTTP Request</h4>
+<h4 id='http-request-29'>HTTP Request</h4>
 <p><code>POST /v2/approved_spenders</code></p>
 <h4 id='request-parameters-19'>Request Parameters</h4>
 <table><thead>
@@ -3530,7 +3703,7 @@ you will receive a response which contains a <code>transaction</code>.</p>
 
 <p>The <code>transaction</code> in the response should be signed and directly broadcasted by the client,
 the transaction hash of the broadcasted transaction should then be sent to the broadcast endpoint.</p>
-<h4 id='http-request-29'>HTTP Request</h4>
+<h4 id='http-request-30'>HTTP Request</h4>
 <p><code>POST /v2/approved_spenders/:id/broadcast</code></p>
 <h4 id='request-parameters-20'>Request Parameters</h4>
 <table><thead>
@@ -3576,7 +3749,7 @@ multiple blockchains, for example, if you want to retrieve a user&#39;s NEO and 
 
 <p>As such, when using this endpoint, balances for the specified addresses and contract hashes
 will be merged and summed.</p>
-<h4 id='http-request-30'>HTTP Request</h4>
+<h4 id='http-request-31'>HTTP Request</h4>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
