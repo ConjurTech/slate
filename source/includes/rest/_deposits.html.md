@@ -178,6 +178,33 @@ the transaction hash of the broadcasted transaction should then be sent to the b
 
  [Full execute deposit example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/deposits/executeDepositExample.js)
 
+### POST Execute EOS Deposit
+
+> Execute a deposit
+
+```js
+function executeDeposit ({ deposit, privateKey }) {
+  const signature = signTransaction(deposit.transaction, privateKey)
+  const url = `${API_URL}/deposits/${deposit.id}/broadcast`
+  return api.post(url, { signature })
+}
+```
+
+> Example request
+
+```js
+{
+  "signature": "<signature>"
+}
+```
+
+This is the second endpoint required to execute a deposit.
+After using the [Create Deposit](#create-deposit) endpoint,
+you will receive a response which requires additional signing.
+
+The signature should then be attached as the `signature` parameter in the request payload.
+Please see the [Authentication](#signing-transactions-for-eos) section for details on how to sign an EOS transaction.
+
 ### POST Execute NEO Deposit
 
 > Execute a deposit

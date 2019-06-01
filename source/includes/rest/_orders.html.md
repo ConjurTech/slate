@@ -4,12 +4,12 @@ Orders are instructions to trade tokens on Switcheo Exchange.
 
 ### Overview
 
-`limit`, `market` and `otc` type orders are available. Fill-Or-Cancel, Make-Or-Cancel, etc. strategies are not yet available.
+`limit`, `market` and `otc` type orders are available. Fill-Or-Kill, Post-Only, etc. strategies are not yet available.
 
-As such, orders will contain a combination of zero or one **make** and/or zero or more **fills**.
+Orders will contain a combination of zero or one **make** and/or zero or more **fills** once matched.
 
-Once an order is placed, the funds required to fulfill the order is debited from the user's contract balance
- and locked up until the order is filled or cancelled.
+When an order is executed, the funds required to fulfill the order is debited from the user's [confirmed balance](#balances)
+ and will be locked up in their locked balance until the order is filled or cancelled.
 
 ### The Order Model
 
@@ -57,17 +57,18 @@ offer_asset_id             | [Asset ID](#supported-assets) of the token that the
 want_asset_id              | [Asset ID](#supported-assets) of the token that the order maker wants.
 offer_amount               | Total [amount](#amounts) of the token that the order maker is offering.
 want_amount                | Total [amount](#amounts) of the token that the order maker wants.
-transfer_amount            | [Amount](#amounts) (out of the `offer_amount`) that was deposited into the contract in order to create the order.
-priority_gas_amount        | Amount of gas paid by the order maker as priority.
 use_native_token           | Whether SWTH tokens was used by the order maker to pay taker fees.
-native_fee_transfer_amount | Amount of SWTH that was deposited into the contract in order to pay the taker fees of the order.
-deposit_txn                | Transaction that was used for deposits related to the order creation.
-created_at                 | Time when the order was created.
-status                     | Status of the order in the context of the blockchain. Possible values are `pending` (after creation), `processed` (after broadcast), `expired` (created but not broadcasted for a long time)
 order_status               | Status of the order in the context of the exchange. Possible values are `open` (on orderbook waiting to be filled),`cancelled` (cancelled open order), `completed` (maker order that is entirely filled or broadcasted filler order)
+txn                        | Serialized blockchain transaction that will execute this order. <strong>Used for EOS only.</strong>
 fills                      | Refer to the [fills](#the-fill-object) section for more details.
 fill groups                | Refer to the [fills groups](#the-fill-group-object) section for more details.
 makes                      | Refer to the [makes](#the-make-object) section for more details.
+created_at                 | Time when the order was created.
+transfer_amount            | DEPRECATED. [Amount](#amounts) (out of the `offer_amount`) that was deposited into the contract in order to create the order.
+native_fee_transfer_amount | DEPRECATED. Amount of SWTH that was deposited into the contract in order to pay the taker fees of the order.
+priority_gas_amount        | DEPRECATED. Amount of gas paid by the order maker as priority.
+status                     | DEPRECATED. Status of the order in the context of the blockchain. Possible values are `pending` (after creation), `processed` (after broadcast), `expired` (created but not broadcasted for a long time)
+deposit_txn                | DEPRECATED. Transaction that was used for deposits related to the order creation.
 
 ##### Fill Object
 
@@ -454,24 +455,36 @@ After using the [Create Order](#create-order) endpoint, you will receive a respo
 
 ```js
 {
+  // NEO & ETH:
   makes: {
     <make_id>: <signature>
   },
+  // NEO only:
   fills: {
     <fill_id_1>: <signature_1>,
     <fill_id_2>: <signature_2>
   },
+  // ETH only:
   fill_groups: {
     <fill_group_id_1>: <signature_3>,
     <fill_group_id_2>: <signature_4>
+  },
+  // EOS only:
+  order: {
+    <id>: <order_signature>,
   }
 }
 ```
 
-Every `txn` of the `fills`, `fill_groups` and `makes` in the Create Order response should be [signed](#authentication),
+Every `txn` in the `fills`, `fill_groups` and `makes` of the Create Order response should be [signed](#authentication),
 and structured in the `signatures` format shown on the right.
-Note that the `txn` of `fills` for ETH will be empty, only the `txn` of the `fill_groups` need to be signed for ETH.
 
+<strong>NOTE:</strong> The `txn` of `fills` for ETH will be empty, only the `txn` of the `fill_groups` need to be signed for ETH-based orders. Please see [Fill Groups](#fill-group-object) for more details.
+
+<strong>NOTE:</strong> The `makes`, `fills` and `fill_groups` arrays for EOS will initially be empty as orders are matched on-chain.
+Only the root `txn` needs to be signed for EOS-based orders.
+
+Please see the [Authentication](#authentication) section on how to perform the `signTransaction` operation.
 
 #### HTTP Request
 
@@ -494,9 +507,10 @@ function signArray(array, privateKey) {
 function broadcastOrder({ order, privateKey }) {
   const { fills, makes } = order
   const signatures = {
-    fills: signArray(order.fills, privateKey),
     makes: signArray(order.makes, privateKey),
-    fill_groups: signArray(order.fill_groups, privateKey)
+    fills: signArray(order.fills, privateKey),
+    fill_groups: signArray(order.fill_groups, privateKey),
+    order: signArray([order], privateKey)
   }
   const url = `${API_URL}/orders/${order.id}/broadcast`
   return api.post(url, { signatures })
@@ -508,16 +522,22 @@ function broadcastOrder({ order, privateKey }) {
 ```js
 {
   "signatures": {
-    "fills": {
-      "c821c814-d4a3-475b-b461-e909d8c8a59a": "<signature_1>"
-    },
     "makes": {
-      "d034djb1-9sd8-5b6k-1f9g-40fd9jntk86k": "<signature_2>",
       "ufdh03kt-23jg-h6k5-45fd-56dfy7ks0g9a": "<signature_3>"
     },
+    // NEO only:
+    "fills": {
+      "c821c814-d4a3-475b-b461-e909d8c8a59a": "<signature_1>",
+      "d034djb1-9sd8-5b6k-1f9g-40fd9jntk86k": "<signature_2>",
+    },
+    // ETH only:
     "fill_groups": {
       "6f9afaeb-1866-47d5-b7d8-061eab1b5fbc": "<signature_4>",
       "94a282ed-bf89-40e2-b0ea-7d3a0dac3c68": "<signature_5>"
+    },
+    // EOS only:
+    "order": {
+      "cfd3805c-50e1-4786-a81f-a60ffba33434": "<order_signature>"
     }
   }
 }

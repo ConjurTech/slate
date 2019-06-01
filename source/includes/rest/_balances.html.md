@@ -21,6 +21,15 @@ multiple blockchains, for example, if you want to retrieve a user's NEO and ethe
 As such, when using this endpoint, balances for the specified addresses and contract hashes
 will be merged and summed.
 
+Contract balances are divided into three types in the response. The following table describes
+their differences.
+
+Type       | Description
+---------- | ----------
+confirming | Confirming balances cannot be used as they are awaiting confirmation and may be reverted. This can either be a deposit has been executed and is awaiting on-chain confirmations, or a withdrawal that has been executed and is being processed.
+confirmed  | Confirmed balances under this key are can be used to trade.
+locked     | Locked balances are balances that are withheld due to an open order and cannot be used to trade.
+
 #### HTTP Request
 
 > Example request:

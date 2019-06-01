@@ -251,6 +251,11 @@ The second step of an action usually requires the returned transaction to be sig
 this can be done using the [eosjs](https://github.com/EOSIO/eosjs) library and referring to the contract's ABI
 3. Signing the serialized transaction with the user's private key
 
+<aside class="notice">
+  <strong>IMPORTANT:</strong> The signature format should be base58 encoded and prefixed with <code>SIG_K1_</code>.
+  This is the format that is returned by eosjs and also accepted by EOS RPC nodes.
+</aside>
+
 
 ### Signing Messages for NEO
 
