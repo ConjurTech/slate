@@ -368,6 +368,9 @@
                               <a href="#post-execute-eth-deposit" class="toc-h3 toc-link" data-title="POST Execute ETH Deposit">POST Execute ETH Deposit</a>
                             </li>
                             <li>
+                              <a href="#post-execute-eos-deposit" class="toc-h3 toc-link" data-title="POST Execute EOS Deposit">POST Execute EOS Deposit</a>
+                            </li>
+                            <li>
                               <a href="#post-execute-neo-deposit" class="toc-h3 toc-link" data-title="POST Execute NEO Deposit">POST Execute NEO Deposit</a>
                             </li>
                         </ul>
@@ -1762,6 +1765,11 @@ Refer to the library&#39;s <a href="https://github.com/EOSIO/eosjs-ecc/blob/9042
 this can be done using the <a href="https://github.com/EOSIO/eosjs">eosjs</a> library and referring to the contract&#39;s ABI</li>
 <li>Signing the serialized transaction with the user&#39;s private key</li>
 </ol>
+
+<aside class="notice">
+  <strong>IMPORTANT:</strong> The signature format should be base58 encoded and prefixed with <code>SIG_K1_</code>.
+  This is the format that is returned by eosjs and also accepted by EOS RPC nodes.
+</aside>
 <h3 id='signing-messages-for-neo'>Signing Messages for NEO</h3>
 <p>When signing messages for NEO, the message should first be hex encoded and enveloped in an invalid transaction via: <code>&#39;010001f0&#39; + message + &#39;0000&#39;</code> before being signed. This is the canonical way of ensuring an arbitrary message is not also a valid NEO transaction.</p>
 
@@ -2438,6 +2446,29 @@ the transaction hash of the broadcasted transaction should then be sent to the b
 </tbody></table>
 
 <p><a href="https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/deposits/executeDepositExample.js">Full execute deposit example</a></p>
+<h3 id='post-execute-eos-deposit'>POST Execute EOS Deposit</h3>
+<blockquote>
+<p>Execute a deposit</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kd">function</span> <span class="nx">executeDeposit</span> <span class="p">({</span> <span class="nx">deposit</span><span class="p">,</span> <span class="nx">privateKey</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">signature</span> <span class="o">=</span> <span class="nx">signTransaction</span><span class="p">(</span><span class="nx">deposit</span><span class="p">.</span><span class="nx">transaction</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span>
+  <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">`</span><span class="p">${</span><span class="nx">API_URL</span><span class="p">}</span><span class="s2">/deposits/</span><span class="p">${</span><span class="nx">deposit</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="s2">/broadcast`</span>
+  <span class="k">return</span> <span class="nx">api</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span> <span class="nx">signature</span> <span class="p">})</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span>
+  <span class="s2">"signature"</span><span class="p">:</span> <span class="s2">"&lt;signature&gt;"</span>
+<span class="p">}</span>
+</code></pre>
+<p>This is the second endpoint required to execute a deposit.
+After using the <a href="#create-deposit">Create Deposit</a> endpoint,
+you will receive a response which requires additional signing.</p>
+
+<p>The signature should then be attached as the <code>signature</code> parameter in the request payload.
+Please see the <a href="#signing-transactions-for-eos">Authentication</a> section for details on how to sign an EOS transaction.</p>
 <h3 id='post-execute-neo-deposit'>POST Execute NEO Deposit</h3>
 <blockquote>
 <p>Execute a deposit</p>
@@ -2673,12 +2704,12 @@ you will receive a response which requires additional signing.</p>
 <h2 id='orders'>Orders</h2>
 <p>Orders are instructions to trade tokens on Switcheo Exchange.</p>
 <h3 id='overview-5'>Overview</h3>
-<p><code>limit</code>, <code>market</code> and <code>otc</code> type orders are available. Fill-Or-Cancel, Make-Or-Cancel, etc. strategies are not yet available.</p>
+<p><code>limit</code>, <code>market</code> and <code>otc</code> type orders are available. Fill-Or-Kill, Post-Only, etc. strategies are not yet available.</p>
 
-<p>As such, orders will contain a combination of zero or one <strong>make</strong> and/or zero or more <strong>fills</strong>.</p>
+<p>Orders will contain a combination of zero or one <strong>make</strong> and/or zero or more <strong>fills</strong> once matched.</p>
 
-<p>Once an order is placed, the funds required to fulfill the order is debited from the user&#39;s contract balance
- and locked up until the order is filled or cancelled.</p>
+<p>When an order is executed, the funds required to fulfill the order is debited from the user&#39;s <a href="#balances">confirmed balance</a>
+ and will be locked up in their locked balance until the order is filled or cancelled.</p>
 <h3 id='the-order-model'>The Order Model</h3>
 <p>A breakdown of attributes in an order object returned from our API is described below.</p>
 <h4 id='order-object'>Order Object</h4>
@@ -2753,36 +2784,16 @@ you will receive a response which requires additional signing.</p>
 <td>Total <a href="#amounts">amount</a> of the token that the order maker wants.</td>
 </tr>
 <tr>
-<td>transfer_amount</td>
-<td><a href="#amounts">Amount</a> (out of the <code>offer_amount</code>) that was deposited into the contract in order to create the order.</td>
-</tr>
-<tr>
-<td>priority_gas_amount</td>
-<td>Amount of gas paid by the order maker as priority.</td>
-</tr>
-<tr>
 <td>use_native_token</td>
 <td>Whether SWTH tokens was used by the order maker to pay taker fees.</td>
 </tr>
 <tr>
-<td>native_fee_transfer_amount</td>
-<td>Amount of SWTH that was deposited into the contract in order to pay the taker fees of the order.</td>
-</tr>
-<tr>
-<td>deposit_txn</td>
-<td>Transaction that was used for deposits related to the order creation.</td>
-</tr>
-<tr>
-<td>created_at</td>
-<td>Time when the order was created.</td>
-</tr>
-<tr>
-<td>status</td>
-<td>Status of the order in the context of the blockchain. Possible values are <code>pending</code> (after creation), <code>processed</code> (after broadcast), <code>expired</code> (created but not broadcasted for a long time)</td>
-</tr>
-<tr>
 <td>order_status</td>
 <td>Status of the order in the context of the exchange. Possible values are <code>open</code> (on orderbook waiting to be filled),<code>cancelled</code> (cancelled open order), <code>completed</code> (maker order that is entirely filled or broadcasted filler order)</td>
+</tr>
+<tr>
+<td>txn</td>
+<td>Serialized blockchain transaction that will execute this order. <strong>Used for EOS only.</strong></td>
 </tr>
 <tr>
 <td>fills</td>
@@ -2795,6 +2806,30 @@ you will receive a response which requires additional signing.</p>
 <tr>
 <td>makes</td>
 <td>Refer to the <a href="#the-make-object">makes</a> section for more details.</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>Time when the order was created.</td>
+</tr>
+<tr>
+<td>transfer_amount</td>
+<td>DEPRECATED. <a href="#amounts">Amount</a> (out of the <code>offer_amount</code>) that was deposited into the contract in order to create the order.</td>
+</tr>
+<tr>
+<td>native_fee_transfer_amount</td>
+<td>DEPRECATED. Amount of SWTH that was deposited into the contract in order to pay the taker fees of the order.</td>
+</tr>
+<tr>
+<td>priority_gas_amount</td>
+<td>DEPRECATED. Amount of gas paid by the order maker as priority.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>DEPRECATED. Status of the order in the context of the blockchain. Possible values are <code>pending</code> (after creation), <code>processed</code> (after broadcast), <code>expired</code> (created but not broadcasted for a long time)</td>
+</tr>
+<tr>
+<td>deposit_txn</td>
+<td>DEPRECATED. Transaction that was used for deposits related to the order creation.</td>
 </tr>
 </tbody></table>
 <h5 id='fill-object'>Fill Object</h5>
@@ -3394,22 +3429,35 @@ After using the <a href="#create-order">Create Order</a> endpoint, you will rece
 <p>Format of signatures parameter</p>
 </blockquote>
 <pre class="highlight javascript"><code><span class="p">{</span>
+  <span class="c1">// NEO &amp; ETH:</span>
   <span class="nl">makes</span><span class="p">:</span> <span class="p">{</span>
     <span class="o">&lt;</span><span class="nx">make_id</span><span class="o">&gt;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">signature</span><span class="o">&gt;</span>
   <span class="p">},</span>
+  <span class="c1">// NEO only:</span>
   <span class="nx">fills</span><span class="p">:</span> <span class="p">{</span>
     <span class="o">&lt;</span><span class="nx">fill_id_1</span><span class="o">&gt;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">signature_1</span><span class="o">&gt;</span><span class="p">,</span>
     <span class="o">&lt;</span><span class="nx">fill_id_2</span><span class="o">&gt;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">signature_2</span><span class="o">&gt;</span>
   <span class="p">},</span>
+  <span class="c1">// ETH only:</span>
   <span class="nx">fill_groups</span><span class="p">:</span> <span class="p">{</span>
     <span class="o">&lt;</span><span class="nx">fill_group_id_1</span><span class="o">&gt;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">signature_3</span><span class="o">&gt;</span><span class="p">,</span>
     <span class="o">&lt;</span><span class="nx">fill_group_id_2</span><span class="o">&gt;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">signature_4</span><span class="o">&gt;</span>
+  <span class="p">},</span>
+  <span class="c1">// EOS only:</span>
+  <span class="nx">order</span><span class="p">:</span> <span class="p">{</span>
+    <span class="o">&lt;</span><span class="nx">id</span><span class="o">&gt;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">order_signature</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<p>Every <code>txn</code> of the <code>fills</code>, <code>fill_groups</code> and <code>makes</code> in the Create Order response should be <a href="#authentication">signed</a>,
-and structured in the <code>signatures</code> format shown on the right.
-Note that the <code>txn</code> of <code>fills</code> for ETH will be empty, only the <code>txn</code> of the <code>fill_groups</code> need to be signed for ETH.</p>
+<p>Every <code>txn</code> in the <code>fills</code>, <code>fill_groups</code> and <code>makes</code> of the Create Order response should be <a href="#authentication">signed</a>,
+and structured in the <code>signatures</code> format shown on the right.</p>
+
+<p><strong>NOTE:</strong> The <code>txn</code> of <code>fills</code> for ETH will be empty, only the <code>txn</code> of the <code>fill_groups</code> need to be signed for ETH-based orders. Please see <a href="#fill-group-object">Fill Groups</a> for more details.</p>
+
+<p><strong>NOTE:</strong> The <code>makes</code>, <code>fills</code> and <code>fill_groups</code> arrays for EOS will initially be empty as orders are matched on-chain.
+Only the root <code>txn</code> needs to be signed for EOS-based orders.</p>
+
+<p>Please see the <a href="#authentication">Authentication</a> section on how to perform the <code>signTransaction</code> operation.</p>
 <h4 id='http-request-26'>HTTP Request</h4>
 <p><code>POST /v2/orders/:id/broadcast</code></p>
 <h4 id='request-parameters-18'>Request Parameters</h4>
@@ -3428,9 +3476,10 @@ Note that the <code>txn</code> of <code>fills</code> for ETH will be empty, only
 <span class="kd">function</span> <span class="nx">broadcastOrder</span><span class="p">({</span> <span class="nx">order</span><span class="p">,</span> <span class="nx">privateKey</span> <span class="p">})</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="p">{</span> <span class="nx">fills</span><span class="p">,</span> <span class="nx">makes</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">order</span>
   <span class="kr">const</span> <span class="nx">signatures</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">fills</span><span class="p">:</span> <span class="nx">signArray</span><span class="p">(</span><span class="nx">order</span><span class="p">.</span><span class="nx">fills</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">),</span>
     <span class="na">makes</span><span class="p">:</span> <span class="nx">signArray</span><span class="p">(</span><span class="nx">order</span><span class="p">.</span><span class="nx">makes</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">),</span>
-    <span class="na">fill_groups</span><span class="p">:</span> <span class="nx">signArray</span><span class="p">(</span><span class="nx">order</span><span class="p">.</span><span class="nx">fill_groups</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">)</span>
+    <span class="na">fills</span><span class="p">:</span> <span class="nx">signArray</span><span class="p">(</span><span class="nx">order</span><span class="p">.</span><span class="nx">fills</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">),</span>
+    <span class="na">fill_groups</span><span class="p">:</span> <span class="nx">signArray</span><span class="p">(</span><span class="nx">order</span><span class="p">.</span><span class="nx">fill_groups</span><span class="p">,</span> <span class="nx">privateKey</span><span class="p">),</span>
+    <span class="na">order</span><span class="p">:</span> <span class="nx">signArray</span><span class="p">([</span><span class="nx">order</span><span class="p">],</span> <span class="nx">privateKey</span><span class="p">)</span>
   <span class="p">}</span>
   <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">`</span><span class="p">${</span><span class="nx">API_URL</span><span class="p">}</span><span class="s2">/orders/</span><span class="p">${</span><span class="nx">order</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="s2">/broadcast`</span>
   <span class="k">return</span> <span class="nx">api</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span> <span class="nx">signatures</span> <span class="p">})</span>
@@ -3441,16 +3490,22 @@ Note that the <code>txn</code> of <code>fills</code> for ETH will be empty, only
 </blockquote>
 <pre class="highlight javascript"><code><span class="p">{</span>
   <span class="s2">"signatures"</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">"fills"</span><span class="p">:</span> <span class="p">{</span>
-      <span class="s2">"c821c814-d4a3-475b-b461-e909d8c8a59a"</span><span class="p">:</span> <span class="s2">"&lt;signature_1&gt;"</span>
-    <span class="p">},</span>
     <span class="s2">"makes"</span><span class="p">:</span> <span class="p">{</span>
-      <span class="s2">"d034djb1-9sd8-5b6k-1f9g-40fd9jntk86k"</span><span class="p">:</span> <span class="s2">"&lt;signature_2&gt;"</span><span class="p">,</span>
       <span class="s2">"ufdh03kt-23jg-h6k5-45fd-56dfy7ks0g9a"</span><span class="p">:</span> <span class="s2">"&lt;signature_3&gt;"</span>
     <span class="p">},</span>
+    <span class="c1">// NEO only:</span>
+    <span class="s2">"fills"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"c821c814-d4a3-475b-b461-e909d8c8a59a"</span><span class="p">:</span> <span class="s2">"&lt;signature_1&gt;"</span><span class="p">,</span>
+      <span class="s2">"d034djb1-9sd8-5b6k-1f9g-40fd9jntk86k"</span><span class="p">:</span> <span class="s2">"&lt;signature_2&gt;"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="c1">// ETH only:</span>
     <span class="s2">"fill_groups"</span><span class="p">:</span> <span class="p">{</span>
       <span class="s2">"6f9afaeb-1866-47d5-b7d8-061eab1b5fbc"</span><span class="p">:</span> <span class="s2">"&lt;signature_4&gt;"</span><span class="p">,</span>
       <span class="s2">"94a282ed-bf89-40e2-b0ea-7d3a0dac3c68"</span><span class="p">:</span> <span class="s2">"&lt;signature_5&gt;"</span>
+    <span class="p">},</span>
+    <span class="c1">// EOS only:</span>
+    <span class="s2">"order"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"cfd3805c-50e1-4786-a81f-a60ffba33434"</span><span class="p">:</span> <span class="s2">"&lt;order_signature&gt;"</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -3749,6 +3804,29 @@ multiple blockchains, for example, if you want to retrieve a user&#39;s NEO and 
 
 <p>As such, when using this endpoint, balances for the specified addresses and contract hashes
 will be merged and summed.</p>
+
+<p>Contract balances are divided into three types in the response. The following table describes
+their differences.</p>
+
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>confirming</td>
+<td>Confirming balances cannot be used as they are awaiting confirmation and may be reverted. This can either be a deposit has been executed and is awaiting on-chain confirmations, or a withdrawal that has been executed and is being processed.</td>
+</tr>
+<tr>
+<td>confirmed</td>
+<td>Confirmed balances under this key are can be used to trade.</td>
+</tr>
+<tr>
+<td>locked</td>
+<td>Locked balances are balances that are withheld due to an open order and cannot be used to trade.</td>
+</tr>
+</tbody></table>
 <h4 id='http-request-31'>HTTP Request</h4>
 <blockquote>
 <p>Example request:</p>
