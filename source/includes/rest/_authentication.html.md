@@ -289,8 +289,8 @@ const parameterString = stableStringify(rawParams)
 const Neon = require('@cityofzion/neon-js')
 const parameterHexString = Neon.u.str2hexstring(parameterString)
 
-// 3. Zero pad (parameterHexString.length / 2) into a two digit hex string
-const lengthHex = (parameterHexString.length / 2).toString(16).padStart(2, '0')
+// 3. Convert into a hex string that represents length of parameterString
+const lengthHex = Neon.u.num2VarInt(parameterHexString.length / 2)
 // lengthHex: 37
 
 // 4. Concat lengthHex and parameterHexString
@@ -311,7 +311,7 @@ To perform an action, request parameters have to be signed to generate a signatu
 parameter. This signature parameter should then be sent together with the other parameters in the request.
 
 1. Convert the API parameters into a string, with parameters **ordered alphanumerically**
-2. Serialize the parameter string into a hex string
+2. Serialize the parameter string into a hex string ()
 3. Zero pad the **length / 2** of the result from (2) into a two digit hex string
 4. Concat the result of (3) and (2)
 5. Wrap the result of (4) in a neo transaction
