@@ -42,6 +42,43 @@ Funds that are used to make an offer are locked in the contract until the order 
 }
  ```
 
+> Example request 2 (normalizing quantity key to amount)
+
+ ```js
+{
+  "pair": "SWTH_NEO",
+  "contract_hash": "eed0d2e14b0027f5f30ade45f2b23dc57dd54ad2",
+  "normalize_keys": "true"
+}
+ ```
+
+ > Example response 2 (normalize quantity key to amount)
+
+ ```js
+{
+  asks: [
+    {
+      "price": "0.00046103",
+      "amount": "9378.0"
+    },
+    {
+      "price": "0.00046759",
+      "amount": "1084.30496802"
+    }
+  ],
+  bids: [
+    {
+    "price": "0.00045645",
+    "amount": "6678.0"
+    },
+    {
+      "price": "0.0004534",
+      "amount": "12279.38328187"
+    },
+  ]
+}
+ ```
+
 Retrieves the order book with formatted price and quantity.
 
 #### HTTP Request
@@ -54,13 +91,14 @@ Parameter     | Type       | Required | Description
 ------------- | ---------- | -------- | -----------
 pair          | **string** | yes      | Only return offers from this [pair](#pairs).
 contract_hash | **string** | no       | Only return offers for this [contract hash](#contracts).
+normalize_keys| **string** | no       | Normalize default "quantity" key to "amount"
 
 #### Response parameters
 
 Parameter   | Description
 ----------- | ----------
 price       | Bid or Ask price.
-quantity    | If `bids` side, returns amount of tokens being bought. If `asks` side, returns amount of tokens that is being sold.
+quantity / amount   | If `bids` side, returns amount of tokens being bought. If `asks` side, returns amount of tokens that is being sold.
 
 ### GET Offer Book
 
