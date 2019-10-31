@@ -319,9 +319,8 @@ A successful order will have zero or one **make** and/or zero or more **fills**.
 
 #### Atomic Swap Orders
 
-Atomic Swap orders can be created through this endpoint,
-the Atomic Swap contract needs to be approved if the offer_asset is on the ETH blockchain.
-Refer to the [Approved Spenders](#approved-spenders) section for more information.
+Atomic Swap orders can be created through this endpoint.
+The [swap pricing](#get-swap-pricing) endpoint can be used to determine the expected amount that will be received for a swap.
 
 #### HTTP Request
 
