@@ -289,7 +289,7 @@ const parameterString = stableStringify(rawParams)
 const Neon = require('@cityofzion/neon-js')
 const parameterHexString = Neon.u.str2hexstring(parameterString)
 
-// 3. Convert into a hex string that represents length of parameterString
+// 3. Convert into a prefixed hex string that represents length of parameterString
 const lengthHex = Neon.u.num2VarInt(parameterHexString.length / 2)
 // lengthHex: 37
 
@@ -312,7 +312,7 @@ parameter. This signature parameter should then be sent together with the other 
 
 1. Convert the API parameters into a string, with parameters **ordered alphanumerically**
 2. Serialize the parameter string into a hex string ()
-3. Zero pad the **length / 2** of the result from (2) into a two digit hex string
+3. Zero pad and prefix the **length / 2** of the result from (2) using [neon-js.u.num2varint()](https://github.com/CityOfZion/neon-js/blob/44b27057b1e17c7b36add8d952f2651f65cd3bd1/packages/neon-core/src/u/convert.ts#L172)
 4. Concat the result of (3) and (2)
 5. Wrap the result of (4) in a neo transaction
 6. Sign the result of (5) with the user's private key
@@ -330,8 +330,8 @@ Using the following parameters as an example:
 `7b226170706c65223a225a222c22626c6f636b636861696e223a226e656f222c2274696d657374616d70223a313532393338303835397d`
 3. The length of this string is `110`, divide this by 2 to get `55`
 4. Convert `55` to hexadecimal to get `37`
-5. Zero pad `37` into a two digit string if needed. In this case `37` is already two digits so
-no padding is needed, but if the value was something like `8` then it should be padded to become `08`
+5. Convert `37` into a prefixed, zero padded hex string using [neon-js.u.num2varint()](https://github.com/CityOfZion/neon-js/blob/44b27057b1e17c7b36add8d952f2651f65cd3bd1/packages/neon-core/src/u/convert.ts#L172). In this case `37` is already two digits so
+no padding or prefix is needed. If the value was something like `8` then it must be padded to become `08`. Lengths greater than 0xfc will have a prefix byte prepended (0xfd-0xff depending on length).
 6. Form a string by concatenating `37`, and the result of (2) to get:
 `377b226170706c65223a225a222c22626c6f636b636861696e223a226e656f222c2274696d657374616d70223a313532393338303835397d`
 7. Prepend `010001f0` and append `0000` to (6) to get:
