@@ -1,28 +1,29 @@
-# Deposits
+## Deposits
 
-**Description**
+Deposits are a transfer of tokens from your wallet into the Switcheo smart contract.
 
-Deposits allows movement of funds from your wallet into the Switcheo smart contract.
-This movement of funds is free of charge.
+### Overview
+
 Trading on Switcheo Exchange can only be done using funds that have been successfully deposited into the smart contract.
 
 Deposits are not instantaneous.
 Once a deposit has been executed, funds in your wallet balance would be deducted by the amount of tokens you chose to deposit.
+
 Funds deducted from your wallet balance will be added to your contract balance but put on hold until
 Switcheo has determined that it has been successfully broadcasted to the blockchain.
 
-## TestNet Faucet
+### Testing with TestNet Faucet
 
 For the convenience of testing API endpoints, tokens can be received through our TestNet faucet.
 To use the faucet:
 
-1. Go to [https://beta.switcheo.exchange/](https://beta.switcheo.exchange/)
+1. Go to [https://legacy.switcheo.exchange/](https://legacy.switcheo.exchange/)
 2. Click on the TestNet/MainNet selector at the bottom of the page
 3. Select TestNet V2
 4. Click on **WALLET LOGIN** to login
 5. Click on the **FAUCET** button to receive tokens for testing
 
-## Create Deposit
+### POST Create Deposit
 
 > Create a deposit
 
@@ -109,11 +110,11 @@ To be able to make a deposit, sufficient funds are required in the depositing wa
   IMPORTANT: After calling this endpoint, the Execute Deposit endpoint has to be called for the deposit to be executed.
 </aside>
 
-### HTTP Request
+#### HTTP Request
 
 `POST /v2/deposits`
 
-### Request Parameters
+#### Request Parameters
 
  Parameter         | Type       | Required | Description
 ------------------ | ---------- | -------- | ------------
@@ -126,11 +127,85 @@ To be able to make a deposit, sufficient funds are required in the depositing wa
  address           | [address](#addresses) | yes       | The depositer's [address](#addresses). **Do not include this in the parameters to be signed.**
 
 
-### Example
+#### Example
 
 [Full create deposit example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/deposits/createDepositExample.js)
 
-## Execute Deposit
+### POST Execute ETH Deposit
+
+> Execute a deposit
+
+```js
+const Web3 = require('web3')
+const provider = new Web3.providers.HttpProvider('https://mainnet.infura.io')
+const web3 = new Web3(provider)
+
+function executeDeposit ({ deposit, privateKey }) {
+  const { rawTransaction } = await web3.eth.accounts.signTransaction(deposit.transaction, privateKey)
+  const transactionHash = web3.utils.keccak256(rawTransaction)
+
+  web3.eth.sendSignedTransaction(rawTransaction)
+
+  const url = `${API_URL}/deposits/${deposit.id}/broadcast`
+  return api.post(url, { transactionHash })
+}
+```
+
+> Example request
+
+```js
+{
+  "transaction_hash": "<transaction_hash>"
+}
+```
+
+This is the second endpoint required to execute a deposit.
+After using the [Create Deposit](#create-deposit) endpoint,
+you will receive a response which contains a `transaction`.
+
+The `transaction` in the response should be signed and directly broadcasted by the client,
+the transaction hash of the broadcasted transaction should then be sent to the broadcast endpoint.
+
+#### HTTP Request
+
+`POST /v2/deposits/:id/broadcast`
+
+#### Request Parameters
+
+ Parameter  | Type       | Description
+ ---------- | ---------- | -----------
+ transaction_hash | **string** | The transaction hash of the broadcasted transaction
+
+ [Full execute deposit example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/deposits/executeDepositExample.js)
+
+### POST Execute EOS Deposit
+
+> Execute a deposit
+
+```js
+function executeDeposit ({ deposit, privateKey }) {
+  const signature = signTransaction(deposit.transaction, privateKey)
+  const url = `${API_URL}/deposits/${deposit.id}/broadcast`
+  return api.post(url, { signature })
+}
+```
+
+> Example request
+
+```js
+{
+  "signature": "<signature>"
+}
+```
+
+This is the second endpoint required to execute a deposit.
+After using the [Create Deposit](#create-deposit) endpoint,
+you will receive a response which requires additional signing.
+
+The signature should then be attached as the `signature` parameter in the request payload.
+Please see the [Authentication](#signing-transactions-for-eos) section for details on how to sign an EOS transaction.
+
+### POST Execute NEO Deposit
 
 > Execute a deposit
 
@@ -159,11 +234,11 @@ The signature should then be attached as the `signature` parameter in the reques
 Note that a `sha256` parameter is provided for convenience to be used directly as part of the ECDSA signature process.
  *In production mode, this should be recalculated for additional security.*
 
-### HTTP Request
+#### HTTP Request
 
 `POST /v2/deposits/:id/broadcast`
 
-### Request Parameters
+#### Request Parameters
 
  Parameter  | Type       | Description
  ---------- | ---------- | -----------

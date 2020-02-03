@@ -1,6 +1,6 @@
-# Errors
+## Errors
 
-The Switcheo API uses the following error codes:
+The Switcheo REST API uses the following error codes:
 
 Error Code | Meaning
 ---------- | -------
@@ -9,6 +9,6 @@ Error Code | Meaning
 404 | Not Found -- The specified endpoint or resource could not be found.
 406 | Not Acceptable -- You requested a format that isn't json.
 422 | Unprocessible Entity -- Your request had validation errors.
-429 | Too Many Requests -- Slow down requests and use Exponential backoff timing.
+429 | Too Many Requests -- Slow down requests using an [exponential backoff](https://en.wikipedia.org/wiki/Exponential_backoff) strategy.
 500 | Internal Server Error -- We had a problem with our server. Try again later.
 503 | Service Unavailable -- We're temporarily offline for maintenance. Please try again later.

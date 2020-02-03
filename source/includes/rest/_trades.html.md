@@ -1,4 +1,4 @@
-# Trades
+## Trades
 
 A trade represents a fill of an offer.
 
@@ -6,7 +6,7 @@ This happens when an incoming order matches an offer on the opposite side of the
 
 Trades can be seen on the Trade History column on [Switcheo Exchange](https://switcheo.exchange).
 
-## List Trades
+### GET Trades
 
 > Example request
 
@@ -41,13 +41,13 @@ Trades can be seen on the Trade History column on [Switcheo Exchange](https://sw
 ]
 ```
 
-Retrieves trades that have already occurred on Switcheo Exchange filtered by the request parameters.
+Retrieves raw trades that occurred on Switcheo Exchange, filtered by the request parameters.
 
-### HTTP Request
+#### HTTP Request
 
 `GET /v2/trades`
 
-### Request Parameters
+#### Request Parameters
 
 Parameter     | Type         | Required | Description
 ------------- | ------------ | -------- | -----------
@@ -57,21 +57,35 @@ from          | **integer**  | no       | Only return trades after this time in 
 to            | **integer**  | no       | Only return trades before this time in epoch seconds.
 limit         | **integer**  | no       | Only return this number of trades (min: `1`, max: `10000`, default: `5000`).
 
-### Response parameters
+#### Response parameters
 
 Parameter   | Description
 ----------- | ----------
 id          | Unique identifier for the trade object.
 fill_amount | Amount of tokens that is given by the trade to the [offer](#offers) that it is filling.
 take_amount | Amount of tokens that the trade takes from the [offer's](#offers) `available_amount` that it is filling.
-event_time   | Datetime that the trade occurs in Zulu Time (UDT+0)
+event_time  | Datetime that the trade occurs in Zulu Time (UDT+0)
 is_buy      | Whether the side of the trade is a buy.
 
-### Example
+#### Example
 [Full list trades example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/trades/listTradesExample.js)
 
 
-## Recent Trades
+### GET Recent Trades
+
+Returns `20` most recent formatted trades on the selected pair sorted by executed time in descending order (most recent first).
+
+#### HTTP Request
+
+`GET /v2/trades/recent`
+
+#### Request Parameters
+
+Parameter     | Type         | Required | Description
+------------- | ------------ | -------- | -----------
+pair          | **string**   | yes      | Only return trades for this [pair](#pairs).
+
+#### Response parameters
 
 > Example response
 
@@ -89,20 +103,6 @@ is_buy      | Whether the side of the trade is a buy.
   ...
 ]
 ```
-
-Returns `20` most recent trades on the selected pair sorted by executed time in descending order (most recent first).
-
-### HTTP Request
-
-`GET /v2/trades/recent`
-
-### Request Parameters
-
-Parameter     | Type         | Required | Description
-------------- | ------------ | -------- | -----------
-pair          | **string**   | yes      | Only return trades for this [pair](#pairs).
-
-### Response parameters
 
 Parameter   | Description
 ----------- | ----------
