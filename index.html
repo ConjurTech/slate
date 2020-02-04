@@ -1786,7 +1786,7 @@ this can be done using the <a href="https://github.com/EOSIO/eosjs">eosjs</a> li
 <span class="kr">const</span> <span class="nx">Neon</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@cityofzion/neon-js'</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">parameterHexString</span> <span class="o">=</span> <span class="nx">Neon</span><span class="p">.</span><span class="nx">u</span><span class="p">.</span><span class="nx">str2hexstring</span><span class="p">(</span><span class="nx">parameterString</span><span class="p">)</span>
 
-<span class="c1">// 3. Convert into a hex string that represents length of parameterString</span>
+<span class="c1">// 3. Convert into a prefixed hex string that represents length of parameterString</span>
 <span class="kr">const</span> <span class="nx">lengthHex</span> <span class="o">=</span> <span class="nx">Neon</span><span class="p">.</span><span class="nx">u</span><span class="p">.</span><span class="nx">num2VarInt</span><span class="p">(</span><span class="nx">parameterHexString</span><span class="p">.</span><span class="nx">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
 <span class="c1">// lengthHex: 37</span>
 
@@ -1809,7 +1809,7 @@ parameter. This signature parameter should then be sent together with the other 
 <ol>
 <li>Convert the API parameters into a string, with parameters <strong>ordered alphanumerically</strong></li>
 <li>Serialize the parameter string into a hex string ()</li>
-<li>Zero pad the <strong>length / 2</strong> of the result from (2) into a two digit hex string</li>
+<li>Zero pad and prefix the <strong>length / 2</strong> of the result from (2) using <a href="https://github.com/CityOfZion/neon-js/blob/44b27057b1e17c7b36add8d952f2651f65cd3bd1/packages/neon-core/src/u/convert.ts#L172">neon-js.u.num2varint()</a></li>
 <li>Concat the result of (3) and (2)</li>
 <li>Wrap the result of (4) in a neo transaction</li>
 <li>Sign the result of (5) with the user&#39;s private key</li>
@@ -1827,8 +1827,8 @@ parameter. This signature parameter should then be sent together with the other 
 <code>7b226170706c65223a225a222c22626c6f636b636861696e223a226e656f222c2274696d657374616d70223a313532393338303835397d</code></li>
 <li>The length of this string is <code>110</code>, divide this by 2 to get <code>55</code></li>
 <li>Convert <code>55</code> to hexadecimal to get <code>37</code></li>
-<li>Zero pad <code>37</code> into a two digit string if needed. In this case <code>37</code> is already two digits so
-no padding is needed, but if the value was something like <code>8</code> then it should be padded to become <code>08</code></li>
+<li>Convert <code>37</code> into a prefixed, zero padded hex string using <a href="https://github.com/CityOfZion/neon-js/blob/44b27057b1e17c7b36add8d952f2651f65cd3bd1/packages/neon-core/src/u/convert.ts#L172">neon-js.u.num2varint()</a>. In this case <code>37</code> is already two digits so
+no padding or prefix is needed. If the value was something like <code>8</code> then it must be padded to become <code>08</code>. Lengths greater than 0xfc will have a prefix byte prepended (0xfd-0xff depending on length).</li>
 <li>Form a string by concatenating <code>37</code>, and the result of (2) to get:
 <code>377b226170706c65223a225a222c22626c6f636b636861696e223a226e656f222c2274696d657374616d70223a313532393338303835397d</code></li>
 <li>Prepend <code>010001f0</code> and append <code>0000</code> to (6) to get:
