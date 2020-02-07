@@ -314,19 +314,20 @@ Orders can only be created after sufficient funds have been [deposited](#deposit
 A successful order will have zero or one **make** and/or zero or more **fills**.
 
 <aside class="notice">
-  IMPORTANT: After calling this endpoint, the Broadcast Order endpoint has to be called for the order to be executed.
+  IMPORTANT: After calling this endpoint, the Broadcast Order endpoint must be called for the order to be executed.
 </aside>
 
 #### Atomic Swap Orders
 
 Atomic Swap orders can be created through this endpoint.
 The [swap pricing](#get-swap-pricing) endpoint can be used to determine the expected amount that will be received for a swap.
+Please note that different parameters apply for Swap Orders 
 
 #### HTTP Request
 
 `POST /v2/orders`
 
-#### Request Parameters
+#### Request Parameters (Non Swap)
 
 For the below descriptions, the `order maker` refers to your API user.
 
@@ -361,7 +362,7 @@ createOrder({
 })
 ```
 
-> Example request
+> Example request (non Swap order)
 
 ```js
 {
@@ -378,6 +379,32 @@ createOrder({
   "signature": "<signature>"
 }
 ```
+
+> Example request (Swap order)
+
+```js
+{
+  "blockchain": "eth",
+  "contract_hash": "<contract hash>",
+  "pair": "NEO_ETH",
+  "side": "buy",
+  "price": null,
+  "quantity": null,
+  "offer_amount": "102435400000000000"
+  "use_native_tokens": true,
+  "order_type": "market",
+  "timestamp": 1531541888559,
+  "signature": "<signature>"
+  "address": "<address order maker>",
+  "receiving_address": "<address of receiving wallet>"
+  "worst_acceptable_price": "831230000"
+  "handle_approval_process": true
+  "skip_waiting": false
+  "is_crosschain": true
+}
+```
+
+
 
 > Example response
 
@@ -440,7 +467,21 @@ createOrder({
  signature              | **string**              | yes | Signature of the request payload. See [Authentication](#authentication) for more details.
  address                | [address](#addresses)   | yes | [Address](#addresses) of the order maker. **Do not include this in the parameters to be signed.**
  receiving_address      | [address](#addresses)   | no | Address to receive the `want_asset`. Must be provided if and only if the order pair is an Atomic Swap pair.
- worst_acceptable_price | **string**              | no | The worst acceptable price of an Atomic Swap. If the [Atomic Swap pricing](#get-swap-pricing) changes to be worse than this, then the order will not be created. Must be provided if and only if the order pair is an Atomic Swap pair.
+ worst_acceptable_price | **string**              | no | The worst acceptable price of an Atomic Swap in fixed decimal format (see below). If the [Atomic Swap pricing](#get-swap-pricing) changes to be worse than this value, then the order will not be created. Must be provided if and only if the order pair is an Atomic Swap pair.
+ handle_approval_process| **boolean**             | no | ????  Default: false
+ skip_waiting           | **boolean**             | no | Atomic Swap orders Only. Skips the requirement to wait for the maker transaction to settle on the blockhain. Default: false
+ is_crosschain          | **boolean**             | no | **true** for Atomic Swap orders, **false** otherwise.
+
+> Example of worst_acceptable_price
+
+```js
+const priceMultiplier: BigNumber = new BigNumber(10 ** (currentPair.baseAsset.decimals - currentPair.tradeAsset.decimals))
+const threshold: number = side === 'buy' ? 1.01 : 0.99
+worstAcceptablePrice = price.multipliedBy(priceMultiplier).multipliedBy(threshold).toFixed()
+```
+
+### Calculating `worst_acceptable_price`
+The multiplier for the `worst_acceptable_price` parameter is calculated by subtracting the implied decimal places (decimals) of the Traded Asset from the Base asset decimals. An offset is added to the ask/offer price (say 1%), then the price multiplied by the multiplier.     
 
 #### Example
 [Full create order example](https://github.com/ConjurTech/switcheo-api-examples/blob/master/src/examples/orders/createOrderExample.js)
