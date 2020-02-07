@@ -468,9 +468,7 @@ createOrder({
  address                | [address](#addresses)   | yes | [Address](#addresses) of the order maker. **Do not include this in the parameters to be signed.**
  receiving_address      | [address](#addresses)   | no | Address to receive the `want_asset`. Must be provided if and only if the order pair is an Atomic Swap pair.
  worst_acceptable_price | **string**              | no | The worst acceptable price of an Atomic Swap in fixed decimal format (see below). If the [Atomic Swap pricing](#get-swap-pricing) changes to be worse than this value, then the order will not be created. Must be provided if and only if the order pair is an Atomic Swap pair.
- handle_approval_process| **boolean**             | no | ????  Default: false
  skip_waiting           | **boolean**             | no | Atomic Swap orders Only. Skips the requirement to wait for the maker transaction to settle on the blockhain. Default: false
- is_crosschain          | **boolean**             | no | **true** for Atomic Swap orders, **false** otherwise.
 
 > Example of worst_acceptable_price
 
