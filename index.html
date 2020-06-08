@@ -2108,6 +2108,7 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
     <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"712a5019-3a23-463e-b0e1-80e9f0ad4f91"</span><span class="p">,</span>
     <span class="s2">"fill_amount"</span><span class="p">:</span> <span class="mi">9122032316</span><span class="p">,</span>
     <span class="s2">"take_amount"</span><span class="p">:</span> <span class="mi">20921746</span><span class="p">,</span>
+    <span class="s2">"creation_time"</span><span class="p">:</span> <span class="s2">"2018-06-08T11:32:03.219Z"</span><span class="p">,</span>
     <span class="s2">"event_time"</span><span class="p">:</span> <span class="s2">"2018-06-08T11:32:03.219Z"</span><span class="p">,</span>
     <span class="s2">"is_buy"</span><span class="p">:</span> <span class="kc">false</span>
   <span class="p">},</span>
@@ -2116,12 +2117,15 @@ f3831797cbd4244d1ccffafc42739e662e8b06c7a6f98efe5155d0eab1cf5c50fbac6d2a4c4487cb
     <span class="s2">"fill_amount"</span><span class="p">:</span> <span class="mi">280477933</span><span class="p">,</span>
     <span class="s2">"take_amount"</span><span class="p">:</span> <span class="mi">4207169</span><span class="p">,</span>
     <span class="s2">"event_time"</span><span class="p">:</span> <span class="s2">"2018-06-08T11:31:42.200Z"</span><span class="p">,</span>
+    <span class="s2">"creation_time"</span><span class="p">:</span> <span class="s2">"2018-06-08T11:31:39.200Z"</span><span class="p">,</span>
     <span class="s2">"is_buy"</span><span class="p">:</span> <span class="kc">false</span>
   <span class="p">},</span>
   <span class="p">...</span>
 <span class="p">]</span>
 </code></pre>
-<p>Retrieves raw trades that occurred on Switcheo Exchange, filtered by the request parameters.</p>
+<p>Retrieves raw trades that occurred on Switcheo Exchange, filtered by the request parameters.
+The <code>event_time</code> refers to the trade execution time while the <code>creation_time</code> refers to the time the trade was first created.
+These two times can be significantly different for Atomic Swap trades as the user is allowed a grace period to confirm the trade.</p>
 <h4 id='http-request-16'>HTTP Request</h4>
 <p><code>GET /v2/trades</code></p>
 <h4 id='request-parameters-8'>Request Parameters</h4>
