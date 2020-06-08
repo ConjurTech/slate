@@ -27,6 +27,7 @@ Trades can be seen on the Trade History column on [Switcheo Exchange](https://sw
     "id": "712a5019-3a23-463e-b0e1-80e9f0ad4f91",
     "fill_amount": 9122032316,
     "take_amount": 20921746,
+    "creation_time": "2018-06-08T11:32:03.219Z",
     "event_time": "2018-06-08T11:32:03.219Z",
     "is_buy": false
   },
@@ -35,6 +36,7 @@ Trades can be seen on the Trade History column on [Switcheo Exchange](https://sw
     "fill_amount": 280477933,
     "take_amount": 4207169,
     "event_time": "2018-06-08T11:31:42.200Z",
+    "creation_time": "2018-06-08T11:31:39.200Z",
     "is_buy": false
   },
   ...
@@ -42,6 +44,8 @@ Trades can be seen on the Trade History column on [Switcheo Exchange](https://sw
 ```
 
 Retrieves raw trades that occurred on Switcheo Exchange, filtered by the request parameters.
+The `event_time` refers to the trade execution time while the `creation_time` refers to the time the trade was first created.
+These two times can be significantly different for Atomic Swap trades as the user is allowed a grace period to confirm the trade.
 
 #### HTTP Request
 
