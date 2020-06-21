@@ -23,13 +23,13 @@ under the License.
 
 // BACKGROUND COLORS
 ////////////////////
-$nav-bg: #32374b !default;
-$examples-bg: #2E3336 !default;
+$nav-bg: #063C4F !default;
+$examples-bg: #063C4F !default;
 $code-bg: #1E2224 !default;
 $code-annotation-bg: #2E3336 !default;
-$nav-subitem-bg: #32374b !default;
-$nav-active-bg: #484b5c !default;
-$nav-active-parent-bg: #32374b !default; // parent links of the current section
+$nav-subitem-bg: #063C4F !default;
+$nav-active-bg: #E2FCA4 !default;
+$nav-active-parent-bg: #063C4F !default; // parent links of the current section
 $lang-select-border: #000 !default;
 $lang-select-bg: #1E2224 !default;
 $lang-select-active-bg: $examples-bg !default; // feel free to change this to blue or something
@@ -45,7 +45,7 @@ $search-notice-bg: #c97a7e !default;
 ////////////////////
 $main-text: #333 !default; // main content text color
 $nav-text: #fff !default;
-$nav-active-text: #7CBF67 !default;
+$nav-active-text: #063C4F !default;
 $nav-active-parent-text: #fff !default; // parent links of the current section
 $lang-select-text: #fff !default; // color of unselected language tab text
 $lang-select-active-text: #fff !default; // color of selected language tab text
