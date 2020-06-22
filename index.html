@@ -400,6 +400,9 @@
                               <a href="#overview-5" class="toc-h3 toc-link" data-title="Overview">Overview</a>
                             </li>
                             <li>
+                              <a href="#order-fees" class="toc-h3 toc-link" data-title="Order Fees">Order Fees</a>
+                            </li>
+                            <li>
                               <a href="#the-order-model" class="toc-h3 toc-link" data-title="The Order Model">The Order Model</a>
                             </li>
                             <li>
@@ -2742,6 +2745,10 @@ you will receive a response which requires additional signing.</p>
 
 <p>When an order is executed, the funds required to fulfill the order is debited from the user&#39;s <a href="#balances">confirmed balance</a>
  and will be locked up in their locked balance until the order is filled or cancelled.</p>
+<h3 id='order-fees'>Order Fees</h3>
+<p>There are zero fees for maker orders and a small fee for taker orders, please refer to https://support.switcheo.network/en/articles/3686578-trading-fees for details.</p>
+
+<p>The exact fee that will be deducted for an order can be calculated by summing the <code>fee_asset_id</code> and <code>fee_amount</code> of every item in the <code>fills</code> array that is returned in the response of <a href="#post-create-order">create order</a>. If the fee is acceptable, <a href="##post-execute-order">execute order</a> can be called to execute the order. Balances are not deducted until the <code>execute order</code> endpoint is called.</p>
 <h3 id='the-order-model'>The Order Model</h3>
 <p>A breakdown of attributes in an order object returned from our API is described below.</p>
 <h4 id='order-object'>Order Object</h4>
@@ -2767,9 +2774,9 @@ you will receive a response which requires additional signing.</p>
     </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-05-15T10:54:20.054Z"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processed"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"order_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fills"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span><span class="w">
-    </span><span class="s2">"fill_groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span><span class="w">
-    </span><span class="s2">"makes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">]</span><span class="w">
+    </span><span class="s2">"fills"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"... refer to Fill Object section for details"</span><span class="p">],</span><span class="w">
+    </span><span class="s2">"fill_groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"... refer to Fill Group Object section for details"</span><span class="p">],</span><span class="w">
+    </span><span class="s2">"makes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"... refer to Make Object section for details"</span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -3348,7 +3355,8 @@ The <a href="#get-swap-pricing">swap pricing</a> endpoint can be used to determi
       <span class="s2">"transaction_hash"</span><span class="p">:</span> <span class="s2">"97ad8c0af68d22304e7f2d09d04f3beed29a845fe57de53444fff1507b752b99"</span>
     <span class="p">}</span>
   <span class="p">],</span>
-  <span class="s2">"makes"</span><span class="p">:</span> <span class="p">[]</span>
+  <span class="s2">"makes"</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s2">"fill_groups"</span><span class="p">:</span> <span class="p">[]</span>
 <span class="p">}</span>
 </code></pre>
 <table><thead>
