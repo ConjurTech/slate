@@ -11,6 +11,11 @@ Orders will contain a combination of zero or one **make** and/or zero or more **
 When an order is executed, the funds required to fulfill the order is debited from the user's [confirmed balance](#balances)
  and will be locked up in their locked balance until the order is filled or cancelled.
 
+### Order Fees
+There are zero fees for maker orders and a small fee for taker orders, please refer to https://support.switcheo.network/en/articles/3686578-trading-fees for details.
+
+The exact fee that will be deducted for an order can be calculated by summing the `fee_asset_id` and `fee_amount` of every item in the `fills` array that is returned in the response of [create order](#post-create-order). If the fee is acceptable, [execute order](##post-execute-order) can be called to execute the order. Balances are not deducted until the `execute order` endpoint is called.
+
 ### The Order Model
 
 A breakdown of attributes in an order object returned from our API is described below.
@@ -39,9 +44,9 @@ A breakdown of attributes in an order object returned from our API is described 
     "created_at": "2018-05-15T10:54:20.054Z",
     "status": "processed",
     "order_status": "completed",
-    "fills": [...],
-    "fill_groups": [...],
-    "makes": [...]
+    "fills": ["... refer to Fill Object section for details"],
+    "fill_groups": ["... refer to Fill Group Object section for details"],
+    "makes": ["... refer to Make Object section for details"]
   }
 ]
 ```
@@ -420,7 +425,8 @@ createOrder({
       "transaction_hash": "97ad8c0af68d22304e7f2d09d04f3beed29a845fe57de53444fff1507b752b99"
     }
   ],
-  "makes": []
+  "makes": [],
+  "fill_groups": []
 }
 ```
 
