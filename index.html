@@ -403,7 +403,19 @@
                               <a href="#order-fees" class="toc-h3 toc-link" data-title="Order Fees">Order Fees</a>
                             </li>
                             <li>
-                              <a href="#the-order-model" class="toc-h3 toc-link" data-title="The Order Model">The Order Model</a>
+                              <a href="#order-object" class="toc-h3 toc-link" data-title="Order Object">Order Object</a>
+                            </li>
+                            <li>
+                              <a href="#fill-object" class="toc-h3 toc-link" data-title="Fill Object">Fill Object</a>
+                            </li>
+                            <li>
+                              <a href="#fill-group-object" class="toc-h3 toc-link" data-title="Fill Group Object">Fill Group Object</a>
+                            </li>
+                            <li>
+                              <a href="#make-object" class="toc-h3 toc-link" data-title="Make Object">Make Object</a>
+                            </li>
+                            <li>
+                              <a href="#trade-object" class="toc-h3 toc-link" data-title="Trade Object">Trade Object</a>
                             </li>
                             <li>
                               <a href="#get-order" class="toc-h3 toc-link" data-title="GET Order">GET Order</a>
@@ -2749,9 +2761,9 @@ you will receive a response which requires additional signing.</p>
 <p>There are zero fees for maker orders and a small fee for taker orders, please refer to https://support.switcheo.network/en/articles/3686578-trading-fees for details.</p>
 
 <p>The exact fee that will be deducted for an order can be calculated by summing the <code>fee_asset_id</code> and <code>fee_amount</code> of every item in the <code>fills</code> array that is returned in the response of <a href="#post-create-order">create order</a>. If the fee is acceptable, <a href="##post-execute-order">execute order</a> can be called to execute the order. Balances are not deducted until the <code>execute order</code> endpoint is called.</p>
-<h3 id='the-order-model'>The Order Model</h3>
+<h3 id='order-object'>Order Object</h3>
 <p>A breakdown of attributes in an order object returned from our API is described below.</p>
-<h4 id='order-object'>Order Object</h4>
+
 <blockquote>
 <p>Example order</p>
 </blockquote>
@@ -2871,7 +2883,7 @@ you will receive a response which requires additional signing.</p>
 <td>DEPRECATED. Transaction that was used for deposits related to the order creation.</td>
 </tr>
 </tbody></table>
-<h5 id='fill-object'>Fill Object</h5>
+<h3 id='fill-object'>Fill Object</h3>
 <blockquote>
 <p>Example fill</p>
 </blockquote>
@@ -2960,7 +2972,7 @@ These <code>fills</code> represent the filling of the order by the matching offe
 <td>Transaction hash of the transaction representing this fill.</td>
 </tr>
 </tbody></table>
-<h5 id='fill-group-object'>Fill Group Object</h5>
+<h3 id='fill-group-object'>Fill Group Object</h3>
 <blockquote>
 <p>Example fill group</p>
 </blockquote>
@@ -3013,7 +3025,7 @@ multiple fills individually, a group of fills can be signed with one signature r
 <td><a href="#supported-assets">Asset id</a> of the token used for the fee.</td>
 </tr>
 </tbody></table>
-<h5 id='make-object'>Make Object</h5>
+<h3 id='make-object'>Make Object</h3>
 <blockquote>
 <p>Example make</p>
 </blockquote>
@@ -3031,7 +3043,8 @@ multiple fills individually, a group of fills can be signed with one signature r
   </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.09"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-08T07:21:19.988Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ff6e73805aed42d445ec0e8d47375e024a7d8c99cd5b8c375d607fec61b80567"</span><span class="w">
+  </span><span class="s2">"transaction_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ff6e73805aed42d445ec0e8d47375e024a7d8c99cd5b8c375d607fec61b80567"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"trades"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>When an order is created, the order matching engine will match the order against existing offers.</p>
@@ -3100,6 +3113,48 @@ This <code>make</code> represents the unfilled amount of the order.</p>
 <tr>
 <td>transaction_hash</td>
 <td>Transaction hash of the transaction representing this make.</td>
+</tr>
+</tbody></table>
+<h3 id='trade-object'>Trade Object</h3>
+<p>Existing Trades for a Make are returned within the Makes of an Order.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Unique identifier for the trade object.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>Status of the trade. Possible values are <code>confirming</code> (after order broadcast), and <code>success</code> (after broadcast success).</td>
+</tr>
+<tr>
+<td>want_amount</td>
+<td><a href="#amounts">Amount</a> of tokens taken from the Make&#39;s maker.</td>
+</tr>
+<tr>
+<td>filled_amount</td>
+<td><a href="#amounts">Amount</a> of tokens given to the Trade&#39;s taker.</td>
+</tr>
+<tr>
+<td>fee_asset_id</td>
+<td><a href="#supported-assets">Asset id</a> of the token used for fees.</td>
+</tr>
+<tr>
+<td>fee_amount</td>
+<td><a href="#amounts">Amount</a> of fees that was paid.</td>
+</tr>
+<tr>
+<td>price</td>
+<td>The buy or sell price of the trade&#39;s order.</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>Time when the trade was created.</td>
 </tr>
 </tbody></table>
 <h3 id='get-order'>GET Order</h3>
