@@ -16,11 +16,9 @@ There are zero fees for maker orders and a small fee for taker orders, please re
 
 The exact fee that will be deducted for an order can be calculated by summing the `fee_asset_id` and `fee_amount` of every item in the `fills` array that is returned in the response of [create order](#post-create-order). If the fee is acceptable, [execute order](##post-execute-order) can be called to execute the order. Balances are not deducted until the `execute order` endpoint is called.
 
-### The Order Model
+### Order Object
 
 A breakdown of attributes in an order object returned from our API is described below.
-
-#### Order Object
 
 > Example order
 
@@ -75,7 +73,7 @@ priority_gas_amount        | DEPRECATED. Amount of gas paid by the order maker a
 status                     | DEPRECATED. Status of the order in the context of the blockchain. Possible values are `pending` (after creation), `processed` (after broadcast), `expired` (created but not broadcasted for a long time)
 deposit_txn                | DEPRECATED. Transaction that was used for deposits related to the order creation.
 
-##### Fill Object
+### Fill Object
 
 > Example fill
 
@@ -120,7 +118,7 @@ status                     | Status of the fill. Possible values are `pending` (
 created_at                 | Time when the fill was created.
 transaction_hash           | Transaction hash of the transaction representing this fill.
 
-##### Fill Group Object
+### Fill Group Object
 
 > Example fill group
 
@@ -153,7 +151,7 @@ txn                        | The transaction representing this fill group.
 fee_amount                 | [Amount](#amounts) of fees paid for this fill group.
 fee_asset_id               | [Asset id](#supported-assets) of the token used for the fee.
 
-##### Make Object
+### Make Object
 
 > Example make
 
@@ -172,7 +170,8 @@ fee_asset_id               | [Asset id](#supported-assets) of the token used for
   "price": "0.09",
   "status": "success",
   "created_at": "2018-06-08T07:21:19.988Z",
-  "transaction_hash": "ff6e73805aed42d445ec0e8d47375e024a7d8c99cd5b8c375d607fec61b80567"
+  "transaction_hash": "ff6e73805aed42d445ec0e8d47375e024a7d8c99cd5b8c375d607fec61b80567",
+  "trades": [...]
 }
 ```
 
@@ -197,6 +196,23 @@ price                      | Buy or sell price of order.
 status                     | Status of the make. Possible values are `pending` (after order creation), `confirming` (after order broadcast), `success` (after broadcast success), `cancelling` (after cancellation broadcasted), `cancelled` (after cancellation broadcast success), `expired` (after order creation but not broadcasted for a long while)
 created_at                 | Time when the make was created.
 transaction_hash           | Transaction hash of the transaction representing this make.
+
+### Trade Object
+
+Existing Trades for a Make are returned within the Makes of an Order.
+
+Attribute                  | Description
+-------------------------- | ----------
+id                         | Unique identifier for the trade object.
+status                     | Status of the trade. Possible values are `confirming` (after order broadcast), and `success` (after broadcast success).
+want_amount                | [Amount](#amounts) of tokens taken from the Make's maker.
+filled_amount                | [Amount](#amounts) of tokens given to the Trade's taker.
+fee_asset_id               | [Asset id](#supported-assets) of the token used for fees.
+fee_amount                 | [Amount](#amounts) of fees that was paid.
+price                      | The buy or sell price of the trade's order.
+created_at                 | Time when the trade was created.
+
+
 
 ### GET Order
 
