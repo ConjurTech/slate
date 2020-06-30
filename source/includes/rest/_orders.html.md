@@ -60,7 +60,7 @@ offer_asset_id             | [Asset ID](#supported-assets) of the token that the
 want_asset_id              | [Asset ID](#supported-assets) of the token that the order maker wants.
 offer_amount               | Total [amount](#amounts) of the token that the order maker is offering.
 want_amount                | Total [amount](#amounts) of the token that the order maker wants.
-use_native_token           | Whether SWTH tokens was used by the order maker to pay taker fees.
+use_native_token           | Whether GAS / ETH tokens was used by the order maker to pay taker fees.
 order_status               | Status of the order in the context of the exchange. Possible values are `open` (on orderbook waiting to be filled),`cancelled` (cancelled open order), `completed` (maker order that is entirely filled or broadcasted filler order)
 txn                        | Serialized blockchain transaction that will execute this order. <strong>Used for EOS only.</strong>
 fills                      | Refer to the [fills](#the-fill-object) section for more details.
@@ -453,9 +453,9 @@ createOrder({
  pair                   | **string**              | yes | Pair to trade, e.g. `SWTH_NEO`.
  side                   | **string**              | yes | Whether to buy or sell on this pair. Possible values are: `buy`, `sell`. If the pair is `SWTH_NEO` and the side is `buy` then the order is to buy `SWTH` using `NEO`. If the side is `sell` then the order is to sell `SWTH` for `NEO`.
  price                  | **string**              | yes | Buy or sell price rounded to the pair's price precision, found on [Get Pairs](#get-pairs). Set value to `null` for market type and Atomic Swap orders.
- quantity               | [amount](#amounts)      | yes | The [amount](#amounts) of tokens you wish to trade. Set value to `null` for Atomic Swap orders.
+ quantity               | [amount](#amounts)      | yes | The [amount](#amounts) of tokens you want to trade. Set value to `null` for Atomic Swap orders.
  offer_amount           | [amount](#amounts)      | no  | The [amount](#amounts) of tokens to offer for an Atomic Swap. Must be provided if and only if the order pair is an Atomic Swap pair.
- use_native_tokens      | **boolean**             | yes | `true` if you wish to pay fees in SWTH. Use only `false` for orders on the Ethereum network.
+ use_native_tokens      | **boolean**             | yes | `true` if you want to pay fees in GAS for Neo orders or ETH for Ethereum orders.
  order_type             | **string**              | yes | Order type, possible values are: `limit`, `market`, `otc`. This type must be set as `market` for Atomic Swap orders.
  otc_address            | [address](#addresses)   | no  | Address of the counterparty in OTC trades. Must be provided if and only if `order_type` is `otc`.
  timestamp              | [timestamp](#timestamp) | yes | The exchange's timestamp to be used as a nonce.
