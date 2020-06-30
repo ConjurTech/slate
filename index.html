@@ -2836,7 +2836,7 @@ you will receive a response which requires additional signing.</p>
 </tr>
 <tr>
 <td>use_native_token</td>
-<td>Whether SWTH tokens was used by the order maker to pay taker fees.</td>
+<td>Whether GAS / ETH tokens was used by the order maker to pay taker fees.</td>
 </tr>
 <tr>
 <td>order_status</td>
@@ -3456,7 +3456,7 @@ The <a href="#get-swap-pricing">swap pricing</a> endpoint can be used to determi
 <td>quantity</td>
 <td><a href="#amounts">amount</a></td>
 <td>yes</td>
-<td>The <a href="#amounts">amount</a> of tokens you wish to trade. Set value to <code>null</code> for Atomic Swap orders.</td>
+<td>The <a href="#amounts">amount</a> of tokens you want to trade. Set value to <code>null</code> for Atomic Swap orders.</td>
 </tr>
 <tr>
 <td>offer_amount</td>
@@ -3468,7 +3468,7 @@ The <a href="#get-swap-pricing">swap pricing</a> endpoint can be used to determi
 <td>use_native_tokens</td>
 <td><strong>boolean</strong></td>
 <td>yes</td>
-<td><code>true</code> if you wish to pay fees in SWTH. Use only <code>false</code> for orders on the Ethereum network.</td>
+<td><code>true</code> if you want to pay fees in GAS for Neo orders or ETH for Ethereum orders.</td>
 </tr>
 <tr>
 <td>order_type</td>
